@@ -1,0 +1,17 @@
+export const LOGO = require('../accets/icons/logo.svg');
+export const BACKGROUND_SPACE = require('../accets/images/space.jpg');
+export const MAIN_PHONE_AFTER = require('../accets/images/main-phone_after.png');
+export const MAIN_PHONE_AVERAGE = require('../accets/images/main-phone_average.png');
+export const MAIN_PHONE_BEFORE = require('../accets/images/main-phone_before.png');
+export const RANG_ITEM_1 = require('../accets/images/rang-Item1.png');
+export const RANG_ITEM_2 = require('../accets/images/rang-Item2.png');
+export const RANG_ITEM_3 = require('../accets/images/rang-Item3.png');
+export const RANG_ITEM_4 = require('../accets/images/rang-Item4.png');
+export const FEATURES_SECTION__PHONE = require('../accets/images/featuresSection-phone.png');
+export const FEATURES_CALENDAR_ICON = require('../accets/images/features-calendar-icon.png');
+export const FEATURES_ANALYSIS_ICON = require('../accets/images/features-analysis-icon.png');
+export const FEATURES_LOCK_ICON = require('../accets/images/features-lock-icon.png');
+export const FEATURES_MULTI_DEVICE_ICON = require('../accets/images/features-Multi-Device-icon.png');
+export const IPHONE_TRANSPARENT = require('../accets/images/iphone-transparent.png');
+export const APPLE_STORE_ICON = require('../accets/images/appleStore.png');
+export const GOOGLE_PLAY_ICON = require('../accets/images/googlePlay.png');
