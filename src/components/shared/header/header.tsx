@@ -4,16 +4,16 @@ import { Nav } from "./components/nav/nav";
 import { Container, Section, Wrapper, Logo } from "./styledHeader";
 
 export const Header: FC = () => {
-    const [isActiveHeader, setIsActiveHeader] = useState<boolean>(false)
+    const [isActiveHeader, setIsActiveHeader] = useState<boolean>(false);
 
     document.addEventListener("scroll", () => {
         window.scrollY === 0 ?
             setIsActiveHeader(false) :
             setIsActiveHeader(true)
-    })
+    });
 
     return (
-        <Section isActiveHeader={isActiveHeader} >
+        <Section active_prop={isActiveHeader.toString()} >
             <Container>
                 <Wrapper>
                     <Logo>

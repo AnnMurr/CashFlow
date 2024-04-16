@@ -1,8 +1,9 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
-
 
 export const Section = styled.section`
     position: relative;
+    overflow: hidden;
 `
 export const Container = styled.div`
     max-width: 1300px;
@@ -15,10 +16,11 @@ export const Wrapper = styled.div`
     padding-top: 260px;
 `
 
-export const PhonesWrap = styled.h3`
+export const PhonesWrap = styled(motion.div)`
     display: flex;
     position: absolute; 
     bottom: 0; 
     align-items: end; 
     right: 10%; 
+    max-width: 50%;
 `

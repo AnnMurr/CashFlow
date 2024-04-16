@@ -10,13 +10,13 @@ export const Nav: FC<NavType> = ({ isActiveHeader }) => {
         <nav>
             <List>
                 <li>
-                    <Link isActiveHeader={isActiveHeader}  to={"/"}>Home</Link>
+                    <Link active_prop={isActiveHeader.toString()} to={"/"}>Home</Link>
                 </li>
                 <li>
-                    <Link isActiveHeader={isActiveHeader}   to={"/"}>Home</Link>
+                    <Link active_prop={isActiveHeader.toString()} to={"/"}>Home</Link>
                 </li>
                 <li>
-                    <Link isActiveHeader={isActiveHeader}  to={"/"}>Home</Link>
+                    <Link active_prop={isActiveHeader.toString()} to={"/"}>Home</Link>
                 </li>
             </List>
         </nav>

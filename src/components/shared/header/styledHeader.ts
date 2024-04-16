@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 interface isActiveHeaderProps {
-    isActiveHeader: boolean;
+    active_prop: string;
 }
 
 export const Section = styled.header<isActiveHeaderProps>`
-    background-color: ${({isActiveHeader}) => isActiveHeader ? "#fff" : "#c33c21"};
+    background-color: ${({ active_prop }) => active_prop === "true" ? "#fff" : "#c33c21"};
     position: sticky;
     z-index: 20;
     inset: 0 0 auto 0;
-    border-bottom: ${({isActiveHeader}) => isActiveHeader ? "1px solid #0000005e" : "none"}
+    border-bottom: ${({ active_prop }) => active_prop ? "1px solid #0000005e" : "none"};
 `
 
 export const Container = styled.div`

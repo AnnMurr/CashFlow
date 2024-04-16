@@ -1,11 +1,18 @@
 import { FC } from "react";
 import { IPHONE_TRANSPARENT } from "../../../../../../../consts/images";
 import { LOGO } from "../../../../../../../consts/images";
+import { MotionValue } from "framer-motion";
 import { IconInner, ImageInner } from "./styledPhoneImage";
 
-export const PhoneImage: FC = () => {
+interface PhoneImageProps {
+    styles: {
+        [key: string]: string | MotionValue<number>;
+    }
+}
+
+export const PhoneImage: FC<PhoneImageProps> = ({ styles }) => {
     return (
-        <ImageInner>
+        <ImageInner style={styles}>
             <img src={IPHONE_TRANSPARENT} alt="iphone" />
             <IconInner>
                 <img src={LOGO.default} alt="logo" />
