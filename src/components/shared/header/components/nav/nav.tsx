@@ -1,18 +1,22 @@
 import { FC } from "react";
 import { List, Link } from "./styledNav";
 
-export const Nav: FC = () => {
+interface NavType {
+    isActiveHeader: boolean;
+}
+
+export const Nav: FC<NavType> = ({ isActiveHeader }) => {
     return (
         <nav>
             <List>
                 <li>
-                    <Link to={"/"}>Home</Link>
+                    <Link active_prop={isActiveHeader.toString()} to={"/"}>Home</Link>
                 </li>
                 <li>
-                    <Link to={"/"}>Home</Link>
+                    <Link active_prop={isActiveHeader.toString()} to={"/"}>Home</Link>
                 </li>
                 <li>
-                    <Link to={"/"}>Home</Link>
+                    <Link active_prop={isActiveHeader.toString()} to={"/"}>Home</Link>
                 </li>
             </List>
         </nav>

@@ -8,7 +8,7 @@ interface PhoneImageType {
 export const PhoneImage: FC<PhoneImageType> = ({ link, altText }) => {
     return (
         <div>
-            <img src={link} alt="phone" />
+            <img src={link} alt={altText} />
         </div>
     )
 }

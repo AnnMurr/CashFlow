@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Section = styled.section`
@@ -15,7 +16,7 @@ export const Wrapper = styled.div`
     text-align: center;
 `
 
-export const TitleInner = styled.div`
+export const TitleInner = styled(motion.div)`
     padding-bottom: 20px;
 `
 

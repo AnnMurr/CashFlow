@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const AppIconsWrap = styled.h3`
+export const AppIconsWrap = styled(motion.div)`
     display: flex;
     padding: 40px 0;
 
