@@ -5,7 +5,7 @@ interface ItemBlockType {
     type: string;
     link: string;
     titleText: string;
-    SubTitleText: string
+    SubTitleText: string;
 }
 
 export const ItemBlock: FC<ItemBlockType> = ({ type, link, titleText, SubTitleText }) => {

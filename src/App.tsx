@@ -5,6 +5,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import "./accets/styles/reset.css";
 import { AboutPage } from './components/ui/aboutPage/aboutPage';
 import { ContactsPage } from './components/ui/contactsPage/contactsPage';
+import { ContactUsPage } from './components/ui/contactUsPage/contactUsPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/contacts-us" element={<ContactUsPage />} />
       </Routes>
     </HashRouter>
   );
