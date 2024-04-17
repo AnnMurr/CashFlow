@@ -8,7 +8,7 @@ export const Nav: FC = () => {
             <List>
                 <Item text={"Privacy Policy"} link="/privacy-policy" />
                 <Item text={"About"} link="/about" />
-                <Item text={"Contact Us"} link="/" />
+                <Item text={"Contacts"} link="/contacts" />
                 <Item text={"Contact Us"} link="/" />
             </List>
         </Container>
