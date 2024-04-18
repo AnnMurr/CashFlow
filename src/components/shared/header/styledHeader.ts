@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface isActiveHeaderProps {
@@ -29,4 +30,13 @@ export const Logo = styled.div`
     padding: 5px;
     background-color: #c33c21;
     border-radius: 10px;
+`
+
+export const BtnAuth = styled(Link)`
+    transition: all 0.5s ease;
+    cursor: pointer;
+    
+    &:hover {
+        transform: scale(1.1, 1.1);
+    }
 `
