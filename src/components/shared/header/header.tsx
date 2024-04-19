@@ -18,12 +18,12 @@ export const Header: FC = () => {
         <Section active_prop={isActiveHeader.toString()} >
             <Container>
                 <Wrapper>
-                    <Logo>
+                    <Logo to={"/"}>
                         <img src={LOGO.default} alt="logo" />
                     </Logo>
                     <Nav isActiveHeader={isActiveHeader} />
                     <BtnAuth to={"/sign-up"} >
-                        <FontAwesomeIcon icon={faUserPlus} color="#0f4a34" size="lg" />
+                        <FontAwesomeIcon icon={faUserPlus} color={isActiveHeader ? "#000" : "#fff"} size="lg" />
                     </BtnAuth>
                 </Wrapper>
             </Container>

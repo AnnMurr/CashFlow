@@ -26,7 +26,7 @@ export const Wrapper = styled.div`
     align-items: center;
 `
 
-export const Logo = styled.div`
+export const Logo = styled(Link)`
     padding: 5px;
     background-color: #c33c21;
     border-radius: 10px;
