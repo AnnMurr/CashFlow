@@ -19,7 +19,7 @@ export const Application: FC = () => {
     }, []);
 
     return (
-        <Section ref={sectionRef}>
+        <Section id="section_app" ref={sectionRef}>
             <Container>
                 <Wrapper>
                     <div>

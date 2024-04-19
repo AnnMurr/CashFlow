@@ -15,7 +15,7 @@ export const FeaturesSection: FC = () => {
     }, []);
 
     return (
-        <Section ref={sectionRef}>
+        <Section id="section_features" ref={sectionRef}>
             <Container>
                 <Wrapper>
                     <TitleInner style={{ translateY: itemTranslate, transition: "all 0.5s ease" }}>
