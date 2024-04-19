@@ -13,7 +13,7 @@ export const Banner: FC = () => {
                     <Text>Already have an account?</Text>
                 </div>
                 <BtnInner>
-                    <Btn to={"/sign-up"} >Sign up</Btn>
+                    <Btn to={"/sign-in"} >Sign in</Btn>
                 </BtnInner>
             </Wrapper>
         </Container>

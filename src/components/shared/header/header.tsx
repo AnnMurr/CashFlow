@@ -22,7 +22,7 @@ export const Header: FC = () => {
                         <img src={LOGO.default} alt="logo" />
                     </Logo>
                     <Nav isActiveHeader={isActiveHeader} />
-                    <BtnAuth to={"/login"} >
+                    <BtnAuth to={"/sign-up"} >
                         <FontAwesomeIcon icon={faUserPlus} color="#0f4a34" size="lg" />
                     </BtnAuth>
                 </Wrapper>

@@ -4,6 +4,11 @@ export const Container = styled.div`
     max-width: 1300px;
     margin: 0 auto;
     padding: 0 15px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `
 
 export const Wrapper = styled.div`
@@ -11,10 +16,8 @@ export const Wrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     max-width: 50rem;
-    margin: 0 auto;
 `
 
 export const Section = styled.section`
     background-color: #a2a2a266;
-    height: 100vh;
 `

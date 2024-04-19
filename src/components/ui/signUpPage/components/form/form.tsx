@@ -7,7 +7,7 @@ export const Form: FC = () => {
         <FormContainer>
             <Title>
                 <h2>
-                    Sign In
+                    Sign Up
                 </h2>
             </Title>
             <form noValidate autoComplete="off">
@@ -22,6 +22,12 @@ export const Form: FC = () => {
                         //     borderColor: "#43434387 !important"
                         // }
                     }}
+                    size="small" placeholder="Name" />
+                <OutlinedInput
+                    sx={{
+                        marginBottom: "20px",
+                        width: "100%"
+                    }}
                     size="small" placeholder="Email" />
                 <OutlinedInput
                     sx={{
@@ -29,7 +35,12 @@ export const Form: FC = () => {
                         width: "100%"
                     }}
                     size="small" placeholder="Password" />
-                
+                <OutlinedInput
+                    sx={{
+                        marginBottom: "20px",
+                        width: "100%"
+                    }}
+                    size="small" placeholder="Repeat password" />
                 <Button sx={{
                     backgroundColor: "#699a87",
                     width: "100%",
@@ -37,7 +48,7 @@ export const Form: FC = () => {
                         backgroundColor: "#0f4a34"
                     },
                 }} variant="contained" color="success">
-                    Sign in
+                    Sign up
                 </Button>
             </form>
         </FormContainer>

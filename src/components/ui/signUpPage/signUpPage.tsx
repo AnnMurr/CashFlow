@@ -1,9 +1,10 @@
 import { FC } from "react";
-import { Container, Section, Wrapper } from "./styledSignInPage";
 import { Form } from "./components/form/form";
 import { Banner } from "./components/banner/banner";
+import { Container, Section, Wrapper } from "./styledSignUpPage";
 
-export const SignInPage: FC = () => {
+export const SignUpPage: FC = () => {
+
     return (
         <Section>
             <Container>

@@ -6,7 +6,8 @@ import "./accets/styles/reset.css";
 import { AboutPage } from './components/ui/aboutPage/aboutPage';
 import { ContactsPage } from './components/ui/contactsPage/contactsPage';
 import { ContactUsPage } from './components/ui/contactUsPage/contactUsPage';
-import { LoginPage } from './components/ui/signUpPage/signUpPage';
+import { SignUpPage } from './components/ui/signUpPage/signUpPage';
+import { SignInPage } from './components/ui/signInPage/signInPage';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contacts" element={<ContactsPage />} />
         <Route path="/contacts-us" element={<ContactUsPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
+        <Route path="/sign-in" element={<SignInPage />} />
       </Routes>
     </HashRouter>
   );
