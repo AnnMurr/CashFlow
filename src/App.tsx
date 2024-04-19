@@ -6,7 +6,7 @@ import "./accets/styles/reset.css";
 import { AboutPage } from './components/ui/aboutPage/aboutPage';
 import { ContactsPage } from './components/ui/contactsPage/contactsPage';
 import { ContactUsPage } from './components/ui/contactUsPage/contactUsPage';
-import { LoginPage } from './components/ui/loginPage/loginPage';
+import { LoginPage } from './components/ui/signUpPage/signUpPage';
 
 function App() {
   return (

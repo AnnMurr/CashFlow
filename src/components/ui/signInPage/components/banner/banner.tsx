@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { GREEN_LOGO } from "../../../../consts/images";
+import { GREEN_LOGO } from "../../../../../consts/images";
 import { Container, Text, Btn, BtnInner, IconInner, Wrapper } from "./styledBanner";
 
 export const Banner: FC = () => {
