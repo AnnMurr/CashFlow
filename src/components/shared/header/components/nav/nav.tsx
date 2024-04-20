@@ -19,6 +19,11 @@ export const Nav: FC<NavType> = ({ isActiveHeader }) => {
                         Application
                     </Link>
                 </li>
+                <li>
+                    <Link active_prop={isActiveHeader.toString()} to="section_help-center" smooth={true} duration={500} spy={true} offset={-70}>
+                        Help Center
+                    </Link>
+                </li>
             </List>
         </nav>
     )
