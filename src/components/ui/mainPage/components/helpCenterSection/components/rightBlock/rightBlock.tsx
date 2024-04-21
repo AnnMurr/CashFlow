@@ -16,7 +16,7 @@ export const RightBlock: FC = () => {
                 </h5>
             </SubTitle>
             <BtnInner>
-                <Btn to={""}>
+                <Btn to={"/help-center"}>
                     Help Center
                 </Btn>
             </BtnInner>
