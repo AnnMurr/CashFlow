@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { Application, FeaturesSection, Footer, Header, HeroSection, RangSection } from ".";
+import { Application, FeaturesSection, Footer, Header, HelpCenterPage, HeroSection, RangSection } from ".";
+
 
 export const MainPage: FC = () => {
     return (
@@ -8,6 +9,7 @@ export const MainPage: FC = () => {
             <HeroSection />
             <RangSection />
             <FeaturesSection />
+            <HelpCenterPage />
             <Application />
             <Footer />
         </>

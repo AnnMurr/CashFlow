@@ -4,3 +4,4 @@ export { HeroSection } from "./components/heroSection/heroSection";
 export { RangSection } from "./components/rangSection/rangSection";
 export { FeaturesSection } from "./components/featuresSection/featuresSection";
 export { Application } from "./components/application/application";
+export { HelpCenterPage } from "./components/helpCenterSection/helpCenterSection";
