@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
     display: flex;
     flex-direction: column;
     max-width: 25rem;
@@ -12,4 +12,10 @@ export const FormContainer = styled.div`
 
 export const Title = styled.div`
     padding-bottom: 30px;
+`
+
+export const ErrorMessageContainer = styled.div`
+    position: relative;
+    bottom: 20px;
+    line-height: 10px;
 `
