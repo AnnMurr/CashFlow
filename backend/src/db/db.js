@@ -1,4 +1,5 @@
 const { MongoClient } = require("mongodb");
+require('dotenv').config();
 
 const URL = `mongodb+srv://annmurina111:${process.env.MONGO_DB_KEY}@cluster0.elrx1as.mongodb.net/CashFlowData?retryWrites=true&w=majority&appName=Cluster0`;
 
