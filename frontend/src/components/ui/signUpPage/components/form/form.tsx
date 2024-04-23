@@ -10,6 +10,7 @@ import { ErrorMessageContainer, FormContainer, Title } from "./styledForm";
 export const Form: FC = () => {
     const onSubmit: SubmitHandler<UserDataType> = async (data) => {
         try {
+            delete data.repeatPassword
             const response = await setUserData(data);
             console.log(response)
         } catch (error) {
