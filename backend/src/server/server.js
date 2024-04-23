@@ -1,8 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const PORT = 5050;
-const { connectToDb, getDb } = require("../db/db")
+const { connectToDb, getDb } = require("../db/db");
 
 app.use(cors());
 app.use(express.json());
@@ -25,12 +24,31 @@ app.post("/putdata", async (req, res) => {
   }
 });
 
+app.post("/check-data", async (req, res) => {
+  const email = req.body.email;
+  const collection = db.collection("users");
+  const cursor = collection.find({});
+  const allData = await cursor.toArray();
+  const result = allData.find((userData) => userData.email === email);
+
+  try {
+    if (result === undefined) {
+      res.status(200).send(false);
+    } else {
+      res.status(200).send(result);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("error checking data");
+  }
+});
+
 connectToDb((err) => {
   if (!err) {
-    app.listen(PORT, (err) => {
+    app.listen(process.env.PORT, (err) => {
       !err
-        ? console.log(`listening on port ${PORT}`)
-        : console.error(`error listening on port ${PORT}: ${err}`);
+        ? console.log(`listening on port ${process.env.PORT}`)
+        : console.error(`error listening on port ${process.env.PORT}: ${err}`);
     });
     db = getDb();
   } else {

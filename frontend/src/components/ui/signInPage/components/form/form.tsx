@@ -10,11 +10,12 @@ export const Form: FC = () => {
                     Sign In
                 </h2>
             </Title>
-            <form noValidate autoComplete="off">
+            <form>
                 <OutlinedInput
                     sx={{
                         marginBottom: "20px",
                         width: "100%",
+                        fontSize: "14px",
                         // "& .MuiOutlinedInput-input": {
                         //     color: "#43434387 !important" 
                         // },
@@ -26,7 +27,8 @@ export const Form: FC = () => {
                 <OutlinedInput
                     sx={{
                         marginBottom: "20px",
-                        width: "100%"
+                        width: "100%",
+                        fontSize: "14px",
                     }}
                     size="small" placeholder="Password" />
                 
