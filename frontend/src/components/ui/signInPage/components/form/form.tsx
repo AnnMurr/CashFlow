@@ -3,6 +3,9 @@ import { Button, OutlinedInput } from "@mui/material";
 import { FormContainer, Title } from "./styledForm";
 
 export const Form: FC = () => {
+    const logIn = () => {
+
+    }
     return (
         <FormContainer>
             <Title>
@@ -31,14 +34,16 @@ export const Form: FC = () => {
                         fontSize: "14px",
                     }}
                     size="small" placeholder="Password" />
-                
-                <Button sx={{
-                    backgroundColor: "#699a87",
-                    width: "100%",
-                    '&:hover': {
-                        backgroundColor: "#0f4a34"
-                    },
-                }} variant="contained" color="success">
+                <Button
+                    sx={{
+                        backgroundColor: "#699a87",
+                        width: "100%",
+                        '&:hover': {
+                            backgroundColor: "#0f4a34"
+                        },
+                    }}
+                    onClick={logIn}
+                    variant="contained">
                     Sign in
                 </Button>
             </form>
