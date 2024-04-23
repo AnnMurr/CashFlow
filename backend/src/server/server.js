@@ -13,7 +13,7 @@ app.post("/putdata", async (req, res) => {
 
   try {
     const collection = db.collection("users");
-    const insertResult = await collection.insertOne({ data: userData });
+    const insertResult = await collection.insertOne(userData);
     const { insertedId } = insertResult;
     const cleanInsertedId = insertedId.toString();
 
@@ -25,17 +25,16 @@ app.post("/putdata", async (req, res) => {
 });
 
 app.post("/check-data", async (req, res) => {
-  const email = req.body.email;
+  const { email, password } = req.body.userData;
   const collection = db.collection("users");
-  const cursor = collection.find({});
-  const allData = await cursor.toArray();
-  const result = allData.find((userData) => userData.email === email);
 
   try {
-    if (result === undefined) {
-      res.status(200).send(false);
+    const user = await collection.findOne({ email: email });
+
+    if (user && user.password === password) {
+      res.status(200).send(user._id);
     } else {
-      res.status(200).send(result);
+      res.status(200).send(false);
     }
   } catch (error) {
     console.error(error);

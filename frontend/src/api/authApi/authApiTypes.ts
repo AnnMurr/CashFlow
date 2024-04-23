@@ -1,8 +1,8 @@
 export interface UserDataType {
     email: string;
-    name: string;
+    name?: string;
     password: string;
-    repeatPassword: string;
+    repeatPassword?: string;
 }
 
 export type SetUserDataType = (data: UserDataType) => Promise<any>;
