@@ -1,5 +1,8 @@
 export const GREEN_LOGO = require('../accets/icons/green-logo.svg');
 export const WHITE_LOGO = require('../accets/icons/white-logo.svg');
+export const WALLET_ICON = require('../accets/icons/wallet-icon.svg');
+export const EXPENSES_ICON = require('../accets/icons/expenses-icon.svg');
+export const SETTING_ICON = require('../accets/icons/setting-icon.svg');
 export const CORIANDER_LOGO = require('../accets/icons/Coriander-logo.svg');
 export const BACKGROUND_SPACE = require('../accets/images/space.jpg');
 export const MAIN_PHONE_AFTER = require('../accets/images/main-phone_after.png');
