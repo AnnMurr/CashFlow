@@ -1,29 +1,38 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { LOGO } from "../../../consts/images";
 import { Nav } from "./components/nav/nav";
 import { Container, Section, Wrapper, Logo, BtnAuth } from "./styledHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { getUserAuth } from "../../../utils/checkUserAuth";
 
 export const Header: FC = () => {
     const [isActiveHeader, setIsActiveHeader] = useState<boolean>(false);
+    const [isUserAuth, setIsUserAuth] = useState<boolean>(false);
+
+    useEffect(() => {
+        setIsUserAuth(getUserAuth());
+    }, []);
 
     document.addEventListener("scroll", () => {
         window.scrollY === 0 ?
             setIsActiveHeader(false) :
-            setIsActiveHeader(true)
+            setIsActiveHeader(true);
     });
 
     return (
         <Section active_prop={isActiveHeader.toString()} >
             <Container>
                 <Wrapper>
-                    <Logo to={"/"}>
+                    <Logo to={isUserAuth ? "/profile" : "/"}>
                         <img src={LOGO.default} alt="logo" />
                     </Logo>
                     <Nav isActiveHeader={isActiveHeader} />
                     <BtnAuth to={"/sign-up"} >
-                        <FontAwesomeIcon icon={faUserPlus} color={isActiveHeader ? "#000" : "#fff"} size="lg" />
+                        <FontAwesomeIcon 
+                        icon={isUserAuth ? faUser : faUserPlus} 
+                        color={isActiveHeader ? "#000" : "#fff"} 
+                        size="lg" />
                     </BtnAuth>
                 </Wrapper>
             </Container>

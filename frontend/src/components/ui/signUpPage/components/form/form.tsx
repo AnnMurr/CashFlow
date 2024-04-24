@@ -3,16 +3,24 @@ import { Button, OutlinedInput } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage } from "../../../../shared/errorMessage/errorMessage";
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from "../../../../../consts/index";
-import { setUserData } from "../../../../../api/authApi/authApi";
+import { setUserData, checkUserDataByEmail } from "../../../../../api/authApi/authApi";
 import { UserDataType } from "../../../../../api/authApi/authApiTypes";
 import { ErrorMessageContainer, FormContainer, Title } from "./styledForm";
+import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 
 export const Form: FC = () => {
     const onSubmit: SubmitHandler<UserDataType> = async (data) => {
         try {
-            delete data.repeatPassword
-            const response = await setUserData(data);
-            console.log(response)
+            const isUser = await checkUserDataByEmail(data);
+
+            if (isUser) {
+                console.log("User has already registered.");
+            } else {
+                console.log("sign up");
+                delete data.repeatPassword;
+                const token = await setUserData(data);
+                setDataToLocalStorage("token", token);
+            }
         } catch (error) {
             console.error(error);
         }

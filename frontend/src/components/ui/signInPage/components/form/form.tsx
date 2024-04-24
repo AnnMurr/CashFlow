@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { Button, OutlinedInput } from "@mui/material";
 import { FormContainer, Title } from "./styledForm";
 import { checkUserData } from "../../../../../api/authApi/authApi";
+import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 
 export const Form: FC = () => {
     const [emailValue, setEmailValue] = useState<string>("");
@@ -9,8 +10,13 @@ export const Form: FC = () => {
 
     const logIn = async () => {
         try {
-            const data = await checkUserData({ email: emailValue, password: passwordValue})
-            console.log("logIn", data)
+            const token = await checkUserData({ email: emailValue, password: passwordValue});
+
+            if(token) {
+                setDataToLocalStorage("token", token);
+            } else {
+                console.log("wrong data");
+            }
         } catch (error) {
             console.error(error);
         }
