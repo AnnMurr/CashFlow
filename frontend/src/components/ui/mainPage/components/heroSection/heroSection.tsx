@@ -10,7 +10,7 @@ export const HeroSection: FC = () => {
     const windowHeight = window.innerHeight;
 
     return (
-        <Section style={{ height: `${windowHeight - 90}px` }}>
+        <Section style={{ height: `${windowHeight - 80}px` }}>
             <Container>
                 <Wrapper>
                     <Background windowHeight={windowHeight} />

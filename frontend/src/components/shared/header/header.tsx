@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { LOGO } from "../../../consts/images";
+import { GREEN_LOGO, WHITE_LOGO } from "../../../consts/images";
 import { Nav } from "./components/nav/nav";
 import { Container, Section, Wrapper, Logo, BtnAuth } from "./styledHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,7 +25,7 @@ export const Header: FC = () => {
             <Container>
                 <Wrapper>
                     <Logo to={isUserAuth ? "/profile" : "/"}>
-                        <img src={LOGO.default} alt="logo" />
+                        <img src={isActiveHeader ? WHITE_LOGO.default : GREEN_LOGO.default} alt="logo" />
                     </Logo>
                     <Nav isActiveHeader={isActiveHeader} />
                     <BtnAuth to={"/sign-up"} >

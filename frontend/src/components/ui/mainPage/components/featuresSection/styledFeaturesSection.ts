@@ -21,7 +21,7 @@ export const TitleInner = styled(motion.div)`
 `
 
 export const Title = styled.h2`
-    color: #c33c21;
+    color: #000;
     font-size: 40px;
 `
 

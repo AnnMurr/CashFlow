@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Section = styled.section`
-    background-color: #c33c21;
+    background-color: #BFCBA8;
     overflow: hidden;
 `
 
