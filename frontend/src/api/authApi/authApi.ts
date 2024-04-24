@@ -18,7 +18,6 @@ export const setUserData: SetUserDataType = (data) => {
         })
 }
 
-
 export const checkUserData: SetUserDataType = (data) => {
     return fetch("http://localhost:5050/check-data", {
         method: "POST",
@@ -36,7 +35,6 @@ export const checkUserData: SetUserDataType = (data) => {
             throw new Error(error);
         })
 }
-
 
 export const checkUserDataByEmail: SetUserDataType = (data) => {
     return fetch("http://localhost:5050/check-data-email", {

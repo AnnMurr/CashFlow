@@ -12,10 +12,10 @@ export const Form: FC = () => {
     const onSubmit: SubmitHandler<UserDataType> = async (data) => {
         try {
             const isUser = await checkUserDataByEmail(data);
+
             if (isUser) {
                 console.log("User has already registered.");
-            }
-            else {
+            } else {
                 console.log("sign up");
                 delete data.repeatPassword;
                 const token = await setUserData(data);
