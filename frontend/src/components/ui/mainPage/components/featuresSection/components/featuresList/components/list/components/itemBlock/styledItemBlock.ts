@@ -26,7 +26,7 @@ export const Item = styled.li<ItemProps> `
 `
 
 export const Title = styled.h4`
-    color: #c33c21;
+    color: #000;
     font-size: 24px;
 `
 

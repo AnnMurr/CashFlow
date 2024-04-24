@@ -6,5 +6,5 @@ export const Inner = styled.ul`
 `
 
 export const ItemLink = styled(Link)`
-    color: #c33c21;
+    color: #000;
 `

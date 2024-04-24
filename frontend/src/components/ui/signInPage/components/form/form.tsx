@@ -58,7 +58,7 @@ export const Form: FC = () => {
                     onChange={(event) => setPasswordValue((prev) => prev = event.target.value)} />
                 <Button
                     sx={{
-                        backgroundColor: "#699a87",
+                        backgroundColor: "#5B8A72",
                         width: "100%",
                         '&:hover': {
                             backgroundColor: "#0f4a34"

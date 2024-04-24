@@ -6,11 +6,11 @@ export const TitleWrap = styled.div`
 
 export const Title = styled.h2`
     font-size: 48px;
-    color: #fff;
+    color: #000;
 `
 
 export const SubTitle = styled.h3`
     font-size: 24px;
     font-weight: 200;
-    color: #fff;
+    color: #000;
 `

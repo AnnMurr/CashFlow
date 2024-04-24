@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
+interface ImageProps {
+    windowheight: number;
+}
+
 export const Wrapper = styled.div`
     position: absolute;
     z-index: -1;
     width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
 
     &:before {
         content: "";
@@ -19,4 +21,9 @@ export const Wrapper = styled.div`
     & img {
         width: 100%;
     }
+`
+
+export const Image = styled.img<ImageProps>`
+    object-fit: cover;
+    height: ${({ windowheight }) => `${windowheight - 80}px`};
 `

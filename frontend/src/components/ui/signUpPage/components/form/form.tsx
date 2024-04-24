@@ -142,7 +142,7 @@ export const Form: FC = () => {
                 variant="contained"
                 type={'submit'}
                 sx={{
-                    backgroundColor: "#699a87",
+                    backgroundColor: "#5B8A72",
                     width: "100%",
                     '&:hover': {
                         backgroundColor: "#0f4a34"
