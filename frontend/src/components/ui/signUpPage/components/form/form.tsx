@@ -8,6 +8,7 @@ import { UserDataType } from "../../../../../api/authApi/authApiTypes";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { ErrorMessageContainer, FormContainer, Title } from "./styledForm";
+import { createUserStore } from "../../../../../api/userDataApi/userDataApi";
 
 export const Form: FC = () => {
     const onSubmit: SubmitHandler<UserDataType> = async (data) => {
@@ -17,9 +18,13 @@ export const Form: FC = () => {
             if (isUser) {
                 console.log("User has already registered.");
             } else {
-                console.log("sign up");
                 delete data.repeatPassword;
                 const token = await setUserData(data);
+                const createdStorage = await createUserStore(token);
+
+                if (!createdStorage.ok) {
+                    console.log("Failed to create storage");
+                }
                 setDataToLocalStorage("token", token);
             }
         } catch (error) {
