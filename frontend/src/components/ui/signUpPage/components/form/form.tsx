@@ -1,12 +1,13 @@
 import { FC } from "react";
-import { Button, OutlinedInput } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { OutlinedInput } from "@mui/material";
 import { ErrorMessage } from "../../../../shared/errorMessage/errorMessage";
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from "../../../../../consts/index";
 import { setUserData, checkUserDataByEmail } from "../../../../../api/authApi/authApi";
 import { UserDataType } from "../../../../../api/authApi/authApiTypes";
-import { ErrorMessageContainer, FormContainer, Title } from "./styledForm";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
+import { ButtonComponent } from "../../../../shared/button/button";
+import { ErrorMessageContainer, FormContainer, Title } from "./styledForm";
 
 export const Form: FC = () => {
     const onSubmit: SubmitHandler<UserDataType> = async (data) => {
@@ -138,18 +139,12 @@ export const Form: FC = () => {
             <ErrorMessageContainer>
                 <ErrorMessage text={errors.repeatPassword?.message as string} />
             </ErrorMessageContainer>
-            <Button
-                variant="contained"
-                type={'submit'}
-                sx={{
-                    backgroundColor: "#5B8A72",
-                    width: "100%",
-                    '&:hover': {
-                        backgroundColor: "#0f4a34"
-                    },
-                }} >
-                Sign up
-            </Button>
+            <ButtonComponent
+                backgroundColor="#5B8A72"
+                BackgroundColorHover="#0f4a34"
+                text="Sign up"
+                color="#fff"
+                type="submit" />
         </FormContainer>
     )
 }

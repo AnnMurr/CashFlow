@@ -9,6 +9,8 @@ import { ContactUsPage } from './components/ui/contactUsPage/contactUsPage';
 import { SignUpPage } from './components/ui/signUpPage/signUpPage';
 import { SignInPage } from './components/ui/signInPage/signInPage';
 import { HelpCenterPage } from './components/ui/helpCenterPage/helpCenterPage';
+import { ProfilePage } from './components/ui/profilePage/profilePage';
+import { ExpensesPage } from './components/ui/expensesPage/expensesPage';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/help-center" element={<HelpCenterPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/expenses" element={<ExpensesPage />} />
       </Routes>
     </HashRouter>
   );
