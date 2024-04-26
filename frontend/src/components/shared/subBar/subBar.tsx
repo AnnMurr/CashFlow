@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { WALLET_ICON, EXPENSES_ICON, SETTING_ICON } from "../../../../../consts/images";
+import { WALLET_ICON, EXPENSES_ICON, SETTING_ICON } from "../../../consts/images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Item } from "./components/item/item";
@@ -33,7 +33,7 @@ export const SubBar: FC = () => {
                         altText="budgeting"
                         isAtiveBar={isAtiveBar}
                         text="Expenses"
-                        linkTo="/" />
+                        linkTo="/expenses" />
                     <Item
                         image={SETTING_ICON.default}
                         altText="gear"

@@ -20,3 +20,37 @@ export const FEATURES_MULTI_DEVICE_ICON = require('../accets/images/features-Mul
 export const IPHONE_TRANSPARENT = require('../accets/images/iphone-transparent.png');
 export const APPLE_STORE_ICON = require('../accets/images/appleStore.png');
 export const GOOGLE_PLAY_ICON = require('../accets/images/googlePlay.png');
+
+export const BUS_ICON_COLLECTION = require("../accets/icons/collection/bus-icon.svg");
+export const BUS2_ICON_COLLECTION = require("../accets/icons/collection/bus2-icon.svg");
+export const CAFE_ICON_COLLECTION = require("../accets/icons/collection/cafe-icon.svg");
+export const CAFE2_ICON_COLLECTION = require("../accets/icons/collection/cafe2-icon.svg");
+export const COMPUTER_ICON_COLLECTION = require("../accets/icons/collection/computer-icon.svg");
+export const CUP_ICON_COLLECTION = require("../accets/icons/collection/cup-icon.svg");
+export const GAS_STATION_ICON_COLLECTION = require("../accets/icons/collection/gas-station-icon.svg");
+export const GOODS_ICON_COLLECTION = require("../accets/icons/collection/goods-icon.svg");
+export const HOUSE_ICON_COLLECTION = require("../accets/icons/collection/house-icon.svg");
+export const GACKET_ICON_COLLECTION = require("../accets/icons/collection/jacket-icon.svg");
+export const MEDICINE_ICON_COLLECTION = require("../accets/icons/collection/medicine-icon.svg");
+export const PHONE_ICON_COLLECTION = require("../accets/icons/collection/phone-icon.svg");
+export const REFUELING_NOZZLE_ICON_COLLECTION = require("../accets/icons/collection/refueling-nozzle-icon.svg");
+export const TAXI_ICON_COLLECTION = require("../accets/icons/collection/taxi-icon.svg");
+export const TRANSPORT_ICON_COLLECTION = require("../accets/icons/collection/transport-icon.svg");
+
+export const ICONS_COLLECTION = [
+    BUS_ICON_COLLECTION,
+    BUS2_ICON_COLLECTION,
+    CAFE_ICON_COLLECTION,
+    CAFE2_ICON_COLLECTION,
+    COMPUTER_ICON_COLLECTION,
+    CUP_ICON_COLLECTION,
+    GAS_STATION_ICON_COLLECTION,
+    GOODS_ICON_COLLECTION,
+    HOUSE_ICON_COLLECTION,
+    GACKET_ICON_COLLECTION,
+    MEDICINE_ICON_COLLECTION,
+    PHONE_ICON_COLLECTION,
+    REFUELING_NOZZLE_ICON_COLLECTION,
+    TAXI_ICON_COLLECTION,
+    TRANSPORT_ICON_COLLECTION
+];

@@ -1,8 +1,9 @@
 import { FC, useState } from "react";
-import { Button, OutlinedInput } from "@mui/material";
-import { FormContainer, Title } from "./styledForm";
+import { OutlinedInput } from "@mui/material";
 import { checkUserData } from "../../../../../api/authApi/authApi";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
+import { ButtonComponent } from "../../../../shared/button/button";
+import { FormContainer, Title } from "./styledForm";
 
 export const Form: FC = () => {
     const [emailValue, setEmailValue] = useState<string>("");
@@ -10,9 +11,9 @@ export const Form: FC = () => {
 
     const logIn = async () => {
         try {
-            const token = await checkUserData({ email: emailValue, password: passwordValue});
+            const token = await checkUserData({ email: emailValue, password: passwordValue });
 
-            if(token) {
+            if (token) {
                 setDataToLocalStorage("token", token);
             } else {
                 console.log("wrong data");
@@ -42,7 +43,7 @@ export const Form: FC = () => {
                         //     borderColor: "#43434387 !important"
                         // }
                     }}
-                    size="small" 
+                    size="small"
                     placeholder="Email"
                     value={emailValue}
                     onChange={(event) => setEmailValue((prev) => prev = event.target.value)} />
@@ -52,22 +53,17 @@ export const Form: FC = () => {
                         width: "100%",
                         fontSize: "14px",
                     }}
-                    size="small" 
+                    size="small"
                     placeholder="Password"
                     value={passwordValue}
                     onChange={(event) => setPasswordValue((prev) => prev = event.target.value)} />
-                <Button
-                    sx={{
-                        backgroundColor: "#5B8A72",
-                        width: "100%",
-                        '&:hover': {
-                            backgroundColor: "#0f4a34"
-                        },
-                    }}
-                    onClick={logIn}
-                    variant="contained">
-                    Sign in
-                </Button>
+                <ButtonComponent
+                    backgroundColor="#5B8A72"
+                    BackgroundColorHover="#0f4a34"
+                    text="Sign in"
+                    color="#fff"
+                    type="submit"
+                    func={logIn} />
             </form>
         </FormContainer>
     )
