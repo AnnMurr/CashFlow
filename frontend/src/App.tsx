@@ -12,7 +12,8 @@ import { HelpCenterPage } from './components/ui/helpCenterPage/helpCenterPage';
 import { ProfilePage } from './components/ui/profilePage/profilePage';
 import { ExpensesPage } from './components/ui/expensesPage/expensesPage';
 import { AuthorizedContextProvider } from './contexts/authorizedContext/authorizedContext';
-import { CheckAuthorization } from './contexts/authorizedContext/CheckAuthorization';
+import { CheckAuthorization } from './contexts/authorizedContext/checkAuthorization';
+import { ErrorPage } from './components/ui/errorPage/errorPage';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           } />
 
           <Route path="/expenses" element={<ExpensesPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </HashRouter>
     </AuthorizedContextProvider>
