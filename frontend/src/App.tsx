@@ -11,23 +11,35 @@ import { SignInPage } from './components/ui/signInPage/signInPage';
 import { HelpCenterPage } from './components/ui/helpCenterPage/helpCenterPage';
 import { ProfilePage } from './components/ui/profilePage/profilePage';
 import { ExpensesPage } from './components/ui/expensesPage/expensesPage';
+import { AuthorizedContextProvider } from './contexts/authorizedContext/authorizedContext';
+import { CheckAuthorization } from './contexts/authorizedContext/checkAuthorization';
+import { ErrorPage } from './components/ui/errorPage/errorPage';
 
 function App() {
   return (
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contacts" element={<ContactsPage />} />
-        <Route path="/contacts-us" element={<ContactUsPage />} />
-        <Route path="/sign-up" element={<SignUpPage />} />
-        <Route path="/sign-in" element={<SignInPage />} />
-        <Route path="/help-center" element={<HelpCenterPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/expenses" element={<ExpensesPage />} />
-      </Routes>
-    </HashRouter>
+    <AuthorizedContextProvider>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="/contacts-us" element={<ContactUsPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/help-center" element={<HelpCenterPage />} />
+
+          <Route path="/profile" element={
+            <CheckAuthorization>
+              <ProfilePage />
+            </CheckAuthorization>
+          } />
+
+          <Route path="/expenses" element={<ExpensesPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </HashRouter>
+    </AuthorizedContextProvider>
   );
 }
 
