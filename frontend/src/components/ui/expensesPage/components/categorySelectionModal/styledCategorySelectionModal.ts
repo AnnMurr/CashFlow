@@ -13,7 +13,11 @@ export const Wrapper = styled.div`
 `
 
 export const Item = styled.li`
-    padding: 0 15px;
+    padding: 5px;
+    width: 50px;
+    margin: 0 15px;
+    border-radius: 15px;
+    cursor: pointer;
 `
 
 export const InputInner = styled.div`
