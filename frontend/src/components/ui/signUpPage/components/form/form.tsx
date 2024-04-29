@@ -9,8 +9,11 @@ import { setDataToLocalStorage } from "../../../../../storage/localStorage/local
 import { ButtonComponent } from "../../../../shared/button/button";
 import { ErrorMessageContainer, FormContainer, Title } from "./styledForm";
 import { createUserStore } from "../../../../../api/userDataApi/userDataApi";
+import { useNavigate } from "react-router-dom";
 
 export const Form: FC = () => {
+    const navigate = useNavigate();
+
     const onSubmit: SubmitHandler<UserDataType> = async (data) => {
         try {
             const isUser = await checkUserDataByEmail(data);
@@ -21,6 +24,7 @@ export const Form: FC = () => {
                 delete data.repeatPassword;
                 const token = await setUserData(data);
                 const createdStorage = await createUserStore(token);
+                navigate('/profile');
 
                 if (!createdStorage.ok) {
                     console.log("Failed to create storage");

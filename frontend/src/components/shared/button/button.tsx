@@ -7,7 +7,7 @@ interface ButtonComponentProps {
     text: string;
     color: string;
     type: "button" | "submit" | "reset";
-    func?: () => void;
+    func?: (value: any) => void;
 }
 
 export const ButtonComponent: FC<ButtonComponentProps> = ({
