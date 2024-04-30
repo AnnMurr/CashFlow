@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { OutlinedInput } from "@mui/material";
 import { ErrorMessage } from "../../../../shared/errorMessage/errorMessage";
@@ -10,9 +10,11 @@ import { ButtonComponent } from "../../../../shared/button/button";
 import { ErrorMessageContainer, FormContainer, Title } from "./styledForm";
 import { createUserStore } from "../../../../../api/userDataApi/userDataApi";
 import { useNavigate } from "react-router-dom";
+import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
 
 export const Form: FC = () => {
     const navigate = useNavigate();
+    const { login } = useContext(AuthorizedContext)
 
     const onSubmit: SubmitHandler<UserDataType> = async (data) => {
         try {
@@ -24,12 +26,14 @@ export const Form: FC = () => {
                 delete data.repeatPassword;
                 const token = await setUserData(data);
                 const createdStorage = await createUserStore(token);
-                navigate('/profile');
 
                 if (!createdStorage.ok) {
                     console.log("Failed to create storage");
                 }
+
                 setDataToLocalStorage("token", token);
+                login()
+                navigate('/profile');
             }
         } catch (error) {
             console.error(error);
