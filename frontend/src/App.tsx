@@ -1,8 +1,6 @@
-import React from 'react';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { MainPage } from './components/ui/mainPage/mainPage';
 import { PrivacyPolicyPage } from './components/ui/privacyPolicyPage/privacyPolicyPage';
-import { HashRouter, Route, Routes } from 'react-router-dom';
-import "./accets/styles/reset.css";
 import { AboutPage } from './components/ui/aboutPage/aboutPage';
 import { ContactsPage } from './components/ui/contactsPage/contactsPage';
 import { ContactUsPage } from './components/ui/contactUsPage/contactUsPage';
@@ -12,32 +10,44 @@ import { HelpCenterPage } from './components/ui/helpCenterPage/helpCenterPage';
 import { ProfilePage } from './components/ui/profilePage/profilePage';
 import { ExpensesPage } from './components/ui/expensesPage/expensesPage';
 import { AuthorizedContextProvider } from './contexts/authorizedContext/authorizedContext';
-import { CheckAuthorization } from './contexts/authorizedContext/checkAuthorization';
+import { CheckAuthorization, CheckNotAuthorization } from './contexts/authorizedContext/checkAuthorization';
 import { ErrorPage } from './components/ui/errorPage/errorPage';
+import { Body } from './components/shared/body/body';
+
+import "./accets/styles/reset.css";
 
 function App() {
   return (
     <AuthorizedContextProvider>
       <HashRouter>
+      <Body>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contacts" element={<ContactsPage />} />
           <Route path="/contacts-us" element={<ContactUsPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/sign-up" element={
+            <CheckAuthorization>
+              <SignUpPage />
+            </CheckAuthorization>
+          } />
+          <Route path="/sign-in" element={
+            <CheckAuthorization>
+              <SignInPage />
+            </CheckAuthorization>
+          } />
           <Route path="/help-center" element={<HelpCenterPage />} />
 
           <Route path="/profile" element={
-            <CheckAuthorization>
+            <CheckNotAuthorization>
               <ProfilePage />
-            </CheckAuthorization>
+            </CheckNotAuthorization>
           } />
-
           <Route path="/expenses" element={<ExpensesPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
+        </Body>
       </HashRouter>
     </AuthorizedContextProvider>
   );
