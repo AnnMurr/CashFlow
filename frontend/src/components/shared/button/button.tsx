@@ -7,7 +7,7 @@ interface ButtonComponentProps {
     text: string;
     color: string;
     type: "button" | "submit" | "reset";
-    func?: (value: any) => void;
+    func?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const ButtonComponent: FC<ButtonComponentProps> = ({

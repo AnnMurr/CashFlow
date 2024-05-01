@@ -13,13 +13,13 @@ export const Form: FC = () => {
     const navigate = useNavigate();
     const { login } = useContext(AuthorizedContext);
 
-    const logIn = async (event: any) => {
+    const logIn = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         try {
             const token = await checkUserData({ email: emailValue, password: passwordValue });
 
-            if (token) {
+            if (token && typeof token !== "boolean") {
                 setDataToLocalStorage("token", token);
                 login()
                 navigate('/profile');

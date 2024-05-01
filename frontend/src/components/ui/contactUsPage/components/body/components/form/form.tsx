@@ -27,7 +27,7 @@ export const Form: FC<FormProps> = ({ setIsModalActive }) => {
         }
     }
 
-    const submitForm = (event: any) => {
+    const submitForm = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         resetErrors();
 
