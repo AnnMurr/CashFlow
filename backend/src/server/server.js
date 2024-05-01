@@ -67,7 +67,7 @@ app.post("/check-data-email", async (req, res) => {
 
   try {
     const user = await collection.findOne({ email: email });
-    console.log(user);
+  
     if (user) {
       res.status(200).send(user._id);
     } else {

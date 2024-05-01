@@ -1,4 +1,4 @@
-import { GetUserDataType, SetUserDataType } from "./authApiTypes";
+import { CheckUserDataByEmailType, CheckUserDataType, GetUserDataType, SetUserDataType } from "./authApiTypes";
 
 export const setUserData: SetUserDataType = (data) => {
     return fetch("http://localhost:5050/putdata", {
@@ -18,7 +18,7 @@ export const setUserData: SetUserDataType = (data) => {
         })
 }
 
-export const checkUserData: SetUserDataType = (data) => {
+export const checkUserData: CheckUserDataType = (data) => {
     return fetch("http://localhost:5050/check-data", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -36,7 +36,7 @@ export const checkUserData: SetUserDataType = (data) => {
         })
 }
 
-export const checkUserDataByEmail: SetUserDataType = (data) => {
+export const checkUserDataByEmail: CheckUserDataByEmailType = (data) => {
     return fetch("http://localhost:5050/check-data-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

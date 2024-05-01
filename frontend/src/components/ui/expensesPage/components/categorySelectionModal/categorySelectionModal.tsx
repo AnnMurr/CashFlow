@@ -5,12 +5,14 @@ import { ButtonComponent } from ".././../../../shared/button/button";
 import { BtnInner, Container, Input, InputInner, Item, Label, List, Wrapper } from "./styledCategorySelectionModal";
 
 export const CategorySelectionModal: FC = () => {
-    const [selectedIcon, setSelectedIcon] = useState();
+    const [selectedIcon, setSelectedIcon] = useState<string>();
 
-    const selectCategoryIcon = (event: any) => {
-        console.log(event.currentTarget)
-        setSelectedIcon(event.currentTarget.children[0].src)
-        event.currentTarget.parentNode.style.border = "1px solid #cacaca";
+    const selectCategoryIcon = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const button = event.currentTarget as HTMLButtonElement;
+        const image = button.children[0] as HTMLImageElement;
+        const parrent =  button.parentNode as HTMLDivElement;
+        image && setSelectedIcon(image.src);
+        parrent && (parrent.style.border = "1px solid #cacaca");
 
         console.log(selectedIcon)
     }

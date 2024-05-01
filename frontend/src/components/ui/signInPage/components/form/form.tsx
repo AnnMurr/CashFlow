@@ -13,7 +13,7 @@ export const Form: FC = () => {
     const navigate = useNavigate();
     const { login } = useContext(AuthorizedContext);
 
-    const logIn = async (event: any) => {
+    const logIn = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         try {

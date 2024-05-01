@@ -5,5 +5,7 @@ export interface UserDataType {
     repeatPassword?: string;
 }
 
-export type SetUserDataType = (data: UserDataType) => Promise<any>;
-export type GetUserDataType = (data: string) => Promise<UserDataType>;
+export type SetUserDataType = (data: UserDataType) => Promise<string>;
+export type CheckUserDataType = (data: UserDataType) => Promise<string | boolean>;
+export type CheckUserDataByEmailType = (data: UserDataType) => Promise<string>;
+export type GetUserDataType = (data: string) => Promise<UserDataType | string>;
