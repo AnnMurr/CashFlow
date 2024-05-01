@@ -39,7 +39,7 @@ export const SubBar: FC = () => {
                         altText="gear"
                         isAtiveBar={isAtiveBar}
                         text="Settings"
-                        linkTo="/" />
+                        linkTo="/settings" />
                 </List>
             </Wrapper>
         </Container>

@@ -15,8 +15,15 @@ import { ErrorPage } from './components/ui/errorPage/errorPage';
 import { Body } from './components/shared/body/body';
 
 import "./accets/styles/reset.css";
+import { SettingsPage } from './components/ui/settingsPage/settingsPage';
+import { useEffect } from 'react';
+import { getDAta } from './api/authApi/authApi';
 
 function App() {
+
+  useEffect(() => {
+    getDAta()
+  })
   return (
     <AuthorizedContextProvider>
       <HashRouter>
@@ -45,6 +52,7 @@ function App() {
             </CheckNotAuthorization>
           } />
           <Route path="/expenses" element={<ExpensesPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         </Body>
