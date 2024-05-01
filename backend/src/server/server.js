@@ -67,7 +67,7 @@ app.post("/check-data-email", async (req, res) => {
 
   try {
     const user = await collection.findOne({ email: email });
-  
+
     if (user) {
       res.status(200).send(user._id);
     } else {
@@ -76,6 +76,25 @@ app.post("/check-data-email", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("error checking data");
+  }
+});
+
+app.patch("/change-data", async (req, res) => {
+  const { changedData, newData } = req.body;
+  const collection = db.collection("users");
+
+  try {
+    const filter = { _id: new ObjectId(changedData) };
+    const updateDoc = { $set: newData };
+    const result = await collection.updateOne(filter, updateDoc);
+
+    if (!!result.matchedCount) {
+      res.status(200).send("user updated successfully");
+    } else {
+      res.status(404).send("error updating data");
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 
