@@ -1,67 +1,35 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Category, Line, List, Value, } from "./styledPersonalInformation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react";
+import { getUserDataById } from "../../../../../../../api/authApi/authApi";
+import { UserDataType } from "../../../../../../../api/authApi/authApiTypes";
+import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
+import { Item } from "./component/item/item";
+import { List } from "./styledPersonalInformation";
 
 export const PersonalInformation = () => {
-    useEffect(() => {
+    const [userData, setUserData] = useState<null | UserDataType>(null);
+
+    const getUserData = async () => {
         try {
-            
+            const token = getDataFromLocalStorage("token");
+            const response = await getUserDataById(token);
+            setUserData(response);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
+    }
+
+    useEffect(() => {
+        getUserData();
     }, []);
 
     return (
         <List>
-            <Line>
-                <div>
-                    <Category>
-                        name
-                    </Category>
-                </div>
-                <div>
-                    <Value>
-                        Hanna
-                    </Value>
-                </div>
-                <div>
-                    <FontAwesomeIcon icon={faArrowRight} />
-                </div>
-
-            </Line>
-            <Line>
-                <div>
-                    <Category>
-                        name
-                    </Category>
-                </div>
-                <div>
-                    <Value>
-                        Hanna
-                    </Value>
-                </div>
-                <div>
-                    <FontAwesomeIcon icon={faArrowRight} />
-                </div>
-
-            </Line>
-            <Line>
-                <div>
-                    <Category>
-                        name
-                    </Category>
-                </div>
-                <div>
-                    <Value>
-                        Hanna
-                    </Value>
-                </div>
-                <div>
-                    <FontAwesomeIcon icon={faArrowRight} />
-                </div>
-
-            </Line>
+            {userData ?
+                <>
+                    <Item category={"Name"} value={userData.name} />
+                    <Item category={"Email"} value={userData.email} />
+                </>
+                : null}
         </List>
     )
 }

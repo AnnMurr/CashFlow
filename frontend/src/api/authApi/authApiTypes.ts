@@ -6,3 +6,4 @@ export interface UserDataType {
 }
 
 export type SetUserDataType = (data: UserDataType) => Promise<any>;
+export type GetUserDataType = (data: string) => Promise<UserDataType>;

@@ -14,12 +14,9 @@ export const Container = styled.div`
 export const Item = styled.li<ItemProps>`
     padding-bottom: 15px;
   
-
     & button {
         font-size: 23px;
-    font-weight: 600;
+        font-weight: 600;
         color: ${({ active }) => active === "true" ? "#5B8A72" : "#000"};
     }
-    // border: ${({ active }) => active ? "1px solid" : "none"};
-    // border-radius: 10px;
 `
