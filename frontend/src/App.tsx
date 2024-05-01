@@ -15,6 +15,7 @@ import { ErrorPage } from './components/ui/errorPage/errorPage';
 import { Body } from './components/shared/body/body';
 
 import "./accets/styles/reset.css";
+import { SettingsPage } from './components/ui/settingsPage/settingsPage';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             </CheckNotAuthorization>
           } />
           <Route path="/expenses" element={<ExpensesPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         </Body>
