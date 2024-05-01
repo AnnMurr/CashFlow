@@ -13,17 +13,10 @@ import { AuthorizedContextProvider } from './contexts/authorizedContext/authoriz
 import { CheckAuthorization, CheckNotAuthorization } from './contexts/authorizedContext/checkAuthorization';
 import { ErrorPage } from './components/ui/errorPage/errorPage';
 import { Body } from './components/shared/body/body';
-
 import "./accets/styles/reset.css";
 import { SettingsPage } from './components/ui/settingsPage/settingsPage';
-import { useEffect } from 'react';
-import { getDAta } from './api/authApi/authApi';
 
 function App() {
-
-  useEffect(() => {
-    getDAta()
-  })
   return (
     <AuthorizedContextProvider>
       <HashRouter>
