@@ -19,7 +19,7 @@ export const Form: FC = () => {
         try {
             const token = await checkUserData({ email: emailValue, password: passwordValue });
 
-            if (token) {
+            if (token && typeof token !== "boolean") {
                 setDataToLocalStorage("token", token);
                 login()
                 navigate('/profile');
