@@ -71,7 +71,7 @@ export const getUserDataById: GetUserDataType = (id) => {
         })
 }
 
-export const upd: any = () => {
+export const updateUserData: any = () => {
     return fetch("http://localhost:5050/change-data", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },

@@ -15,6 +15,8 @@ import { ErrorPage } from './components/ui/errorPage/errorPage';
 import { Body } from './components/shared/body/body';
 import "./accets/styles/reset.css";
 import { SettingsPage } from './components/ui/settingsPage/settingsPage';
+import { ChangeNamePage } from './components/ui/profileChaningPages/changeNamePage/changeNamePage';
+import { ChangeEmailPage } from './components/ui/profileChaningPages/changeEmailPage/changeEmailPage';
 
 function App() {
   return (
@@ -46,6 +48,8 @@ function App() {
           } />
           <Route path="/expenses" element={<ExpensesPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/settings/change-name" element={<ChangeNamePage />} />
+          <Route path="/settings/change-email" element={<ChangeEmailPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         </Body>
