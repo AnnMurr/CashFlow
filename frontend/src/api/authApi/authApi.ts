@@ -1,4 +1,4 @@
-import { CheckUserDataByEmailType, CheckUserDataType, GetUserDataType, SetUserDataType } from "./authApiTypes";
+import { CheckUserDataByEmailType, CheckUserDataType, GetUserDataType, SetUserDataType, UpdateUserDataType } from "./authApiTypes";
 
 export const setUserData: SetUserDataType = (data) => {
     return fetch("http://localhost:5050/putdata", {
@@ -71,23 +71,21 @@ export const getUserDataById: GetUserDataType = (id) => {
         })
 }
 
-export const upd: any = () => {
+export const updateUserData: UpdateUserDataType = (token, changedData) => {
     return fetch("http://localhost:5050/change-data", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            changedData: "662fb0784a6110e692f702a4", newData: {
-                name: "Katsiaryna",
-                email: "Katsiaryna@mail.ru",
-                password: "ldslamdlmsad"
-            }
+            id: token,
+            newData: changedData
         })
     })
         .then(response => {
             if (!response.ok) {
-                console.error("Failed to check user data");
+                console.error("failed to update user data");
             }
-            return response.json();
+
+            return response.text();
         })
         .catch(error => {
             throw new Error(error);

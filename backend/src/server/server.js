@@ -15,6 +15,7 @@ app.post("/get-data-id", async (req, res) => {
   try {
     const collection = db.collection("users");
     const insertResult = await collection.findOne({ _id: new ObjectId(id) });
+    delete insertResult._id;
 
     if (insertResult) {
       res.status(200).send(insertResult);
@@ -80,21 +81,21 @@ app.post("/check-data-email", async (req, res) => {
 });
 
 app.patch("/change-data", async (req, res) => {
-  const { changedData, newData } = req.body;
+  const { id, newData } = req.body;
   const collection = db.collection("users");
-
+  console.log("req.body", req.body);
   try {
-    const filter = { _id: new ObjectId(changedData) };
+    const filter = { _id: new ObjectId(id) };
     const updateDoc = { $set: newData };
     const result = await collection.updateOne(filter, updateDoc);
 
     if (!!result.matchedCount) {
-      res.status(200).send("user updated successfully");
+      res.status(200).send("data updated successfully");
     } else {
       res.status(404).send("error updating data");
     }
   } catch (error) {
-    console.log(error);
+    console.log("kvkdfmk.fmf", error);
   }
 });
 

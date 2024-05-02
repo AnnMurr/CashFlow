@@ -6,6 +6,7 @@ interface ButtonComponentProps {
     BackgroundColorHover: string;
     text: string;
     color: string;
+    disabledValue?: boolean;
     type: "button" | "submit" | "reset";
     func?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -15,6 +16,7 @@ export const ButtonComponent: FC<ButtonComponentProps> = ({
     BackgroundColorHover,
     text,
     color,
+    disabledValue,
     type,
     func }) => {
     return (
@@ -22,6 +24,7 @@ export const ButtonComponent: FC<ButtonComponentProps> = ({
             onClick={func}
             variant="contained"
             type={type}
+            disabled={disabledValue}
             sx={{
                 backgroundColor: backgroundColor,
                 color: color,
