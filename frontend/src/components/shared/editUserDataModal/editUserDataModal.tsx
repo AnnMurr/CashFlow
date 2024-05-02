@@ -14,10 +14,10 @@ interface EditUserDataModalProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
 }
 
-export const EditUserDataModal: FC<EditUserDataModalProps> = ({ 
-    setIsModalActive, 
-    userData, 
-    changeUserData, 
+export const EditUserDataModal: FC<EditUserDataModalProps> = ({
+    setIsModalActive,
+    userData,
+    changeUserData,
     setIsAlertActive }) => {
     const [value, setValue] = useState<string>(userData);
 
@@ -32,14 +32,17 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
             }
 
             const response = await updateUserData(token, changedData);
-            changeUserData(value);
-            setIsModalActive(false);
 
-            setIsAlertActive({
-                text: response,
-                type: "success"
-            });
-            setTimeout(() => setIsAlertActive(null), 2000);
+            if (response) {
+                changeUserData(value);
+                setIsModalActive(false);
+
+                setIsAlertActive({
+                    text: response,
+                    type: "success"
+                });
+                setTimeout(() => setIsAlertActive(null), 2000);
+            }
         } catch (error) {
             setIsAlertActive({
                 text: "failed to update",
@@ -73,7 +76,7 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
                         disabledValue={userData === value ? true : false}
                         backgroundColor="#5B8A72"
                         BackgroundColorHover="#0f4a34"
-                        text="Edit"
+                        text="Save"
                         color="#fff"
                         type="button"
                         func={changeData} />

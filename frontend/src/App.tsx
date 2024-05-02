@@ -17,6 +17,8 @@ import "./accets/styles/reset.css";
 import { SettingsPage } from './components/ui/settingsPage/settingsPage';
 import { ChangeNamePage } from './components/ui/profileChaningPages/changeNamePage/changeNamePage';
 import { ChangeEmailPage } from './components/ui/profileChaningPages/changeEmailPage/changeEmailPage';
+import { ChangeEmailCheckingPage } from './components/ui/profileChaningPages/changeEmailCheckingPage/changeEmailCheckingPage';
+import { ChangeEmailModificationPage } from './components/ui/profileChaningPages/changeEmailModificationPage/changeEmailModificationPage';
 
 function App() {
   return (
@@ -50,6 +52,8 @@ function App() {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/settings/change-name" element={<ChangeNamePage />} />
           <Route path="/settings/change-email" element={<ChangeEmailPage />} />
+          <Route path="/settings/change-email-checking" element={<ChangeEmailCheckingPage />} />
+          <Route path="/settings/change-email-modification" element={<ChangeEmailModificationPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         </Body>

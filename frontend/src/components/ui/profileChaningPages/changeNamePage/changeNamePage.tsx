@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Item } from "./components/item/item";
+import { Content } from "./components/content/content";
 import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
 import { Wrapper, Block } from "./styledChangeNamePage";
 
@@ -9,7 +9,7 @@ export const ChangeNamePage: FC = () => {
             <Wrapper>
                 <SettingsChangingHeader category={"Name"} />
                 <Block>
-                    <Item />
+                    <Content />
                 </Block>
             </Wrapper>
         </section>

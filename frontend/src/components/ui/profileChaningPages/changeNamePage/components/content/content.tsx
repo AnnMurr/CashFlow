@@ -5,9 +5,9 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { EditUserDataModal } from "../../../../../shared/editUserDataModal/editUserDataModal";
 import { DarkBackground } from "../../../../../shared/darkBackground/darkBackground";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
-import { Container, Wrapper, UserName } from "./styledItem";
+import { Container, Wrapper, UserName } from "./styledContent";
 
-export const Item: FC = () => {
+export const Content: FC = () => {
     const [isModalActive, setIsModalActive] = useState<boolean>(false);
     const [isAlertActive, setIsAlertActive] = useState<null | AlertComponentProps>(null);
     const location = useLocation();

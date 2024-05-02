@@ -83,7 +83,7 @@ app.post("/check-data-email", async (req, res) => {
 app.patch("/change-data", async (req, res) => {
   const { id, newData } = req.body;
   const collection = db.collection("users");
-  console.log("req.body", req.body);
+
   try {
     const filter = { _id: new ObjectId(id) };
     const updateDoc = { $set: newData };
