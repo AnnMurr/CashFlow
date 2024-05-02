@@ -1,17 +1,17 @@
 import { FC } from "react";
 import { Item } from "./components/item/item";
 import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
-import { Wrapper, Container, Block } from "./styledChangeNamePage";
+import { Wrapper, Block } from "./styledChangeNamePage";
 
 export const ChangeNamePage: FC = () => {
     return (
-        <Container>
+        <section>
             <Wrapper>
                 <SettingsChangingHeader category={"Name"} />
                 <Block>
                     <Item />
                 </Block>
             </Wrapper>
-        </Container>
+        </section>
     )
 }

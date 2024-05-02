@@ -1,15 +1,17 @@
 import { FC } from "react";
 import { Item } from "./components/item/item";
-import { Wrapper, Container, Block } from "./styledChangeEmailPage";
+import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
+import { Wrapper, Block } from "./styledChangeEmailPage";
 
 export const ChangeEmailPage: FC = () => {
     return (
-        <Container>
+        <section>
             <Wrapper>
+                <SettingsChangingHeader category={"Email"} />
                 <Block>
                     <Item />
                 </Block>
             </Wrapper>
-        </Container>
+        </section>
     )
 }

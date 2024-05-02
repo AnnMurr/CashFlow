@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { CheckUserDataByEmailType, CheckUserDataType, GetUserDataType, SetUserDataType, UpdateUserDataType } from "./authApiTypes";
 
 export const setUserData: SetUserDataType = (data) => {

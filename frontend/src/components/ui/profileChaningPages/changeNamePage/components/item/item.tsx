@@ -16,9 +16,9 @@ export const Item: FC = () => {
             <Wrapper>
                 <div>
                     <div>
-                        <h5>
+                        <h3>
                             Name
-                        </h5>
+                        </h3>
                     </div>
                     <UserName>
                         <span>{userName}</span>

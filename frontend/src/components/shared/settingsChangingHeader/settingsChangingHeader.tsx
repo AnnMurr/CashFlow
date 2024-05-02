@@ -1,21 +1,21 @@
 import { FC } from "react";
-import { Wrapper, Container, Title } from "./styledSettingsChangingHeader";
 import { BtnGoBack } from "../btnGoBack/btnGoBack";
+import { Wrapper, Container, Title } from "./styledSettingsChangingHeader";
 
-export const SettingsChangingHeader: FC<any> = ({category}) => {
+export const SettingsChangingHeader: FC<any> = ({ category }) => {
     return (
         <Container>
             <Wrapper>
-                    <div>
-                        <BtnGoBack />
-                    </div>
-                    <div>
-                        <Title>
-                            <h2>
-                                {category}
-                            </h2>
-                        </Title>
-                    </div>
+                <div>
+                    <BtnGoBack />
+                </div>
+                <div>
+                    <Title>
+                        <h2>
+                            {category}
+                        </h2>
+                    </Title>
+                </div>
             </Wrapper>
         </Container>
     )

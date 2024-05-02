@@ -1,29 +1,36 @@
 import { FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
-import { Container, Wrapper } from "./styledItem";
+import { Description, EmailAdressInner, SubTitle, Title } from "./styledItem";
 
 export const Item: FC = () => {
     const location = useLocation();
 
     return (
-        <Container>
-            <Wrapper>
-                <div>
-                    <div>
+        <div>
+            <div>
+                <Description>
+                    <Title>
+                        <h3>
+                            Contact email
+                        </h3>
+                    </Title>
+                    <SubTitle>
                         <h5>
-                            Email
+                            The address to which information about the services used in this account is sent.
                         </h5>
-                    </div>
+                    </SubTitle>
+                </Description>
+                <EmailAdressInner>
                     <div>
                         {location.state}
                     </div>
-                </div>
-                <div>
-                    <FontAwesomeIcon icon={faPen} />
-                </div>
-            </Wrapper>
-        </Container>
+                    <div>
+                        <FontAwesomeIcon size="lg" icon={faAngleRight} />
+                    </div>
+                </EmailAdressInner>
+            </div>
+        </div>
     )
 }
