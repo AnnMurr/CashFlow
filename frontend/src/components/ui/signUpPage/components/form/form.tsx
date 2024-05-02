@@ -1,18 +1,23 @@
 import { FC, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { OutlinedInput } from "@mui/material";
 import { ErrorMessage } from "../../../../shared/errorMessage/errorMessage";
+import { AlertComponentProps } from "../../../../shared/alert/alert";
+import { ButtonComponent } from "../../../../shared/button/button";
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from "../../../../../consts/index";
 import { setUserData, checkUserDataByEmail } from "../../../../../api/authApi/authApi";
 import { UserDataType } from "../../../../../api/authApi/authApiTypes";
-import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
-import { ButtonComponent } from "../../../../shared/button/button";
-import { ErrorMessageContainer, FormContainer, Title } from "./styledForm";
 import { createUserStore } from "../../../../../api/userDataApi/userDataApi";
-import { useNavigate } from "react-router-dom";
+import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
+import { ErrorMessageContainer, FormContainer, Title } from "./styledForm";
 
-export const Form: FC = () => {
+interface FormProps {
+    setIsAlertActive: (value: null | AlertComponentProps) => void;
+}
+
+export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
     const navigate = useNavigate();
     const { login } = useContext(AuthorizedContext)
 
@@ -21,19 +26,24 @@ export const Form: FC = () => {
             const isUser = await checkUserDataByEmail(data);
 
             if (isUser) {
-                console.log("User has already registered.");
+                setIsAlertActive({ type: "error", text: "User has already registered." });
+                setTimeout(() => setIsAlertActive(null), 2000);
             } else {
                 delete data.repeatPassword;
                 const token = await setUserData(data);
                 const createdStorage = await createUserStore(token);
 
                 if (!createdStorage.ok) {
-                    console.log("Failed to create storage");
+                    console.error("Failed to create storage");
                 }
 
-                setDataToLocalStorage("token", token);
-                login()
-                navigate('/profile');
+                setIsAlertActive({ type: "success", text: "User account creation successful" });
+                setTimeout(() => {
+                    setIsAlertActive(null);
+                    navigate('/profile');
+                    setDataToLocalStorage("token", token);
+                    login();
+                }, 1000);
             }
         } catch (error) {
             console.error(error);

@@ -5,14 +5,20 @@ import { BtnClose } from "../../shared/btnClose/btnClose";
 import { Container, Wrapper, BtnCloseInner } from "./styledEditUserDataModal";
 import { getUserDataById, updateUserData } from "../../../api/authApi/authApi";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
+import { AlertComponentProps } from "../../shared/alert/alert";
 
 interface EditUserDataModalProps {
     setIsModalActive: (value: boolean) => void;
     userData: string;
     changeUserData: (value: string) => void;
+    setIsAlertActive: (value: null | AlertComponentProps) => void;
 }
 
-export const EditUserDataModal: FC<EditUserDataModalProps> = ({ setIsModalActive, userData, changeUserData }) => {
+export const EditUserDataModal: FC<EditUserDataModalProps> = ({ 
+    setIsModalActive, 
+    userData, 
+    changeUserData, 
+    setIsAlertActive }) => {
     const [value, setValue] = useState<string>(userData);
 
     const changeData = async () => {
@@ -28,8 +34,18 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({ setIsModalActive
             const response = await updateUserData(token, changedData);
             changeUserData(value);
             setIsModalActive(false);
-            console.log(response)
+
+            setIsAlertActive({
+                text: response,
+                type: "success"
+            });
+            setTimeout(() => setIsAlertActive(null), 2000);
         } catch (error) {
+            setIsAlertActive({
+                text: "failed to update",
+                type: "error"
+            });
+            setTimeout(() => setIsAlertActive(null), 2000);
             console.error(error);
         }
     }
