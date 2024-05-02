@@ -1,10 +1,10 @@
 import { FC } from "react";
+import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from "react-router-dom";
-import { Description, EmailAdressInner, SubTitle, Title } from "./styledItem";
+import { Description, Email, EmailAdressInner, SubTitle, Title } from "./styledContent";
 
-export const Item: FC = () => {
+export const Content: FC = () => {
     const location = useLocation();
 
     return (
@@ -22,10 +22,12 @@ export const Item: FC = () => {
                         </h5>
                     </SubTitle>
                 </Description>
-                <EmailAdressInner>
-                    <div>
-                        {location.state}
-                    </div>
+                <EmailAdressInner to={"/settings/change-email-checking"}>
+                    <Email>
+                        <span>
+                            {location.state}
+                        </span>
+                    </Email>
                     <div>
                         <FontAwesomeIcon size="lg" icon={faAngleRight} />
                     </div>

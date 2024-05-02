@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { Content } from "./components/content/content";
 import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
-import { Wrapper, Block } from "./styledChangeEmailPage";
+import { Content } from "./components/content/content";
+import { Block, Wrapper } from "./styledChangeEmailCheckingPage";
 
-export const ChangeEmailPage: FC = () => {
+export const ChangeEmailCheckingPage: FC = () => {
     return (
         <section>
             <Wrapper>

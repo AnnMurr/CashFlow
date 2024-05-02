@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Description = styled.div`
@@ -14,8 +15,15 @@ export const SubTitle = styled.div`
         font-weight: 400;
     }
 `
+export const Email = styled.div`
+    & span {
+        font-size: 16px;
+        font-weight: 600;
+        color: #000;
+    }
+`
 
-export const EmailAdressInner = styled.div`
+export const EmailAdressInner = styled(Link)`
     display: flex;
     justify-content: space-between;
     padding: 25px 30px;
