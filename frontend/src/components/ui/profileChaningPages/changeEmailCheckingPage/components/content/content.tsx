@@ -2,14 +2,16 @@ import { FC, useState } from "react";
 import { OutlinedInput } from "@mui/material";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
+import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
 import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
 import { getUserDataById } from "../../../../../../api/authApi/authApi";
-import { BtnInner, Title } from "./styledContent";
+import { BtnInner, BtnShowPasswordInner, Label, Title } from "./styledContent";
 import { useNavigate } from "react-router-dom";
 
 export const Content: FC = () => {
     const [passwordValue, setPasswordValue] = useState<string>("");
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
+    const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
     const navigate = useNavigate();
 
     const checkPassword = async () => {
@@ -45,16 +47,24 @@ export const Content: FC = () => {
                     </h5>
                 </Title>
                 <div>
-                    <OutlinedInput
-                        sx={{
-                            marginBottom: "20px",
-                            width: "100%",
-                            fontSize: "14px"
-                        }}
-                        onChange={(event) => setPasswordValue(event.target.value)}
-                        value={passwordValue}
-                        size="small"
-                        placeholder="Enter your password" />
+                    <Label>
+                        <OutlinedInput
+                            sx={{
+                                marginBottom: "20px",
+                                width: "100%",
+                                fontSize: "14px"
+                            }}
+                            onChange={(event) => setPasswordValue(event.target.value)}
+                            value={passwordValue}
+                            size="small"
+                            placeholder="Enter your password"
+                            type={isInputTypePassword ? "password" : "text"} />
+                        <BtnShowPasswordInner>
+                            <BtnShowPassword
+                                func={() => setIsInputTypePassword(prev => !prev)}
+                                isTypePassword={isInputTypePassword} />
+                        </BtnShowPasswordInner>
+                    </Label>
                 </div>
                 <BtnInner>
                     <ButtonComponent
