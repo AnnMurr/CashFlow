@@ -2,7 +2,7 @@ export interface UserDataType {
     email: string;
     name?: string;
     password: string;
-    repeatPassword?: string;
+    confirmPassword?: string;
 }
 
 export type SetUserDataType = (data: UserDataType) => Promise<string>;

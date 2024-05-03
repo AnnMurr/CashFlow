@@ -13,3 +13,15 @@ export const FormContainer = styled.div`
 export const Title = styled.div`
     padding-bottom: 30px;
 `
+
+export const BtnShowPasswordInner = styled.div`
+    width: fit-content;
+    position: absolute;
+    top: 10px;
+    right: 5%;
+`
+
+export const Label = styled.label`
+    position: relative;
+    display: block;
+`
