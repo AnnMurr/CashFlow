@@ -63,7 +63,7 @@ app.post("/check-data", async (req, res) => {
 });
 
 app.post("/check-data-email", async (req, res) => {
-  const { email } = req.body.userData;
+  const email  = req.body.userData;
   const collection = db.collection("users");
 
   try {

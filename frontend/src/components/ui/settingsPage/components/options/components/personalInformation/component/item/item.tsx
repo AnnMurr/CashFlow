@@ -20,7 +20,7 @@ export const Item: FC<ItemProps> = ({ value, category, link }) => {
                 </div>
                 <div>
                     <Value>
-                        {value && value}
+                        {value && category === "Password" ? value.replaceAll(/\S/gi, "*") : value}
                     </Value>
                 </div>
                 <div>

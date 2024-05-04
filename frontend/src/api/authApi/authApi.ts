@@ -36,11 +36,11 @@ export const checkUserData: CheckUserDataType = (data) => {
         })
 }
 
-export const checkUserDataByEmail: CheckUserDataByEmailType = (data) => {
+export const checkUserDataByEmail: CheckUserDataByEmailType = (email) => {
     return fetch("http://localhost:5050/check-data-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userData: data })
+        body: JSON.stringify({ userData: email })
     })
         .then(response => {
             if (!response.ok) {

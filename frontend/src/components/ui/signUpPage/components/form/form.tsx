@@ -25,7 +25,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
 
     const onSubmit: SubmitHandler<UserDataType> = async (data) => {
         try {
-            const isUser = await checkUserDataByEmail(data);
+            const isUser = await checkUserDataByEmail(data.email);
 
             if (isUser) {
                 setIsAlertActive({ type: "error", text: "User has already registered." });

@@ -1,47 +1,49 @@
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { OutlinedInput } from "@mui/material";
+import { EMAIL_PATTERN } from "../../../../../../consts/index";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
-import { getUserDataById, updateUserData } from "../../../../../../api/authApi/authApi";
+import { checkUserDataByEmail, getUserDataById, updateUserData } from "../../../../../../api/authApi/authApi";
 import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
 import { BtnInner, Title } from "./styledContent";
 
 export const Content: FC = () => {
     const [emailValue, setEmailValue] = useState<string>("");
     const [isAlertActive, setIsAlertActive] = useState<null | AlertComponentProps>(null);
-    const [userData, setUserData] = useState<UserDataType | null>(null); 
+    const [userData, setUserData] = useState<UserDataType | null>(null);
+    const [isError, setIsError] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const changeEmail = async () => {
         const token = getDataFromLocalStorage("token");
+        const userExists = await checkUserDataByEmail(emailValue);
+        const isValid = validateEmail(emailValue);
 
         try {
-            if (userData && emailValue) {
+            if (userData && emailValue && isValid) {
+                if (!userExists) {
                     const changedData = {
                         ...userData,
                         email: emailValue
                     }
-    
+
                     const response = await updateUserData(token, changedData);
-    
+
                     if (response) {
                         setIsAlertActive({
                             text: response,
                             type: "success"
                         });
                         setEmailValue(changedData.email);
-                        setTimeout(() => {
-                            navigate("/settings");
-                        }, 1000);
+                        setTimeout(() => navigate("/settings"), 1000);
                     }
+                } else {
+                    getAllert({ type: "error", text: "User has already registered." });
+                }
             } else {
-                setIsAlertActive({
-                    text: "User not found",
-                    type: "error"
-                });
-                setTimeout(() => setIsAlertActive(null), 3000);
+                getAllert({ type: "error", text: "Incorrectly entered e-mail." });
             }
         } catch (error) {
             console.error(error);
@@ -51,17 +53,36 @@ export const Content: FC = () => {
     const getUserData = async () => {
         try {
             const token = getDataFromLocalStorage("token");
-            const response = await getUserDataById(token);
-            setUserData(response);
+            const userData = await getUserDataById(token);
+            setUserData(userData);
 
-            if (response) {
-                !emailValue && setEmailValue(response.email);
-                console.log(response.email);
+            if (userData) {
+                !emailValue && setEmailValue(userData.email);
+                return userData;
+            } else {
+                console.error("User not found");
             }
-
         } catch (error) {
             console.error(error);
         }
+    }
+
+    const validateEmail = (email: string) => {
+        if (email.length > 0 && !!email.match(EMAIL_PATTERN)) {
+            setIsError(false);
+            return true;
+        } else {
+            setIsError(true);
+            return false;
+        }
+    }
+
+    const getAllert = (data: AlertComponentProps) => {
+        setIsAlertActive({
+            text: data.text,
+            type: data.type
+        });
+        setTimeout(() => setIsAlertActive(null), 3000);
     }
 
     useEffect(() => {
@@ -86,6 +107,7 @@ export const Content: FC = () => {
                         onChange={(event) => setEmailValue(event.target.value)}
                         value={emailValue}
                         size="small"
+                        error={!!isError}
                         placeholder="Enter your password" />
                 </div>
                 <BtnInner>
@@ -93,7 +115,7 @@ export const Content: FC = () => {
                         disabledValue={userData && userData.email === emailValue ? true : false}
                         backgroundColor="#5B8A72"
                         BackgroundColorHover="#0f4a34"
-                        text="Next"
+                        text="Save"
                         color="#fff"
                         type="button"
                         func={changeEmail} />

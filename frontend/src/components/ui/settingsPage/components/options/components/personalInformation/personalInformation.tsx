@@ -28,6 +28,7 @@ export const PersonalInformation = () => {
                 <>
                     <Item link={"/settings/change-name"} category={"Name"} value={userData.name} />
                     <Item link={"/settings/change-email"} category={"Email"} value={userData.email} />
+                    <Item link={"/settings/change-password"} category={"Password"} value={userData.password} />
                 </>
                 : null}
         </List>
