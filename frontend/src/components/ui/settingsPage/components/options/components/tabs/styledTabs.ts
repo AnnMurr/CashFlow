@@ -17,6 +17,6 @@ export const Item = styled.li<ItemProps>`
     & button {
         font-size: 23px;
         font-weight: 600;
-        color: ${({ active }) => active === "true" ? "#5B8A72" : "#000"};
+        color: ${({ active }) => active === "true" ? "#898989" : "#000"};
     }
 `
