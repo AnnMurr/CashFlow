@@ -1,15 +1,18 @@
 import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { OutlinedInput } from "@mui/material";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
+import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
 import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
 import { getUserDataById } from "../../../../../../api/authApi/authApi";
-import { BtnInner, Title } from "./styledContent";
-import { useNavigate } from "react-router-dom";
+import { BtnInner, BtnShowPasswordInner, Label, Title } from "./styledContent";
 
 export const Content: FC = () => {
     const [passwordValue, setPasswordValue] = useState<string>("");
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
+    const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
+    const [isError, setIsError] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const checkPassword = async () => {
@@ -20,15 +23,15 @@ export const Content: FC = () => {
             if (!userData) {
                 setAlertActive({ type: "error", text: "User not found" });
                 setTimeout(() => setAlertActive(null), 3000);
-                console.error("User not found");
+                setIsError(true);
             }
 
             if (userData && userData.password === passwordValue) {
                 navigate("/settings/change-password-modification");
             } else {
-                setAlertActive({ type: "error", text: "Invalid password" })
+                setAlertActive({ type: "error", text: "Invalid password" });
                 setTimeout(() => setAlertActive(null), 3000);
-                console.error("Invalid password");
+                setIsError(true);
             }
 
         } catch (error) {
@@ -44,7 +47,7 @@ export const Content: FC = () => {
                         Confirm your account.
                     </h5>
                 </Title>
-                <div>
+                <Label>
                     <OutlinedInput
                         sx={{
                             marginBottom: "20px",
@@ -54,8 +57,15 @@ export const Content: FC = () => {
                         onChange={(event) => setPasswordValue(event.target.value)}
                         value={passwordValue}
                         size="small"
-                        placeholder="Enter your password" />
-                </div>
+                        type={isInputTypePassword ? "password" : "text"}
+                        placeholder="Enter your password"
+                        error={isError} />
+                    <BtnShowPasswordInner>
+                        <BtnShowPassword
+                            func={() => setIsInputTypePassword(prev => !prev)}
+                            isTypePassword={isInputTypePassword} />
+                    </BtnShowPasswordInner>
+                </Label>
                 <BtnInner>
                     <ButtonComponent
                         backgroundColor="#5B8A72"

@@ -12,6 +12,7 @@ export const Content: FC = () => {
     const [passwordValue, setPasswordValue] = useState<string>("");
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
     const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
+    const [isError, setIsError] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const checkPassword = async () => {
@@ -30,7 +31,7 @@ export const Content: FC = () => {
             } else {
                 setAlertActive({ type: "error", text: "Invalid password" })
                 setTimeout(() => setAlertActive(null), 3000);
-                console.error("Invalid password");
+                setIsError(true);
             }
 
         } catch (error) {
@@ -58,6 +59,7 @@ export const Content: FC = () => {
                             value={passwordValue}
                             size="small"
                             placeholder="Enter your password"
+                            error={isError}
                             type={isInputTypePassword ? "password" : "text"} />
                         <BtnShowPasswordInner>
                             <BtnShowPassword

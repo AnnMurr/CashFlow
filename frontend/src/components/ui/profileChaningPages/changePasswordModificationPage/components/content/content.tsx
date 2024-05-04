@@ -1,71 +1,62 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { OutlinedInput } from "@mui/material";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../shared/button/button";
+import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
 import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
+import { PASSWORD_PATTERN } from "../../../../../../consts/index";
 import { getUserDataById, updateUserData } from "../../../../../../api/authApi/authApi";
-import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
-import { BtnInner, SubTitle, Title } from "./styledContent";
+import { BtnInner, BtnShowPasswordInner, Label, SubTitle, Title } from "./styledContent";
 
 export const Content: FC = () => {
     const [passwordValue, setPasswordValue] = useState<string>("");
     const [confirmPasswordValue, setConfirmPasswordValue] = useState<string>("");
     const [isAlertActive, setIsAlertActive] = useState<null | AlertComponentProps>(null);
-    const [userData, setUserData] = useState<UserDataType | null>(null); 
+    const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
+    const [isInputConfirmTypePassword, setIsInputConfirmTypePassword] = useState<boolean>(true);
+    const [isError, setIsError] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const changeEmail = async () => {
+    const changePassword = async () => {
         const token = getDataFromLocalStorage("token");
 
-        try {
-            if (userData && passwordValue) {
-                    const changedData = {
-                        ...userData,
-                        password: passwordValue
-                    }
-    
-                    const response = await updateUserData(token, changedData);
-    
-                    if (response) {
-                        setIsAlertActive({
-                            text: response,
-                            type: "success"
-                        });
-                        setPasswordValue(changedData.email);
-                        setTimeout(() => {
-                            navigate("/settings");
-                        }, 1000);
-                    }
+        if (passwordValue.length > 0
+            && confirmPasswordValue.length > 0
+            && !!passwordValue.match(PASSWORD_PATTERN)) {
+            if (passwordValue === confirmPasswordValue) {
+                const userData = await getUserDataById(token);
+
+                const changedData = {
+                    ...userData,
+                    password: passwordValue
+                };
+
+                const response = await updateUserData(token, changedData);
+
+                if (response) {
+                    getAllert({ type: "success", text: response });
+                    setIsError(false);
+                    setTimeout(() => navigate("/settings"), 1000);
+                }
             } else {
-                setIsAlertActive({
-                    text: "User not found",
-                    type: "error"
-                });
-                setTimeout(() => setIsAlertActive(null), 3000);
+                getAllert({ type: "error", text: "Passwords must match." });
+                setIsError(true);
             }
-        } catch (error) {
-            console.error(error);
+
+        } else {
+            getAllert({ type: "error", text: "Password must contain at least one digit, one special character '!@#$%^&*', one lowercase letter, one uppercase letter, and should not contain any spaces." });
+            setIsError(true);
         }
     }
 
-    const getUserData = async () => {
-        try {
-            const token = getDataFromLocalStorage("token");
-            const response = await getUserDataById(token);
-            setUserData(response);
-
-            if (response) {
-                !passwordValue && setPasswordValue(response.email);
-                console.log(response.email);
-            }
-
-        } catch (error) {
-            console.error(error);
-        }
+    const getAllert = (data: AlertComponentProps) => {
+        setIsAlertActive({
+            text: data.text,
+            type: data.type
+        });
+        setTimeout(() => setIsAlertActive(null), 3000);
     }
-
-
 
     return (
         <div>
@@ -77,10 +68,10 @@ export const Content: FC = () => {
                 </Title>
                 <SubTitle>
                     <span>
-                    Choose a strong password and do not use it for other accounts.
+                        Choose a strong password and do not use it for other accounts.
                     </span>
                 </SubTitle>
-                <div>
+                <Label>
                     <OutlinedInput
                         sx={{
                             marginBottom: "20px",
@@ -89,11 +80,17 @@ export const Content: FC = () => {
                         }}
                         onChange={(event) => setPasswordValue(event.target.value)}
                         value={passwordValue}
-                        type="password"
+                        type={isInputTypePassword ? "password" : "text"}
                         size="small"
-                        placeholder="Enter your password" />
-                </div>
-                <div>
+                        placeholder="Enter your password"
+                        error={isError} />
+                    <BtnShowPasswordInner>
+                        <BtnShowPassword
+                            func={() => setIsInputTypePassword(prev => !prev)}
+                            isTypePassword={isInputTypePassword} />
+                    </BtnShowPasswordInner>
+                </Label>
+                <Label>
                     <OutlinedInput
                         sx={{
                             marginBottom: "20px",
@@ -102,19 +99,24 @@ export const Content: FC = () => {
                         }}
                         onChange={(event) => setConfirmPasswordValue(event.target.value)}
                         value={confirmPasswordValue}
-                        type="password"
+                        type={isInputConfirmTypePassword ? "password" : "text"}
                         size="small"
-                        placeholder="Confirm password" />
-                </div>
+                        placeholder="Confirm password"
+                        error={isError} />
+                    <BtnShowPasswordInner>
+                        <BtnShowPassword
+                            func={() => setIsInputConfirmTypePassword(prev => !prev)}
+                            isTypePassword={isInputConfirmTypePassword} />
+                    </BtnShowPasswordInner>
+                </Label>
                 <BtnInner>
                     <ButtonComponent
-                        disabledValue={userData && userData.email === passwordValue ? true : false}
                         backgroundColor="#5B8A72"
                         BackgroundColorHover="#0f4a34"
                         text="Save"
                         color="#fff"
                         type="button"
-                        func={changeEmail} />
+                        func={changePassword} />
                 </BtnInner>
                 {isAlertActive ?
                     <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
