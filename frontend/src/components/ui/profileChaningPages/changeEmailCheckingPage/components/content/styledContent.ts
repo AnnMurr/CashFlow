@@ -13,3 +13,15 @@ export const BtnInner = styled.div`
     max-width: 30%;
     margin-left: auto;
 `
+
+export const BtnShowPasswordInner = styled.div`
+    width: fit-content;
+    position: absolute;
+    top: 10px;
+    right: 5%;
+`
+
+export const Label = styled.label`
+    position: relative;
+    display: block;
+`
