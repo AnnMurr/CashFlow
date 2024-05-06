@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { Block, Wrapper } from "./styledChangePasswordPage";
 import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
 import { Content } from "./components/content/content";
+import { Block, Wrapper } from "./styledChangePasswordPage";
 
 export const ChangePasswordPage: FC = () => {
     return (

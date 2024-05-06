@@ -6,3 +6,7 @@ export const getDataFromLocalStorage = (name: string) => {
     const dataFromLocalStorage: string | null = localStorage.getItem(name)
     if (dataFromLocalStorage) { return JSON.parse(dataFromLocalStorage) }
 }
+
+export const removeDataFromLocalStorage = (name: string) => {
+    localStorage.removeItem(name);
+}

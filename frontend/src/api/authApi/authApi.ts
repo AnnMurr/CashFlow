@@ -1,4 +1,4 @@
-import { CheckUserDataByEmailType, CheckUserDataType, GetUserDataType, SetUserDataType, UpdateUserDataType } from "./authApiTypes";
+import { CheckUserDataByEmailType, CheckUserDataType, DeleteUserDataType, GetUserDataType, SetUserDataType, UpdateUserDataType } from "./authApiTypes";
 
 export const setUserData: SetUserDataType = (data) => {
     return fetch("http://localhost:5050/putdata", {
@@ -86,6 +86,23 @@ export const updateUserData: UpdateUserDataType = (token, changedData) => {
             }
 
             return response.text();
+        })
+        .catch(error => {
+            throw new Error(error);
+        })
+}
+
+export const deleteUserData: DeleteUserDataType = (token) => {
+    return fetch("http://localhost:5050/delete-data", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: token })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to delete user's data from database");
+            }
+            return { status: response.status, message: response.text() };
         })
         .catch(error => {
             throw new Error(error);

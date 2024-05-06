@@ -124,7 +124,7 @@ app.delete("/delete-data", async (req, res) => {
     const response = await collection.deleteOne({ _id: new ObjectId(id) });
 
     if (response.deletedCount) {
-      res.status(404).send("Data deleted successfully");
+      res.status(200).send("Data deleted successfully");
     } else {
       res.status(500).send("Error deleting data");
     }

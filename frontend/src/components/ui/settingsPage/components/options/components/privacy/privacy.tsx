@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { List } from "./styledPrivacy";
 import { Item } from "./component/item/item";
 import { faClock, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { List } from "./styledPrivacy";
 
 export const Privacy: FC = () => {
     return (
