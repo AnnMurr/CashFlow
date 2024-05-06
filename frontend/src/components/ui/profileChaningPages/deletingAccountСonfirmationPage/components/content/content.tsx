@@ -33,7 +33,6 @@ export const Content: FC = () => {
                 setTimeout(() => setAlertActive(null), 3000);
                 setIsError(true);
             }
-
         } catch (error) {
             console.error(error);
         }

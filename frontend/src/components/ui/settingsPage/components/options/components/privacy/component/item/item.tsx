@@ -10,10 +10,10 @@ interface ItemProps {
     link: string;
 }
 
-export const Item: FC<ItemProps> = ({ link, icon, title, subTitle }) => {    
+export const Item: FC<ItemProps> = ({ link, icon, title, subTitle }) => {
     return (
         <Container>
-            <Wrapper  to={link}>
+            <Wrapper to={link}>
                 <div>
                     <FontAwesomeIcon icon={icon} color="#000" />
                 </div>

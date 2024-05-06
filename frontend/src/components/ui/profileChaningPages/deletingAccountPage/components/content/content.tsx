@@ -1,24 +1,46 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OutlinedInput } from "@mui/material";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
-import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
-import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
-import { getUserDataById } from "../../../../../../api/authApi/authApi";
-import { BtnInner, BtnShowPasswordInner, Label, TextInner, Title } from "./styledContent";
+import { getDataFromLocalStorage, removeDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
+import { deleteUserData } from "../../../../../../api/authApi/authApi";
+import { deleteUserStore } from "../../../../../../api/userDataApi/userDataApi";
+import { AuthorizedContext, AuthorizedContextType } from "../../../../../../contexts/authorizedContext/authorizedContext";
+import { BtnInner, TextInner, Title } from "./styledContent";
 
 export const Content: FC = () => {
-    const [passwordValue, setPasswordValue] = useState<string>("");
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
-    const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
-    const [isError, setIsError] = useState<boolean>(false);
+    const authorizedContext = useContext<AuthorizedContextType>(AuthorizedContext);
     const navigate = useNavigate();
 
     const deleteAccount = async () => {
+        const token = await getDataFromLocalStorage("token");
+
         try {
+            const responseFromStore = await deleteUserStore(token);
 
+            if (responseFromStore.status !== 200) {
+                setAlertActive({ type: "error", text: "Error deleting user's data storage" });
+                return
+            }
+            const responseFromDb = await deleteUserData(token);
 
+            if (responseFromDb.status !== 200) {
+                const responseMessage = responseFromDb.message
+                responseMessage.then(result => {
+                    setAlertActive({ type: "error", text: result });
+                })
+            } else {
+                const responseMessage = responseFromDb.message
+                responseMessage.then(result => {
+                    setAlertActive({ type: "success", text: result });
+                    setTimeout(() => {
+                        removeDataFromLocalStorage("token");
+                        authorizedContext.logOut();
+                        navigate("/");
+                    }, 1000);
+                })
+            }
         } catch (error) {
             console.error(error);
         }
