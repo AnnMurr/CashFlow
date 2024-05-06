@@ -21,6 +21,8 @@ import { ChangeEmailCheckingPage } from './components/ui/profileChaningPages/cha
 import { ChangeEmailModificationPage } from './components/ui/profileChaningPages/changeEmailModificationPage/changeEmailModificationPage';
 import { ChangePasswordPage } from './components/ui/profileChaningPages/changePasswordPage/changePasswordPage';
 import { ChangePasswordModificationPage } from './components/ui/profileChaningPages/changePasswordModificationPage/changePasswordModificationPage';
+import { DeletingAccountConfirmationPage } from './components/ui/profileChaningPages/deletingAccountСonfirmationPage/deletingAccountСonfirmationPage';
+import { DeletingAccountPage } from './components/ui/profileChaningPages/deletingAccountPage/deletingAccountPage';
 
 function App() {
   return (
@@ -58,6 +60,8 @@ function App() {
           <Route path="/settings/change-email-modification" element={<ChangeEmailModificationPage />} />
           <Route path="/settings/change-password" element={<ChangePasswordPage />} />
           <Route path="/settings/change-password-modification" element={<ChangePasswordModificationPage />} />
+          <Route path="/settings/deleting-account-confirmation" element={<DeletingAccountConfirmationPage />} />
+          <Route path="/settings/deleting-account" element={<DeletingAccountPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         </Body>
