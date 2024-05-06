@@ -63,7 +63,7 @@ app.post("/check-data", async (req, res) => {
 });
 
 app.post("/check-data-email", async (req, res) => {
-  const email  = req.body.userData;
+  const email = req.body.userData;
   const collection = db.collection("users");
 
   try {
@@ -95,7 +95,26 @@ app.patch("/change-data", async (req, res) => {
       res.status(404).send("error updating data");
     }
   } catch (error) {
-    console.log("kvkdfmk.fmf", error);
+    console.error(error);
+    res.status(500).send("error checking data");
+  }
+});
+
+app.delete("/delete-data", async (req, res) => {
+  const { id } = req.body;
+  const collection = db.collection("users");
+
+  try {
+    const response = await collection.deleteOne({ _id: new ObjectId(id) });
+
+    if (response.deletedCount) {
+      res.status(404).send("Data deleted successfully");
+    } else {
+      res.status(500).send("Error deleting data");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("error checking data");
   }
 });
 
