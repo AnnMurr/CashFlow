@@ -2,11 +2,31 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const { connectToDb, getDb } = require("../db/db");
+const { ObjectId } = require("mongodb");
 
 app.use(cors());
 app.use(express.json());
 
 let db;
+
+app.post("/get-data-id", async (req, res) => {
+  const id = req.body.id;
+
+  try {
+    const collection = db.collection("users");
+    const insertResult = await collection.findOne({ _id: new ObjectId(id) });
+    delete insertResult._id;
+
+    if (insertResult) {
+      res.status(200).send(insertResult);
+    } else {
+      res.status(404).send("data not found");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(404).send("error finding data");
+  }
+});
 
 app.post("/putdata", async (req, res) => {
   const userData = req.body.userData;
@@ -43,12 +63,12 @@ app.post("/check-data", async (req, res) => {
 });
 
 app.post("/check-data-email", async (req, res) => {
-  const { email } = req.body.userData;
+  const email  = req.body.userData;
   const collection = db.collection("users");
 
   try {
     const user = await collection.findOne({ email: email });
-    console.log(user)
+
     if (user) {
       res.status(200).send(user._id);
     } else {
@@ -57,6 +77,25 @@ app.post("/check-data-email", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("error checking data");
+  }
+});
+
+app.patch("/change-data", async (req, res) => {
+  const { id, newData } = req.body;
+  const collection = db.collection("users");
+
+  try {
+    const filter = { _id: new ObjectId(id) };
+    const updateDoc = { $set: newData };
+    const result = await collection.updateOne(filter, updateDoc);
+
+    if (!!result.matchedCount) {
+      res.status(200).send("data updated successfully");
+    } else {
+      res.status(404).send("error updating data");
+    }
+  } catch (error) {
+    console.log("kvkdfmk.fmf", error);
   }
 });
 
