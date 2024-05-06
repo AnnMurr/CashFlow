@@ -12,6 +12,8 @@ let db;
 app.post("/get-data-id", async (req, res) => {
   const id = req.body.id;
 
+  if (!id) res.status(400).send("ID parameter is missing or invalid");
+
   try {
     const collection = db.collection("users");
     const insertResult = await collection.findOne({ _id: new ObjectId(id) });
@@ -31,6 +33,9 @@ app.post("/get-data-id", async (req, res) => {
 app.post("/putdata", async (req, res) => {
   const userData = req.body.userData;
 
+  if (!userData)
+    res.status(400).send("userData parameter is missing or invalid");
+
   try {
     const collection = db.collection("users");
     const insertResult = await collection.insertOne(userData);
@@ -48,6 +53,10 @@ app.post("/check-data", async (req, res) => {
   const { email, password } = req.body.userData;
   const collection = db.collection("users");
 
+  if (!email) res.status(400).send("Email parameter is missing or invalid");
+  if (!password)
+    res.status(400).send("Password parameter is missing or invalid");
+
   try {
     const user = await collection.findOne({ email: email });
 
@@ -63,8 +72,10 @@ app.post("/check-data", async (req, res) => {
 });
 
 app.post("/check-data-email", async (req, res) => {
-  const email  = req.body.userData;
+  const email = req.body.userData;
   const collection = db.collection("users");
+
+  if (!email) res.status(400).send("Email parameter is missing or invalid");
 
   try {
     const user = await collection.findOne({ email: email });
@@ -84,6 +95,9 @@ app.patch("/change-data", async (req, res) => {
   const { id, newData } = req.body;
   const collection = db.collection("users");
 
+  if (!id) res.status(400).send("ID parameter is missing or invalid");
+  if (!newData) res.status(400).send("newData parameter is missing or invalid");
+
   try {
     const filter = { _id: new ObjectId(id) };
     const updateDoc = { $set: newData };
@@ -95,7 +109,28 @@ app.patch("/change-data", async (req, res) => {
       res.status(404).send("error updating data");
     }
   } catch (error) {
-    console.log("kvkdfmk.fmf", error);
+    console.error(error);
+    res.status(500).send("error checking data");
+  }
+});
+
+app.delete("/delete-data", async (req, res) => {
+  const { id } = req.body;
+  const collection = db.collection("users");
+
+  if (!id) res.status(400).send("ID parameter is missing or invalid");
+
+  try {
+    const response = await collection.deleteOne({ _id: new ObjectId(id) });
+
+    if (response.deletedCount) {
+      res.status(404).send("Data deleted successfully");
+    } else {
+      res.status(500).send("Error deleting data");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("error checking data");
   }
 });
 
