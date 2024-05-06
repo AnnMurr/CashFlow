@@ -2,6 +2,7 @@ import { FC, ReactElement } from "react";
 import { Tabs } from "./components/tabs/tabs";
 import { PersonalInformation } from "./components/personalInformation/personalInformation";
 import { Container, Wrapper } from "./styledOptions";
+import { Privacy } from "./components/privacy/privacy";
 
 export interface TabsType {
     label: string;
@@ -14,7 +15,9 @@ export const Options: FC = () => {
             label: 'Personal information',
             content: <PersonalInformation />
         },
-        { label: 'Tab 2', content: <div>Содержимое таба 2</div> },
+        { 
+            label: 'Data and Privacy', 
+            content: <Privacy /> },
         { label: 'Tab 3', content: <div>Содержимое таба 3</div> },
     ];
 

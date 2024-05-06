@@ -1,13 +1,13 @@
 import { FC } from "react";
-import { Block, Wrapper } from "./styledChangePasswordPage";
 import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
 import { Content } from "./components/content/content";
+import { Block, Wrapper } from "./styledDeletingAccountPage";
 
-export const ChangePasswordPage: FC = () => {
+export const DeletingAccountPage: FC = () => {
     return (
         <section>
             <Wrapper>
-                <SettingsChangingHeader category={"Password"} />
+                <SettingsChangingHeader category={"Deliting account"} />
                 <Block>
                     <Content />
                 </Block>
