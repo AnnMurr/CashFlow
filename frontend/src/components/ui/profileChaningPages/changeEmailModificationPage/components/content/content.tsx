@@ -40,10 +40,10 @@ export const Content: FC = () => {
                         setTimeout(() => navigate("/settings"), 1000);
                     }
                 } else {
-                    getAllert({ type: "error", text: "User has already registered." });
+                    getAlert({ type: "error", text: "User has already registered." });
                 }
             } else {
-                getAllert({ type: "error", text: "Incorrectly entered e-mail." });
+                getAlert({ type: "error", text: "Incorrectly entered e-mail." });
             }
         } catch (error) {
             console.error(error);
@@ -77,7 +77,7 @@ export const Content: FC = () => {
         }
     }
 
-    const getAllert = (data: AlertComponentProps) => {
+    const getAlert = (data: AlertComponentProps) => {
         setIsAlertActive({
             text: data.text,
             type: data.type

@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface ItemProps {
+    selected: boolean;
+}
+
 export const Container = styled.div`
     width: 50%;
     position: absolute;
@@ -12,12 +16,13 @@ export const Wrapper = styled.div`
     padding: 40px;
 `
 
-export const Item = styled.li`
+export const Item = styled.li<ItemProps>`
     padding: 5px;
     width: 50px;
     margin: 0 15px;
     border-radius: 15px;
     cursor: pointer;
+    border : ${({ selected }) => selected ? "1px solid #cacaca" : "none"};
 `
 
 export const InputInner = styled.div`

@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { OutlinedInput } from "@mui/material";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
@@ -6,7 +7,6 @@ import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPa
 import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
 import { getUserDataById } from "../../../../../../api/authApi/authApi";
 import { BtnInner, BtnShowPasswordInner, Label, Title } from "./styledContent";
-import { useNavigate } from "react-router-dom";
 
 export const Content: FC = () => {
     const [passwordValue, setPasswordValue] = useState<string>("");
@@ -23,7 +23,6 @@ export const Content: FC = () => {
             if (!userData) {
                 setAlertActive({ type: "error", text: "User not found" });
                 setTimeout(() => setAlertActive(null), 3000);
-                console.error("User not found");
             }
 
             if (userData && userData.password === passwordValue) {

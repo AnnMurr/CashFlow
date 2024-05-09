@@ -21,23 +21,30 @@ export const IPHONE_TRANSPARENT = require('../accets/images/iphone-transparent.p
 export const APPLE_STORE_ICON = require('../accets/images/appleStore.png');
 export const GOOGLE_PLAY_ICON = require('../accets/images/googlePlay.png');
 
-export const BUS_ICON_COLLECTION = require("../accets/icons/collection/bus-icon.svg");
-export const BUS2_ICON_COLLECTION = require("../accets/icons/collection/bus2-icon.svg");
-export const CAFE_ICON_COLLECTION = require("../accets/icons/collection/cafe-icon.svg");
-export const CAFE2_ICON_COLLECTION = require("../accets/icons/collection/cafe2-icon.svg");
-export const COMPUTER_ICON_COLLECTION = require("../accets/icons/collection/computer-icon.svg");
-export const CUP_ICON_COLLECTION = require("../accets/icons/collection/cup-icon.svg");
-export const GAS_STATION_ICON_COLLECTION = require("../accets/icons/collection/gas-station-icon.svg");
-export const GOODS_ICON_COLLECTION = require("../accets/icons/collection/goods-icon.svg");
-export const HOUSE_ICON_COLLECTION = require("../accets/icons/collection/house-icon.svg");
-export const GACKET_ICON_COLLECTION = require("../accets/icons/collection/jacket-icon.svg");
-export const MEDICINE_ICON_COLLECTION = require("../accets/icons/collection/medicine-icon.svg");
-export const PHONE_ICON_COLLECTION = require("../accets/icons/collection/phone-icon.svg");
-export const REFUELING_NOZZLE_ICON_COLLECTION = require("../accets/icons/collection/refueling-nozzle-icon.svg");
-export const TAXI_ICON_COLLECTION = require("../accets/icons/collection/taxi-icon.svg");
-export const TRANSPORT_ICON_COLLECTION = require("../accets/icons/collection/transport-icon.svg");
+export const BUS_ICON_COLLECTION = "https://i.imgur.com/86n6vZ9.png";
+export const BUS2_ICON_COLLECTION = "https://i.imgur.com/X2gIcAc.png";
+export const CAFE_ICON_COLLECTION = "https://imgur.com/940z5Ge.png";
+export const CAFE2_ICON_COLLECTION = "https://i.imgur.com/iBVduQs.png";
+export const COMPUTER_ICON_COLLECTION = "https://i.imgur.com/eLTKHol.png";
+export const CUP_ICON_COLLECTION = "https://i.imgur.com/X8xsvnk.png";
+export const GAS_STATION_ICON_COLLECTION = "https://i.imgur.com/C3pSgSE.png";
+export const GOODS_ICON_COLLECTION = "https://i.imgur.com/GdfabcQ.png";
+export const HOUSE_ICON_COLLECTION = "https://i.imgur.com/7cR6Ll0.png";
+export const GACKET_ICON_COLLECTION = "https://i.imgur.com/m8hvV5H.png";
+export const MEDICINE_ICON_COLLECTION = "https://i.imgur.com/tm9bpzF.png";
+export const PHONE_ICON_COLLECTION = "https://i.imgur.com/dAIuxxq.png";
+export const REFUELING_NOZZLE_ICON_COLLECTION = "https://i.imgur.com/T0xJjVq.png";
+export const TAXI_ICON_COLLECTION = "https://i.imgur.com/xGJ4F7k.png";
+export const TRANSPORT_ICON_COLLECTION = "https://i.imgur.com/C4jWJuY.png";
+export const BARBELL_ICON_COLLECTION = "https://i.imgur.com/mN10go1.png";
+export const BALLON_ICON_COLLECTION = "https://i.imgur.com/ZlIIZ0w.png";
+export const AIRPLANE_ICON_COLLECTION = "https://i.imgur.com/w2CElUg.png";
+export const CIGARETTES_ICON_COLLECTION = "https://i.imgur.com/Jaguiqx.png";
 
 export const ICONS_COLLECTION = [
+    GOODS_ICON_COLLECTION,
+    TRANSPORT_ICON_COLLECTION,
+    HOUSE_ICON_COLLECTION,
     BUS_ICON_COLLECTION,
     BUS2_ICON_COLLECTION,
     CAFE_ICON_COLLECTION,
@@ -45,12 +52,13 @@ export const ICONS_COLLECTION = [
     COMPUTER_ICON_COLLECTION,
     CUP_ICON_COLLECTION,
     GAS_STATION_ICON_COLLECTION,
-    GOODS_ICON_COLLECTION,
-    HOUSE_ICON_COLLECTION,
     GACKET_ICON_COLLECTION,
     MEDICINE_ICON_COLLECTION,
     PHONE_ICON_COLLECTION,
     REFUELING_NOZZLE_ICON_COLLECTION,
     TAXI_ICON_COLLECTION,
-    TRANSPORT_ICON_COLLECTION
+    BARBELL_ICON_COLLECTION,
+    BALLON_ICON_COLLECTION,
+    AIRPLANE_ICON_COLLECTION,
+    CIGARETTES_ICON_COLLECTION
 ];
