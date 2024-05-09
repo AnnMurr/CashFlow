@@ -16,7 +16,7 @@ interface CategorySelectionModalProps {
 export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
     togleModal, setIsAlertActive, getUserDataFromStorage
 }) => {
-    const [selectedIcon, setSelectedIcon] = useState<string>();
+    const [selectedIcon, setSelectedIcon] = useState<string>("");
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
     const [category, setCategory] = useState<string>("");
 
@@ -33,7 +33,7 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
         const checkExistCategory = categoriesExpenses.find((item: any) => item.name === category)
 
         if (checkExistCategory === undefined) {
-            if (category.length !== 0) {
+            if (category.length !== 0 && selectedIcon) {
                 categoriesExpenses.push({ name: category, icon: selectedIcon });
 
                 try {
@@ -50,7 +50,7 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                 }
 
             } else {
-                getAlert({ type: "error", text: "Enter category" })
+                getAlert({ type: "error", text: "Enter category and choose an icon" })
             }
         } else {
             getAlert({ type: "error", text: "This category has already existed" });
