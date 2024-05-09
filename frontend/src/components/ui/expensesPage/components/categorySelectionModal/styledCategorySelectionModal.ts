@@ -6,6 +6,8 @@ interface ItemProps {
 
 export const Container = styled.div`
     width: 50%;
+    left: 50%;
+    margin-left: -25%;
     position: absolute;
     top: 20%;
     background-color: #fff;
@@ -51,4 +53,10 @@ export const List = styled.ul`
 export const BtnInner = styled.div`
     padding-top: 40px;
     max-width: 40%;
+`
+
+export const CloseBtnInner = styled.div`
+    width: fit-content;
+    margin-left: auto;
+    margin-bottom: 10px;
 `

@@ -5,7 +5,8 @@ import { ButtonComponent } from ".././../../../shared/button/button";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { changeUserData, getDataFromUserStore } from "../../../../../api/userDataApi/userDataApi";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
-import { BtnInner, Container, Input, InputInner, Item, Label, List, Wrapper } from "./styledCategorySelectionModal";
+import { BtnClose } from "../../../../shared/btnClose/btnClose";
+import { BtnInner, CloseBtnInner, Container, Input, InputInner, Item, Label, List, Wrapper } from "./styledCategorySelectionModal";
 interface CategorySelectionModalProps {
     togleModal: (value: boolean) => void;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
@@ -61,9 +62,14 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
         setTimeout(() => setIsAlertActive(null), 3000);
     }
 
+    const closeModal = () => togleModal(false);
+
     return (
         <Container>
             <Wrapper>
+                <CloseBtnInner>
+                    <BtnClose func={closeModal} />
+                </CloseBtnInner>
                 <InputInner>
                     <Label>Category name</Label>
                     <Input

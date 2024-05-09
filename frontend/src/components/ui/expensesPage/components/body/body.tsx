@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { CategorySelectionModal } from "../categorySelectionModal/categorySelectionModal";
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
@@ -12,6 +12,7 @@ export const Body: FC = () => {
     const [isCategorySelectionModalActive, setIsCategorySelectionModalActive] = useState<boolean>(false);
     const [categories, setCategories] = useState<Array<CategoriesExpensesType> | null>(null);
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
+    const darkBackgroundRef = useRef<HTMLDivElement>(null);
 
     const toggleCategorySelectionModal = () => {
         setIsCategorySelectionModalActive(true);
@@ -28,9 +29,24 @@ export const Body: FC = () => {
         }
     }
 
+    const handleClickOutsideModal = (event: any) => {
+        if (darkBackgroundRef.current && darkBackgroundRef.current.contains(event.target)) {
+            setIsCategorySelectionModalActive(false);
+        }
+    }
+
     useEffect(() => {
         getUserDataFromStorage();
     }, []);
+
+    useEffect(() => {
+        isCategorySelectionModalActive &&
+            window.addEventListener("click", handleClickOutsideModal);
+
+        return () => {
+            window.removeEventListener("click", handleClickOutsideModal);
+        };
+    }, [isCategorySelectionModalActive]);
 
     return (
         <Container>
@@ -55,7 +71,7 @@ export const Body: FC = () => {
                         getUserDataFromStorage={getUserDataFromStorage}
                         setIsAlertActive={setIsAlertActive}
                         togleModal={setIsCategorySelectionModalActive} />
-                    <DarkBackground />
+                    <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
                 </>
                 : null}
             {isAlertActive ?
