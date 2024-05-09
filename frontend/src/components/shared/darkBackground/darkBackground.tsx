@@ -1,8 +1,13 @@
-import { FC } from "react";
+import { FC, RefObject } from "react";
 import { Container } from "./styledDarkBackground";
 
-export const DarkBackground: FC = () => {
+interface DarkBackgroundProps {
+    darkBackgroundRef?: RefObject<HTMLDivElement>;
+    type?: string;
+}
+
+export const DarkBackground: FC<DarkBackgroundProps> = ({ darkBackgroundRef, type }) => {
     return (
-        <Container></Container>
+        <Container type={type} ref={darkBackgroundRef}></Container>
     )
 }

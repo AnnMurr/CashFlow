@@ -5,11 +5,28 @@ export const Container = styled.div`
 `
 
 export const List = styled.ul`
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 20px;
 `
 
 export const Item = styled.li`
-    padding: 0 15px;
+    max-width: 120px;
+`
+
+export const IconInner = styled.div`
+    max-width: 60px;
+    margin: 0 auto;
+`
+
+export const CategoryName = styled.div`
+    text-align: center;
+
+    & span {
+        font-size: 14px;
+        font-weight: 600;
+        word-wrap: break-word;
+    }
 `
 
 const CrossStyled = `
@@ -52,3 +69,4 @@ export const AddCategoryBtn = styled.button`
         transform: rotate(90deg);
     }
 `
+

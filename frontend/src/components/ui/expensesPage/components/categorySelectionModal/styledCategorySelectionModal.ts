@@ -1,7 +1,13 @@
 import styled from "styled-components";
 
+interface ItemProps {
+    selected: boolean;
+}
+
 export const Container = styled.div`
     width: 50%;
+    left: 50%;
+    margin-left: -25%;
     position: absolute;
     top: 20%;
     background-color: #fff;
@@ -12,12 +18,13 @@ export const Wrapper = styled.div`
     padding: 40px;
 `
 
-export const Item = styled.li`
+export const Item = styled.li<ItemProps>`
     padding: 5px;
     width: 50px;
     margin: 0 15px;
     border-radius: 15px;
     cursor: pointer;
+    border : ${({ selected }) => selected ? "1px solid #cacaca" : "none"};
 `
 
 export const InputInner = styled.div`
@@ -46,4 +53,10 @@ export const List = styled.ul`
 export const BtnInner = styled.div`
     padding-top: 40px;
     max-width: 40%;
+`
+
+export const CloseBtnInner = styled.div`
+    width: fit-content;
+    margin-left: auto;
+    margin-bottom: 10px;
 `
