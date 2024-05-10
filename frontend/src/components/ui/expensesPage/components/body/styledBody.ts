@@ -12,6 +12,7 @@ export const List = styled.ul`
 
 export const Item = styled.li`
     max-width: 120px;
+    position: relative;
 `
 
 export const IconInner = styled.div`
