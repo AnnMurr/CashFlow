@@ -4,12 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface BtnCloseProps {
     func?: () => void;
+    color?: string;
 }
 
-export const BtnClose: FC<BtnCloseProps> = ({ func }) => {
+export const BtnClose: FC<BtnCloseProps> = ({ func, color }) => {
     return (
         <button onClick={func}>
-            <FontAwesomeIcon size="lg" icon={faXmark} />
+            <FontAwesomeIcon color={color} size="lg" icon={faXmark} />
         </button>
     )
 }
