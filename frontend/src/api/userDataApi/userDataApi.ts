@@ -25,7 +25,6 @@ export const createUserStore = (userToken: string) => {
 }
 
 export const getDataFromUserStore = (userToken: string) => {
-    console.log("getDataFromUserStore")
     return fetch("https://662be069de35f91de159c3b9.mockapi.io/usersStorage")
         .then(response => response.json())
         .then(data => {
@@ -59,8 +58,7 @@ export const deleteUserStore = async (userToken: string) => {
 
 export const changeUserData = async (userToken: string, apdatedData: any) => {
     const userData = await getDataFromUserStore(userToken);
-    console.log("changeUserData")
-
+    
     if (!userData) throw new Error("User data not found in store");
 
     return fetch(`https://662be069de35f91de159c3b9.mockapi.io/usersStorage/${userData.id}`, {
@@ -79,6 +77,7 @@ export const changeUserData = async (userToken: string, apdatedData: any) => {
             throw new Error(error);
         })
 }
+
 
 // [
 //     {

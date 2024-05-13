@@ -29,31 +29,30 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
         const token: string = getDataFromLocalStorage("token");
         const userDataFromStorage = await getDataFromUserStore(token);
         const categoriesExpenses = userDataFromStorage.data.categoriesExpenses;
+        const checkExistCategory = categoriesExpenses.find((item: any) => item.name === category);
 
-        const checkExistCategory = categoriesExpenses.find((item: any) => item.name === category)
-
-        if (checkExistCategory === undefined) {
-            if (category.length !== 0 && selectedIcon) {
-                categoriesExpenses.push({ name: category, icon: selectedIcon });
-
-                try {
-                    const userDataAfterUpdate = await changeUserData(token, userDataFromStorage);
-
-                    if (userDataAfterUpdate) {
-                        getAlert({ type: "success", text: "Category added successfully" })
-                        getUserDataFromStorage();
-                        togleModal(false);
-                    }
-                } catch (error) {
-                    getAlert({ type: "warning", text: "Please try again later." })
-                    console.error(error);
-                }
-
-            } else {
-                getAlert({ type: "error", text: "Enter category and choose an icon" })
-            }
-        } else {
+        if (checkExistCategory !== undefined) {
             getAlert({ type: "error", text: "This category has already existed" });
+            return;
+        }
+
+        if (category.length > 0 && !selectedIcon) {
+            getAlert({ type: "error", text: "Enter category and choose an icon" })
+            return;
+        }
+        categoriesExpenses.push({ name: category, icon: selectedIcon });
+
+        try {
+            const userDataAfterUpdate = await changeUserData(token, userDataFromStorage);
+            
+            if (userDataAfterUpdate) {
+                getAlert({ type: "success", text: "Category added successfully" })
+                getUserDataFromStorage();
+                togleModal(false);
+            }
+        } catch (error) {
+            getAlert({ type: "warning", text: "Please try again later." })
+            console.error(error);
         }
     }
 
