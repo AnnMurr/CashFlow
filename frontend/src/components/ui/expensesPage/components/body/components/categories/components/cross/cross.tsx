@@ -1,21 +1,15 @@
 import { FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+import { Button } from "./styledCross";
 
 export const Cross: FC = () => {
     return (
-        <button
-            className="item-btn"
-            style={{
-                position: 'absolute',
-                top: '5px',
-                right: '5px',
-                cursor: 'pointer',
-            }} >
+        <Button className="item-btn">
             <FontAwesomeIcon
                 style={{ pointerEvents: "none" }}
                 color="#000"
                 icon={faCircleXmark} />
-        </button>
+        </Button>
     )
 }
