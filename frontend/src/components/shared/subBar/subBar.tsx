@@ -27,7 +27,7 @@ export const SubBar: FC = () => {
                         altText="wallet"
                         isAtiveBar={isAtiveBar}
                         text="Income"
-                        linkTo="/" />
+                        linkTo="/income" />
                     <Item
                         image={EXPENSES_ICON.default}
                         altText="budgeting"

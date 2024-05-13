@@ -10,13 +10,13 @@ import { Container, Wrapper, ButtonsInner, Input, BtnInner, CloseBtnInner, SaveB
 
 interface EnteringModalProps {
     closeModal: (value: boolean) => void;
-    addExpenses: () => void;
+    addTransaction: () => void;
     inputValue: string;
     setInputValue: (value: string | ((prev: string) => string)) => void;
 }
 
 export const EnteringModal: FC<EnteringModalProps> = ({
-    closeModal, addExpenses, inputValue, setInputValue }) => {
+    closeModal, addTransaction, inputValue, setInputValue }) => {
     const sliceNumber = (value: string) => value.slice(0, 12);
 
     const enterValue = (event: any) => {
@@ -70,7 +70,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                         text="Save"
                         color="#fff"
                         type="button"
-                        func={addExpenses} />
+                        func={addTransaction} />
                 </SaveBtnInner>
             </Wrapper>
         </Container>

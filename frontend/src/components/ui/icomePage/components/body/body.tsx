@@ -1,8 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { ICONS_EXPENSES_COLLECTION } from "../../../../../consts/images";
+
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { EnteringModal } from "../../../../shared/enteringModal/enteringModal";
-import { CategorySelectionModal } from "../../../../shared/categorySelectionModal/categorySelectionModal";
 import { AlertComponent, AlertComponentProps } from "../../../../shared/alert/alert";
 import { Loading } from "../../../../shared/loading/loading";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
@@ -11,6 +10,8 @@ import { CategoriesExpensesType } from "../../../../../api/userDataApi/styledUse
 import { getCurrentDate } from "../../../../../utils/getCurrentDate";
 import { Categories } from "./components/categories/categories";
 import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledBody";
+import { CategorySelectionModal } from "../../../../shared/categorySelectionModal/categorySelectionModal";
+import { ICONS_INCOME_COLLECTION } from "../../../../../consts/images";
 
 export const Body: FC = () => {
     const [isCategorySelectionModalActive, setIsCategorySelectionModalActive] = useState<boolean>(false);
@@ -33,7 +34,7 @@ export const Body: FC = () => {
 
         try {
             const userDataFromStorage = await getDataFromUserStore(token);
-            setCategoriesList(userDataFromStorage.data.categoriesExpenses);
+            setCategoriesList(userDataFromStorage.data.categoriesIncome);
         } catch (error) {
             console.log(error);
         }
@@ -41,7 +42,7 @@ export const Body: FC = () => {
 
     const addExpenses = async () => {
         const token = getDataFromLocalStorage("token");
-
+        
         try {
             const dataFromUserStore = await getDataFromUserStore(token);
             const expenses = dataFromUserStore.data.expenses;
@@ -87,26 +88,27 @@ export const Body: FC = () => {
         <Container>
             {categoriesList ?
                 <>
-                    <Categories
-                        categoriesList={categoriesList}
-                        setChoosedCategory={setChoosedCategory}
-                        getUserDataFromStorage={getUserDataFromStorage}
-                        setIsEnteringModalActive={setIsEnteringModalActive}
-                        getAlert={getAlert} />
+                   <Categories 
+                   categoriesList={categoriesList}
+                   setChoosedCategory={setChoosedCategory}
+                   getUserDataFromStorage={getUserDataFromStorage}
+                   setIsEnteringModalActive={setIsEnteringModalActive}
+                   getAlert={getAlert} />
                     <AddCategoryBtnInner>
                         <AddCategoryBtn onClick={toggleCategorySelectionModal} type="button"></AddCategoryBtn>
                     </AddCategoryBtnInner>
                 </> :
-                <Loading />}
+                <Loading />
+            }
+
             {isCategorySelectionModalActive ?
                 <>
                     <CategorySelectionModal
+                        iconsCollection={ICONS_INCOME_COLLECTION}
                         getUserDataFromStorage={getUserDataFromStorage}
                         setIsAlertActive={setIsAlertActive}
                         togleModal={setIsCategorySelectionModalActive}
-                        iconsCollection={ICONS_EXPENSES_COLLECTION}
-                        dataKey={"ddm"}
-                        />
+                        dataKey={"categoriesIncome"} />
                     <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
                 </>
                 : null}
