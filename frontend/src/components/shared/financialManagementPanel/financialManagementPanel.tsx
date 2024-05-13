@@ -1,5 +1,4 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { ICONS_EXPENSES_COLLECTION } from "../../../consts/images";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { EnteringModal } from "../../shared/enteringModal/enteringModal";
 import { CategorySelectionModal } from "../../shared/categorySelectionModal/categorySelectionModal";
