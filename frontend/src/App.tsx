@@ -23,6 +23,7 @@ import { ChangePasswordPage } from './components/ui/profileChaningPages/changePa
 import { ChangePasswordModificationPage } from './components/ui/profileChaningPages/changePasswordModificationPage/changePasswordModificationPage';
 import { DeletingAccountConfirmationPage } from './components/ui/profileChaningPages/deletingAccountСonfirmationPage/deletingAccountСonfirmationPage';
 import { DeletingAccountPage } from './components/ui/profileChaningPages/deletingAccountPage/deletingAccountPage';
+import { IcomePage } from './components/ui/icomePage/icomePage';
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
             </CheckNotAuthorization>
           } />
           <Route path="/expenses" element={<ExpensesPage />} />
+          <Route path="/income" element={<IcomePage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/settings/change-name" element={<ChangeNamePage />} />
           <Route path="/settings/change-email" element={<ChangeEmailPage />} />
