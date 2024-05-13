@@ -6,6 +6,7 @@ import { CategorySelectionModal } from "../categorySelectionModal/categorySelect
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { EnteringModal } from "../../../../shared/enteringModal/enteringModal";
 import { AlertComponent, AlertComponentProps } from "../../../../shared/alert/alert";
+import { Loading } from "../../../../shared/loading/loading";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { changeUserData, getDataFromUserStore } from "../../../../../api/userDataApi/userDataApi";
 import { CategoriesExpensesType } from "../../../../../api/userDataApi/styledUserDataApi";
@@ -146,41 +147,47 @@ export const Body: FC = () => {
 
     return (
         <Container>
-            <List>
-                {categories && categories.map((category: any, index: number) => (
-                    <Item key={uuidV4()}>
-                        <button
-                            onMouseDown={(event) => handleMouseDown(event, index)}
-                            onMouseUp={handleMouseUp}
-                            onClick={openEnteringExpensesModal}>
-                            <IconInner>
-                                <img src={category.icon} alt={category.name} />
-                            </IconInner>
-                            <CategoryName>
-                                <span>{category.name}</span>
-                            </CategoryName>
-                            {showDeleteIcons[index] && (
+            {categories ?
+                <>
+                    <List>
+                        {categories && categories.map((category: any, index: number) => (
+                            <Item key={uuidV4()}>
                                 <button
-                                    className="item-btn"
-                                    style={{
-                                        position: 'absolute',
-                                        top: '5px',
-                                        right: '5px',
-                                        cursor: 'pointer',
-                                    }} >
-                                    <FontAwesomeIcon
-                                        style={{ pointerEvents: "none" }}
-                                        color="#000"
-                                        icon={faCircleXmark} />
+                                    onMouseDown={(event) => handleMouseDown(event, index)}
+                                    onMouseUp={handleMouseUp}
+                                    onClick={openEnteringExpensesModal}>
+                                    <IconInner>
+                                        <img src={category.icon} alt={category.name} />
+                                    </IconInner>
+                                    <CategoryName>
+                                        <span>{category.name}</span>
+                                    </CategoryName>
+                                    {showDeleteIcons[index] && (
+                                        <button
+                                            className="item-btn"
+                                            style={{
+                                                position: 'absolute',
+                                                top: '5px',
+                                                right: '5px',
+                                                cursor: 'pointer',
+                                            }} >
+                                            <FontAwesomeIcon
+                                                style={{ pointerEvents: "none" }}
+                                                color="#000"
+                                                icon={faCircleXmark} />
+                                        </button>
+                                    )}
                                 </button>
-                            )}
-                        </button>
-                    </Item>
-                ))}
-            </List>
-            <AddCategoryBtnInner>
-                <AddCategoryBtn onClick={toggleCategorySelectionModal} type="button"></AddCategoryBtn>
-            </AddCategoryBtnInner>
+                            </Item>
+                        ))}
+                    </List>
+                    <AddCategoryBtnInner>
+                        <AddCategoryBtn onClick={toggleCategorySelectionModal} type="button"></AddCategoryBtn>
+                    </AddCategoryBtnInner>
+                </> :
+                <Loading />
+            }
+
             {isCategorySelectionModalActive ?
                 <>
                     <CategorySelectionModal

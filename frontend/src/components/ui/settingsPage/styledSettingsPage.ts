@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    padding-left: 90px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 190px;
 `
