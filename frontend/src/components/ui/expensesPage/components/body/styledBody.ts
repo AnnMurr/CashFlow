@@ -4,33 +4,6 @@ export const Container = styled.div`
     padding: 90px 0;
 `
 
-export const List = styled.ul`
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    row-gap: 20px;
-    min-height: 180px;
-`
-
-export const Item = styled.li`
-    max-width: 90px;
-    position: relative;
-`
-
-export const IconInner = styled.div`
-    max-width: 60px;
-    margin: 0 auto;
-`
-
-export const CategoryName = styled.div`
-    text-align: center;
-
-    & span {
-        font-size: 14px;
-        font-weight: 600;
-        word-wrap: break-word;
-    }
-`
-
 const CrossStyled = `
     content: "";
     background-color: #fff;
@@ -71,4 +44,3 @@ export const AddCategoryBtn = styled.button`
         transform: rotate(90deg);
     }
 `
-
