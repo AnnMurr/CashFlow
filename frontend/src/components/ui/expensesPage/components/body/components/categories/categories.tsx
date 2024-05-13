@@ -8,7 +8,6 @@ import { Cross } from "./components/cross/cross";
 import { CategoryName } from "./components/categoryName/categoryName";
 import { Icon } from "./components/icon/icon";
 import { Item, List } from "./styledCategories";
-
 interface CategoriesProps {
     categoriesList: Array<CategoriesExpensesType> | null;
     setChoosedCategory: (value: string) => void;
@@ -26,7 +25,7 @@ export const Categories: FC<CategoriesProps> = ({
     const [showDeleteIcons, setShowDeleteIcons] = useState<Array<boolean>>([]);
     let holdTimer: NodeJS.Timeout;
 
-    const handleMouseDown = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number) => {
+    const handleMouseDown = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number) => {
         if ((event.target as HTMLElement).classList.contains("item-btn")) return;
         event.currentTarget.classList.add("shake-horizontal");
 
@@ -42,38 +41,40 @@ export const Categories: FC<CategoriesProps> = ({
 
     const handleMouseUp = () => clearTimeout(holdTimer);
 
-    const deleteCategory = async (event: MouseEvent) => {
-        const target = event.target as HTMLElement;
-
-        if (target.classList.contains("item-btn")) {
-            const token = getDataFromLocalStorage("token");
-            const userDataFromStorage = await getDataFromUserStore(token);
-            const categoryName = target.previousElementSibling?.children[0].textContent;
-            const categoriesExpenses: Array<CategoriesExpensesType> = userDataFromStorage.data.categoriesExpenses;
-            const updatedUserData = categoriesExpenses.filter((item) => item.name !== categoryName);
-
-            try {
-                userDataFromStorage.data.categoriesExpenses = [...updatedUserData];
-                await changeUserData(token, userDataFromStorage);
-                getAlert({ type: "success", text: "Category deleted successfully" });
-                getUserDataFromStorage();
-                setShowDeleteIcons([]);
-            } catch (error) {
-                getAlert({ type: "warning", text: "Please try again later." });
-                console.error(error);
-            }
-        } else {
-            setShowDeleteIcons([]);
+    const openEnteringExpensesModal = (event: React.MouseEvent<HTMLLIElement>) => {
+        if(!(event.target as HTMLElement).classList.contains("item-btn")) {
+            const category = (event.currentTarget as HTMLLIElement).children[1].children[0].textContent;
+            category && setChoosedCategory(category);
+            setIsEnteringModalActive(true);
         }
     }
 
-    const openEnteringExpensesModal = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const category = event.currentTarget.children[1].children[0].textContent;
-        category && setChoosedCategory(category);
-        setIsEnteringModalActive(true);
-    }
-
     useEffect(() => {
+        const deleteCategory = async (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+    
+            if (target.classList.contains("item-btn")) {
+                const token = getDataFromLocalStorage("token");
+                const userDataFromStorage = await getDataFromUserStore(token);
+                const categoryName = target.previousElementSibling?.children[0].textContent;
+                const categoriesExpenses: Array<CategoriesExpensesType> = userDataFromStorage.data.categoriesExpenses;
+                const updatedUserData = categoriesExpenses.filter((item) => item.name !== categoryName);
+    
+                try {
+                    userDataFromStorage.data.categoriesExpenses = [...updatedUserData];
+                    await changeUserData(token, userDataFromStorage);
+                    getAlert({ type: "success", text: "Category deleted successfully" });
+                    getUserDataFromStorage();
+                    setShowDeleteIcons([]);
+                } catch (error) {
+                    getAlert({ type: "warning", text: "Please try again later." });
+                    console.error(error);
+                }
+            } else {
+                setShowDeleteIcons([]);
+            }
+        }
+
         showDeleteIcons.length > 0 &&
             window.addEventListener("click", deleteCategory);
 
@@ -85,15 +86,14 @@ export const Categories: FC<CategoriesProps> = ({
     return (
         <List>
             {categoriesList && categoriesList.map((category: any, index: number) => (
-                <Item key={uuidV4()}>
-                    <button
-                        onMouseDown={(event) => handleMouseDown(event, index)}
-                        onMouseUp={handleMouseUp}
-                        onClick={openEnteringExpensesModal}>
-                        <Icon name={category.name} icon={category.icon} />
-                        <CategoryName name={category.name} />
-                        {showDeleteIcons[index] && (<Cross />)}
-                    </button>
+                <Item
+                    key={uuidV4()}
+                    onMouseDown={(event) => handleMouseDown(event, index)}
+                    onMouseUp={handleMouseUp}
+                    onClick={openEnteringExpensesModal}>
+                    <Icon name={category.name} icon={category.icon} />
+                    <CategoryName name={category.name} />
+                    {showDeleteIcons[index] && (<Cross />)}
                 </Item>
             ))}
         </List>
