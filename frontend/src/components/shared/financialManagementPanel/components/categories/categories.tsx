@@ -1,19 +1,21 @@
 import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { getDataFromLocalStorage } from "../../../../.././../../storage/localStorage/localStorage";
-import { changeUserData, getDataFromUserStore } from "../../../../.././../../api/userDataApi/userDataApi";
-import { CategoriesExpensesType } from "../../../../../../../api/userDataApi/styledUserDataApi";
-import { AlertComponentProps } from "../../../../../../shared/alert/alert";
+import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
+import { changeUserData, getDataFromUserStore } from "../../../../../api/userDataApi/userDataApi";
+import { CategoriesExpensesType } from "../../../../../api/userDataApi/styledUserDataApi";
+import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { Cross } from "./components/cross/cross";
 import { CategoryName } from "./components/categoryName/categoryName";
 import { Icon } from "./components/icon/icon";
 import { Item, List } from "./styledCategories";
+
 interface CategoriesProps {
     categoriesList: Array<CategoriesExpensesType> | null;
     setChoosedCategory: (value: string) => void;
     getUserDataFromStorage: () => void;
     setIsEnteringModalActive: (value: boolean) => void;
     getAlert: (value: AlertComponentProps) => void;
+    dataKey: string;
 }
 
 export const Categories: FC<CategoriesProps> = ({
@@ -21,6 +23,7 @@ export const Categories: FC<CategoriesProps> = ({
     setChoosedCategory,
     getUserDataFromStorage,
     setIsEnteringModalActive,
+    dataKey,
     getAlert }) => {
     const [showDeleteIcons, setShowDeleteIcons] = useState<Array<boolean>>([]);
     let holdTimer: NodeJS.Timeout;
@@ -57,11 +60,11 @@ export const Categories: FC<CategoriesProps> = ({
                 const token = getDataFromLocalStorage("token");
                 const userDataFromStorage = await getDataFromUserStore(token);
                 const categoryName = target.previousElementSibling?.children[0].textContent;
-                const categoriesExpenses: Array<CategoriesExpensesType> = userDataFromStorage.data.categoriesExpenses;
+                const categoriesExpenses: Array<any> = userDataFromStorage.data[dataKey];
                 const updatedUserData = categoriesExpenses.filter((item) => item.name !== categoryName);
     
                 try {
-                    userDataFromStorage.data.categoriesExpenses = [...updatedUserData];
+                    userDataFromStorage.data[dataKey] = [...updatedUserData];
                     await changeUserData(token, userDataFromStorage);
                     getAlert({ type: "success", text: "Category deleted successfully" });
                     getUserDataFromStorage();

@@ -1,4 +1,4 @@
-import { ICONS_COLLECTION } from "../../consts/images";
+import { ICONS_EXPENSES_COLLECTION } from "../../consts/images";
 
 export const createUserStore = (userToken: string) => {
     return fetch("https://662be069de35f91de159c3b9.mockapi.io/usersStorage", {
@@ -8,11 +8,11 @@ export const createUserStore = (userToken: string) => {
             uid: userToken,
             data: {
                 categoriesExpenses: [
-                    { name: "food", icon: ICONS_COLLECTION[0] },
-                    { name: "transport", icon: ICONS_COLLECTION[1] },
-                    { name: "house", icon: ICONS_COLLECTION[2] },
+                    { name: "food", icon: ICONS_EXPENSES_COLLECTION[0] },
+                    { name: "transport", icon: ICONS_EXPENSES_COLLECTION[1] },
+                    { name: "house", icon: ICONS_EXPENSES_COLLECTION[2] },
                 ],
-                categoriesIncome: [{ name: "work", icon: ICONS_COLLECTION[5] }],
+                categoriesIncome: [{ name: "work", icon: ICONS_EXPENSES_COLLECTION[5] }],
                 expenses: [],
                 income: [],
             }

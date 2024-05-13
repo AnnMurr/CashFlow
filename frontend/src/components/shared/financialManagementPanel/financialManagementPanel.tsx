@@ -1,19 +1,24 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { CategorySelectionModal } from "../categorySelectionModal/categorySelectionModal";
-import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
-import { EnteringModal } from "../../../../shared/enteringModal/enteringModal";
-import { AlertComponent, AlertComponentProps } from "../../../../shared/alert/alert";
-import { Loading } from "../../../../shared/loading/loading";
-import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
-import { changeUserData, getDataFromUserStore } from "../../../../../api/userDataApi/userDataApi";
-import { CategoriesExpensesType } from "../../../../../api/userDataApi/styledUserDataApi";
-import { getCurrentDate } from "../../../../../utils/getCurrentDate";
+import { DarkBackground } from "../../shared/darkBackground/darkBackground";
+import { EnteringModal } from "../../shared/enteringModal/enteringModal";
+import { CategorySelectionModal } from "../../shared/categorySelectionModal/categorySelectionModal";
+import { AlertComponent, AlertComponentProps } from "../alert/alert";
+import { Loading } from "../../shared/loading/loading";
+import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
+import { changeUserData, getDataFromUserStore } from "../../../api/userDataApi/userDataApi";
+import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { Categories } from "./components/categories/categories";
-import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledBody";
+import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledFinancialManagementPanel";
 
-export const Body: FC = () => {
+interface FinancialManagementPanelProps {
+    type: string;
+    dataKey: string
+    iconsCollection: Array<string>;
+}
+
+export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ type, dataKey, iconsCollection }) => {
     const [isCategorySelectionModalActive, setIsCategorySelectionModalActive] = useState<boolean>(false);
-    const [categoriesList, setCategoriesList] = useState<Array<CategoriesExpensesType> | null>(null);
+    const [categoriesList, setCategoriesList] = useState<Array<any> | null>(null);
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
     const [isEnteringModalActive, setIsEnteringModalActive] = useState<boolean>(false);
     const [choosedCategory, setChoosedCategory] = useState<string>("");
@@ -32,20 +37,20 @@ export const Body: FC = () => {
 
         try {
             const userDataFromStorage = await getDataFromUserStore(token);
-            setCategoriesList(userDataFromStorage.data.categoriesExpenses);
+            setCategoriesList(userDataFromStorage.data[dataKey]);
         } catch (error) {
             console.log(error);
         }
     }
 
-    const addExpenses = async () => {
+    const addTransaction = async () => {
         const token = getDataFromLocalStorage("token");
-        
+
         try {
             const dataFromUserStore = await getDataFromUserStore(token);
-            const expenses = dataFromUserStore.data.expenses;
+            const transactions =  dataFromUserStore.data[type];
 
-            expenses.push({
+            transactions.push({
                 category: choosedCategory,
                 date: getCurrentDate(),
                 sum: costValue,
@@ -54,7 +59,7 @@ export const Body: FC = () => {
             const userDataAfterUpdate = await changeUserData(token, dataFromUserStore);
 
             if (userDataAfterUpdate) {
-                getAlert({ type: "success", text: "Adding expenses sucsesfuly" });
+                getAlert({ type: "success", text: "Transaction added successfully" });
                 setIsEnteringModalActive(false);
             }
         } catch (error) {
@@ -86,25 +91,26 @@ export const Body: FC = () => {
         <Container>
             {categoriesList ?
                 <>
-                   <Categories 
-                   categoriesList={categoriesList}
-                   setChoosedCategory={setChoosedCategory}
-                   getUserDataFromStorage={getUserDataFromStorage}
-                   setIsEnteringModalActive={setIsEnteringModalActive}
-                   getAlert={getAlert} />
+                    <Categories
+                        categoriesList={categoriesList}
+                        setChoosedCategory={setChoosedCategory}
+                        getUserDataFromStorage={getUserDataFromStorage}
+                        setIsEnteringModalActive={setIsEnteringModalActive}
+                        getAlert={getAlert}
+                        dataKey={dataKey} />
                     <AddCategoryBtnInner>
                         <AddCategoryBtn onClick={toggleCategorySelectionModal} type="button"></AddCategoryBtn>
                     </AddCategoryBtnInner>
                 </> :
-                <Loading />
-            }
-
+                <Loading />}
             {isCategorySelectionModalActive ?
                 <>
                     <CategorySelectionModal
                         getUserDataFromStorage={getUserDataFromStorage}
                         setIsAlertActive={setIsAlertActive}
-                        togleModal={setIsCategorySelectionModalActive} />
+                        togleModal={setIsCategorySelectionModalActive}
+                        iconsCollection={iconsCollection}
+                        dataKey={dataKey} />
                     <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
                 </>
                 : null}
@@ -116,7 +122,7 @@ export const Body: FC = () => {
                     <EnteringModal
                         inputValue={costValue}
                         setInputValue={setCostValue}
-                        addExpenses={addExpenses}
+                        addTransaction={addTransaction}
                         closeModal={setIsEnteringModalActive} />
                     <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
                 </>

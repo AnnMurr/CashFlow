@@ -41,7 +41,23 @@ export const BALLON_ICON_COLLECTION = "https://i.imgur.com/ZlIIZ0w.png";
 export const AIRPLANE_ICON_COLLECTION = "https://i.imgur.com/w2CElUg.png";
 export const CIGARETTES_ICON_COLLECTION = "https://i.imgur.com/Jaguiqx.png";
 
-export const ICONS_COLLECTION = [
+export const PAINT_CAN_ICON_COLLECTION = "https://i.imgur.com/HyugYIn.png";
+export const BANK_ICON_COLLECTION = "https://i.imgur.com/puMkqBV.png";
+export const MEDICINE_BAG_ICON_COLLECTION = "https://i.imgur.com/S7uRhmb.png";
+export const ELLOW_HELMET_ICON_COLLECTION = "https://i.imgur.com/FxXPZti.png";
+export const BLUE_HELMET_ICON_COLLECTION = "https://i.imgur.com/Sdx74Q5.png";
+export const GRAY_BANK_ICON_COLLECTION = "https://i.imgur.com/NQtcQry.png";
+export const BRICKS_ICON_COLLECTION = "https://i.imgur.com/moUC35S.png";
+export const HOUSE_WORK_ICON_COLLECTION = "https://i.imgur.com/3s2ce8q.png";
+export const HOUSE_WORK_SECOND_ICON_COLLECTION = "https://i.imgur.com/466sU4F.png";
+export const PERSON_WORK_SECOND_ICON_COLLECTION = "https://i.imgur.com/ursnYNu.png";
+export const PERSON_WORKS_IN_HOUSE_ICON_COLLECTION = "https://i.imgur.com/eA0y5iu.png";
+export const REST_ICON_COLLECTION = "https://i.imgur.com/0mnfM5V.png";
+export const WALLET_ICON_COLLECTION = "https://i.imgur.com/62nmVHv.png";
+export const PERSON_WITH_CAT_ICON_COLLECTION = "https://i.imgur.com/DP7hTGm.png";
+export const SIGN_ICON_COLLECTION = "https://i.imgur.com/vhpV7y8.png";
+
+export const ICONS_EXPENSES_COLLECTION = [
     GOODS_ICON_COLLECTION,
     TRANSPORT_ICON_COLLECTION,
     HOUSE_ICON_COLLECTION,
@@ -61,4 +77,22 @@ export const ICONS_COLLECTION = [
     BALLON_ICON_COLLECTION,
     AIRPLANE_ICON_COLLECTION,
     CIGARETTES_ICON_COLLECTION
+];
+
+export const ICONS_INCOME_COLLECTION = [
+    PAINT_CAN_ICON_COLLECTION,
+    BANK_ICON_COLLECTION,
+    MEDICINE_BAG_ICON_COLLECTION,
+    ELLOW_HELMET_ICON_COLLECTION,
+    BLUE_HELMET_ICON_COLLECTION,
+    GRAY_BANK_ICON_COLLECTION,
+    BRICKS_ICON_COLLECTION,
+    HOUSE_WORK_ICON_COLLECTION,
+    HOUSE_WORK_SECOND_ICON_COLLECTION,
+    PERSON_WORK_SECOND_ICON_COLLECTION,
+    PERSON_WORKS_IN_HOUSE_ICON_COLLECTION,
+    REST_ICON_COLLECTION,
+    WALLET_ICON_COLLECTION,
+    PERSON_WITH_CAT_ICON_COLLECTION,
+    SIGN_ICON_COLLECTION,
 ];
