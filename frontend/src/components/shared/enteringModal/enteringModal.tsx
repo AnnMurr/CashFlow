@@ -6,7 +6,6 @@ import { BUTTONS_VALUE } from "../../../consts/index";
 import { BtnClose } from "../btnClose/btnClose";
 import { ButtonComponent } from "../button/button";
 import { Container, Wrapper, ButtonsInner, Input, BtnInner, CloseBtnInner, SaveBtnInner, InputInner, DeleteBtnInner } from "./styledEnteringModal";
-
 interface EnteringModalProps {
     closeModal: (value: boolean) => void;
     addTransaction: () => void;
@@ -16,7 +15,7 @@ interface EnteringModalProps {
 
 export const EnteringModal: FC<EnteringModalProps> = ({
     closeModal, addTransaction, inputValue, setInputValue }) => {
-    const sliceNumber = (value: string) => value.slice(0, 12);
+    const sliceNumber = (value: string) => value.slice(0, 10);
 
     const enterValue = (event: any) => {
         const value = event.currentTarget.textContent;

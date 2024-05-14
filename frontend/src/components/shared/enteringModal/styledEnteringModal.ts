@@ -21,17 +21,7 @@ export const ButtonsInner = styled.div`
     gap: 10px;
     margin-left: auto;
     display: grid;
-    padding-top: 30px;
-
-    & :last-child {
-        grid-column: span 4;
-    }
-
-    & :last-child > button {
-        color: #fff;
-        background-color: #24a424d3;
-        width: 100%;
-    }
+    padding-top: 20px;
 `
 
 export const InputInner = styled.div`
@@ -70,6 +60,10 @@ export const BtnInner = styled.div`
         padding: 10px;
         font-size: 18px;
         box-shadow: 3px 3px 3px #0000002b;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 `
 

@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { StyledLink, Container } from "./styledItem";
-
+import { NavLink } from "react-router-dom";
+import { Container } from "./styledItem";
 interface ItemProps {
     image: string;
     isAtiveBar: boolean;
@@ -12,14 +12,16 @@ interface ItemProps {
 export const Item: FC<ItemProps> = ({ image, altText, isAtiveBar, linkTo, text }) => {
     return (
         <Container>
-            <StyledLink to={linkTo}>
+            <NavLink
+                className={({ isActive }) => (isActive ? 'nav__link_active' : 'nav__link')}
+                to={linkTo}>
                 <img src={image} alt={altText} />
                 {isAtiveBar ?
                     <span>
                         {text}
                     </span>
                     : null}
-            </StyledLink>
+            </NavLink>
         </Container>
     )
 }

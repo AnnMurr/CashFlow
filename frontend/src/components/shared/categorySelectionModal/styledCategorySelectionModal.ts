@@ -22,9 +22,13 @@ export const Item = styled.li<ItemProps>`
     padding: 5px;
     width: 50px;
     margin: 0 15px;
-    border-radius: 15px;
     cursor: pointer;
-    border : ${({ selected }) => selected ? "1px solid #cacaca" : "none"};
+    border-bottom : ${({ selected }) => selected ? "1px solid #cacaca" : "1px solid transparent"};
+    scale : ${({ selected }) => selected ? "0.9" : "none"};
+
+    &:hover {
+        border-bottom: 1px solid #cacaca;
+    }
 `
 
 export const InputInner = styled.div`

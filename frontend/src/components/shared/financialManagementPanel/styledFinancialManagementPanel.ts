@@ -14,7 +14,7 @@ const CrossStyled = `
 `
 
 export const AddCategoryBtnInner = styled.div`
-    margin-top: 60px;
+    margin: 60px 0 0 15px;
 `
 
 export const AddCategoryBtn = styled.button`
