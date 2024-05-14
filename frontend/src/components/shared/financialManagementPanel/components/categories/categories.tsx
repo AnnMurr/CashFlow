@@ -4,11 +4,11 @@ import { getDataFromLocalStorage } from "../../../../../storage/localStorage/loc
 import { changeUserData, getDataFromUserStore } from "../../../../../api/userDataApi/userDataApi";
 import { CategoriesExpensesType } from "../../../../../api/userDataApi/styledUserDataApi";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
+import { Loading } from "../../../../shared/loading/loading";
 import { Cross } from "./components/cross/cross";
 import { CategoryName } from "./components/categoryName/categoryName";
 import { Icon } from "./components/icon/icon";
 import { Item, List } from "./styledCategories";
-
 interface CategoriesProps {
     categoriesList: Array<CategoriesExpensesType> | null;
     setChoosedCategory: (value: string) => void;
@@ -26,9 +26,10 @@ export const Categories: FC<CategoriesProps> = ({
     dataKey,
     getAlert }) => {
     const [showDeleteIcons, setShowDeleteIcons] = useState<Array<boolean>>([]);
+    const windowWidth = window.innerWidth;
     let holdTimer: NodeJS.Timeout;
 
-    const handleMouseDown = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number) => {
+    const handleMouseDown = (event: React.TouchEvent<HTMLLIElement>, index: number) => {
         if ((event.target as HTMLElement).classList.contains("item-btn")) return;
         event.currentTarget.classList.add("shake-horizontal");
 
@@ -45,7 +46,7 @@ export const Categories: FC<CategoriesProps> = ({
     const handleMouseUp = () => clearTimeout(holdTimer);
 
     const openEnteringExpensesModal = (event: React.MouseEvent<HTMLLIElement>) => {
-        if(!(event.target as HTMLElement).classList.contains("item-btn")) {
+        if (!(event.target as HTMLElement).classList.contains("item-btn")) {
             const category = (event.currentTarget as HTMLLIElement).children[1].children[0].textContent;
             category && setChoosedCategory(category);
             setIsEnteringModalActive(true);
@@ -55,14 +56,14 @@ export const Categories: FC<CategoriesProps> = ({
     useEffect(() => {
         const deleteCategory = async (event: MouseEvent) => {
             const target = event.target as HTMLElement;
-    
+
             if (target.classList.contains("item-btn")) {
                 const token = getDataFromLocalStorage("token");
                 const userDataFromStorage = await getDataFromUserStore(token);
                 const categoryName = target.previousElementSibling?.children[0].textContent;
                 const categoriesExpenses: Array<any> = userDataFromStorage.data[dataKey];
                 const updatedUserData = categoriesExpenses.filter((item) => item.name !== categoryName);
-    
+
                 try {
                     userDataFromStorage.data[dataKey] = [...updatedUserData];
                     await changeUserData(token, userDataFromStorage);
@@ -86,19 +87,33 @@ export const Categories: FC<CategoriesProps> = ({
         };
     }, [showDeleteIcons]);
 
+    const handleMouseMove = (index: number) => {
+        setShowDeleteIcons(prevState => {
+            const newShowDeleteIcons = [...prevState];
+            newShowDeleteIcons[index] = true;
+            return newShowDeleteIcons;
+        });
+    }
+
+    const handleMouseLeave = () => setShowDeleteIcons([]);
+
     return (
         <List>
-            {categoriesList && categoriesList.map((category: any, index: number) => (
+            {categoriesList ? categoriesList.map((category: any, index: number) => (
                 <Item
+                    onContextMenu={(event) => event.preventDefault()}
                     key={uuidV4()}
-                    onMouseDown={(event) => handleMouseDown(event, index)}
-                    onMouseUp={handleMouseUp}
+                    onTouchStart={windowWidth <= 1024 ? (event) => handleMouseDown(event, index) : undefined}
+                    onTouchEnd={windowWidth <= 1024 ? handleMouseUp : undefined}
+                    onMouseMove={windowWidth > 1024 ? () => handleMouseMove(index) : undefined}
+                    onMouseLeave={windowWidth > 1024 ? handleMouseLeave : undefined}
                     onClick={openEnteringExpensesModal}>
                     <Icon name={category.name} icon={category.icon} />
                     <CategoryName name={category.name} />
                     {showDeleteIcons[index] && (<Cross />)}
                 </Item>
-            ))}
+            ))
+                : <Loading />}
         </List>
     )
 }

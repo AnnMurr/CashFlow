@@ -15,7 +15,29 @@ body {
   0% {
     scale: 1;
   }
+
   100% {
     scale: 0.9;
   }
+}
+
+.nav__link {
+  display: flex;
+  align-items: center;
+}
+
+.nav__link span {
+  color: #fff;
+  padding-left: 10px;
+}
+
+.nav__link_active {
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+.nav__link_active span {
+  color: #fff;
+  padding-left: 10px;
 }
