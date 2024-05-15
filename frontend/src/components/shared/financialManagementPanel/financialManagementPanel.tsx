@@ -8,8 +8,8 @@ import { getDataFromLocalStorage } from "../../../storage/localStorage/localStor
 import { changeUserData, getDataFromUserStore } from "../../../api/userDataApi/userDataApi";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { Categories } from "./components/categories/categories";
+import { INVALID_CHARS_REGEXP } from "../../../consts/index";
 import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledFinancialManagementPanel";
-
 interface FinancialManagementPanelProps {
     type: string;
     dataKey: string
@@ -22,7 +22,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
     const [isEnteringModalActive, setIsEnteringModalActive] = useState<boolean>(false);
     const [choosedCategory, setChoosedCategory] = useState<string>("");
-    const [costValue, setCostValue] = useState<string>("");
+    const [costValue, setCostValue] = useState<string>("0");
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
 
     const toggleCategorySelectionModal = () => setIsCategorySelectionModalActive(true);
@@ -46,24 +46,29 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const addTransaction = async () => {
         const token = getDataFromLocalStorage("token");
 
-        try {
-            const dataFromUserStore = await getDataFromUserStore(token);
-            const transactions =  dataFromUserStore.data[type];
-
-            transactions.push({
-                category: choosedCategory,
-                date: getCurrentDate(),
-                sum: costValue,
-            })
-
-            const userDataAfterUpdate = await changeUserData(token, dataFromUserStore);
-
-            if (userDataAfterUpdate) {
-                getAlert({ type: "success", text: "Transaction added successfully" });
-                setIsEnteringModalActive(false);
+        if (!INVALID_CHARS_REGEXP.test(costValue) && costValue !== "0") {
+            getAlert({ type: "error", text: "Invalid input" });
+            console.error("Invalid input: only digits, '+', '-', '*', '/' are allowed");
+        } else {
+            try {
+                const dataFromUserStore = await getDataFromUserStore(token);
+                const transactions =  dataFromUserStore.data[type];
+    
+                transactions.push({
+                    category: choosedCategory,
+                    date: getCurrentDate(),
+                    sum: costValue,
+                })
+    
+                const userDataAfterUpdate = await changeUserData(token, dataFromUserStore);
+    
+                if (userDataAfterUpdate) {
+                    getAlert({ type: "success", text: "Transaction added successfully" });
+                    setIsEnteringModalActive(false);
+                }
+            } catch (error) {
+                console.error(error);
             }
-        } catch (error) {
-            console.error(error);
         }
     }
 

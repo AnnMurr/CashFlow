@@ -31,7 +31,8 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
         const token: string = getDataFromLocalStorage("token");
         const userDataFromStorage = await getDataFromUserStore(token);
         const categories = userDataFromStorage.data[dataKey];
-        const checkExistCategory = categories.find((item: any) => item.name === category);
+        const checkExistCategory = categories.find((item: any) => 
+        item.name.toLowerCase().trim() === category.toLowerCase().trim());
         const onlySpacesRegex = /^\s+$/;
 
         if (checkExistCategory === undefined) {
@@ -76,7 +77,7 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                     <Input
                         value={category}
                         maxLength={20}
-                        onChange={(event) => setCategory(event.target.value)} type="text" />
+                        onChange={(event) => setCategory(event.target.value.trimStart())} type="text" />
                 </InputInner>
                 <List>
                     {iconsCollection.slice(0, 9).map((icon, index) => (
