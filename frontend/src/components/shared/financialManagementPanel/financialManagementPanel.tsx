@@ -39,29 +39,29 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
             const userDataFromStorage = await getDataFromUserStore(token);
             setCategoriesList(userDataFromStorage.data[dataKey]);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 
     const addTransaction = async () => {
         const token = getDataFromLocalStorage("token");
 
-        if (!INVALID_CHARS_REGEXP.test(costValue) && costValue !== "0") {
+        if (!INVALID_CHARS_REGEXP.test(costValue) || costValue === "0") {
             getAlert({ type: "error", text: "Invalid input" });
             console.error("Invalid input: only digits, '+', '-', '*', '/' are allowed");
         } else {
             try {
                 const dataFromUserStore = await getDataFromUserStore(token);
-                const transactions =  dataFromUserStore.data[type];
-    
+                const transactions = dataFromUserStore.data[type];
+
                 transactions.push({
                     category: choosedCategory,
                     date: getCurrentDate(),
-                    sum: costValue,
+                    sum: parseInt(costValue),
                 })
-    
+
                 const userDataAfterUpdate = await changeUserData(token, dataFromUserStore);
-    
+
                 if (userDataAfterUpdate) {
                     getAlert({ type: "success", text: "Transaction added successfully" });
                     setIsEnteringModalActive(false);

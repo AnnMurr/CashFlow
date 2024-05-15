@@ -68,9 +68,8 @@ export const Categories: FC<CategoriesProps> = ({
             const categoriesExpenses: Array<any> = userDataFromStorage.data[dataKey];
             const updatedUserData = categoriesExpenses.filter((item) => item.name !== categoryName);
 
-            try {
+            try { 
                 userDataFromStorage.data[dataKey] = [...updatedUserData];
-                console.log(userDataFromStorage)
                 await changeUserData(token, userDataFromStorage);
                 getAlert({ type: "success", text: "Category deleted successfully" });
                 getUserDataFromStorage();

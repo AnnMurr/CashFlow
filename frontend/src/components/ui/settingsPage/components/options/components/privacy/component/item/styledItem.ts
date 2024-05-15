@@ -2,23 +2,23 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.li`
-    border-bottom: 1px solid #a7a9a7;
+    border-bottom: 1px solid #e2e2e2;
     transition: all 0.5s ease-in-out;
     position: relative;
 
     &:hover {
-        background-color: #dedede;
+        background-color: #e2e2e2;
     }
 
     &:first-child {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
     }
 
     &:last-child {
         border: none;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
     }
 `
 

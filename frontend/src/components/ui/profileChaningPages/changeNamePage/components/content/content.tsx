@@ -20,7 +20,7 @@ export const Content: FC = () => {
                 const userData = await getUserDataById(token);
                 userData.name && setUserName(userData.name);
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
         }
 

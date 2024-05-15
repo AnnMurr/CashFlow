@@ -15,7 +15,7 @@ export const Content: FC = () => {
                 const userData = await getUserDataById(token);
                 userData.email && setEmail(userData.email);
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
         }
 
