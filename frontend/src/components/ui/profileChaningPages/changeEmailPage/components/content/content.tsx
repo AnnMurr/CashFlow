@@ -1,11 +1,26 @@
-import { FC } from "react";
-import { useLocation } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
+import { getUserDataById } from "../../../../../../api/authApi/authApi";
 import { Description, Email, EmailAdressInner, SubTitle, Title } from "./styledContent";
 
 export const Content: FC = () => {
-    const location = useLocation();
+    const [email, setEmail] = useState<string | null>(null);
+
+    useEffect(() => {
+        const getName = async () => {
+            try {
+                const token = getDataFromLocalStorage("token");
+                const userData = await getUserDataById(token);
+                userData.email && setEmail(userData.email);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        getName();
+    }, []);
 
     return (
         <div>
@@ -25,7 +40,7 @@ export const Content: FC = () => {
                 <EmailAdressInner to={"/settings/change-email-checking"}>
                     <Email>
                         <span>
-                            {location.state}
+                            {email}
                         </span>
                     </Email>
                     <div>

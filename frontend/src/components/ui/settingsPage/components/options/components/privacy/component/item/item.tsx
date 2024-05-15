@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Container, SubTitle, Title, Wrapper } from "./styledItem";
+import { faArrowRight, faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { Container, QuestionMark, SubTitle, Title, Wrapper } from "./styledItem";
 
 interface ItemProps {
     title: string;
@@ -22,8 +22,11 @@ export const Item: FC<ItemProps> = ({ link, icon, title, subTitle }) => {
                         {title}
                     </h4>
                 </Title>
-                <SubTitle>
-                    <h5>
+                <QuestionMark>
+                    <FontAwesomeIcon icon={faQuestion} size="2xs" color="black" />
+                </QuestionMark>
+                <SubTitle >
+                     <h5>
                         {subTitle}
                     </h5>
                 </SubTitle>

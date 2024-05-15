@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import { Button } from "./styledCross";
 
-export const Cross: FC = () => {
+export const Cross: FC<any> = ({func}) => {
     return (
-        <Button className="item-btn">
+        <Button onClick={func} className="item-btn">
             <FontAwesomeIcon
                 style={{ pointerEvents: "none" }}
                 color="#000"

@@ -22,10 +22,10 @@ export const Container = styled.li`
 `
 
 export const Wrapper = styled(Link)`
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 30% 60% 10%;
     cursor: pointer;
-    align-items: center;
+
     padding: 15px;
 `
 
@@ -38,4 +38,9 @@ export const Value = styled.span`
     font-size: 16px;
     font-weight: 500;
     color: #000;
+`
+
+export const Arrow = styled.div`
+    width: fit-content;
+    margin-left: auto;
 `

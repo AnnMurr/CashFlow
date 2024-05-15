@@ -40,10 +40,10 @@ export const Content: FC = () => {
                         setTimeout(() => navigate("/settings"), 1000);
                     }
                 } else {
-                    getAlert({ type: "error", text: "User has already registered." });
+                    getAlert({ type: "error", text: "User has already registered" });
                 }
             } else {
-                getAlert({ type: "error", text: "Incorrectly entered e-mail." });
+                getAlert({ type: "error", text: "E-mail is incorrect" });
             }
         } catch (error) {
             console.error(error);

@@ -28,7 +28,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
             const isUser = await checkUserDataByEmail(data.email);
 
             if (isUser) {
-                setIsAlertActive({ type: "error", text: "User has already registered." });
+                setIsAlertActive({ type: "error", text: "User has already registered" });
                 setTimeout(() => setIsAlertActive(null), 2000);
             } else {
                 delete data.confirmPassword;
@@ -73,11 +73,11 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     required: true,
                     minLength: {
                         value: 2,
-                        message: "Minimum length is 2 characters.",
+                        message: "Minimum length is 2 characters",
                     },
                     maxLength: {
                         value: 20,
-                        message: "Maximum length is 20 characters.",
+                        message: "Maximum length is 20 characters",
                     },
                 })}
                 error={!!errors.name}
@@ -85,12 +85,6 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     marginBottom: "20px",
                     width: "100%",
                     fontSize: "14px",
-                    // "& .MuiOutlinedInput-input": {
-                    //     color: "#0f4a34 !important" 
-                    // },
-                    // "& .MuiOutlinedInput-notchedOutline": {
-                    //     borderColor: "#0f4a34 !important"
-                    // }
                 }}
                 size="small" placeholder="Name" />
             {!!errors.name ?
@@ -103,11 +97,11 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     required: true,
                     pattern: {
                         value: EMAIL_PATTERN,
-                        message: "Incorrectly entered e-mail",
+                        message: "E-mail is incorrect",
                     },
                     maxLength: {
                         value: 40,
-                        message: "Maximum length is 30 characters.",
+                        message: "Maximum length is 30 characters",
                     },
                 })}
                 error={!!errors.email}
@@ -128,15 +122,15 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                             value:
                                 PASSWORD_PATTERN,
                             message:
-                                "Password must contain at least one digit, one special character '!@#$%^&*', one lowercase letter, one uppercase letter, and should not contain any spaces.",
+                                "Password must contain at least one digit, one special character '!@#$%^&*', one lowercase letter, one uppercase letter, and should not contain any spaces",
                         },
                         minLength: {
                             value: 6,
-                            message: "Minimum length is 6 characters.",
+                            message: "Minimum length is 6 characters",
                         },
                         maxLength: {
                             value: 30,
-                            message: "Maximum length is 30 characters.",
+                            message: "Maximum length is 30 characters",
                         },
                     })}
                     error={!!errors.password}

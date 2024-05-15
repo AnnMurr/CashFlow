@@ -26,7 +26,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
             const token = await checkUserData({ email: emailValue, password: passwordValue });
 
             if (token && typeof token !== "boolean") {
-                setIsAlertActive({ type: "success", text: "Successful login." });
+                setIsAlertActive({ type: "success", text: "Successful login" });
                 setTimeout(() => {
                     setIsAlertActive(null);
                     setDataToLocalStorage("token", token);
@@ -34,7 +34,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     navigate('/profile');
                 }, 1000);
             } else {
-                setIsAlertActive({ type: "error", text: "wrong data." });
+                setIsAlertActive({ type: "error", text: "wrong data" });
                 setTimeout(() => setIsAlertActive(null), 3000);
             }
         } catch (error) {
@@ -55,12 +55,6 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                         marginBottom: "20px",
                         width: "100%",
                         fontSize: "14px",
-                        // "& .MuiOutlinedInput-input": {
-                        //     color: "#43434387 !important" 
-                        // },
-                        // "& .MuiOutlinedInput-notchedOutline": {
-                        //     borderColor: "#43434387 !important"
-                        // }
                     }}
                     size="small"
                     placeholder="Email"
