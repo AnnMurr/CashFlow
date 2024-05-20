@@ -1,5 +1,7 @@
-import React, { FC, createContext, useState } from "react";
+import React, { FC, createContext, useEffect, useState } from "react";
 import { getUserAuth } from "../../utils/checkUserAuth";
+import { useAppDispatch } from "../../redux/store/store";
+import { getUserDataById } from "../../redux/reducers/userReducer/userReducer";
 
 export interface AuthorizedContextType {
     login: () => void;
@@ -23,6 +25,11 @@ export const AuthorizedContextProvider: FC<AuthorizedContextProviderProps> = ({ 
     const [isAuthorized, setIsAuthorized] = useState<boolean>(getUserAuth());
     const login = () => { setIsAuthorized(true) };
     const logOut = () => { setIsAuthorized(false) };
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        isAuthorized && dispatch(getUserDataById());
+    }, [isAuthorized])
 
     return (
         <AuthorizedContext.Provider

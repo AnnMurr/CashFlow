@@ -1,15 +1,15 @@
 import { FC, useState } from "react";
+import { UserDataType, updateUserData } from "../../../../../../../../redux/reducers/userReducer/userReducer";
+import { useAppDispatch, useAppSelector } from "../../../../../../../../redux/store/store";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { OutlinedInput } from "@mui/material";
-import { getUserDataById, updateUserData } from "../../../../../../../../api/authApi/authApi";
-import { getDataFromLocalStorage } from "../../../../../../../../storage/localStorage/localStorage";
 import { AlertComponentProps } from "../../../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../../../shared/button/button";
 import { BtnClose } from "../../../../../../../shared/btnClose/btnClose";
 import { Container, Wrapper, BtnCloseInner } from "./styledEditUserDataModal";
-
 interface EditUserDataModalProps {
     setIsModalActive: (value: boolean) => void;
-    userData: string | null;
+    userData: string | undefined | null;
     changeUserData: (value: string) => void;
     setIsAlertActive: (value: null | AlertComponentProps) => void;
 }
@@ -19,8 +19,11 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
     userData,
     changeUserData,
     setIsAlertActive }) => {
-    const [value, setValue] = useState<string | null>(userData);
+
+    const [value, setValue] = useState<string | undefined | null>(userData);
     const [error, setError] = useState<boolean>(false);
+    const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
+    const dispatch = useAppDispatch();
 
     const changeData = async () => {
         value && value.length < 2 && setIsAlertActive({ type: "error", text: "Minimum length is 2 characters" });
@@ -28,25 +31,25 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
 
         if (value && value.length >= 2 && value.length <= 20) {
             try {
-                const token = getDataFromLocalStorage("token");
-                const userData = await getUserDataById(token);
+                if (userDataFromRedux) {
+                    const changedData = {
+                        ...userDataFromRedux,
+                        name: value
+                    }
 
-                const changedData = {
-                    ...userData,
-                    name: value
-                }
+                    const resultAction = await dispatch(updateUserData(changedData));
+                    const response = unwrapResult(resultAction);
 
-                const response = await updateUserData(token, changedData);
+                    if (response) {
+                        changeUserData(value);
+                        setIsModalActive(false);
 
-                if (response) {
-                    changeUserData(value);
-                    setIsModalActive(false);
-
-                    setIsAlertActive({
-                        text: response,
-                        type: "success"
-                    });
-                    setTimeout(() => setIsAlertActive(null), 2000);
+                        setIsAlertActive({
+                            text: response,
+                            type: "success"
+                        });
+                        setTimeout(() => setIsAlertActive(null), 2000);
+                    }
                 }
             } catch (error) {
                 setIsAlertActive({

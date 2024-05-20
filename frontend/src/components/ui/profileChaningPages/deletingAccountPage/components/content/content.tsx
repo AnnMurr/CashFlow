@@ -3,19 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { getDataFromLocalStorage, removeDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
-import { deleteUserData } from "../../../../../../api/authApi/authApi";
 import { deleteUserStore } from "../../../../../../api/userDataApi/userDataApi";
 import { AuthorizedContext, AuthorizedContextType } from "../../../../../../contexts/authorizedContext/authorizedContext";
+import { deleteUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
+import { useAppDispatch } from "../../../../../../redux/store/store";
 import { BtnInner, TextInner, Title } from "./styledContent";
 
 export const Content: FC = () => {
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
     const authorizedContext = useContext<AuthorizedContextType>(AuthorizedContext);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const deleteAccount = async () => {
-        const token = await getDataFromLocalStorage("token");
-
+        const token = getDataFromLocalStorage("token");
         try {
             const responseFromStore = await deleteUserStore(token);
 
@@ -23,23 +24,19 @@ export const Content: FC = () => {
                 setAlertActive({ type: "error", text: "Error deleting user's data storage" });
                 return
             }
-            const responseFromDb = await deleteUserData(token);
 
-            if (responseFromDb.status !== 200) {
-                const responseMessage = responseFromDb.message
-                responseMessage.then(result => {
-                    setAlertActive({ type: "error", text: result });
-                })
+            const responseFromDb = await dispatch(deleteUserData());
+            const { status, message } = responseFromDb.payload as { status: number; message: string };
+
+            if (responseFromDb && status !== 200) {
+                setAlertActive({ type: "error", text: message });
             } else {
-                const responseMessage = responseFromDb.message
-                responseMessage.then(result => {
-                    setAlertActive({ type: "success", text: result });
-                    setTimeout(() => {
-                        removeDataFromLocalStorage("token");
-                        authorizedContext.logOut();
-                        navigate("/");
-                    }, 1000);
-                })
+                setAlertActive({ type: "success", text: message });
+                setTimeout(() => {
+                    removeDataFromLocalStorage("token");
+                    authorizedContext.logOut();
+                    navigate("/");
+                }, 1000);
             }
         } catch (error) {
             console.error(error);

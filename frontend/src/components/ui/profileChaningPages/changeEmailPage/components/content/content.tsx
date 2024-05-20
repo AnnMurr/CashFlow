@@ -1,26 +1,17 @@
 import { FC, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
-import { getUserDataById } from "../../../../../../api/authApi/authApi";
 import { Description, Email, EmailAdressInner, SubTitle, Title } from "./styledContent";
+import { useAppSelector } from "../../../../../../redux/store/store";
+import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
 
 export const Content: FC = () => {
     const [email, setEmail] = useState<string | null>(null);
+    const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
 
     useEffect(() => {
-        const getName = async () => {
-            try {
-                const token = getDataFromLocalStorage("token");
-                const userData = await getUserDataById(token);
-                userData.email && setEmail(userData.email);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        getName();
-    }, []);
+        userDataFromRedux && setEmail(userDataFromRedux?.email);
+    }, [userDataFromRedux]);
 
     return (
         <div>

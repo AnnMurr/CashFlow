@@ -4,28 +4,19 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { EditUserDataModal } from "./components/editUserDataModal/editUserDataModal";
 import { DarkBackground } from "../../../../../shared/darkBackground/darkBackground";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
-import { getUserDataById } from "../../../../../../api/authApi/authApi";
-import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
+import { useAppSelector } from "../../../../../../redux/store/store";
+import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
 import { Container, Wrapper, UserName } from "./styledContent";
 
 export const Content: FC = () => {
     const [isModalActive, setIsModalActive] = useState<boolean>(false);
     const [isAlertActive, setIsAlertActive] = useState<null | AlertComponentProps>(null);
-    const [userName, setUserName] = useState<string | null>(null);
+    const [userName, setUserName] = useState<string | null | undefined>(null);
+    const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
 
     useEffect(() => {
-        const getName = async () => {
-            try {
-                const token = getDataFromLocalStorage("token");
-                const userData = await getUserDataById(token);
-                userData.name && setUserName(userData.name);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        getName();
-    }, []);
+        userDataFromRedux && setUserName(userDataFromRedux?.name)
+    }, [userDataFromRedux]);
 
     return (
         <Container>

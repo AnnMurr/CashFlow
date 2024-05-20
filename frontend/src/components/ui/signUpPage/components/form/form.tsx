@@ -7,45 +7,53 @@ import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { BtnShowPassword } from "../../../../shared/btnShowPassword/btnShowPassword";
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from "../../../../../consts/index";
-import { setUserData, checkUserDataByEmail } from "../../../../../api/authApi/authApi";
-import { UserDataType } from "../../../../../api/authApi/authApiTypes";
 import { createUserStore } from "../../../../../api/userDataApi/userDataApi";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
+import { UserDataType, checkUserDataByEmail, setUserData } from "../../../../../redux/reducers/userReducer/userReducer";
+import { useAppDispatch } from "../../../../../redux/store/store";
 import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label, Title } from "./styledForm";
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
+}
+interface SubmitHandlerDataType extends UserDataType {
+    confirmPassword?: string;
 }
 
 export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
     const [isInputTypePassword, setIsInputTypePassword] = useState(true);
     const [isInputConfirmTypePassword, setIsInputConfirmTypePassword] = useState(true);
-    const navigate = useNavigate();
     const { login } = useContext(AuthorizedContext);
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
-    const onSubmit: SubmitHandler<UserDataType> = async (data) => {
+    const onSubmit: SubmitHandler<SubmitHandlerDataType> = async (data) => {
+
         try {
-            const isUser = await checkUserDataByEmail(data.email);
-
+            const isUser = (await dispatch(checkUserDataByEmail(data.email))).payload;
+     
             if (isUser) {
                 setIsAlertActive({ type: "error", text: "User has already registered" });
                 setTimeout(() => setIsAlertActive(null), 2000);
             } else {
                 delete data.confirmPassword;
-                const token = await setUserData(data);
-                const createdStorage = await createUserStore(token);
+                const token = (await dispatch(setUserData(data))).payload;
 
-                if (!createdStorage.ok) {
-                    console.error("Failed to create storage");
+                if (typeof token === "string") {
+                    const createdStorage = await createUserStore(token);
+
+                    if (!createdStorage.ok) {
+                        console.error("Failed to create storage");
+                    } else {
+                        setIsAlertActive({ type: "success", text: "User account creation successful" });
+                        setTimeout(() => {
+                            setIsAlertActive(null);
+                            navigate('/profile');
+                            setDataToLocalStorage("token", token);
+                            login();
+                        }, 1000);
+                    }
                 }
-
-                setIsAlertActive({ type: "success", text: "User account creation successful" });
-                setTimeout(() => {
-                    setIsAlertActive(null);
-                    navigate('/profile');
-                    setDataToLocalStorage("token", token);
-                    login();
-                }, 1000);
             }
         } catch (error) {
             console.error(error);
@@ -57,7 +65,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
         formState: { errors },
         handleSubmit,
         getValues,
-    } = useForm<UserDataType>({
+    } = useForm<SubmitHandlerDataType>({
         mode: "onChange",
     });
 

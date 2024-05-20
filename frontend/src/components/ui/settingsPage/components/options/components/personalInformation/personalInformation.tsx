@@ -1,27 +1,19 @@
 import { useContext, useEffect, useState } from "react";
-import { getUserDataById } from "../../../../../../../api/authApi/authApi";
-import { UserDataType } from "../../../../../../../api/authApi/authApiTypes";
-import { getDataFromLocalStorage, removeDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
+import { useNavigate } from "react-router-dom";
+import { removeDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { ButtonComponent } from "../../../../../../shared/button/button";
 import { Item } from "./component/item/item";
-import { BtnLogOutInner, Container, List } from "./styledPersonalInformation";
 import { AuthorizedContext, AuthorizedContextType } from "../../../../../../../contexts/authorizedContext/authorizedContext";
-import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../../../../../redux/store/store";
+import { UserDataType } from "../../../../../../../redux/reducers/userReducer/userReducer";
+import { BtnLogOutInner, Container, List } from "./styledPersonalInformation";
 
 export const PersonalInformation = () => {
     const [userData, setUserData] = useState<null | UserDataType>(null);
     const authorizedContext = useContext<AuthorizedContextType>(AuthorizedContext);
-    const navigate = useNavigate()
+    const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
 
-    const getUserData = async () => {
-        try {
-            const token = getDataFromLocalStorage("token");
-            const response = await getUserDataById(token);
-            setUserData(response);
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    const navigate = useNavigate()
 
     const getLogOut = () => {
         authorizedContext.logOut();
@@ -30,8 +22,8 @@ export const PersonalInformation = () => {
     }
 
     useEffect(() => {
-        getUserData();
-    }, []);
+        userDataFromRedux && setUserData(userDataFromRedux)
+    }, [userDataFromRedux]);
 
     return (
         <Container>

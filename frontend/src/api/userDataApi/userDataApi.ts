@@ -18,7 +18,7 @@ export const createUserStore = (userToken: string) => {
             }
         })
     })
-        .then(response => response.json())
+        .then(response => response)
         .catch(error => {
             throw new Error(error);
         })

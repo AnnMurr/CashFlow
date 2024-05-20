@@ -4,9 +4,9 @@ import { OutlinedInput } from "@mui/material";
 import { EMAIL_PATTERN } from "../../../../../../consts/index";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../shared/button/button";
-import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
-import { checkUserDataByEmail, getUserDataById, updateUserData } from "../../../../../../api/authApi/authApi";
-import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
+import { UserDataType, checkUserDataByEmail, updateUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { BtnInner, Title } from "./styledContent";
 
 export const Content: FC = () => {
@@ -14,11 +14,12 @@ export const Content: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<null | AlertComponentProps>(null);
     const [userData, setUserData] = useState<UserDataType | null>(null);
     const [isError, setIsError] = useState<boolean>(false);
+    const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const changeEmail = async () => {
-        const token = getDataFromLocalStorage("token");
-        const userExists = await checkUserDataByEmail(emailValue);
+        const userExists = (await dispatch(checkUserDataByEmail(emailValue))).payload;
         const isValid = validateEmail(emailValue);
 
         try {
@@ -27,9 +28,10 @@ export const Content: FC = () => {
                     const changedData = {
                         ...userData,
                         email: emailValue
-                    }
+                    };
 
-                    const response = await updateUserData(token, changedData);
+                    const resultAction = await dispatch(updateUserData(changedData));
+                    const response = unwrapResult(resultAction);
 
                     if (response) {
                         setIsAlertActive({
@@ -44,23 +46,6 @@ export const Content: FC = () => {
                 }
             } else {
                 getAlert({ type: "error", text: "E-mail is incorrect" });
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    const getUserData = async () => {
-        try {
-            const token = getDataFromLocalStorage("token");
-            const userData = await getUserDataById(token);
-            setUserData(userData);
-
-            if (userData) {
-                !emailValue && setEmailValue(userData.email);
-                return userData;
-            } else {
-                console.error("User not found");
             }
         } catch (error) {
             console.error(error);
@@ -86,8 +71,9 @@ export const Content: FC = () => {
     }
 
     useEffect(() => {
-        getUserData();
-    }, []);
+        userDataFromRedux && setUserData(userDataFromRedux);
+        userDataFromRedux && setEmailValue(userDataFromRedux.email);
+    }, [userDataFromRedux]);
 
     return (
         <div>

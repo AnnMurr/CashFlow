@@ -1,12 +1,13 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { OutlinedInput } from "@mui/material";
-import { checkUserData } from "../../../../../api/authApi/authApi";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { BtnShowPassword } from "../../../../shared/btnShowPassword/btnShowPassword";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
+import { checkUserData } from "../../../../../redux/reducers/userReducer/userReducer";
+import { useAppDispatch } from "../../../../../redux/store/store";
 import { BtnShowPasswordInner, FormContainer, Label, Title } from "./styledForm";
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
@@ -17,15 +18,16 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
     const [passwordValue, setPasswordValue] = useState<string>("");
     const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const { login } = useContext(AuthorizedContext);
 
     const logIn = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         try {
-            const token = await checkUserData({ email: emailValue, password: passwordValue });
+            const token = (await dispatch(checkUserData({ email: emailValue, password: passwordValue }))).payload;
 
-            if (token && typeof token !== "boolean") {
+            if (token && typeof token === "string") {
                 setIsAlertActive({ type: "success", text: "Successful login" });
                 setTimeout(() => {
                     setIsAlertActive(null);
