@@ -56,7 +56,8 @@ export const List = styled.ul`
 
 export const BtnInner = styled.div`
     padding-top: 40px;
-    max-width: 40%;
+    max-width: 30%;
+    margin-left: auto;
 `
 
 export const CloseBtnInner = styled.div`

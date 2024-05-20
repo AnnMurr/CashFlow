@@ -8,7 +8,7 @@ import { Loading } from "../../../../shared/loading/loading";
 import { Cross } from "./components/cross/cross";
 import { CategoryName } from "./components/categoryName/categoryName";
 import { Icon } from "./components/icon/icon";
-import { Item, List } from "./styledCategories";
+import { CrossBtnInner, Item, List } from "./styledCategories";
 interface CategoriesProps {
     categoriesList: Array<CategoriesExpensesType> | null;
     setChoosedCategory: (value: string) => void;
@@ -26,11 +26,11 @@ export const Categories: FC<CategoriesProps> = ({
     dataKey,
     getAlert }) => {
     const [showDeleteIcons, setShowDeleteIcons] = useState<Array<boolean>>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const windowWidth = window.innerWidth;
     let holdTimer: NodeJS.Timeout;
 
     const handleMouseDown = (event: React.TouchEvent<HTMLLIElement>, index: number) => {
-        if ((event.target as HTMLElement).classList.contains("item-btn")) return;
         event.currentTarget.classList.add("shake-horizontal");
 
         holdTimer = setTimeout(() => {
@@ -53,67 +53,81 @@ export const Categories: FC<CategoriesProps> = ({
         }
     }
 
+    const deleteCategory = async (event: MouseEvent) => {
+        setIsLoading(true);
+        const target = event.target as HTMLElement;
+        const token = getDataFromLocalStorage("token");
+        const userDataFromStorage = await getDataFromUserStore(token);
+        let categoryName: undefined | string | null;
+
+        target.parentNode && target.parentNode.previousSibling ?
+            categoryName = target.parentNode.previousSibling.childNodes[0]?.textContent :
+            getAlert({ type: "success", text: "Somthing was wrong" });
+
+        if (categoryName && categoryName !== undefined) {
+            const categoriesExpenses: Array<any> = userDataFromStorage.data[dataKey];
+            const updatedUserData = categoriesExpenses.filter((item) => item.name !== categoryName);
+
+            try { 
+                userDataFromStorage.data[dataKey] = [...updatedUserData];
+                await changeUserData(token, userDataFromStorage);
+                getAlert({ type: "success", text: "Category deleted successfully" });
+                getUserDataFromStorage();
+                setShowDeleteIcons([]);
+            } catch (error) {
+                getAlert({ type: "warning", text: "Please try again later." });
+                console.error(error);
+            }
+
+            setIsLoading(false);
+        }
+    }
+
     useEffect(() => {
-        const deleteCategory = async (event: MouseEvent) => {
+        const hideCrossBtn = (event: MouseEvent) => {
             const target = event.target as HTMLElement;
 
-            if (target.classList.contains("item-btn")) {
-                const token = getDataFromLocalStorage("token");
-                const userDataFromStorage = await getDataFromUserStore(token);
-                const categoryName = target.previousElementSibling?.children[0].textContent;
-                const categoriesExpenses: Array<any> = userDataFromStorage.data[dataKey];
-                const updatedUserData = categoriesExpenses.filter((item) => item.name !== categoryName);
-
-                try {
-                    userDataFromStorage.data[dataKey] = [...updatedUserData];
-                    await changeUserData(token, userDataFromStorage);
-                    getAlert({ type: "success", text: "Category deleted successfully" });
-                    getUserDataFromStorage();
-                    setShowDeleteIcons([]);
-                } catch (error) {
-                    getAlert({ type: "warning", text: "Please try again later." });
-                    console.error(error);
-                }
-            } else {
+            if (!target.classList.contains("item-btn") &&
+                !target.classList.contains("item-btn-inner")) {
                 setShowDeleteIcons([]);
             }
         }
 
-        showDeleteIcons.length > 0 &&
-            window.addEventListener("click", deleteCategory);
+        if (windowWidth <= 1024) {
+            showDeleteIcons.length > 0 && window.addEventListener("click", hideCrossBtn);
+        }
 
         return () => {
-            window.removeEventListener("click", deleteCategory);
+            window.removeEventListener("click", hideCrossBtn);
         };
     }, [showDeleteIcons]);
 
-    const handleMouseMove = (index: number) => {
-        setShowDeleteIcons(prevState => {
-            const newShowDeleteIcons = [...prevState];
-            newShowDeleteIcons[index] = true;
-            return newShowDeleteIcons;
-        });
-    }
-
-    const handleMouseLeave = () => setShowDeleteIcons([]);
-
     return (
-        <List>
-            {categoriesList ? categoriesList.map((category: any, index: number) => (
-                <Item
-                    onContextMenu={(event) => event.preventDefault()}
-                    key={uuidV4()}
-                    onTouchStart={windowWidth <= 1024 ? (event) => handleMouseDown(event, index) : undefined}
-                    onTouchEnd={windowWidth <= 1024 ? handleMouseUp : undefined}
-                    onMouseMove={windowWidth > 1024 ? () => handleMouseMove(index) : undefined}
-                    onMouseLeave={windowWidth > 1024 ? handleMouseLeave : undefined}
-                    onClick={openEnteringExpensesModal}>
-                    <Icon name={category.name} icon={category.icon} />
-                    <CategoryName name={category.name} />
-                    {showDeleteIcons[index] && (<Cross />)}
-                </Item>
-            ))
+        <>
+            {!isLoading ?
+                <List>
+                    {categoriesList ? categoriesList.map((category: any, index: number) => (
+                        <Item
+                            onContextMenu={(event) => event.preventDefault()}
+                            key={uuidV4()}
+                            onTouchStart={windowWidth <= 1024 ? (event) => handleMouseDown(event, index) : undefined}
+                            onTouchEnd={windowWidth <= 1024 ? handleMouseUp : undefined}
+                            onClick={openEnteringExpensesModal}>
+                            <Icon name={category.name} icon={category.icon} />
+                            <CategoryName name={category.name} />
+                            {showDeleteIcons[index] && windowWidth <= 1024 ? (
+                                <div className="item-btn-inner">
+                                    <Cross func={deleteCategory} />
+                                </div>
+                            ) :
+                                <CrossBtnInner className="item-btn-inner">
+                                    <Cross func={deleteCategory} />
+                                </CrossBtnInner>}
+                        </Item>
+                    ))
+                        : <Loading />}
+                </List>
                 : <Loading />}
-        </List>
+        </>
     )
 }

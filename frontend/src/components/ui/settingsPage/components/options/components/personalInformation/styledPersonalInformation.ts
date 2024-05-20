@@ -8,8 +8,8 @@ export const Container = styled.div`
 `
 
 export const List = styled.ul`
-    border-radius: 10px;
-    background-color: #e5e5e5;
+    border-radius: 5px;
+    background-color: #e5e5e552;
 `
 
 export const BtnLogOutInner = styled.div`

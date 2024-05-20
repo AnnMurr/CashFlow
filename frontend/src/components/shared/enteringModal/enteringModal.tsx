@@ -19,6 +19,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
 
     const enterValue = (event: any) => {
         const value = event.currentTarget.textContent;
+        inputValue === "0" && setInputValue(prev => prev = "");
 
         if (event.currentTarget.classList.contains("btn_delete")) {
             setInputValue((prev: string) => sliceNumber(prev.slice(0, prev.length - 1)));
@@ -27,7 +28,15 @@ export const EnteringModal: FC<EnteringModalProps> = ({
             if (!parts[parts.length - 1].includes(".") && parts[parts.length - 1].length > 0)
                 setInputValue((prev) => prev + value);
         } else if (value === "=") {
-            inputValue.length > 0 && setInputValue(sliceNumber(eval(inputValue).toString()));
+            try {
+                const result = eval(inputValue);
+
+                !isNaN(result) && isFinite(result) ?
+                    setInputValue(sliceNumber(result.toString())) :
+                    console.error("Invalid expression");
+            } catch (error) {
+                console.error("Error evaluating expression:", error);
+            }
         } else {
             setInputValue((prev) => sliceNumber(prev + value));
         }

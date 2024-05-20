@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Category, Container, Value, Wrapper } from "./styledItem";
+import { Arrow, Category, Container, Value, Wrapper } from "./styledItem";
 
 interface ItemProps {
     value?: string;
@@ -9,10 +9,10 @@ interface ItemProps {
     link: string;
 }
 
-export const Item: FC<ItemProps> = ({ value, category, link }) => {    
+export const Item: FC<ItemProps> = ({ value, category, link }) => {
     return (
         <Container>
-            <Wrapper  to={link} state={value}>
+            <Wrapper to={link} >
                 <div>
                     <Category>
                         {category}
@@ -23,9 +23,9 @@ export const Item: FC<ItemProps> = ({ value, category, link }) => {
                         {value && category === "Password" ? value.replaceAll(/\S/gi, "*") : value}
                     </Value>
                 </div>
-                <div>
+                <Arrow>
                     <FontAwesomeIcon color="#000" icon={faArrowRight} />
-                </div>
+                </Arrow>
             </Wrapper>
         </Container>
     )

@@ -1,17 +1,22 @@
-import { FC, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { EditUserDataModal } from "../../../../../shared/editUserDataModal/editUserDataModal";
+import { EditUserDataModal } from "./components/editUserDataModal/editUserDataModal";
 import { DarkBackground } from "../../../../../shared/darkBackground/darkBackground";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
+import { useAppSelector } from "../../../../../../redux/store/store";
+import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
 import { Container, Wrapper, UserName } from "./styledContent";
 
 export const Content: FC = () => {
     const [isModalActive, setIsModalActive] = useState<boolean>(false);
     const [isAlertActive, setIsAlertActive] = useState<null | AlertComponentProps>(null);
-    const location = useLocation();
-    const [userName, setUserName] = useState<string>(location.state);
+    const [userName, setUserName] = useState<string | null | undefined>(null);
+    const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
+
+    useEffect(() => {
+        userDataFromRedux && setUserName(userDataFromRedux?.name)
+    }, [userDataFromRedux]);
 
     return (
         <Container>

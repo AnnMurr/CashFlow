@@ -31,31 +31,31 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
         const token: string = getDataFromLocalStorage("token");
         const userDataFromStorage = await getDataFromUserStore(token);
         const categories = userDataFromStorage.data[dataKey];
-        const checkExistCategory = categories.find((item: any) => item.name === category);
+        const checkExistCategory = categories.find((item: any) => 
+        item.name.toLowerCase().trim() === category.toLowerCase().trim());
+        const onlySpacesRegex = /^\s+$/;
 
-        if (checkExistCategory !== undefined) {
-            getAlert({ type: "error", text: "This category has already existed" });
-            return;
-        }
+        if (checkExistCategory === undefined) {
+            if (category.length > 0 && selectedIcon && !onlySpacesRegex.test(category)) {
+                categories.push({ name: category.trim(), icon: selectedIcon });
 
-        if (category.length > 0 && !selectedIcon) {
-            getAlert({ type: "error", text: "Enter category and choose an icon" })
-            return;
-        }
+                try {
+                    const userDataAfterUpdate = await changeUserData(token, userDataFromStorage);
 
-        categories.push({ name: category, icon: selectedIcon });
-
-        try {
-            const userDataAfterUpdate = await changeUserData(token, userDataFromStorage);
-            
-            if (userDataAfterUpdate) {
-                getAlert({ type: "success", text: "Category added successfully" })
-                getUserDataFromStorage();
-                togleModal(false);
+                    if (userDataAfterUpdate) {
+                        getAlert({ type: "success", text: "Category added successfully" })
+                        getUserDataFromStorage();
+                        togleModal(false);
+                    }
+                } catch (error) {
+                    getAlert({ type: "warning", text: "Please try again later." })
+                    console.error(error);
+                }
+            } else {
+                getAlert({ type: "error", text: "Enter category and choose an icon" })
             }
-        } catch (error) {
-            getAlert({ type: "warning", text: "Please try again later." })
-            console.error(error);
+        } else {
+            getAlert({ type: "error", text: "This category has already existed" });
         }
     }
 
@@ -77,7 +77,7 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                     <Input
                         value={category}
                         maxLength={20}
-                        onChange={(event) => setCategory(event.target.value)} type="text" />
+                        onChange={(event) => setCategory(event.target.value.trimStart())} type="text" />
                 </InputInner>
                 <List>
                     {iconsCollection.slice(0, 9).map((icon, index) => (

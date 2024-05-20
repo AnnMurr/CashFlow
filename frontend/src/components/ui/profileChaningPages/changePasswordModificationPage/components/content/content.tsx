@@ -4,9 +4,10 @@ import { OutlinedInput } from "@mui/material";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
-import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
 import { PASSWORD_PATTERN } from "../../../../../../consts/index";
-import { getUserDataById, updateUserData } from "../../../../../../api/authApi/authApi";
+import { UserDataType, updateUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { BtnInner, BtnShowPasswordInner, Label, SubTitle, Title } from "./styledContent";
 
 export const Content: FC = () => {
@@ -16,34 +17,37 @@ export const Content: FC = () => {
     const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
     const [isInputConfirmTypePassword, setIsInputConfirmTypePassword] = useState<boolean>(true);
     const [isError, setIsError] = useState<boolean>(false);
+    const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const changePassword = async () => {
-        const token = getDataFromLocalStorage("token");
-
-        if (passwordValue.length > 0
-            && confirmPasswordValue.length > 0
-            && !!passwordValue.match(PASSWORD_PATTERN)) {
+        if (passwordValue.length > 0 &&
+            confirmPasswordValue.length > 0 && !!passwordValue.match(PASSWORD_PATTERN)) {
             if (passwordValue === confirmPasswordValue) {
-                const userData = await getUserDataById(token);
+                try {
+                    if (userDataFromRedux) {
+                        const changedData = {
+                            ...userDataFromRedux,
+                            password: passwordValue
+                        };
 
-                const changedData = {
-                    ...userData,
-                    password: passwordValue
-                };
+                        const resultAction = await dispatch(updateUserData(changedData));
+                        const response = unwrapResult(resultAction);
 
-                const response = await updateUserData(token, changedData);
-
-                if (response) {
-                    getAllert({ type: "success", text: response });
-                    setIsError(false);
-                    setTimeout(() => navigate("/settings"), 1000);
+                        if (response) {
+                            getAllert({ type: "success", text: response });
+                            setIsError(false);
+                            setTimeout(() => navigate("/settings"), 1000);
+                        }
+                    }
+                } catch (error) {
+                    console.error(error);
                 }
             } else {
                 getAllert({ type: "error", text: "Passwords must match." });
                 setIsError(true);
             }
-
         } else {
             getAllert({ type: "error", text: "Password must contain at least one digit, one special character '!@#$%^&*', one lowercase letter, one uppercase letter, and should not contain any spaces." });
             setIsError(true);

@@ -1,11 +1,17 @@
-import { FC } from "react";
-import { useLocation } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { Description, Email, EmailAdressInner, SubTitle, Title } from "./styledContent";
+import { useAppSelector } from "../../../../../../redux/store/store";
+import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
 
 export const Content: FC = () => {
-    const location = useLocation();
+    const [email, setEmail] = useState<string | null>(null);
+    const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
+
+    useEffect(() => {
+        userDataFromRedux && setEmail(userDataFromRedux?.email);
+    }, [userDataFromRedux]);
 
     return (
         <div>
@@ -25,7 +31,7 @@ export const Content: FC = () => {
                 <EmailAdressInner to={"/settings/change-email-checking"}>
                     <Email>
                         <span>
-                            {location.state}
+                            {email}
                         </span>
                     </Email>
                     <div>

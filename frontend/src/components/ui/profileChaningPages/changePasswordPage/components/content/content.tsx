@@ -4,8 +4,8 @@ import { OutlinedInput } from "@mui/material";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
-import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
-import { getUserDataById } from "../../../../../../api/authApi/authApi";
+import { UserDataType } from "../../../../../../redux/reducers/userReducer/userReducer";
+import { useAppSelector } from "../../../../../../redux/store/store";
 import { BtnInner, BtnShowPasswordInner, Label, Title } from "./styledContent";
 
 export const Content: FC = () => {
@@ -13,27 +13,24 @@ export const Content: FC = () => {
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
     const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
     const [isError, setIsError] = useState<boolean>(false);
+    const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
     const navigate = useNavigate();
 
     const checkPassword = async () => {
         try {
-            const token = await getDataFromLocalStorage("token");
-            const userData = await getUserDataById(token);
-
-            if (!userData) {
+            if (!userDataFromRedux) {
                 setAlertActive({ type: "error", text: "User not found" });
                 setTimeout(() => setAlertActive(null), 3000);
                 setIsError(true);
             }
 
-            if (userData && userData.password === passwordValue) {
+            if (userDataFromRedux && userDataFromRedux.password === passwordValue) {
                 navigate("/settings/change-password-modification");
             } else {
                 setAlertActive({ type: "error", text: "Invalid password" });
                 setTimeout(() => setAlertActive(null), 3000);
                 setIsError(true);
             }
-
         } catch (error) {
             console.error(error);
         }
