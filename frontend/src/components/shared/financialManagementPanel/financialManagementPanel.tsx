@@ -107,7 +107,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                         <AddCategoryBtn onClick={toggleCategorySelectionModal} type="button"></AddCategoryBtn>
                     </AddCategoryBtnInner>
                 </> :
-                <Loading />}
+                <Loading size={40} height={3} />}
             {isCategorySelectionModalActive ?
                 <>
                     <CategorySelectionModal

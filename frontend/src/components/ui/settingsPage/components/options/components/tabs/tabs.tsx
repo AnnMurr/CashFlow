@@ -29,7 +29,7 @@ export const Tabs: FC<TabsProps> = ({ tabs }) => {
                 </ul>
             </div>
             <div>
-                {tabs[activeTab] ? tabs[activeTab].content : <Loading />}
+                {tabs[activeTab] ? tabs[activeTab].content : <Loading size={40} height={3} />}
             </div>
         </Container>
     )

@@ -68,7 +68,7 @@ export const Categories: FC<CategoriesProps> = ({
             const categoriesExpenses: Array<any> = userDataFromStorage.data[dataKey];
             const updatedUserData = categoriesExpenses.filter((item) => item.name !== categoryName);
 
-            try { 
+            try {
                 userDataFromStorage.data[dataKey] = [...updatedUserData];
                 await changeUserData(token, userDataFromStorage);
                 getAlert({ type: "success", text: "Category deleted successfully" });
@@ -125,9 +125,9 @@ export const Categories: FC<CategoriesProps> = ({
                                 </CrossBtnInner>}
                         </Item>
                     ))
-                        : <Loading />}
+                        : <Loading size={40} height={3} />}
                 </List>
-                : <Loading />}
+                : <Loading size={40} height={3} />}
         </>
     )
 }
