@@ -1,4 +1,3 @@
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
 
@@ -9,11 +8,13 @@ export interface UserDataType {
 }
 
 export interface InitialStateType {
-    userData: null | UserDataType
+    userData: null | UserDataType;
+    loading: boolean;
 }
 
 const initialState: InitialStateType = {
     userData: null,
+    loading: false
 }
 
 export const userSlice = createSlice({
@@ -26,11 +27,22 @@ export const userSlice = createSlice({
         deleteUserDataFromRedux: (state) => {
             state.userData = null;
         }
-    }
+    },
+    extraReducers: (builder) =>
+        builder
+            .addCase(getUserDataById.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getUserDataById.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(getUserDataById.rejected, (state) => {
+                state.loading = false;
+            })
 });
 
 export const getUserDataById = createAsyncThunk(
-    "data/getUserByToken",
+    "data/UserByToken",
     async (_, { dispatch, rejectWithValue }) => {
         try {
             const token = getDataFromLocalStorage("token");
@@ -148,7 +160,7 @@ export const checkUserData = createAsyncThunk<string | boolean, { email: string,
     }
 )
 
-export const setUserData = createAsyncThunk<string ,UserDataType>(
+export const setUserData = createAsyncThunk<string, UserDataType>(
     "data/setUserData",
     async (userData, { dispatch, rejectWithValue }) => {
         try {
