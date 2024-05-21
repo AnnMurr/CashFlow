@@ -11,7 +11,7 @@ import { Icon } from "./components/icon/icon";
 import { CrossBtnInner, Item, List } from "./styledCategories";
 interface CategoriesProps {
     categoriesList: Array<CategoriesExpensesType> | null;
-    setChoosedCategory: (value: string) => void;
+    setChoosedCategory: (value: { category: string, icon: string } | null) => void;
     getUserDataFromStorage: () => void;
     setIsEnteringModalActive: (value: boolean) => void;
     getAlert: (value: AlertComponentProps) => void;
@@ -48,7 +48,9 @@ export const Categories: FC<CategoriesProps> = ({
     const openEnteringExpensesModal = (event: React.MouseEvent<HTMLLIElement>) => {
         if (!(event.target as HTMLElement).classList.contains("item-btn")) {
             const category = (event.currentTarget as HTMLLIElement).children[1].children[0].textContent;
-            category && setChoosedCategory(category);
+            const icon = (event.currentTarget as HTMLLIElement).children[0].children[0].getAttribute("src");
+
+            if (category && icon) setChoosedCategory({ category: category, icon: icon });
             setIsEnteringModalActive(true);
         }
     }

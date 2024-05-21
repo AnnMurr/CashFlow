@@ -4,7 +4,7 @@ import { OutlinedInput } from "@mui/material";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
-import { UserDataType } from "../../../../../../redux/reducers/userReducer/userReducer";
+import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { useAppSelector } from "../../../../../../redux/store/store";
 import { BtnInner, BtnShowPasswordInner, Label, Title } from "./styledContent";
 

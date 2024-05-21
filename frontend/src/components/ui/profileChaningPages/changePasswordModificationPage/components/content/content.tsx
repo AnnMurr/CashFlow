@@ -5,7 +5,8 @@ import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
 import { PASSWORD_PATTERN } from "../../../../../../consts/index";
-import { UserDataType, updateUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
+import { updateUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
+import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { BtnInner, BtnShowPasswordInner, Label, SubTitle, Title } from "./styledContent";

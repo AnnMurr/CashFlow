@@ -6,7 +6,6 @@ import { AlertComponent, AlertComponentProps } from "../alert/alert";
 import { Loading } from "../../shared/loading/loading";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
 import { changeUserData, getDataFromUserStore } from "../../../api/userDataApi/userDataApi";
-import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { Categories } from "./components/categories/categories";
 import { INVALID_CHARS_REGEXP } from "../../../consts/index";
 import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledFinancialManagementPanel";
@@ -21,7 +20,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const [categoriesList, setCategoriesList] = useState<Array<any> | null>(null);
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
     const [isEnteringModalActive, setIsEnteringModalActive] = useState<boolean>(false);
-    const [choosedCategory, setChoosedCategory] = useState<string>("");
+    const [choosedCategory, setChoosedCategory] = useState<{category: string, icon: string} | null>(null);
     const [costValue, setCostValue] = useState<string>("0");
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
 
@@ -55,10 +54,11 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                 const transactions = dataFromUserStore.data[type];
 
                 transactions.push({
-                    category: choosedCategory,
-                    date: getCurrentDate(),
+                    category: choosedCategory?.category,
+                    icon: choosedCategory?.icon,
+                    date: new Date(),
                     sum: parseInt(costValue),
-                })
+                });
 
                 const userDataAfterUpdate = await changeUserData(token, dataFromUserStore);
 

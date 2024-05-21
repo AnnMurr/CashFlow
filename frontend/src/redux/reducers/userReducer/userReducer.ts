@@ -1,16 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
-
-export interface UserDataType {
-    name: string,
-    email: string,
-    password: string,
-}
-
-export interface InitialStateType {
-    userData: null | UserDataType;
-    loading: boolean;
-}
+import { InitialStateType, UserDataType } from "./types";
 
 const initialState: InitialStateType = {
     userData: null,

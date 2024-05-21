@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
-import { UserDataType, updateUserData } from "../../../../../../../../redux/reducers/userReducer/userReducer";
+import { updateUserData } from "../../../../../../../../redux/reducers/userReducer/userReducer";
+import { UserDataType } from "../../../../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch, useAppSelector } from "../../../../../../../../redux/store/store";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { OutlinedInput } from "@mui/material";

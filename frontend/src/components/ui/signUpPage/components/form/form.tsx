@@ -10,7 +10,8 @@ import { EMAIL_PATTERN, PASSWORD_PATTERN } from "../../../../../consts/index";
 import { createUserStore } from "../../../../../api/userDataApi/userDataApi";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
-import { UserDataType, checkUserDataByEmail, setUserData } from "../../../../../redux/reducers/userReducer/userReducer";
+import { checkUserDataByEmail, setUserData } from "../../../../../redux/reducers/userReducer/userReducer";
+import { UserDataType } from "../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label, Title } from "./styledForm";
 interface FormProps {
