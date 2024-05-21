@@ -24,13 +24,9 @@ import { ChangePasswordModificationPage } from './components/ui/profileChaningPa
 import { DeletingAccountConfirmationPage } from './components/ui/profileChaningPages/deletingAccountСonfirmationPage/deletingAccountСonfirmationPage';
 import { DeletingAccountPage } from './components/ui/profileChaningPages/deletingAccountPage/deletingAccountPage';
 import { IcomePage } from './components/ui/icomePage/icomePage';
-import { useEffect } from 'react';
-import { getUserDataById } from './redux/reducers/userReducer/userReducer';
-import { useAppDispatch } from './redux/store/store';
+import { Statistics } from './components/ui/statistics/statistics';
 
 function App() {
-
-
   return (
     <AuthorizedContextProvider>
       <HashRouter>
@@ -69,6 +65,7 @@ function App() {
           <Route path="/settings/change-password-modification" element={<ChangePasswordModificationPage />} />
           <Route path="/settings/deleting-account-confirmation" element={<DeletingAccountConfirmationPage />} />
           <Route path="/settings/deleting-account" element={<DeletingAccountPage />} />
+          <Route path="/statistics" element={<Statistics />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         </Body>

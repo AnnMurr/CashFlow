@@ -5,7 +5,8 @@ import { EMAIL_PATTERN } from "../../../../../../consts/index";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
-import { UserDataType, checkUserDataByEmail, updateUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
+import { checkUserDataByEmail, updateUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
+import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { BtnInner, Title } from "./styledContent";
 

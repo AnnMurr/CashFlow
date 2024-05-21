@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
-import { WALLET_ICON, EXPENSES_ICON, SETTING_ICON } from "../../../consts/images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faClockRotateLeft, faGear, faSackDollar, faWallet } from "@fortawesome/free-solid-svg-icons";
 import { Item } from "./components/item/item";
 import { Container, List, Wrapper, BurgerInner } from "./styledSubBar";
 
@@ -23,23 +22,25 @@ export const SubBar: FC = () => {
                 </BurgerInner>
                 <List>
                     <Item
-                        image={WALLET_ICON.default}
-                        altText="wallet"
+                        icon={faWallet}
                         isAtiveBar={isAtiveBar}
                         text="Income"
                         linkTo="/income" />
                     <Item
-                        image={EXPENSES_ICON.default}
-                        altText="budgeting"
+                        icon={faSackDollar}
                         isAtiveBar={isAtiveBar}
                         text="Expenses"
                         linkTo="/expenses" />
                     <Item
-                        image={SETTING_ICON.default}
-                        altText="gear"
+                        icon={faGear}
                         isAtiveBar={isAtiveBar}
                         text="Settings"
                         linkTo="/settings" />
+                    <Item
+                        icon={faClockRotateLeft}
+                        isAtiveBar={isAtiveBar}
+                        text="Statistics"
+                        linkTo="/statistics" />
                 </List>
             </Wrapper>
         </Container>

@@ -5,7 +5,7 @@ import { ButtonComponent } from "../../../../../../shared/button/button";
 import { Item } from "./component/item/item";
 import { AuthorizedContext, AuthorizedContextType } from "../../../../../../../contexts/authorizedContext/authorizedContext";
 import { useAppSelector } from "../../../../../../../redux/store/store";
-import { UserDataType } from "../../../../../../../redux/reducers/userReducer/userReducer";
+import { UserDataType } from "../../../../../../../redux/reducers/userReducer/types";
 import { BtnLogOutInner, Container, List } from "./styledPersonalInformation";
 
 export const PersonalInformation = () => {
