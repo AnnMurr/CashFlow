@@ -14,6 +14,8 @@ import { checkUserDataByEmail, setUserData } from "../../../../../redux/reducers
 import { UserDataType } from "../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label, Title } from "./styledForm";
+import { SignUpWithGoogle } from "./components/signUpWithGoogle/signUpWithGoogle";
+import { LinkToSignInBlock } from "./components/linkToSignInBlock/linkToSignInBlock";
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
 }
@@ -32,7 +34,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
 
         try {
             const isUser = (await dispatch(checkUserDataByEmail(data.email))).payload;
-     
+
             if (isUser) {
                 setIsAlertActive({ type: "error", text: "User has already registered" });
                 setTimeout(() => setIsAlertActive(null), 2000);
@@ -189,6 +191,9 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 text="Sign up"
                 color="#fff"
                 type="submit" />
+
+            <SignUpWithGoogle />
+            <LinkToSignInBlock />
         </FormContainer>
     )
 }
