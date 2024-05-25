@@ -12,8 +12,7 @@ export const PersonalInformation = () => {
     const [userData, setUserData] = useState<null | UserDataType>(null);
     const authorizedContext = useContext<AuthorizedContextType>(AuthorizedContext);
     const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const getLogOut = () => {
         authorizedContext.logOut();
@@ -30,9 +29,19 @@ export const PersonalInformation = () => {
             <List>
                 {userData ?
                     <>
-                        <Item link={"/settings/change-name"} category={"Name"} value={userData.name} />
-                        <Item link={"/settings/change-email"} category={"Email"} value={userData.email} />
-                        <Item link={"/settings/change-password"} category={"Password"} value={userData.password} />
+                        <Item
+                            link={"/settings/change-name"}
+                            category={"Name"}
+                            value={userData.name} />
+                        <Item
+                            link={"/settings/change-email"}
+                            category={"Email"}
+                            value={userData.email} />
+                        {userData.password &&
+                            <Item
+                                link={"/settings/change-password"}
+                                category={"Password"}
+                                value={userData.password} />}
                     </>
                     : null}
             </List>

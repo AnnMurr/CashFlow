@@ -13,9 +13,9 @@ import { AuthorizedContext } from "../../../../../contexts/authorizedContext/aut
 import { checkUserDataByEmail, setUserData } from "../../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch } from "../../../../../redux/store/store";
-import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label, Title } from "./styledForm";
 import { SignUpWithGoogle } from "./components/signUpWithGoogle/signUpWithGoogle";
 import { LinkToSignInBlock } from "./components/linkToSignInBlock/linkToSignInBlock";
+import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label, Title } from "./styledForm";
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
 }
@@ -24,23 +24,36 @@ interface SubmitHandlerDataType extends UserDataType {
 }
 
 export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
-    const [isInputTypePassword, setIsInputTypePassword] = useState(true);
-    const [isInputConfirmTypePassword, setIsInputConfirmTypePassword] = useState(true);
+    const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
+    const [isInputConfirmTypePassword, setIsInputConfirmTypePassword] = useState<boolean>(true);
     const { login } = useContext(AuthorizedContext);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
+    const getLogSuccess = (token: string) => {
+        setIsAlertActive({ type: "success", text: "User account creation successful" });
+        setTimeout(() => {
+            setIsAlertActive(null);
+            navigate('/profile');
+            setDataToLocalStorage("token", token);
+            login();
+        }, 1000);
+    }
+
     const onSubmit: SubmitHandler<SubmitHandlerDataType> = async (data) => {
 
         try {
-            const isUser = (await dispatch(checkUserDataByEmail(data.email))).payload;
+            const isUser = (await dispatch(checkUserDataByEmail({link: "users/check-email", email: data.email}))).payload;
+            const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: data.email }))).payload;
 
-            if (isUser) {
+            if (isUser || isUserGoogle) {
                 setIsAlertActive({ type: "error", text: "User has already registered" });
                 setTimeout(() => setIsAlertActive(null), 2000);
             } else {
                 delete data.confirmPassword;
-                const token = (await dispatch(setUserData(data))).payload;
+                data.name = data.name.trim();
+
+                const token = (await dispatch(setUserData({ link: "putdata", userData: data }))).payload;
 
                 if (typeof token === "string") {
                     const createdStorage = await createUserStore(token);
@@ -48,13 +61,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     if (!createdStorage.ok) {
                         console.error("Failed to create storage");
                     } else {
-                        setIsAlertActive({ type: "success", text: "User account creation successful" });
-                        setTimeout(() => {
-                            setIsAlertActive(null);
-                            navigate('/profile');
-                            setDataToLocalStorage("token", token);
-                            login();
-                        }, 1000);
+                        getLogSuccess(token);
                     }
                 }
             }
@@ -97,7 +104,8 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     width: "100%",
                     fontSize: "14px",
                 }}
-                size="small" placeholder="Name" />
+                size="small" 
+                placeholder="Name" />
             {!!errors.name ?
                 <ErrorMessageContainer>
                     <ErrorMessage text={errors.name?.message as string} />
@@ -191,8 +199,8 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 text="Sign up"
                 color="#fff"
                 type="submit" />
-
-            <SignUpWithGoogle />
+                
+            <SignUpWithGoogle getLogSuccess={getLogSuccess} setIsAlertActive={setIsAlertActive} />
             <LinkToSignInBlock />
         </FormContainer>
     )

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
-import { InitialStateType, UserDataType } from "./types";
+import { CheckUserDataByEmailType, InitialStateType, SetUserDataType, UserDataType } from "./types";
 
 const initialState: InitialStateType = {
     userData: null,
@@ -106,11 +106,11 @@ export const deleteUserData = createAsyncThunk<{ status: number, message: string
     }
 )
 
-export const checkUserDataByEmail = createAsyncThunk<string | boolean, string>(
+export const checkUserDataByEmail = createAsyncThunk<string | boolean, CheckUserDataByEmailType>(
     "data/checkUserDataByEmail",
-    async (email, { dispatch, rejectWithValue }) => {
+    async ({ email, link }, { dispatch, rejectWithValue }) => {
         try {
-            const response = await fetch("http://localhost:5050/check-data-email", {
+            const response = await fetch(`http://localhost:5050/${link}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userData: email })
@@ -132,7 +132,7 @@ export const checkUserData = createAsyncThunk<string | boolean, { email: string,
     "data/checkUserData",
     async (userData, { dispatch, rejectWithValue }) => {
         try {
-            const response = await fetch("http://localhost:5050/check-data", {
+            const response = await fetch("http://localhost:5050/users/check", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userData: userData })
@@ -150,14 +150,36 @@ export const checkUserData = createAsyncThunk<string | boolean, { email: string,
     }
 )
 
-export const setUserData = createAsyncThunk<string, UserDataType>(
+export const setUserData = createAsyncThunk<string, SetUserDataType>(
     "data/setUserData",
-    async (userData, { dispatch, rejectWithValue }) => {
+    async ({ userData, link }, { dispatch, rejectWithValue }) => {
         try {
-            const response = await fetch("http://localhost:5050/putdata", {
+            const response = await fetch(`http://localhost:5050/${link}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userData: userData })
+            })
+
+            if (!response.ok) {
+                throw new Error("Failed to put user data");
+            }
+
+            const data = response.json();
+            return data;
+        } catch (error) {
+            error instanceof Error && rejectWithValue(error.message);
+        }
+    }
+)
+
+export const linkAccountToGoogle = createAsyncThunk<string, string>(
+    "data/setUserData",
+    async (id , { dispatch, rejectWithValue }) => {
+        try {
+            const response = await fetch(`http://localhost:5050/link-account-to-google`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: id })
             })
 
             if (!response.ok) {

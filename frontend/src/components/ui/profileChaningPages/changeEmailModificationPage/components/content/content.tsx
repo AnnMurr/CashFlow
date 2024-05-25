@@ -20,7 +20,7 @@ export const Content: FC = () => {
     const navigate = useNavigate();
 
     const changeEmail = async () => {
-        const userExists = (await dispatch(checkUserDataByEmail(emailValue))).payload;
+        const userExists = (await dispatch(checkUserDataByEmail({link: "/users/google/check-email", email: emailValue}))).payload;
         const isValid = validateEmail(emailValue);
 
         try {
