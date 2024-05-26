@@ -10,10 +10,6 @@ export const FormContainer = styled.form`
     padding: 40px;
 `
 
-export const Title = styled.div`
-    padding-bottom: 30px;
-`
-
 export const ErrorMessageContainer = styled.div`
     position: relative;
     bottom: 20px;

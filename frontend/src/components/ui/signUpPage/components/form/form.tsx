@@ -1,7 +1,6 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { OutlinedInput } from "@mui/material";
 import { ErrorMessage } from "../../../../shared/errorMessage/errorMessage";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../shared/button/button";
@@ -15,7 +14,9 @@ import { UserDataType } from "../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { SignUpWithGoogle } from "./components/signUpWithGoogle/signUpWithGoogle";
 import { LinkToSignInBlock } from "./components/linkToSignInBlock/linkToSignInBlock";
-import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label, Title } from "./styledForm";
+import { Input } from "./components/input/input";
+import { Title } from "./components/title/title";
+import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label } from "./styledForm";
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
 }
@@ -43,7 +44,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
     const onSubmit: SubmitHandler<SubmitHandlerDataType> = async (data) => {
 
         try {
-            const isUser = (await dispatch(checkUserDataByEmail({link: "users/check-email", email: data.email}))).payload;
+            const isUser = (await dispatch(checkUserDataByEmail({ link: "users/check-email", email: data.email }))).payload;
             const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: data.email }))).payload;
 
             if (isUser || isUserGoogle) {
@@ -81,14 +82,10 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
 
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)} action="/submit" method="post">
-            <Title>
-                <h2>
-                    Sign Up
-                </h2>
-            </Title>
-            <OutlinedInput
-                {...register("name", {
-                    required: true,
+           <Title />
+            <Input
+                register={register("name", {
+                    required: "Name is required",
                     minLength: {
                         value: 2,
                         message: "Minimum length is 2 characters",
@@ -98,21 +95,16 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                         message: "Maximum length is 20 characters",
                     },
                 })}
-                error={!!errors.name}
-                sx={{
-                    marginBottom: "20px",
-                    width: "100%",
-                    fontSize: "14px",
-                }}
-                size="small" 
-                placeholder="Name" />
+                isError={!!errors.name}
+                type="text"
+                placeholderValue="Name" />
             {!!errors.name ?
                 <ErrorMessageContainer>
                     <ErrorMessage text={errors.name?.message as string} />
                 </ErrorMessageContainer>
                 : null}
-            <OutlinedInput
-                {...register("email", {
+            <Input
+                register={register("email", {
                     required: true,
                     pattern: {
                         value: EMAIL_PATTERN,
@@ -123,19 +115,15 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                         message: "Maximum length is 30 characters",
                     },
                 })}
-                error={!!errors.email}
-                sx={{
-                    marginBottom: "20px",
-                    width: "100%",
-                    fontSize: "14px"
-                }}
-                size="small" placeholder="Email" />
+                isError={!!errors.email}
+                type="email"
+                placeholderValue="Email" />
             <ErrorMessageContainer>
                 <ErrorMessage text={errors.email?.message as string} />
             </ErrorMessageContainer>
             <Label>
-                <OutlinedInput
-                    {...register("password", {
+                <Input
+                    register={register("password", {
                         required: true,
                         pattern: {
                             value:
@@ -152,14 +140,9 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                             message: "Maximum length is 30 characters",
                         },
                     })}
-                    error={!!errors.password}
+                    isError={!!errors.password}
                     type={isInputTypePassword ? "password" : "text"}
-                    sx={{
-                        marginBottom: "20px",
-                        width: "100%",
-                        fontSize: "14px"
-                    }}
-                    size="small" placeholder="Password" />
+                    placeholderValue="Password" />
                 <BtnShowPasswordInner>
                     <BtnShowPassword
                         func={() => setIsInputTypePassword(prev => !prev)}
@@ -170,20 +153,15 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 </ErrorMessageContainer>
             </Label>
             <Label>
-                <OutlinedInput
-                    {...register("confirmPassword", {
+                <Input
+                    register={register("confirmPassword", {
                         required: true,
                         validate: (value) =>
                             value === getValues("password") || "Passwords must match",
                     })}
-                    error={!!errors.confirmPassword}
+                    isError={!!errors.confirmPassword}
                     type={isInputConfirmTypePassword ? "password" : "text"}
-                    sx={{
-                        marginBottom: "20px",
-                        width: "100%",
-                        fontSize: "14px"
-                    }}
-                    size="small" placeholder="Confirm password" />
+                    placeholderValue="Confirm password" />
                 <BtnShowPasswordInner>
                     <BtnShowPassword
                         func={() => setIsInputConfirmTypePassword(prev => !prev)}
@@ -199,7 +177,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 text="Sign up"
                 color="#fff"
                 type="submit" />
-                
+
             <SignUpWithGoogle getLogSuccess={getLogSuccess} setIsAlertActive={setIsAlertActive} />
             <LinkToSignInBlock />
         </FormContainer>

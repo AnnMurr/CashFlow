@@ -81,7 +81,7 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
                         error={error}
                         maxRows={20}
                         value={value}
-                        onChange={(event) => setValue((prev => prev = event.target.value.trimStart()))}
+                        onChange={(event) => setValue((event.target.value.trimStart()))}
                         size="small"
                         placeholder="Name" />
                 </div>
