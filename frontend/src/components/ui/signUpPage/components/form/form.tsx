@@ -1,7 +1,6 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { OutlinedInput } from "@mui/material";
 import { ErrorMessage } from "../../../../shared/errorMessage/errorMessage";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../shared/button/button";
@@ -13,7 +12,11 @@ import { AuthorizedContext } from "../../../../../contexts/authorizedContext/aut
 import { checkUserDataByEmail, setUserData } from "../../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch } from "../../../../../redux/store/store";
-import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label, Title } from "./styledForm";
+import { SignUpWithGoogle } from "./components/signUpWithGoogle/signUpWithGoogle";
+import { LinkToSignInBlock } from "./components/linkToSignInBlock/linkToSignInBlock";
+import { Input } from "./components/input/input";
+import { Title } from "./components/title/title";
+import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label } from "./styledForm";
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
 }
@@ -22,23 +25,36 @@ interface SubmitHandlerDataType extends UserDataType {
 }
 
 export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
-    const [isInputTypePassword, setIsInputTypePassword] = useState(true);
-    const [isInputConfirmTypePassword, setIsInputConfirmTypePassword] = useState(true);
+    const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
+    const [isInputConfirmTypePassword, setIsInputConfirmTypePassword] = useState<boolean>(true);
     const { login } = useContext(AuthorizedContext);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
+    const getLogSuccess = (token: string) => {
+        setIsAlertActive({ type: "success", text: "User account creation successful" });
+        setTimeout(() => {
+            setIsAlertActive(null);
+            navigate('/profile');
+            setDataToLocalStorage("token", token);
+            login();
+        }, 1000);
+    }
+
     const onSubmit: SubmitHandler<SubmitHandlerDataType> = async (data) => {
 
         try {
-            const isUser = (await dispatch(checkUserDataByEmail(data.email))).payload;
-     
-            if (isUser) {
+            const isUser = (await dispatch(checkUserDataByEmail({ link: "users/check-email", email: data.email }))).payload;
+            const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: data.email }))).payload;
+
+            if (isUser || isUserGoogle) {
                 setIsAlertActive({ type: "error", text: "User has already registered" });
                 setTimeout(() => setIsAlertActive(null), 2000);
             } else {
                 delete data.confirmPassword;
-                const token = (await dispatch(setUserData(data))).payload;
+                data.name = data.name.trim();
+
+                const token = (await dispatch(setUserData({ link: "putdata", userData: data }))).payload;
 
                 if (typeof token === "string") {
                     const createdStorage = await createUserStore(token);
@@ -46,13 +62,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     if (!createdStorage.ok) {
                         console.error("Failed to create storage");
                     } else {
-                        setIsAlertActive({ type: "success", text: "User account creation successful" });
-                        setTimeout(() => {
-                            setIsAlertActive(null);
-                            navigate('/profile');
-                            setDataToLocalStorage("token", token);
-                            login();
-                        }, 1000);
+                        getLogSuccess(token);
                     }
                 }
             }
@@ -72,14 +82,10 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
 
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)} action="/submit" method="post">
-            <Title>
-                <h2>
-                    Sign Up
-                </h2>
-            </Title>
-            <OutlinedInput
-                {...register("name", {
-                    required: true,
+           <Title />
+            <Input
+                register={register("name", {
+                    required: "Name is required",
                     minLength: {
                         value: 2,
                         message: "Minimum length is 2 characters",
@@ -89,20 +95,16 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                         message: "Maximum length is 20 characters",
                     },
                 })}
-                error={!!errors.name}
-                sx={{
-                    marginBottom: "20px",
-                    width: "100%",
-                    fontSize: "14px",
-                }}
-                size="small" placeholder="Name" />
+                isError={!!errors.name}
+                type="text"
+                placeholderValue="Name" />
             {!!errors.name ?
                 <ErrorMessageContainer>
                     <ErrorMessage text={errors.name?.message as string} />
                 </ErrorMessageContainer>
                 : null}
-            <OutlinedInput
-                {...register("email", {
+            <Input
+                register={register("email", {
                     required: true,
                     pattern: {
                         value: EMAIL_PATTERN,
@@ -113,19 +115,15 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                         message: "Maximum length is 30 characters",
                     },
                 })}
-                error={!!errors.email}
-                sx={{
-                    marginBottom: "20px",
-                    width: "100%",
-                    fontSize: "14px"
-                }}
-                size="small" placeholder="Email" />
+                isError={!!errors.email}
+                type="email"
+                placeholderValue="Email" />
             <ErrorMessageContainer>
                 <ErrorMessage text={errors.email?.message as string} />
             </ErrorMessageContainer>
             <Label>
-                <OutlinedInput
-                    {...register("password", {
+                <Input
+                    register={register("password", {
                         required: true,
                         pattern: {
                             value:
@@ -142,14 +140,9 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                             message: "Maximum length is 30 characters",
                         },
                     })}
-                    error={!!errors.password}
+                    isError={!!errors.password}
                     type={isInputTypePassword ? "password" : "text"}
-                    sx={{
-                        marginBottom: "20px",
-                        width: "100%",
-                        fontSize: "14px"
-                    }}
-                    size="small" placeholder="Password" />
+                    placeholderValue="Password" />
                 <BtnShowPasswordInner>
                     <BtnShowPassword
                         func={() => setIsInputTypePassword(prev => !prev)}
@@ -160,20 +153,15 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 </ErrorMessageContainer>
             </Label>
             <Label>
-                <OutlinedInput
-                    {...register("confirmPassword", {
+                <Input
+                    register={register("confirmPassword", {
                         required: true,
                         validate: (value) =>
                             value === getValues("password") || "Passwords must match",
                     })}
-                    error={!!errors.confirmPassword}
+                    isError={!!errors.confirmPassword}
                     type={isInputConfirmTypePassword ? "password" : "text"}
-                    sx={{
-                        marginBottom: "20px",
-                        width: "100%",
-                        fontSize: "14px"
-                    }}
-                    size="small" placeholder="Confirm password" />
+                    placeholderValue="Confirm password" />
                 <BtnShowPasswordInner>
                     <BtnShowPassword
                         func={() => setIsInputConfirmTypePassword(prev => !prev)}
@@ -189,6 +177,9 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 text="Sign up"
                 color="#fff"
                 type="submit" />
+
+            <SignUpWithGoogle getLogSuccess={getLogSuccess} setIsAlertActive={setIsAlertActive} />
+            <LinkToSignInBlock />
         </FormContainer>
     )
 }

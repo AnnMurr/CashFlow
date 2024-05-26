@@ -1,6 +1,5 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OutlinedInput } from "@mui/material";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { BtnShowPassword } from "../../../../shared/btnShowPassword/btnShowPassword";
@@ -8,6 +7,7 @@ import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
 import { checkUserData } from "../../../../../redux/reducers/userReducer/userReducer";
 import { useAppDispatch } from "../../../../../redux/store/store";
+import { Input } from "./components/input";
 import { BtnShowPasswordInner, FormContainer, Label, Title } from "./styledForm";
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
@@ -21,6 +21,16 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
     const dispatch = useAppDispatch();
     const { login } = useContext(AuthorizedContext);
 
+    const getLogSuccess = (token: string) => {
+        setIsAlertActive({ type: "success", text: "User account creation successful" });
+        setTimeout(() => {
+            setIsAlertActive(null);
+            navigate('/profile');
+            setDataToLocalStorage("token", token);
+            login();
+        }, 1000);
+    }
+
     const logIn = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
@@ -28,13 +38,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
             const token = (await dispatch(checkUserData({ email: emailValue, password: passwordValue }))).payload;
 
             if (token && typeof token === "string") {
-                setIsAlertActive({ type: "success", text: "Successful login" });
-                setTimeout(() => {
-                    setIsAlertActive(null);
-                    setDataToLocalStorage("token", token);
-                    login();
-                    navigate('/profile');
-                }, 1000);
+                getLogSuccess(token);
             } else {
                 setIsAlertActive({ type: "error", text: "wrong data" });
                 setTimeout(() => setIsAlertActive(null), 3000);
@@ -52,32 +56,21 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 </h2>
             </Title>
             <form>
-                <OutlinedInput
-                    sx={{
-                        marginBottom: "20px",
-                        width: "100%",
-                        fontSize: "14px",
-                    }}
-                    size="small"
-                    placeholder="Email"
-                    value={emailValue}
-                    onChange={(event) => setEmailValue((prev) => prev = event.target.value)} />
+                <Input
+                    placeholderValue="Email"
+                    inputValue={emailValue}
+                    setValueFunc={setEmailValue}
+                    type="email" />
                 <Label>
-                    <OutlinedInput
-                        sx={{
-                            marginBottom: "20px",
-                            width: "100%",
-                            fontSize: "14px",
-                        }}
-                        size="small"
-                        placeholder="Password"
-                        type={isInputTypePassword ? "password" : "text"}
-                        value={passwordValue}
-                        onChange={(event) => setPasswordValue((prev) => prev = event.target.value)} />
+                    <Input
+                        placeholderValue="Password"
+                        inputValue={passwordValue}
+                        setValueFunc={setPasswordValue}
+                        type={isInputTypePassword ? "password" : "text"} />
                     <BtnShowPasswordInner>
-                        <BtnShowPassword 
-                        func={() => setIsInputTypePassword(prev => !prev)} 
-                        isTypePassword={isInputTypePassword} />
+                        <BtnShowPassword
+                            func={() => setIsInputTypePassword(prev => !prev)}
+                            isTypePassword={isInputTypePassword} />
                     </BtnShowPasswordInner>
                 </Label>
                 <ButtonComponent
