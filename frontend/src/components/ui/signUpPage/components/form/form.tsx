@@ -12,7 +12,7 @@ import { AuthorizedContext } from "../../../../../contexts/authorizedContext/aut
 import { checkUserDataByEmail, setUserData } from "../../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch } from "../../../../../redux/store/store";
-import { SignUpWithGoogle } from "./components/signUpWithGoogle/signUpWithGoogle";
+import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle/signUpWithGoogle";
 import { LinkToSignInBlock } from "./components/linkToSignInBlock/linkToSignInBlock";
 import { Input } from "./components/input/input";
 import { Title } from "./components/title/title";

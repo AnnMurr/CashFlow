@@ -5,8 +5,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { linkAccountToGoogle } from "../../../../../../../redux/reducers/userReducer/userReducer";
-import { useAppDispatch } from "../../../../../../../redux/store/store";
+import { linkAccountToGoogle } from "../../../../redux/reducers/userReducer/userReducer";
+import { useAppDispatch } from "../../../../redux/store/store";
 import { StyledButton } from "./styledGoogleLinkPrompt";
 
 interface GoogleLinkPromptProps {

@@ -1,11 +1,11 @@
 import { FC, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { signInWithGooglePopup } from "../../../../../../../utils/firebase/firebase";
-import { checkUserDataByEmail, setUserData } from "../../../../../../../redux/reducers/userReducer/userReducer";
-import { useAppDispatch } from "../../../../../../../redux/store/store";
-import { AlertComponentProps } from "../../../../../../shared/alert/alert";
-import { createUserStore } from "../../../../../../../api/userDataApi/userDataApi";
+import { signInWithGooglePopup } from "../../../../utils/firebase/firebase";
+import { checkUserDataByEmail, setUserData } from "../../../../redux/reducers/userReducer/userReducer";
+import { useAppDispatch } from "../../../../redux/store/store";
+import { AlertComponentProps } from "../../alert/alert";
+import { createUserStore } from "../../../../api/userDataApi/userDataApi";
 import { GoogleLinkPrompt } from "../googleLinkPrompt/googleLinkPrompt";
 import { SignUpWithGoogleBtn, SignUpWithGoogleBtnInner, SignUpWithGoogleTitle } from "./styledSignUpWithGoogle";
 interface SignUpWithGoogleProps {

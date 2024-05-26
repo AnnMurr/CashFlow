@@ -9,6 +9,7 @@ import { checkUserData } from "../../../../../redux/reducers/userReducer/userRed
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { Input } from "./components/input";
 import { BtnShowPasswordInner, FormContainer, Label, Title } from "./styledForm";
+import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle/signUpWithGoogle";
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
 }
@@ -80,6 +81,8 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     color="#fff"
                     type="submit"
                     func={logIn} />
+
+                <SignUpWithGoogle getLogSuccess={getLogSuccess} setIsAlertActive={setIsAlertActive} />
             </form>
         </FormContainer>
     )
