@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 `
 
 export const Content = styled.div`
-    padding: 90px 0;
+    padding-top: 90px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     max-width: 50rem;
