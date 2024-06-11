@@ -6,7 +6,7 @@ import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert
 import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { useAppSelector } from "../../../../../../redux/store/store";
-import { BtnInner, BtnShowPasswordInner, Label, Title } from "./styledContent";
+import { BtnInner, BtnShowPasswordInner, Label, Title, Wrapper } from "./styledContent";
 
 export const Content: FC = () => {
     const [passwordValue, setPasswordValue] = useState<string>("");
@@ -38,7 +38,7 @@ export const Content: FC = () => {
 
     return (
         <div>
-            <div>
+            <Wrapper>
                 <Title>
                     <h5>
                         Confirm your account.
@@ -75,7 +75,7 @@ export const Content: FC = () => {
                 {isAlertActive ?
                     <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
                     : null}
-            </div>
+            </Wrapper>
         </div>
     )
 }

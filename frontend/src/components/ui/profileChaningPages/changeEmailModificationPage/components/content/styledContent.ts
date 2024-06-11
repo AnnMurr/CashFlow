@@ -1,5 +1,11 @@
 import { styled } from 'styled-components';
 
+export const Wrapper = styled.div`
+    padding: 30px;
+    border: 1px solid #000;
+    border-radius: 10px;
+`
+
 export const Title = styled.div`
     padding-bottom: 30px;
 
@@ -10,6 +16,6 @@ export const Title = styled.div`
 `
 
 export const BtnInner = styled.div`
-    max-width: 30%;
+    max-width: 35rem;
     margin-left: auto;
 `

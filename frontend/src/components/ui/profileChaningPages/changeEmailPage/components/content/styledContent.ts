@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+    border: 1px solid #000;
+    border-radius: 10px;
+`
+
 export const Description = styled.div`
     padding: 30px;
 `

@@ -17,8 +17,10 @@ app.post("/get-data-id", async (req, res) => {
   try {
     const usersCollection = db.collection("users");
     const googleCollection = db.collection("googleUsers");
-    const result = await usersCollection.findOne({ _id: new ObjectId(id) }) || await googleCollection.findOne({ _id: new ObjectId(id) });
-
+    const usersCollectionResult = await usersCollection.findOne({ _id: new ObjectId(id) });
+    const googleCollectionResult = await googleCollection.findOne({ _id: new ObjectId(id) });
+    const result = usersCollectionResult || googleCollectionResult;
+    
     if (result) {
       delete result._id;
       res.status(200).send(result);
@@ -119,9 +121,10 @@ app.patch("/change-data", async (req, res) => {
   try {
     const filter = { _id: new ObjectId(id) };
     const updateDoc = { $set: newData };
-    const result = await usersCollection.updateOne(filter, updateDoc) || await googleCollection.updateOne(filter, updateDoc);
+    const usersCollectionResult = await usersCollection.updateOne(filter, updateDoc);
+    const googleCollectionResult = await googleCollection.updateOne(filter, updateDoc);
 
-    if (result.matchedCount) {
+    if (usersCollectionResult.matchedCount || googleCollectionResult.matchedCount) {
       res.status(200).send("data updated successfully");
     } else {
       res.status(404).send("error updating data");
@@ -141,9 +144,10 @@ app.delete("/delete-data", async (req, res) => {
 
   try {
     const filter = { _id: new ObjectId(id) };
-    const response = await usersCollection.deleteOne(filter) || await googleCollection.deleteOne(filter);
+    const usersCollectionResult = await usersCollection.deleteOne(filter);
+    const googleCollectionResult = await googleCollection.deleteOne(filter);
 
-    if (response.deletedCount) {
+    if (usersCollectionResult.deletedCount || googleCollectionResult.deletedCount) {
       res.status(200).send("Data deleted successfully");
     } else {
       res.status(500).send("Error deleting data");
@@ -180,7 +184,7 @@ app.post("/check-google-account", async (req, res) => {
   try {
     const collection = db.collection("googleUsers");
     const userData = await collection.findOne({ _id: new ObjectId(id) });
-console.log(userData)
+
     if (userData) {
       res.status(200).send(true);
     } else {

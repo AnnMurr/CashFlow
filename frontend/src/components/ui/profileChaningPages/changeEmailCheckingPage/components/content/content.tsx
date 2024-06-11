@@ -5,10 +5,12 @@ import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/
 import { checkGoogleAccount } from "../../../../../../redux/reducers/userReducer/userReducer";
 import { AccountConfirmationBlock } from "./components/accountConfirmationBlock/accountConfirmationBlock";
 import { ChangeUserAccount } from "../../../../../shared/googleAuth/changeUserAccount/changeUserAccount";
+import { Loading } from "../../../../../shared/loading/loading";
+import { Wrapper } from "./styledContent";
 
 export const Content: FC = () => {
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
-    const [isGoogleAccount, setIsGoogleAccount] = useState<boolean>(true);
+    const [isGoogleAccount, setIsGoogleAccount] = useState<boolean | null>(null);
     const despatch = useAppDispatch();
 
     useEffect(() => {
@@ -25,13 +27,14 @@ export const Content: FC = () => {
     }, []);
 
     return (
-        <>
-            {isGoogleAccount ?
-                <ChangeUserAccount setAlertActive={setAlertActive} /> :
-                <AccountConfirmationBlock setAlertActive={setAlertActive} />}
+        <Wrapper>
+            {isGoogleAccount === null ?
+                <Loading size={40} height={3} /> : isGoogleAccount ?
+                    <ChangeUserAccount setAlertActive={setAlertActive} /> :
+                    <AccountConfirmationBlock setAlertActive={setAlertActive} />}
             {isAlertActive && (
                 <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
             )}
-        </>
+        </Wrapper>
     );
 }

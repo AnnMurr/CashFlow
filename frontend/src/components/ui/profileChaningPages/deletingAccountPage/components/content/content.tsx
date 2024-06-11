@@ -7,7 +7,7 @@ import { deleteUserStore } from "../../../../../../api/userDataApi/userDataApi";
 import { AuthorizedContext, AuthorizedContextType } from "../../../../../../contexts/authorizedContext/authorizedContext";
 import { deleteUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
 import { useAppDispatch } from "../../../../../../redux/store/store";
-import { BtnInner, TextInner, Title } from "./styledContent";
+import { BtnInner, TextInner, Title, Wrapper } from "./styledContent";
 
 export const Content: FC = () => {
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
@@ -45,7 +45,7 @@ export const Content: FC = () => {
 
     return (
         <div>
-            <div>
+            <Wrapper>
                 <Title>
                     <h5>
                         Are you sure you want to delete your account?
@@ -68,7 +68,7 @@ export const Content: FC = () => {
                 {isAlertActive ?
                     <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
                     : null}
-            </div>
+            </Wrapper>
         </div>
     )
 }

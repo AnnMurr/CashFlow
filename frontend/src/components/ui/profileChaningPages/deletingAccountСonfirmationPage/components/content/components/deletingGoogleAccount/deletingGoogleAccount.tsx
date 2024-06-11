@@ -5,6 +5,7 @@ import { Description, SubTitle, Title } from "./styledDeletingGoogleAccount";
 
 export const DeletingGoogleAccount: FC = () => {
   const navigate = useNavigate();
+
   const deleteGoogleAccount = () => {
     navigate("/settings/deleting-account");
   }

@@ -13,7 +13,7 @@ export const List = styled.ul`
 `
 
 export const BtnLogOutInner = styled.div`
-    max-width: 20%;
+    max-width: 8rem;
     width: 100%;
     margin: 0 auto;
 `

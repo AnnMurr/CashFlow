@@ -5,10 +5,8 @@ export const Wrapper = styled.div`
 `
 
 export const Block = styled.div`
-    border: 1px solid #000;
-    border-radius: 10px;
-    max-width: 60%;
+    max-width: 35rem;
     margin: 0 auto;
     margin-top: 10%;
-    padding: 20px;
+    padding: 0 15px;
 `
