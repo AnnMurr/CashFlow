@@ -180,13 +180,11 @@ app.post("/check-google-account", async (req, res) => {
   try {
     const collection = db.collection("googleUsers");
     const userData = await collection.findOne({ _id: new ObjectId(id) });
-
-    console.log("fnjsknjf", userData);
+console.log(userData)
     if (userData) {
       res.status(200).send(true);
     } else {
-      console.error(error);
-      res.status(500).send("It is not a google account");
+      res.status(200).send(false);
     }
   } catch (error) {
     console.error(error);

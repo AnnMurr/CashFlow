@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { Description, Email, EmailAdressInner, SubTitle, Title } from "./styledContent";
 import { useAppSelector } from "../../../../../../redux/store/store";
 import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
+import { Description, Email, EmailAdressInner, SubTitle, Title } from "./styledContent";
 
 export const Content: FC = () => {
     const [email, setEmail] = useState<string | null>(null);

@@ -206,7 +206,7 @@ export const checkGoogleAccount = createAsyncThunk<string, string>(
 
             if (!response.ok) {
                 throw new Error("Failed to put user data");
-            }
+            } 
 
             const data = response.json();
             return data;
