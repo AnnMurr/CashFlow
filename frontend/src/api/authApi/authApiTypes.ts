@@ -1,6 +1,6 @@
 export interface UserDataType {
     email: string;
-    name?: string;
+    name: string;
     password?: string;
     confirmPassword?: string;
 }

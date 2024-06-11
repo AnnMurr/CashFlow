@@ -10,5 +10,5 @@ export const Block = styled.div`
     max-width: 40%;
     margin: 0 auto;
     margin-top: 10%;
-    padding: 60px;
+    padding: 40px;
 `
