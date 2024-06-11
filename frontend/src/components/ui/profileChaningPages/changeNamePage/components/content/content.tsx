@@ -6,7 +6,7 @@ import { DarkBackground } from "../../../../../shared/darkBackground/darkBackgro
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { useAppSelector } from "../../../../../../redux/store/store";
 import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
-import { Container, Wrapper, UserName } from "./styledContent";
+import { Wrapper, UserName } from "./styledContent";
 
 export const Content: FC = () => {
     const [isModalActive, setIsModalActive] = useState<boolean>(false);
@@ -19,7 +19,7 @@ export const Content: FC = () => {
     }, [userDataFromRedux]);
 
     return (
-        <Container>
+        <div>
             <Wrapper>
                 <div>
                     <div>
@@ -47,6 +47,6 @@ export const Content: FC = () => {
                     <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
                     : null}
             </Wrapper>
-        </Container>
+        </div>
     )
 }

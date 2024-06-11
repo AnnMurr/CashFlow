@@ -25,13 +25,13 @@ export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }
 
     const getChangeAccount = async () => {
         try {
-            const response = await signInWithGooglePopup();
-            const email: string | null = response.user.email || '';
-            const name: string | null = response.user.displayName || '';
+            const signInWithGoogleResponse = await signInWithGooglePopup();
+            const email: string | null = signInWithGoogleResponse.user.email || '';
+            const name: string | null = signInWithGoogleResponse.user.displayName || '';
             const isUser = (await dispatch(checkUserDataByEmail({ link: "users/check-email", email: email }))).payload;
             const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: email }))).payload;
-
-            if (response && email && name) {
+           
+            if (signInWithGoogleResponse && email && name) {
                 if (isUser || isUserGoogle) {
                     getAllert({ type: "error", text: "User has already registered" });
                 } else {
@@ -61,7 +61,7 @@ export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }
                 getAllert({ type: "error", text: "Something was wrong" });
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 
@@ -70,12 +70,12 @@ export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }
             <Description>
                 <Title>
                     <h3>
-                        Change Your Google Account
+                        Change Your Account
                     </h3>
                 </Title>
                 <SubTitle>
                     <h5>
-                        Switch to a different Google account to access personalized settings.
+                        Switch to a different account to access personalized settings.
                     </h5>
                 </SubTitle>
             </Description>

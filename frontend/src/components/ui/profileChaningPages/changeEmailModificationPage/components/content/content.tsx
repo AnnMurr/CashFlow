@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/st
 import { checkUserDataByEmail, updateUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { BtnInner, Title } from "./styledContent";
+import { BtnInner, Title, Wrapper } from "./styledContent";
 
 export const Content: FC = () => {
     const [emailValue, setEmailValue] = useState<string>("");
@@ -78,7 +78,7 @@ export const Content: FC = () => {
 
     return (
         <div>
-            <div>
+            <Wrapper>
                 <Title>
                     <h5>
                         Enter new email address.
@@ -110,7 +110,7 @@ export const Content: FC = () => {
                 {isAlertActive ?
                     <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
                     : null}
-            </div>
+            </Wrapper>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "../../../../../../redux/store/store";
 import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
-import { Description, Email, EmailAdressInner, SubTitle, Title } from "./styledContent";
+import { Description, Email, EmailAdressInner, SubTitle, Title, Wrapper } from "./styledContent";
 
 export const Content: FC = () => {
     const [email, setEmail] = useState<string | null>(null);
@@ -15,7 +15,7 @@ export const Content: FC = () => {
 
     return (
         <div>
-            <div>
+            <Wrapper>
                 <Description>
                     <Title>
                         <h3>
@@ -38,7 +38,7 @@ export const Content: FC = () => {
                         <FontAwesomeIcon size="lg" icon={faAngleRight} />
                     </div>
                 </EmailAdressInner>
-            </div>
+            </Wrapper>
         </div>
     )
 }

@@ -57,7 +57,7 @@ export const SignUpWithGoogle: FC<SignUpWithGoogleProps> = ({ setIsAlertActive, 
                 setTimeout(() => setIsAlertActive(null), 2000);
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 

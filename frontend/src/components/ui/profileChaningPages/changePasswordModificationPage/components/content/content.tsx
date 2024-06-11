@@ -9,7 +9,7 @@ import { updateUserData } from "../../../../../../redux/reducers/userReducer/use
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { BtnInner, BtnShowPasswordInner, Label, SubTitle, Title } from "./styledContent";
+import { BtnInner, Wrapper, BtnShowPasswordInner, Label, SubTitle, Title } from "./styledContent";
 
 export const Content: FC = () => {
     const [passwordValue, setPasswordValue] = useState<string>("");
@@ -65,7 +65,7 @@ export const Content: FC = () => {
 
     return (
         <div>
-            <div>
+            <Wrapper>
                 <Title>
                     <h5>
                         Enter new password.
@@ -126,7 +126,7 @@ export const Content: FC = () => {
                 {isAlertActive ?
                     <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
                     : null}
-            </div>
+            </Wrapper>
         </div>
     )
 }
