@@ -14,7 +14,7 @@ export const Content: FC = () => {
     useEffect(() => {
         const getUserTypeOfAccount = async () => {
             const token = getDataFromLocalStorage("token");
-            const response = await despatch(checkGoogleAccount(token));
+            const response = (await despatch(checkGoogleAccount(token))).payload;
 
             response ?
                 setIsGoogleAccount(true) :
