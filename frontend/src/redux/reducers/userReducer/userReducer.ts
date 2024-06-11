@@ -174,9 +174,31 @@ export const setUserData = createAsyncThunk<string, SetUserDataType>(
 
 export const linkAccountToGoogle = createAsyncThunk<string, string>(
     "data/setUserData",
-    async (id , { dispatch, rejectWithValue }) => {
+    async (id, { dispatch, rejectWithValue }) => {
         try {
             const response = await fetch(`http://localhost:5050/link-account-to-google`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: id })
+            })
+
+            if (!response.ok) {
+                throw new Error("Failed to put user data");
+            }
+
+            const data = response.json();
+            return data;
+        } catch (error) {
+            error instanceof Error && rejectWithValue(error.message);
+        }
+    }
+)
+
+export const checkGoogleAccount = createAsyncThunk<string, string>(
+    "data/setUserData",
+    async (id, { dispatch, rejectWithValue }) => {
+        try {
+            const response = await fetch(`http://localhost:5050/check-google-account`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: id })

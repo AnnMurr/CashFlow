@@ -19,10 +19,7 @@ app.post("/get-data-id", async (req, res) => {
     const collection2 = db.collection("googleUsers");
     const insertResult = await collection.findOne({ _id: new ObjectId(id) });
     const insertResult2 = await collection2.findOne({ _id: new ObjectId(id) });
- 
-    
-    console.log(insertResult);
-    console.log(insertResult2);
+
     if (insertResult) {
       delete insertResult._id;
       res.status(200).send(insertResult);
@@ -87,28 +84,6 @@ app.post("/users/check", async (req, res) => {
   }
 });
 
-// app.post("/google-users/check", async (req, res) => {
-//   const { email, password } = req.body.userData;
-//   const collection = db.collection("users");
-
-//   if (!email) res.status(400).send("Email parameter is missing or invalid");
-//   if (!password)
-//     res.status(400).send("Password parameter is missing or invalid");
-
-//   try {
-//     const user = await collection.findOne({ email: email });
-
-//     if (user && user.password === password) {
-//       res.status(200).send(user._id);
-//     } else {
-//       res.status(200).send(false);
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("error checking data");
-//   }
-// });
-
 const checkUserDataByEmail = async (collectionName, email, res) => {
   const collection = db.collection(collectionName);
 
@@ -141,6 +116,7 @@ app.post("/users/google/check-email", (req, res) => {
 app.patch("/change-data", async (req, res) => {
   const { id, newData } = req.body;
   const collection = db.collection("users");
+  const collection2 = db.collection("googleUsers");
 
   if (!id) res.status(400).send("ID parameter is missing or invalid");
   if (!newData) res.status(400).send("newData parameter is missing or invalid");
@@ -149,8 +125,9 @@ app.patch("/change-data", async (req, res) => {
     const filter = { _id: new ObjectId(id) };
     const updateDoc = { $set: newData };
     const result = await collection.updateOne(filter, updateDoc);
+    const result2 = await collection2.updateOne(filter, updateDoc);
 
-    if (!!result.matchedCount) {
+    if (!!result.matchedCount || !!result2.matchedCount) {
       res.status(200).send("data updated successfully");
     } else {
       res.status(404).send("error updating data");
@@ -182,23 +159,43 @@ app.delete("/delete-data", async (req, res) => {
 });
 
 app.post("/link-account-to-google", async (req, res) => {
-    const { id } = req.body;
-    console.log("id", id);
-    if (!id) res.status(400).send("ID parameter is missing or invalid");
-  
-    try {
-      const collection = db.collection("users");
-      const userData = await collection.findOne({ _id: new ObjectId(id) });
+  const { id } = req.body;
 
-      await collection.deleteOne({ _id: new ObjectId(id) });
-      console.log("userData", userData);
-      delete userData.password;
-      await putData("googleUsers", userData, res);
+  if (!id) res.status(400).send("ID parameter is missing or invalid");
 
-    } catch (error) {
+  try {
+    const collection = db.collection("users");
+    const userData = await collection.findOne({ _id: new ObjectId(id) });
+
+    await collection.deleteOne({ _id: new ObjectId(id) });
+    delete userData.password;
+    await putData("googleUsers", userData, res);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("error creating user");
+  }
+});
+
+app.post("/check-google-account", async (req, res) => {
+  const { id } = req.body;
+
+  if (!id) res.status(400).send("ID parameter is missing or invalid");
+
+  try {
+    const collection = db.collection("googleUsers");
+    const userData = await collection.findOne({ _id: new ObjectId(id) });
+
+    console.log("fnjsknjf", userData);
+    if (userData) {
+      res.status(200).send(true);
+    } else {
       console.error(error);
-      // res.status(500).send("error checking data");
+      res.status(500).send("It is not a google account");
     }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("error creating user");
+  }
 });
 
 connectToDb((err) => {
