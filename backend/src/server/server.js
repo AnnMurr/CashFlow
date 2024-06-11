@@ -15,17 +15,13 @@ app.post("/get-data-id", async (req, res) => {
   if (!id) res.status(400).send("ID parameter is missing or invalid");
 
   try {
-    const collection = db.collection("users");
-    const collection2 = db.collection("googleUsers");
-    const insertResult = await collection.findOne({ _id: new ObjectId(id) });
-    const insertResult2 = await collection2.findOne({ _id: new ObjectId(id) });
+    const usersCollection = db.collection("users");
+    const googleCollection = db.collection("googleUsers");
+    const result = await usersCollection.findOne({ _id: new ObjectId(id) }) || await googleCollection.findOne({ _id: new ObjectId(id) });
 
-    if (insertResult) {
-      delete insertResult._id;
-      res.status(200).send(insertResult);
-    } else if (insertResult2) {
-      delete insertResult2._id;
-      res.status(200).send(insertResult2);
+    if (result) {
+      delete result._id;
+      res.status(200).send(result);
     } else {
       res.status(404).send("data not found");
     }
@@ -41,7 +37,6 @@ const putData = async (collectionName, userData, res) => {
 
   try {
     const collection = db.collection(collectionName);
-
     const insertResult = await collection.insertOne(userData);
     const { insertedId } = insertResult;
     const cleanInsertedId = insertedId;
@@ -60,28 +55,6 @@ app.post("/putdata", async (req, res) => {
 app.post("/putdata-google", async (req, res) => {
   const userData = req.body.userData;
   await putData("googleUsers", userData, res);
-});
-
-app.post("/users/check", async (req, res) => {
-  const { email, password } = req.body.userData;
-  const collection = db.collection("users");
-
-  if (!email) res.status(400).send("Email parameter is missing or invalid");
-  if (!password)
-    res.status(400).send("Password parameter is missing or invalid");
-
-  try {
-    const user = await collection.findOne({ email: email });
-
-    if (user && user.password === password) {
-      res.status(200).send(user._id);
-    } else {
-      res.status(200).send(false);
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("error checking data");
-  }
 });
 
 const checkUserDataByEmail = async (collectionName, email, res) => {
@@ -113,10 +86,32 @@ app.post("/users/google/check-email", (req, res) => {
   checkUserDataByEmail("googleUsers", email, res);
 });
 
+app.post("/users/check", async (req, res) => {
+  const { email, password } = req.body.userData;
+  const collection = db.collection("users");
+
+  if (!email) res.status(400).send("Email parameter is missing or invalid");
+  if (!password)
+    res.status(400).send("Password parameter is missing or invalid");
+
+  try {
+    const user = await collection.findOne({ email: email });
+
+    if (user && user.password === password) {
+      res.status(200).send(user._id);
+    } else {
+      res.status(200).send(false);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("error checking data");
+  }
+});
+
 app.patch("/change-data", async (req, res) => {
   const { id, newData } = req.body;
-  const collection = db.collection("users");
-  const collection2 = db.collection("googleUsers");
+  const usersCollection = db.collection("users");
+  const googleCollection = db.collection("googleUsers");
 
   if (!id) res.status(400).send("ID parameter is missing or invalid");
   if (!newData) res.status(400).send("newData parameter is missing or invalid");
@@ -124,10 +119,9 @@ app.patch("/change-data", async (req, res) => {
   try {
     const filter = { _id: new ObjectId(id) };
     const updateDoc = { $set: newData };
-    const result = await collection.updateOne(filter, updateDoc);
-    const result2 = await collection2.updateOne(filter, updateDoc);
+    const result = await usersCollection.updateOne(filter, updateDoc) || await googleCollection.updateOne(filter, updateDoc);
 
-    if (!!result.matchedCount || !!result2.matchedCount) {
+    if (result.matchedCount) {
       res.status(200).send("data updated successfully");
     } else {
       res.status(404).send("error updating data");
@@ -140,12 +134,14 @@ app.patch("/change-data", async (req, res) => {
 
 app.delete("/delete-data", async (req, res) => {
   const { id } = req.body;
-  const collection = db.collection("users");
+  const usersCollection = db.collection("users");
+  const googleCollection = db.collection("googleUsers");
 
   if (!id) res.status(400).send("ID parameter is missing or invalid");
 
   try {
-    const response = await collection.deleteOne({ _id: new ObjectId(id) });
+    const filter = { _id: new ObjectId(id) };
+    const response = await usersCollection.deleteOne(filter) || await googleCollection.deleteOne(filter);
 
     if (response.deletedCount) {
       res.status(200).send("Data deleted successfully");
