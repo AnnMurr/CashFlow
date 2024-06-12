@@ -2,13 +2,13 @@ import React, { FC, createContext, useEffect, useState } from "react";
 import { getUserAuth } from "../../utils/checkUserAuth";
 import { useAppDispatch } from "../../redux/store/store";
 import { getUserDataById } from "../../redux/reducers/userReducer/userReducer";
-
+import { getDataFromUserStore } from "../../redux/reducers/userStorageReduser/userStorageReduser";
+import { getDataFromLocalStorage } from "../../storage/localStorage/localStorage";
 export interface AuthorizedContextType {
     login: () => void;
     logOut: () => void;
     isAuthorized: boolean;
 }
-
 export interface AuthorizedContextProviderProps {
     children: React.ReactNode;
 }
@@ -28,7 +28,9 @@ export const AuthorizedContextProvider: FC<AuthorizedContextProviderProps> = ({ 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+        const token = getDataFromLocalStorage("token");
         isAuthorized && dispatch(getUserDataById());
+        isAuthorized && dispatch(getDataFromUserStore(token));
     }, [isAuthorized])
 
     return (
