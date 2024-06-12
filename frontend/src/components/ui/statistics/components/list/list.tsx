@@ -7,6 +7,7 @@ import { ItemDay } from "./components/itemDay/itemDay";
 import { Item } from "./components/item/item";
 import { getCurrentDate } from "../../../../../utils/getCurrentDate";
 import { ItemType, ItemsType, LineProps } from "./types";
+import { EditCategoryModal } from "./components/editCategoryModal/editCategoryModal";
 
 export const Line: FC<LineProps> = ({ data }) => {
     return (
@@ -79,6 +80,8 @@ export const List: FC = () => {
                         {items && <Line data={items[day]} />}
                     </React.Fragment>
                 ))}
+
+                <EditCategoryModal />
         </div>
     )
 }

@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { getCurrentDate } from "../../../../../../../utils/getCurrentDate";
 import { ItemType } from "../../types";
-import { Container, IconInner } from "./styledItem";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { Container, Edit, IconInner, TimeEditBlock } from "./styledItem";
 interface ItemProps {
     dataItem: ItemType;
 }
@@ -10,8 +11,14 @@ interface ItemProps {
 export const Item: FC<ItemProps> = ({ dataItem }) => {
     const date = getCurrentDate(dataItem.date);
 
+    const getEditModal = (event: any) => {
+        console.log(event.currentTarget.parentNode.parentNode.id)
+    }
+
+    console.log("dataItem.uuid", dataItem)
+
     return (
-        <Container>
+        <Container id={dataItem.uid}>
             <IconInner>
                 <img src={dataItem.icon} alt={dataItem.category} />
             </IconInner>
@@ -21,9 +28,13 @@ export const Item: FC<ItemProps> = ({ dataItem }) => {
             <div>
                 <span>{dataItem.sum}$</span>
             </div>
-            <div style={{ textAlign: "end" }}>
+            <TimeEditBlock>
                 <span>{date.split(" ")[1]}</span>
-            </div>
+
+                <Edit onClick={getEditModal}>
+                    <FontAwesomeIcon icon={faEdit} />
+                </Edit>
+            </TimeEditBlock>
         </Container>
     )
 }
