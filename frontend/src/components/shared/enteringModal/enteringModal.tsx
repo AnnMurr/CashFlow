@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
@@ -41,6 +41,10 @@ export const EnteringModal: FC<EnteringModalProps> = ({
             setInputValue((prev) => sliceNumber(prev + value));
         }
     }
+
+    useEffect(() => {
+        return () => { setInputValue("0") };
+    }, []);
 
     return (
         <Container>
