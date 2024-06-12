@@ -1,8 +1,9 @@
 export interface ItemType {
     category: string;
-    date: Date
-    icon: string
-    sum: number
+    date: Date;
+    icon: string;
+    sum: number;
+    uid: string;
 }
 
 export interface LineProps {

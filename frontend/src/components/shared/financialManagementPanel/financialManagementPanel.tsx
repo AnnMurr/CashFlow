@@ -4,6 +4,7 @@ import { EnteringModal } from "../../shared/enteringModal/enteringModal";
 import { CategorySelectionModal } from "../../shared/categorySelectionModal/categorySelectionModal";
 import { AlertComponent, AlertComponentProps } from "../alert/alert";
 import { Loading } from "../../shared/loading/loading";
+import { v4 as uuidv4 } from 'uuid';
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
 import { changeUserData, getDataFromUserStore } from "../../../api/userDataApi/userDataApi";
 import { Categories } from "./components/categories/categories";
@@ -58,6 +59,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                     icon: choosedCategory?.icon,
                     date: new Date(),
                     sum: parseInt(costValue),
+                    uid: uuidv4()
                 });
 
                 const userDataAfterUpdate = await changeUserData(token, dataFromUserStore);
