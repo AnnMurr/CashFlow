@@ -1,14 +1,14 @@
 import { FC, useEffect, useRef, useState } from "react";
+import { CategorySelectionModal } from "../../shared/categorySelectionModal/categorySelectionModal";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { EnteringModal } from "../../shared/enteringModal/enteringModal";
-import { CategorySelectionModal } from "../../shared/categorySelectionModal/categorySelectionModal";
-import { AlertComponent, AlertComponentProps } from "../alert/alert";
 import { Loading } from "../../shared/loading/loading";
-import { v4 as uuidv4 } from 'uuid';
+import { AlertComponent, AlertComponentProps } from "../alert/alert";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
 import { changeUserData, getDataFromUserStore } from "../../../api/userDataApi/userDataApi";
 import { Categories } from "./components/categories/categories";
 import { INVALID_CHARS_REGEXP } from "../../../consts/index";
+import { v4 as uuidv4 } from 'uuid';
 import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledFinancialManagementPanel";
 interface FinancialManagementPanelProps {
     type: string;
@@ -21,7 +21,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const [categoriesList, setCategoriesList] = useState<Array<any> | null>(null);
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
     const [isEnteringModalActive, setIsEnteringModalActive] = useState<boolean>(false);
-    const [choosedCategory, setChoosedCategory] = useState<{category: string, icon: string} | null>(null);
+    const [choosedCategory, setChoosedCategory] = useState<{ category: string, icon: string } | null>(null);
     const [costValue, setCostValue] = useState<string>("0");
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
 
@@ -55,6 +55,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                 const transactions = dataFromUserStore.data[type];
 
                 transactions.push({
+                    type: type,
                     category: choosedCategory?.category,
                     icon: choosedCategory?.icon,
                     date: new Date(),

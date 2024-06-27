@@ -56,7 +56,7 @@ export const deleteUserStore = async (userToken: string) => {
         })
 }
 
-export const changeUserData = async (userToken: string, apdatedData: any) => {
+export const changeUserData = async (userToken: string, updatedData: any) => {
     const userData = await getDataFromUserStore(userToken);
     
     if (!userData) throw new Error("User data not found in store");
@@ -64,7 +64,7 @@ export const changeUserData = async (userToken: string, apdatedData: any) => {
     return fetch(`https://662be069de35f91de159c3b9.mockapi.io/usersStorage/${userData.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(apdatedData)
+        body: JSON.stringify(updatedData)
     })
         .then(response => {
             if (!response.ok) {
