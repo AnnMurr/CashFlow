@@ -1,9 +1,22 @@
 import styled from "styled-components";
 
-export const Edit = styled.button`
+export const Edit = styled.div`
+   
+    margin-left: 20px;
+`
+export const Settings = styled.div`
+    width: 0;
+    margin-left: 0;
+    display: block;
+    width: 10px;
+    margin-left: 20px;
+`
+
+export const Ellips = styled.button`
     width: 0;
     margin-left: 0;
     display: none;
+
 `
 
 export const Container = styled.div`
@@ -15,7 +28,7 @@ export const Container = styled.div`
     cursor: pointer;
 
     &:hover {
-        ${Edit} {
+        ${Ellips} {
             display: block;
             animation: showEdit 0.5s ease forwards;
         }

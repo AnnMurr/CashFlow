@@ -7,5 +7,7 @@ export const Container = styled.div`
 `
 
 export const Wrapper = styled.div`
-    padding: 90px 0;
+    margin: 90px 0;
+    border-radius: 15px;
+    background-color: rgb(243, 244, 246);
 `

@@ -10,10 +10,11 @@ import { ItemType, ItemsType, LineProps } from "./types";
 import { EditCategoryModal } from "./components/editCategoryModal/editCategoryModal";
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { AlertComponent, AlertComponentProps } from "../../../../shared/alert/alert";
+import { ItemsInner, Wrapper } from "./styledList";
 
 export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setChoosedCategoryId }) => {
     return (
-        <ul>
+        <ItemsInner>
             {data.map(item => (
                 <li key={uuidV4()}>
                     <Item
@@ -22,7 +23,7 @@ export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setCho
                         setChoosedCategoryId={setChoosedCategoryId} />
                 </li>
             ))}
-        </ul>
+        </ItemsInner>
     )
 }
 
@@ -92,6 +93,7 @@ export const List: FC = () => {
 
     return (
         <div>
+        <Wrapper>
             {days &&
                 days.map(day => (
                     <React.Fragment key={uuidV4()}>
@@ -117,6 +119,7 @@ export const List: FC = () => {
                         darkBackgroundRef={darkBackgroundRef} />
                 </> : null}
             {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
+        </Wrapper>
         </div>
     )
 }
