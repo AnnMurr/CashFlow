@@ -40,7 +40,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
         const getCategoryData = () => {
             if (transactions) {
                 const currentCategory = transactions.find(item => item.uid === choosedCategoryId);
-
+                
                 if (currentCategory) {
                     setCategoryData(currentCategory);
                     currentCategory && setCategoryName(currentCategory?.category);
@@ -94,6 +94,9 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
             }
         }
     }
+
+    console.log(typesOfCategories)
+    console.log(categoryData)
 
     return (
         <Container>

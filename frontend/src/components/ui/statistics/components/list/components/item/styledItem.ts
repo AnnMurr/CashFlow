@@ -1,22 +1,13 @@
 import styled from "styled-components";
 
-export const Edit = styled.div`
-   
-    margin-left: 20px;
+export const Edit = styled.button`
+    margin-right: 10px;
 `
+
 export const Settings = styled.div`
     width: 0;
-    margin-left: 0;
-    display: block;
-    width: 10px;
-    margin-left: 20px;
-`
-
-export const Ellips = styled.button`
-    width: 0;
-    margin-left: 0;
+    margin-left: 15px;
     display: none;
-
 `
 
 export const Container = styled.div`
@@ -28,9 +19,9 @@ export const Container = styled.div`
     cursor: pointer;
 
     &:hover {
-        ${Ellips} {
-            display: block;
-            animation: showEdit 0.5s ease forwards;
+        ${Settings} {
+            display: flex;
+            animation: showEdit 0.8s ease forwards;
         }
     }
 
@@ -38,10 +29,12 @@ export const Container = styled.div`
         0% {
             width: 0;
             margin-left: 0;
+            opaacity: 0;
         }
         100% {
-            width: 10px;
+            width: 30px;
             margin-left: 20px;
+            opaacity: 1;
         }
       }
 `
