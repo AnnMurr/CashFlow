@@ -10,10 +10,11 @@ import { ItemType, ItemsType, LineProps } from "./types";
 import { EditCategoryModal } from "./components/editCategoryModal/editCategoryModal";
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { AlertComponent, AlertComponentProps } from "../../../../shared/alert/alert";
+import { ItemsInner } from "./styledList";
 
 export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setChoosedCategoryId }) => {
     return (
-        <ul>
+        <ItemsInner>
             {data.map(item => (
                 <li key={uuidV4()}>
                     <Item
@@ -22,7 +23,7 @@ export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setCho
                         setChoosedCategoryId={setChoosedCategoryId} />
                 </li>
             ))}
-        </ul>
+        </ItemsInner>
     )
 }
 
@@ -92,31 +93,33 @@ export const List: FC = () => {
 
     return (
         <div>
-            {days &&
-                days.map(day => (
-                    <React.Fragment key={uuidV4()}>
-                        <div>
-                            <ItemDay title={day} />
-                        </div>
-                        {items &&
-                            <Line
-                                setIsEditCategoryModalActive={setIsEditCategoryModalActive}
-                                data={items[day]}
-                                setChoosedCategoryId={setChoosedCategoryId} />}
-                    </React.Fragment>
-                ))}
-            {isEditCategoryModalActive ?
-                <>
-                    <EditCategoryModal
-                        setIsAlertActive={setIsAlertActive}
-                        closeEditCategoryModal={setIsEditCategoryModalActive}
-                        choosedCategoryId={choosedCategoryId}
-                        getDataDataForStatistic={getDataDataForStatistic} />
-                    <DarkBackground
-                        type={"clickable"}
-                        darkBackgroundRef={darkBackgroundRef} />
-                </> : null}
-            {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
+            <div>
+                {days &&
+                    days.map(day => (
+                        <React.Fragment key={uuidV4()}>
+                            <div>
+                                <ItemDay title={day} />
+                            </div>
+                            {items &&
+                                <Line
+                                    setIsEditCategoryModalActive={setIsEditCategoryModalActive}
+                                    data={items[day]}
+                                    setChoosedCategoryId={setChoosedCategoryId} />}
+                        </React.Fragment>
+                    ))}
+                {isEditCategoryModalActive ?
+                    <>
+                        <EditCategoryModal
+                            setIsAlertActive={setIsAlertActive}
+                            closeEditCategoryModal={setIsEditCategoryModalActive}
+                            choosedCategoryId={choosedCategoryId}
+                            getDataDataForStatistic={getDataDataForStatistic} />
+                        <DarkBackground
+                            type={"clickable"}
+                            darkBackgroundRef={darkBackgroundRef} />
+                    </> : null}
+                {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
+            </div>
         </div>
     )
 }

@@ -2,19 +2,19 @@ import { FC } from "react";
 import { getCurrentDate } from "../../../../../../../utils/getCurrentDate";
 import { ItemType } from "../../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { Container, Edit, IconInner, TimeEditBlock } from "./styledItem";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Container, Edit, IconInner, Settings, TimeEditBlock } from "./styledItem";
 interface ItemProps {
     dataItem: ItemType;
     setIsEditCategoryModalActive: (value: boolean) => void;
-    setChoosedCategoryId: (value: string) => void;  
+    setChoosedCategoryId: (value: string) => void;
 }
 
 export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, setChoosedCategoryId }) => {
     const date = getCurrentDate(dataItem.date);
 
     const getEditModal = (event: any) => {
-        setChoosedCategoryId(event.currentTarget.parentNode.parentNode.id);
+        setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id);
         setIsEditCategoryModalActive(true);
     }
 
@@ -31,10 +31,14 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
             </div>
             <TimeEditBlock>
                 <span>{date.split(" ")[1]}</span>
-
-                <Edit onClick={getEditModal}>
-                    <FontAwesomeIcon icon={faPen} />
-                </Edit>
+                <Settings>
+                    <Edit onClick={getEditModal}>
+                        <FontAwesomeIcon icon={faPen} />
+                    </Edit>
+                    <button onClick={getEditModal}>
+                        <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                </Settings>
             </TimeEditBlock>
         </Container>
     )
