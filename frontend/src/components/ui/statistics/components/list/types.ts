@@ -9,6 +9,7 @@ export interface ItemType {
 export interface LineProps {
     data: Array<ItemType>;
     setIsEditCategoryModalActive: (value: boolean) => void;
+    setIsDeleteCategoryModalActive: (value: boolean) => void;
     setChoosedCategoryId: (value: string) => void;
 }
 

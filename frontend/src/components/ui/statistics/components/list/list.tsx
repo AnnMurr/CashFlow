@@ -10,14 +10,16 @@ import { ItemType, ItemsType, LineProps } from "./types";
 import { EditCategoryModal } from "./components/editCategoryModal/editCategoryModal";
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { AlertComponent, AlertComponentProps } from "../../../../shared/alert/alert";
+import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
 import { ItemsInner } from "./styledList";
 
-export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setChoosedCategoryId }) => {
+export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive }) => {
     return (
         <ItemsInner>
             {data.map(item => (
                 <li key={uuidV4()}>
                     <Item
+                        setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
                         setIsEditCategoryModalActive={setIsEditCategoryModalActive}
                         dataItem={item}
                         setChoosedCategoryId={setChoosedCategoryId} />
@@ -31,6 +33,7 @@ export const List: FC = () => {
     const [items, setItems] = useState<ItemsType | null>(null);
     const [days, setDays] = useState<Array<string> | null>(null);
     const [isEditCategoryModalActive, setIsEditCategoryModalActive] = useState<boolean>(false);
+    const [isDeleteCategoryModalActive, setIsDeleteCategoryModalActive] = useState<boolean>(false);
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
@@ -80,16 +83,17 @@ export const List: FC = () => {
         const handleClickOutsideModal = (event: MouseEvent) => {
             if (darkBackgroundRef.current && darkBackgroundRef.current.contains(event.target as HTMLElement)) {
                 isEditCategoryModalActive && setIsEditCategoryModalActive(false);
+                isDeleteCategoryModalActive && setIsDeleteCategoryModalActive(false);
             }
         }
 
-        if (isEditCategoryModalActive)
+        if (isEditCategoryModalActive || isDeleteCategoryModalActive)
             window.addEventListener("click", handleClickOutsideModal);
 
         return () => {
             window.removeEventListener("click", handleClickOutsideModal);
         };
-    }, [isEditCategoryModalActive]);
+    }, [isEditCategoryModalActive, isDeleteCategoryModalActive]);
 
     return (
         <div>
@@ -103,6 +107,7 @@ export const List: FC = () => {
                             {items &&
                                 <Line
                                     setIsEditCategoryModalActive={setIsEditCategoryModalActive}
+                                    setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
                                     data={items[day]}
                                     setChoosedCategoryId={setChoosedCategoryId} />}
                         </React.Fragment>
@@ -114,6 +119,17 @@ export const List: FC = () => {
                             closeEditCategoryModal={setIsEditCategoryModalActive}
                             choosedCategoryId={choosedCategoryId}
                             getDataDataForStatistic={getDataDataForStatistic} />
+                        <DarkBackground
+                            type={"clickable"}
+                            darkBackgroundRef={darkBackgroundRef} />
+                    </> : null}
+                {isDeleteCategoryModalActive ?
+                    <>
+                        <DeleteCategoryModal
+                        setIsAlertActive={setIsAlertActive}
+                        getDataDataForStatistic={getDataDataForStatistic}
+                            choosedCategoryId={choosedCategoryId}
+                            closeDeleteModal={setIsDeleteCategoryModalActive} />
                         <DarkBackground
                             type={"clickable"}
                             darkBackgroundRef={darkBackgroundRef} />
