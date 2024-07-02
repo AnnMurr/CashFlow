@@ -7,15 +7,21 @@ import { Container, Edit, IconInner, Settings, TimeEditBlock } from "./styledIte
 interface ItemProps {
     dataItem: ItemType;
     setIsEditCategoryModalActive: (value: boolean) => void;
+    setIsDeleteCategoryModalActive: (value: boolean) => void;
     setChoosedCategoryId: (value: string) => void;
 }
 
-export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, setChoosedCategoryId }) => {
+export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive }) => {
     const date = getCurrentDate(dataItem.date);
 
     const getEditModal = (event: any) => {
         setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id);
         setIsEditCategoryModalActive(true);
+    }
+
+    const getDeleteModal = (event: any) => {
+        setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id)
+        setIsDeleteCategoryModalActive(true);
     }
 
     return (
@@ -35,7 +41,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
                     <Edit onClick={getEditModal}>
                         <FontAwesomeIcon icon={faPen} />
                     </Edit>
-                    <button onClick={getEditModal}>
+                    <button onClick={getDeleteModal}>
                         <FontAwesomeIcon icon={faTrash} />
                     </button>
                 </Settings>

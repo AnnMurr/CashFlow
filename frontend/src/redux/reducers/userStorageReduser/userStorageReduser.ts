@@ -48,7 +48,6 @@ export const getDataFromUserStore = createAsyncThunk<UserStorageDataType, string
 export const changeUserData = createAsyncThunk<any, { userToken: string, updatedData: any }>(
     "data/changeUserData",
     async ({ userToken, updatedData }, { dispatch, rejectWithValue }) => {
-
         try {
             const userData = (await dispatch(getDataFromUserStore(userToken))).payload as UserStorageDataType;
 
