@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/st
 import { checkUserDataByEmail, updateUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { getAlert } from "../../../../../../utils/getAlert";
 import { BtnInner, Title, Wrapper } from "./styledContent";
 
 export const Content: FC = () => {
@@ -20,7 +21,7 @@ export const Content: FC = () => {
     const navigate = useNavigate();
 
     const changeEmail = async () => {
-        const userExists = (await dispatch(checkUserDataByEmail({link: "/users/google/check-email", email: emailValue}))).payload;
+        const userExists = (await dispatch(checkUserDataByEmail({ link: "/users/google/check-email", email: emailValue }))).payload;
         const isValid = validateEmail(emailValue);
 
         try {
@@ -35,18 +36,15 @@ export const Content: FC = () => {
                     const response = unwrapResult(resultAction);
 
                     if (response) {
-                        setIsAlertActive({
-                            text: response,
-                            type: "success"
-                        });
+                        getAlert({ text: response, type: "success" }, setIsAlertActive, 3000);
                         setEmailValue(changedData.email);
                         setTimeout(() => navigate("/settings"), 1000);
                     }
                 } else {
-                    getAlert({ type: "error", text: "User has already registered" });
+                    getAlert({ type: "error", text: "User has already registered" }, setIsAlertActive, 3000);
                 }
             } else {
-                getAlert({ type: "error", text: "E-mail is incorrect" });
+                getAlert({ type: "error", text: "E-mail is incorrect" }, setIsAlertActive, 3000);
             }
         } catch (error) {
             console.error(error);
@@ -61,14 +59,6 @@ export const Content: FC = () => {
             setIsError(true);
             return false;
         }
-    }
-
-    const getAlert = (data: AlertComponentProps) => {
-        setIsAlertActive({
-            text: data.text,
-            type: data.type
-        });
-        setTimeout(() => setIsAlertActive(null), 3000);
     }
 
     useEffect(() => {

@@ -9,6 +9,7 @@ import { MultipleSelectPlaceholder } from "./components/select/select";
 import { INVALID_CHARS_REGEXP } from "../../../../../../../consts/index";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { getAlert } from "../../../../../../../utils/getAlert";
 import { BtnCloseInner, BtnInner, Container, Label, Wrapper } from "./styledEditCategoryModal";
 interface EditCategoryModalProps {
     choosedCategoryId: string | null;
@@ -54,8 +55,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
 
     const saveChanges = async () => {
         if (!INVALID_CHARS_REGEXP.test(categorySum) || categorySum === "0") {
-            setIsAlertActive({ type: "error", text: "Invalid input" });
-            setTimeout(() => setIsAlertActive(null), 2000);
+            getAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
             setCategoryNameError(true);
         } else {
             try {

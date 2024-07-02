@@ -6,8 +6,8 @@ import { getDataFromLocalStorage } from "../../../../../../../storage/localStora
 import { RootState, Transaction, UserStorageDataType } from "../../../../../../../redux/reducers/userStorageReduser/types";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
+import { getAlert } from "../../../../../../../utils/getAlert";
 import { BtnCloseInner, BtnInner, Container, Title, Wrapper } from "./styledDeleteCategoryModal";
-
 interface DeleteCategoryModalProps {
     closeDeleteModal: (value: boolean) => void;
     choosedCategoryId: string | null;
@@ -39,8 +39,7 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
                 const changeUserDataResponse = (await dispatch(changeUserData({ userToken: token, updatedData: storageDataCopy }))).payload
 
                 if (changeUserDataResponse) {
-                    setIsAlertActive({ type: "success", text: "Data updated successfully" });
-                    setTimeout(() => setIsAlertActive(null), 2000);
+                    getAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
                     closeDeleteModal(false);
                     getDataDataForStatistic();
                 }

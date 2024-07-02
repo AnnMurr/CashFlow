@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { updateUserData } from "../../../../../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch, useAppSelector } from "../../../../../../../../redux/store/store";
+import { getAlert } from "../../../../../../../../utils/getAlert";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { OutlinedInput } from "@mui/material";
 import { AlertComponentProps } from "../../../../../../../shared/alert/alert";
@@ -44,20 +45,11 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
                     if (response) {
                         changeUserData(value);
                         setIsModalActive(false);
-
-                        setIsAlertActive({
-                            text: response,
-                            type: "success"
-                        });
-                        setTimeout(() => setIsAlertActive(null), 2000);
+                        getAlert({ text: response, type: "success" }, setIsAlertActive, 3000);
                     }
                 }
             } catch (error) {
-                setIsAlertActive({
-                    text: "failed to update",
-                    type: "error"
-                });
-                setTimeout(() => setIsAlertActive(null), 2000);
+                getAlert({ text: "failed to update", type: "error" }, setIsAlertActive, 3000);
                 console.error(error);
             }
         } else {
