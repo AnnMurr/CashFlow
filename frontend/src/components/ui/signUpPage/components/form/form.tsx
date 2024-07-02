@@ -16,6 +16,7 @@ import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle
 import { LinkToSignInBlock } from "./components/linkToSignInBlock/linkToSignInBlock";
 import { Input } from "./components/input/input";
 import { Title } from "./components/title/title";
+import { getAlert } from "../../../../../utils/getAlert";
 import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label } from "./styledForm";
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
@@ -32,9 +33,8 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
     const dispatch = useAppDispatch();
 
     const getLogSuccess = (token: string) => {
-        setIsAlertActive({ type: "success", text: "User account creation successful" });
+        getAlert({ type: "success", text: "User account creation successful" }, setIsAlertActive, 3000);
         setTimeout(() => {
-            setIsAlertActive(null);
             navigate('/profile');
             setDataToLocalStorage("token", token);
             login();
@@ -47,8 +47,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
             const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: data.email }))).payload;
 
             if (isUser || isUserGoogle) {
-                setIsAlertActive({ type: "error", text: "User has already registered" });
-                setTimeout(() => setIsAlertActive(null), 2000);
+                getAlert({ type: "error", text: "User has already registered" }, setIsAlertActive, 3000);
             } else {
                 delete data.confirmPassword;
                 data.name = data.name.trim();
@@ -77,7 +76,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
 
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)} action="/submit" method="post">
-           <Title />
+            <Title />
             <Input
                 register={register("name", {
                     required: "Name is required",

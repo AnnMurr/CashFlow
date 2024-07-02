@@ -6,6 +6,7 @@ import { AlertComponentProps } from "../../shared/alert/alert";
 import { BtnClose } from "../../shared/btnClose/btnClose";
 import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { useAppDispatch } from "../../../redux/store/store";
+import { getAlert } from "../../../utils/getAlert";
 import { BtnInner, CloseBtnInner, Container, Input, InputInner, Item, Label, List, Wrapper } from "./styledCategorySelectionModal";
 import { CategoriesType, StorageDataKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
 interface CategorySelectionModalProps {
@@ -53,25 +54,20 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                     const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
                     if (userDataAfterUpdate) {
-                        getAlert({ type: "success", text: "Category added successfully" })
+                        getAlert({ type: "success", text: "Category added successfully" }, setIsAlertActive, 3000);
                         getUserDataFromStorage();
                         togleModal(false);
                     }
                 } catch (error) {
-                    getAlert({ type: "warning", text: "Please try again later." })
+                    getAlert({ type: "warning", text: "Please try again later." }, setIsAlertActive, 3000);
                     console.error(error);
                 }
             } else {
-                getAlert({ type: "error", text: "Enter category and choose an icon" })
+                getAlert({ type: "error", text: "Enter category and choose an icon" }, setIsAlertActive, 3000);
             }
         } else {
-            getAlert({ type: "error", text: "This category has already existed" });
+            getAlert({ type: "error", text: "This category has already existed" }, setIsAlertActive, 3000);
         }
-    }
-
-    const getAlert = (data: AlertComponentProps) => {
-        setIsAlertActive({ type: data.type, text: data.text });
-        setTimeout(() => setIsAlertActive(null), 3000);
     }
 
     const closeModal = () => togleModal(false);

@@ -10,13 +10,14 @@ import { changeUserData, getDataFromUserStore } from "../../../../../redux/reduc
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { CategoriesType, CategoryKeys, UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { CrossBtnInner, Item, List } from "./styledCategories";
+import { getAlert } from "../../../../../utils/getAlert";
 interface CategoriesProps {
     categoriesList: Array<CategoriesType> | null;
     setChoosedCategory: (value: { category: string, icon: string } | null) => void;
     getUserDataFromStorage: () => void;
     setIsEnteringModalActive: (value: boolean) => void;
-    getAlert: (value: AlertComponentProps) => void;
     dataKey: CategoryKeys;
+    setIsAlertActive: (value: AlertComponentProps | null) => void;
 }
 
 export const Categories: FC<CategoriesProps> = ({
@@ -25,7 +26,7 @@ export const Categories: FC<CategoriesProps> = ({
     getUserDataFromStorage,
     setIsEnteringModalActive,
     dataKey,
-    getAlert }) => {
+    setIsAlertActive }) => {
     const [showDeleteIcons, setShowDeleteIcons] = useState<Array<boolean>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const windowWidth = window.innerWidth;
@@ -66,7 +67,7 @@ export const Categories: FC<CategoriesProps> = ({
 
         target.parentNode && target.parentNode.previousSibling ?
             categoryName = target.parentNode.previousSibling.childNodes[0]?.textContent :
-            getAlert({ type: "success", text: "Somthing was wrong" });
+            getAlert({ type: "success", text: "Somthing was wrong" }, setIsAlertActive, 3000);
 
         if (categoryName && categoryName !== undefined) {
             const categoriesExpensesUpdating = [...userDataFromStorage.data[dataKey]].filter((item) => item.name !== categoryName);
@@ -81,11 +82,11 @@ export const Categories: FC<CategoriesProps> = ({
                 };
 
                 await dispatch(changeUserData({ userToken: token, updatedData: updatedData }));
-                getAlert({ type: "success", text: "Category deleted successfully" });
+                getAlert({ type: "success", text: "Category deleted successfully" }, setIsAlertActive, 3000);
                 getUserDataFromStorage();
                 setShowDeleteIcons([]);
             } catch (error) {
-                getAlert({ type: "warning", text: "Please try again later." });
+                getAlert({ type: "warning", text: "Please try again later." }, setIsAlertActive, 3000);
                 console.error(error);
             }
 

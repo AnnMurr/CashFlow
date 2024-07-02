@@ -144,6 +144,7 @@ export const checkUserData = createAsyncThunk<string | boolean, { email: string,
 
             const data = response.json();
             return data;
+
         } catch (error) {
             error instanceof Error && rejectWithValue(error.message);
         }

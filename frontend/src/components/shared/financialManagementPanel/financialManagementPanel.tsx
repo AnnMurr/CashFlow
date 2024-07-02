@@ -10,7 +10,8 @@ import { Categories } from "./components/categories/categories";
 import { INVALID_CHARS_REGEXP } from "../../../consts/index";
 import { useAppDispatch } from "../../../redux/store/store";
 import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { CategoryKeys, Transaction, TransactionKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
+import { CategoryKeys, TransactionKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
+import { getAlert } from "../../../utils/getAlert";
 import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledFinancialManagementPanel";
 interface FinancialManagementPanelProps {
     type: TransactionKeys;
@@ -30,11 +31,6 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
 
     const toggleCategorySelectionModal = () => setIsCategorySelectionModalActive(true);
 
-    const getAlert = (data: AlertComponentProps) => {
-        setIsAlertActive({ type: data.type, text: data.text });
-        setTimeout(() => setIsAlertActive(null), 3000);
-    }
-
     const getUserDataFromStorage = async () => {
         const token = getDataFromLocalStorage("token");
 
@@ -50,7 +46,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
         const token = getDataFromLocalStorage("token");
 
         if (!INVALID_CHARS_REGEXP.test(costValue) || costValue === "0") {
-            getAlert({ type: "error", text: "Invalid input" });
+            getAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
             console.error("Invalid input: only digits, '+', '-', '*', '/' are allowed");
         } else {
             try {
@@ -78,7 +74,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                     const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
                     if (userDataAfterUpdate) {
-                        getAlert({ type: "success", text: "Transaction added successfully" });
+                        getAlert({ type: "success", text: "Transaction added successfully" }, setIsAlertActive, 3000);
                         setIsEnteringModalActive(false);
                     }
                 }
@@ -117,8 +113,8 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                         setChoosedCategory={setChoosedCategory}
                         getUserDataFromStorage={getUserDataFromStorage}
                         setIsEnteringModalActive={setIsEnteringModalActive}
-                        getAlert={getAlert}
-                        dataKey={dataKey} />
+                        dataKey={dataKey}
+                        setIsAlertActive={setIsAlertActive} />
                     <AddCategoryBtnInner>
                         <AddCategoryBtn onClick={toggleCategorySelectionModal} type="button"></AddCategoryBtn>
                     </AddCategoryBtnInner>

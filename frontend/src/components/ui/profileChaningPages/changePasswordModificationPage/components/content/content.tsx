@@ -9,6 +9,7 @@ import { updateUserData } from "../../../../../../redux/reducers/userReducer/use
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { getAlert } from "../../../../../../utils/getAlert";
 import { BtnInner, Wrapper, BtnShowPasswordInner, Label, SubTitle, Title } from "./styledContent";
 
 export const Content: FC = () => {
@@ -37,7 +38,7 @@ export const Content: FC = () => {
                         const response = unwrapResult(resultAction);
 
                         if (response) {
-                            getAllert({ type: "success", text: response });
+                            getAlert({ type: "success", text: response }, setIsAlertActive, 3000);
                             setIsError(false);
                             setTimeout(() => navigate("/settings"), 1000);
                         }
@@ -46,21 +47,13 @@ export const Content: FC = () => {
                     console.error(error);
                 }
             } else {
-                getAllert({ type: "error", text: "Passwords must match." });
+                getAlert({ type: "error", text: "Passwords must match." }, setIsAlertActive, 3000);
                 setIsError(true);
             }
         } else {
-            getAllert({ type: "error", text: "Password must contain at least one digit, one special character '!@#$%^&*', one lowercase letter, one uppercase letter, and should not contain any spaces." });
+            getAlert({ type: "error", text: "Password must contain at least one digit, one special character '!@#$%^&*', one lowercase letter, one uppercase letter, and should not contain any spaces." }, setIsAlertActive, 3000);
             setIsError(true);
         }
-    }
-
-    const getAllert = (data: AlertComponentProps) => {
-        setIsAlertActive({
-            text: data.text,
-            type: data.type
-        });
-        setTimeout(() => setIsAlertActive(null), 3000);
     }
 
     return (
