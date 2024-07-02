@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { getDataFromLocalStorage, removeDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
-import { deleteUserStore } from "../../../../../../api/userDataApi/userDataApi";
 import { AuthorizedContext, AuthorizedContextType } from "../../../../../../contexts/authorizedContext/authorizedContext";
+import { deleteUserStore } from "../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { deleteUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
 import { useAppDispatch } from "../../../../../../redux/store/store";
 import { BtnInner, TextInner, Title, Wrapper } from "./styledContent";
@@ -18,13 +18,8 @@ export const Content: FC = () => {
     const deleteAccount = async () => {
         const token = getDataFromLocalStorage("token");
         try {
-            const responseFromStore = await deleteUserStore(token);
-
-            if (responseFromStore.status !== 200) {
-                setAlertActive({ type: "error", text: "Error deleting user's data storage" });
-                return
-            }
-
+            await dispatch(deleteUserStore(token));
+            
             const responseFromDb = await dispatch(deleteUserData());
             const { status, message } = responseFromDb.payload as { status: number; message: string };
 

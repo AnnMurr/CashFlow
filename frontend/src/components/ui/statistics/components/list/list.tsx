@@ -1,7 +1,9 @@
 import React, { useRef } from "react";
 import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { getDataFromUserStore } from "../../../../../api/userDataApi/userDataApi";
+import { getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { useAppDispatch } from "../../../../../redux/store/store";
+import { UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { ItemDay } from "./components/itemDay/itemDay";
 import { Item } from "./components/item/item";
@@ -37,10 +39,11 @@ export const List: FC = () => {
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
+    const dispatch = useAppDispatch();
 
     const getDataDataForStatistic = async () => {
         const token = getDataFromLocalStorage("token");
-        const data = await getDataFromUserStore(token);
+        const data = (await dispatch(getDataFromUserStore(token))).payload as UserStorageDataType;
         const combinedAndSortedData = [...data.data.income, ...data.data.expenses];
         const financialData: ItemsType = {};
 
@@ -126,8 +129,8 @@ export const List: FC = () => {
                 {isDeleteCategoryModalActive ?
                     <>
                         <DeleteCategoryModal
-                        setIsAlertActive={setIsAlertActive}
-                        getDataDataForStatistic={getDataDataForStatistic}
+                            setIsAlertActive={setIsAlertActive}
+                            getDataDataForStatistic={getDataDataForStatistic}
                             choosedCategoryId={choosedCategoryId}
                             closeDeleteModal={setIsDeleteCategoryModalActive} />
                         <DarkBackground

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserStorageDataType } from "./types";
+import { ICONS_EXPENSES_COLLECTION } from "../../../consts/images";
 
-// storageData??
 const initialstate = {
     storageData: null,
     typesOfCategories: null,
@@ -24,6 +24,39 @@ export const storageSlice = createSlice({
     }
 });
 
+export const createUserStore = createAsyncThunk<UserStorageDataType, string>(
+    "data/createUserStore",
+    async (userToken, { dispatch, rejectWithValue }) => {
+        try {
+            const response = await fetch("https://662be069de35f91de159c3b9.mockapi.io/usersStorage", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    uid: userToken,
+                    data: {
+                        categoriesExpenses: [
+                            { name: "food", icon: ICONS_EXPENSES_COLLECTION[0] },
+                            { name: "transport", icon: ICONS_EXPENSES_COLLECTION[1] },
+                            { name: "house", icon: ICONS_EXPENSES_COLLECTION[2] },
+                        ],
+                        categoriesIncome: [{ name: "work", icon: ICONS_EXPENSES_COLLECTION[5] }],
+                        expenses: [],
+                        income: [],
+                    }
+                })
+            });
+
+            if (!response.ok) throw new Error("Failed to create user storage");
+
+            const data = await response.json();
+            return data;
+
+        } catch (error) {
+            error instanceof Error && rejectWithValue(error.message);
+        }
+    }
+)
+
 export const getDataFromUserStore = createAsyncThunk<UserStorageDataType, string>(
     "data/getDataFromUserStore",
     async (userToken, { dispatch, rejectWithValue }) => {
@@ -45,7 +78,7 @@ export const getDataFromUserStore = createAsyncThunk<UserStorageDataType, string
     }
 );
 
-export const changeUserData = createAsyncThunk<any, { userToken: string, updatedData: any }>(
+export const changeUserData = createAsyncThunk<UserStorageDataType, { userToken: string, updatedData: UserStorageDataType }>(
     "data/changeUserData",
     async ({ userToken, updatedData }, { dispatch, rejectWithValue }) => {
         try {
@@ -60,14 +93,37 @@ export const changeUserData = createAsyncThunk<any, { userToken: string, updated
                     body: JSON.stringify(updatedData)
                 })
 
-                if (!response.ok) {
-                    throw new Error("Failed to update user's data")
-                } else {
+                if (!response.ok) throw new Error("Failed to update user's data");
+      
                     const dataUpdated = await response.json();
                     dispatch(setUserDataToReduxStore(dataUpdated));
-                    return dataUpdated
-                }
+                    return dataUpdated;
             }
+        } catch (error) {
+            error instanceof Error && rejectWithValue(error.message);
+        }
+    }
+)
+
+export const deleteUserStore = createAsyncThunk<string, string>(
+    "data/deleteUserStore",
+    async (userToken, { dispatch, rejectWithValue }) => {
+        try {
+            const userData = (await dispatch(getDataFromUserStore(userToken))).payload as UserStorageDataType;
+
+            if (!userData) throw new Error("User data not found in store");
+
+            const response = await fetch(`https://662be069de35f91de159c3b9.mockapi.io/usersStorage/${userData.id}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+
+            });
+
+            if (!response.ok) throw new Error("Failed to delete user's data from store");
+
+            const data = await response.json();
+            return data;
+
         } catch (error) {
             error instanceof Error && rejectWithValue(error.message);
         }

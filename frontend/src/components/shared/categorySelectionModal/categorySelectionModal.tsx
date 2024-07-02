@@ -2,17 +2,18 @@ import { FC, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { ButtonComponent } from "../../shared/button/button";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
-import { changeUserData, getDataFromUserStore } from "../../../api/userDataApi/userDataApi";
 import { AlertComponentProps } from "../../shared/alert/alert";
 import { BtnClose } from "../../shared/btnClose/btnClose";
+import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { useAppDispatch } from "../../../redux/store/store";
 import { BtnInner, CloseBtnInner, Container, Input, InputInner, Item, Label, List, Wrapper } from "./styledCategorySelectionModal";
-
+import { CategoriesType, StorageDataKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
 interface CategorySelectionModalProps {
     togleModal: (value: boolean) => void;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
     getUserDataFromStorage: () => void;
     iconsCollection: Array<string>;
-    dataKey: string;
+    dataKey: StorageDataKeys;
 }
 
 export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
@@ -21,6 +22,7 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
     const [selectedIcon, setSelectedIcon] = useState<string>("");
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
     const [category, setCategory] = useState<string>("");
+    const dispatch = useAppDispatch();
 
     const selectCategoryIcon = (index: number) => {
         setSelectedIcon(iconsCollection[index]);
@@ -28,11 +30,11 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
     }
 
     const addCategory = async () => {
-        const token: string = getDataFromLocalStorage("token");
-        const userDataFromStorage = await getDataFromUserStore(token);
-        const categories = userDataFromStorage.data[dataKey];
-        const checkExistCategory = categories.find((item: any) => 
-        item.name.toLowerCase().trim() === category.toLowerCase().trim());
+        const token = getDataFromLocalStorage("token");
+        const userDataFromStorage: UserStorageDataType = (await dispatch(getDataFromUserStore(token))).payload as UserStorageDataType;
+        const categories = [...userDataFromStorage.data[dataKey]] as Array<CategoriesType>;
+        const checkExistCategory = categories.find((item) =>
+            item.name.toLowerCase().trim() === category.toLowerCase().trim());
         const onlySpacesRegex = /^\s+$/;
 
         if (checkExistCategory === undefined) {
@@ -40,7 +42,15 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                 categories.push({ name: category.trim(), icon: selectedIcon });
 
                 try {
-                    const userDataAfterUpdate = await changeUserData(token, userDataFromStorage);
+                    const updatedData = {
+                        ...userDataFromStorage,
+                        data: {
+                            ...userDataFromStorage.data,
+                            [dataKey]: categories
+                        }
+                    }
+
+                    const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
                     if (userDataAfterUpdate) {
                         getAlert({ type: "success", text: "Category added successfully" })
