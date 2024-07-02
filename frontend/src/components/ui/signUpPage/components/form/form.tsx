@@ -6,10 +6,10 @@ import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { BtnShowPassword } from "../../../../shared/btnShowPassword/btnShowPassword";
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from "../../../../../consts/index";
-import { createUserStore } from "../../../../../api/userDataApi/userDataApi";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
 import { checkUserDataByEmail, setUserData } from "../../../../../redux/reducers/userReducer/userReducer";
+import { createUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { UserDataType } from "../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle/signUpWithGoogle";
@@ -42,7 +42,6 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
     }
 
     const onSubmit: SubmitHandler<SubmitHandlerDataType> = async (data) => {
-
         try {
             const isUser = (await dispatch(checkUserDataByEmail({ link: "users/check-email", email: data.email }))).payload;
             const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: data.email }))).payload;
@@ -57,13 +56,9 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 const token = (await dispatch(setUserData({ link: "putdata", userData: data }))).payload;
 
                 if (typeof token === "string") {
-                    const createdStorage = await createUserStore(token);
+                    const createdStorage = (await dispatch(createUserStore(token))).payload;
 
-                    if (!createdStorage.ok) {
-                        console.error("Failed to create storage");
-                    } else {
-                        getLogSuccess(token);
-                    }
+                    if (createdStorage) getLogSuccess(token);
                 }
             }
         } catch (error) {

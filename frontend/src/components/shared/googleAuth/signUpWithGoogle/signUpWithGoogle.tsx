@@ -5,7 +5,7 @@ import { signInWithGooglePopup } from "../../../../utils/firebase/firebase";
 import { checkUserDataByEmail, setUserData } from "../../../../redux/reducers/userReducer/userReducer";
 import { useAppDispatch } from "../../../../redux/store/store";
 import { AlertComponentProps } from "../../alert/alert";
-import { createUserStore } from "../../../../api/userDataApi/userDataApi";
+import { createUserStore } from "../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { GoogleLinkPrompt } from "../googleLinkPrompt/googleLinkPrompt";
 import { SignUpWithGoogleBtn, SignUpWithGoogleBtnInner, SignUpWithGoogleTitle } from "./styledSignUpWithGoogle";
 interface SignUpWithGoogleProps {
@@ -43,13 +43,9 @@ export const SignUpWithGoogle: FC<SignUpWithGoogleProps> = ({ setIsAlertActive, 
                     }))).payload;
 
                     if (typeof token === "string") {
-                        const createdStorage = await createUserStore(token);
+                        const createdStorage = (await dispatch(createUserStore(token))).payload;
 
-                        if (!createdStorage.ok) {
-                            console.error("Failed to create storage");
-                        } else {
-                            getLogSuccess(token);
-                        }
+                        if (createdStorage) getLogSuccess(token);
                     }
                 }
             } else {

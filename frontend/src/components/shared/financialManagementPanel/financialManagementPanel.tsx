@@ -1,18 +1,20 @@
 import { FC, useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import { CategorySelectionModal } from "../../shared/categorySelectionModal/categorySelectionModal";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { EnteringModal } from "../../shared/enteringModal/enteringModal";
 import { Loading } from "../../shared/loading/loading";
 import { AlertComponent, AlertComponentProps } from "../alert/alert";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
-import { changeUserData, getDataFromUserStore } from "../../../api/userDataApi/userDataApi";
 import { Categories } from "./components/categories/categories";
 import { INVALID_CHARS_REGEXP } from "../../../consts/index";
-import { v4 as uuidv4 } from 'uuid';
+import { useAppDispatch } from "../../../redux/store/store";
+import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { CategoryKeys, Transaction, TransactionKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
 import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledFinancialManagementPanel";
 interface FinancialManagementPanelProps {
-    type: string;
-    dataKey: string
+    type: TransactionKeys;
+    dataKey: CategoryKeys;
     iconsCollection: Array<string>;
 }
 
@@ -24,6 +26,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const [choosedCategory, setChoosedCategory] = useState<{ category: string, icon: string } | null>(null);
     const [costValue, setCostValue] = useState<string>("0");
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
+    const dispatch = useAppDispatch();
 
     const toggleCategorySelectionModal = () => setIsCategorySelectionModalActive(true);
 
@@ -36,7 +39,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
         const token = getDataFromLocalStorage("token");
 
         try {
-            const userDataFromStorage = await getDataFromUserStore(token);
+            const userDataFromStorage = (await dispatch(getDataFromUserStore(token))).payload as UserStorageDataType;
             setCategoriesList(userDataFromStorage.data[dataKey]);
         } catch (error) {
             console.error(error);
@@ -51,23 +54,33 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
             console.error("Invalid input: only digits, '+', '-', '*', '/' are allowed");
         } else {
             try {
-                const dataFromUserStore = await getDataFromUserStore(token);
-                const transactions = dataFromUserStore.data[type];
+                if (type && choosedCategory) {
+                    const dataFromUserStore = (await dispatch(getDataFromUserStore(token))).payload as UserStorageDataType;
+                    const updatedTransactions = [...dataFromUserStore.data[type]];
 
-                transactions.push({
-                    type: type,
-                    category: choosedCategory?.category,
-                    icon: choosedCategory?.icon,
-                    date: new Date(),
-                    sum: parseInt(costValue),
-                    uid: uuidv4()
-                });
+                    updatedTransactions.push({
+                        type: type,
+                        category: choosedCategory?.category,
+                        icon: choosedCategory?.icon,
+                        date: new Date(),
+                        sum: parseInt(costValue),
+                        uid: uuidv4()
+                    });
 
-                const userDataAfterUpdate = await changeUserData(token, dataFromUserStore);
+                    const updatedData = { 
+                        ...dataFromUserStore,
+                        data: {
+                            ...dataFromUserStore.data,
+                            [type]: updatedTransactions
+                        }
+                    };
 
-                if (userDataAfterUpdate) {
-                    getAlert({ type: "success", text: "Transaction added successfully" });
-                    setIsEnteringModalActive(false);
+                    const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
+
+                    if (userDataAfterUpdate) {
+                        getAlert({ type: "success", text: "Transaction added successfully" });
+                        setIsEnteringModalActive(false);
+                    }
                 }
             } catch (error) {
                 console.error(error);

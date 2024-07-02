@@ -1,21 +1,22 @@
 import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
-import { changeUserData, getDataFromUserStore } from "../../../../../api/userDataApi/userDataApi";
-import { CategoriesExpensesType } from "../../../../../api/userDataApi/styledUserDataApi";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { Loading } from "../../../../shared/loading/loading";
 import { Cross } from "./components/cross/cross";
 import { CategoryName } from "./components/categoryName/categoryName";
 import { Icon } from "./components/icon/icon";
+import { changeUserData, getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { useAppDispatch } from "../../../../../redux/store/store";
+import { CategoriesType, CategoryKeys, UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { CrossBtnInner, Item, List } from "./styledCategories";
 interface CategoriesProps {
-    categoriesList: Array<CategoriesExpensesType> | null;
+    categoriesList: Array<CategoriesType> | null;
     setChoosedCategory: (value: { category: string, icon: string } | null) => void;
     getUserDataFromStorage: () => void;
     setIsEnteringModalActive: (value: boolean) => void;
     getAlert: (value: AlertComponentProps) => void;
-    dataKey: string;
+    dataKey: CategoryKeys;
 }
 
 export const Categories: FC<CategoriesProps> = ({
@@ -28,6 +29,7 @@ export const Categories: FC<CategoriesProps> = ({
     const [showDeleteIcons, setShowDeleteIcons] = useState<Array<boolean>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const windowWidth = window.innerWidth;
+    const dispatch = useAppDispatch();
     let holdTimer: NodeJS.Timeout;
 
     const handleMouseDown = (event: React.TouchEvent<HTMLLIElement>, index: number) => {
@@ -59,7 +61,7 @@ export const Categories: FC<CategoriesProps> = ({
         setIsLoading(true);
         const target = event.target as HTMLElement;
         const token = getDataFromLocalStorage("token");
-        const userDataFromStorage = await getDataFromUserStore(token);
+        const userDataFromStorage = (await dispatch(getDataFromUserStore(token))).payload as UserStorageDataType;
         let categoryName: undefined | string | null;
 
         target.parentNode && target.parentNode.previousSibling ?
@@ -67,12 +69,18 @@ export const Categories: FC<CategoriesProps> = ({
             getAlert({ type: "success", text: "Somthing was wrong" });
 
         if (categoryName && categoryName !== undefined) {
-            const categoriesExpenses: Array<any> = userDataFromStorage.data[dataKey];
-            const updatedUserData = categoriesExpenses.filter((item) => item.name !== categoryName);
+            const categoriesExpensesUpdating = [...userDataFromStorage.data[dataKey]].filter((item) => item.name !== categoryName);
 
             try {
-                userDataFromStorage.data[dataKey] = [...updatedUserData];
-                await changeUserData(token, userDataFromStorage);
+                const updatedData = {
+                    ...userDataFromStorage,
+                    data: {
+                        ...userDataFromStorage.data,
+                        [dataKey]: categoriesExpensesUpdating
+                    }
+                };
+
+                await dispatch(changeUserData({ userToken: token, updatedData: updatedData }));
                 getAlert({ type: "success", text: "Category deleted successfully" });
                 getUserDataFromStorage();
                 setShowDeleteIcons([]);
