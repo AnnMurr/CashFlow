@@ -33,7 +33,7 @@ export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }
            
             if (signInWithGoogleResponse && email && name) {
                 if (isUser || isUserGoogle) {
-                    getAllert({ type: "error", text: "User has already registered" });
+                    getAllert({ type: "error", text: "User already exists" });
                 } else {
                     if (email === userDataFromRedux!.email) {
                         return;

@@ -45,7 +45,7 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: "100%", mt: 3, margin: "0 0 10px 0" }}>
+      <FormControl sx={{ m: 1, width: "100%", mt: 3, margin: "0 0 10px 0", marginTop: "10px" }}>
         <Select
           sx={{
             '& .MuiSelect-select': {

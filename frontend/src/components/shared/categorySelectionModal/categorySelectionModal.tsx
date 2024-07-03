@@ -66,7 +66,7 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                 getAlert({ type: "error", text: "Enter category and choose an icon" }, setIsAlertActive, 3000);
             }
         } else {
-            getAlert({ type: "error", text: "This category has already existed" }, setIsAlertActive, 3000);
+            getAlert({ type: "error", text: "This category already exists" }, setIsAlertActive, 3000);
         }
     }
 

@@ -7,7 +7,7 @@ import { Loading } from "../../shared/loading/loading";
 import { AlertComponent, AlertComponentProps } from "../alert/alert";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
 import { Categories } from "./components/categories/categories";
-import { INVALID_CHARS_REGEXP } from "../../../consts/index";
+import { VALID_SUM_REGEX } from "../../../consts/index";
 import { useAppDispatch } from "../../../redux/store/store";
 import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { CategoryKeys, TransactionKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
@@ -25,7 +25,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
     const [isEnteringModalActive, setIsEnteringModalActive] = useState<boolean>(false);
     const [choosedCategory, setChoosedCategory] = useState<{ category: string, icon: string } | null>(null);
-    const [costValue, setCostValue] = useState<string>("0");
+    const [categorySum, setCategorySum] = useState<string>("0");
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
     const dispatch = useAppDispatch();
 
@@ -45,7 +45,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const addTransaction = async () => {
         const token = getDataFromLocalStorage("token");
 
-        if (!INVALID_CHARS_REGEXP.test(costValue) || costValue === "0") {
+        if (!VALID_SUM_REGEX.test(categorySum)) {
             getAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
             console.error("Invalid input: only digits, '+', '-', '*', '/' are allowed");
         } else {
@@ -59,7 +59,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                         category: choosedCategory?.category,
                         icon: choosedCategory?.icon,
                         date: new Date(),
-                        sum: parseInt(costValue),
+                        sum: parseFloat(categorySum),
                         uid: uuidv4()
                     });
 
@@ -137,8 +137,9 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
             {isEnteringModalActive ?
                 <>
                     <EnteringModal
-                        inputValue={costValue}
-                        setInputValue={setCostValue}
+                    setIsAlertActive={setIsAlertActive}
+                        inputValue={categorySum}
+                        setInputValue={setCategorySum}
                         addTransaction={addTransaction}
                         closeModal={setIsEnteringModalActive} />
                     <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />

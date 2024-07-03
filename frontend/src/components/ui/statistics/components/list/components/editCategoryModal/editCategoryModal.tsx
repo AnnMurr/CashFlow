@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { OutlinedInput } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
 import { RootState, Transaction, UserStorageDataType } from "../../../../../../../redux/reducers/userStorageReduser/types";
@@ -6,7 +6,7 @@ import { BtnClose } from "../../../../../../shared/btnClose/btnClose";
 import { ButtonComponent } from "../../../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
 import { MultipleSelectPlaceholder } from "./components/select/select";
-import { INVALID_CHARS_REGEXP } from "../../../../../../../consts/index";
+import { VALID_SUM_REGEX } from "../../../../../../../consts/index";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { getAlert } from "../../../../../../../utils/getAlert";
@@ -41,7 +41,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
         const getCategoryData = () => {
             if (transactions) {
                 const currentCategory = transactions.find(item => item.uid === choosedCategoryId);
-                
+
                 if (currentCategory) {
                     setCategoryData(currentCategory);
                     currentCategory && setCategoryName(currentCategory?.category);
@@ -54,7 +54,11 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
     }, []);
 
     const saveChanges = async () => {
-        if (!INVALID_CHARS_REGEXP.test(categorySum) || categorySum === "0") {
+      
+        const sum = categorySum.toString().replace(/[^\d.,]/g, '').replace(',', '.');
+        console.log(sum);
+        console.log(VALID_SUM_REGEX.test(sum));
+        if (!VALID_SUM_REGEX.test(sum))  {
             getAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
             setCategoryNameError(true);
         } else {
@@ -70,8 +74,8 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                         if (element.uid === categoryData?.uid) {
                             newData = {
                                 ...element,
-                                icon: icon,
-                                sum: +categorySum,
+                                icon: icon ? icon : element.icon,
+                                sum: parseFloat(sum),
                                 category: categoryName
                             }
                         }
@@ -95,8 +99,10 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
         }
     }
 
-    console.log(typesOfCategories)
-    console.log(categoryData)
+    const handleSum = (event: ChangeEvent<HTMLInputElement>) => {
+        const target = event.target;
+        setCategorySum(target.value.trimStart());
+    }
 
     return (
         <Container>
@@ -113,7 +119,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                             names={typesOfCategories[categoryData?.type]} />}
                 </div>
                 <div>
-                    <Label>Value</Label>
+                    <Label>Sum</Label>
                     <OutlinedInput
                         sx={{
                             marginBottom: "20px",
@@ -121,12 +127,12 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                             width: "100%",
                             fontSize: "14px"
                         }}
+                        inputProps={{ maxLength: 10 }}
                         error={categoryNameError}
-                        maxRows={20}
                         value={categorySum}
-                        onChange={(event) => setCategorySum(event.target.value.trimStart())}
+                        onChange={handleSum}
                         size="small"
-                        placeholder="Name" />
+                        placeholder="Sum" />
                 </div>
                 <BtnInner>
                     <ButtonComponent
