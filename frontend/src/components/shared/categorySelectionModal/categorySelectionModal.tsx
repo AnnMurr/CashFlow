@@ -5,10 +5,11 @@ import { getDataFromLocalStorage } from "../../../storage/localStorage/localStor
 import { AlertComponentProps } from "../../shared/alert/alert";
 import { BtnClose } from "../../shared/btnClose/btnClose";
 import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { CategoriesType, StorageDataKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
 import { useAppDispatch } from "../../../redux/store/store";
 import { getAlert } from "../../../utils/getAlert";
+import { ONLY_SPACES_REGEX } from "../../../consts";
 import { BtnInner, CloseBtnInner, Container, Input, InputInner, Item, Label, List, Wrapper } from "./styledCategorySelectionModal";
-import { CategoriesType, StorageDataKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
 interface CategorySelectionModalProps {
     togleModal: (value: boolean) => void;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
@@ -36,10 +37,9 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
         const categories = [...userDataFromStorage.data[dataKey]] as Array<CategoriesType>;
         const checkExistCategory = categories.find((item) =>
             item.name.toLowerCase().trim() === category.toLowerCase().trim());
-        const onlySpacesRegex = /^\s+$/;
 
         if (checkExistCategory === undefined) {
-            if (category.length > 0 && selectedIcon && !onlySpacesRegex.test(category)) {
+            if (category.length > 0 && selectedIcon && !ONLY_SPACES_REGEX.test(category)) {
                 categories.push({ name: category.trim(), icon: selectedIcon });
 
                 try {

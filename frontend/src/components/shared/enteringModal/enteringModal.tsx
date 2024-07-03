@@ -46,11 +46,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
 
             !OPERATOR_REGEXP.test(lastChar) && setInputValue((prev) => sliceNumber(prev + value));
         } else if (currentTarget.classList.contains("btn_delete")) {
-            if (inputValue.length === 1 || isError) {
-                setInputValue("0");
-            } else {
-                setInputValue((prev) => sliceNumber(prev.slice(0, -1)));
-            }
+            setInputValue(inputValue.length === 1 || isError ? "0" : (prev) => sliceNumber(prev.slice(0, -1)));
         } else if (value === ".") {
             const parts = inputValue.split(OPERATOR_REGEXP);
             const lastSymbol = parts[parts.length - 1];
@@ -61,8 +57,8 @@ export const EnteringModal: FC<EnteringModalProps> = ({
             }
         } else if (value === "=") {
             try {
-                const result = eval(inputValue);
-                setInputValue(sliceNumber(result.toString()));
+                const result = eval(inputValue).toString();
+                setInputValue(sliceNumber(result));
             } catch (error) {
                 getAlert({ text: "Invalid input", type: "error" }, setIsAlertActive, 3000);
             }

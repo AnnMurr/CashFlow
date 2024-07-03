@@ -39,14 +39,12 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
 
     useEffect(() => {
         const getCategoryData = () => {
-            if (transactions) {
-                const currentCategory = transactions.find(item => item.uid === choosedCategoryId);
+            const currentCategory = transactions && transactions.find(item => item.uid === choosedCategoryId);
 
-                if (currentCategory) {
-                    setCategoryData(currentCategory);
-                    currentCategory && setCategoryName(currentCategory?.category);
-                    currentCategory && setCategorySum(currentCategory?.sum.toString());
-                }
+            if (currentCategory) {
+                setCategoryData(currentCategory);
+                currentCategory && setCategoryName(currentCategory?.category);
+                currentCategory && setCategorySum(currentCategory?.sum.toString());
             }
         }
 
@@ -54,18 +52,16 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
     }, []);
 
     const saveChanges = async () => {
-      
         const sum = categorySum.toString().replace(/[^\d.,]/g, '').replace(',', '.');
-        console.log(sum);
-        console.log(VALID_SUM_REGEX.test(sum));
-        if (!VALID_SUM_REGEX.test(sum))  {
+
+        if (!VALID_SUM_REGEX.test(sum)) {
             getAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
             setCategoryNameError(true);
         } else {
             try {
                 const token = getDataFromLocalStorage("token");
-                const storageDataCopy: UserStorageDataType = JSON.parse(JSON.stringify(storageData))
-                let newData = null
+                const storageDataCopy: UserStorageDataType = JSON.parse(JSON.stringify(storageData));
+                let newData = null;
 
                 if (storageDataCopy && categoryData) {
                     const icon = typesOfCategories && typesOfCategories[categoryData?.type].find(item => item.name === categoryName)?.icon;
