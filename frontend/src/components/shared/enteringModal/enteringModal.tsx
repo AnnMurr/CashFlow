@@ -1,13 +1,13 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import { BUTTONS_VALUE, OPERATOR_REGEXP } from "../../../consts/index";
 import { BtnClose } from "../btnClose/btnClose";
 import { ButtonComponent } from "../button/button";
-import { Container, Wrapper, ButtonsInner, Input, BtnInner, CloseBtnInner, SaveBtnInner, InputInner, DeleteBtnInner } from "./styledEnteringModal";
 import { getAlert } from "../../../utils/getAlert";
 import { AlertComponentProps } from "../alert/alert";
+import { Container, Wrapper, ButtonsInner, Input, BtnInner, CloseBtnInner, SaveBtnInner, InputInner, DeleteBtnInner } from "./styledEnteringModal";
 interface EnteringModalProps {
     closeModal: (value: boolean) => void;
     addTransaction: () => void;
@@ -19,22 +19,31 @@ interface EnteringModalProps {
 export const EnteringModal: FC<EnteringModalProps> = ({
     closeModal, addTransaction, inputValue, setInputValue, setIsAlertActive }) => {
     const sliceNumber = (value: string) => value.slice(0, 10).replace(/[$\s]/g, '');
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const checkForErrors = () => {
         const errorValues = [Infinity, -Infinity, "Error", "NaN"];
 
         if (errorValues.includes(+inputValue) || errorValues.includes(inputValue)) {
-            setInputValue("0");
             return true;
         }
         return false;
     }
 
     const enterValue = (event: any) => {
+        inputRef.current && inputRef.current.focus()
         const currentTarget = event.currentTarget as HTMLButtonElement;
-        const value = currentTarget.textContent;
+        const keyValue = BUTTONS_VALUE.includes(event.key) ? event.key : null;
+        const value = keyValue || currentTarget.textContent;
+        const isDeleteButton = currentTarget.classList.contains("btn_delete");
         const isError = checkForErrors();
 
+        if (event.key === "Enter") {
+            addTransaction();
+            return;
+        }
+
+        if (!value && !isDeleteButton) return;
         isError && setInputValue("");
 
         if (value && inputValue === "0" && value !== "." && !OPERATOR_REGEXP.test(value)) {
@@ -45,7 +54,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
             const lastChar = inputValue.slice(-1);
 
             !OPERATOR_REGEXP.test(lastChar) && setInputValue((prev) => sliceNumber(prev + value));
-        } else if (currentTarget.classList.contains("btn_delete")) {
+        } else if (isDeleteButton || value === "Backspace") {
             setInputValue(inputValue.length === 1 || isError ? "0" : (prev) => sliceNumber(prev.slice(0, -1)));
         } else if (value === ".") {
             const parts = inputValue.split(OPERATOR_REGEXP);
@@ -68,6 +77,8 @@ export const EnteringModal: FC<EnteringModalProps> = ({
     }
 
     useEffect(() => {
+        inputRef?.current && inputRef.current.focus();
+
         return () => { setInputValue("0") };
     }, []);
 
@@ -78,7 +89,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                     <BtnClose func={() => closeModal(false)} color="#fff" />
                 </CloseBtnInner>
                 <InputInner>
-                    <Input value={inputValue} disabled type="text" />
+                    <Input ref={inputRef} onKeyDown={enterValue} value={inputValue} readOnly type="text" />
                     <DeleteBtnInner>
                         <button
                             className={"btn_delete"}
@@ -88,7 +99,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                     </DeleteBtnInner>
                 </InputInner>
                 <ButtonsInner>
-                    {BUTTONS_VALUE.map(value => (
+                    {BUTTONS_VALUE.slice(0, -2).map(value => (
                         <BtnInner key={uuidV4()}>
                             <button
                                 className={value === "delete" ? "btn_delete" : ""}
