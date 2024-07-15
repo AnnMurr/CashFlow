@@ -1,13 +1,14 @@
 import { FC } from "react";
+import SelectLabels from "./components/select/select";
+import { DeleteBtn } from "./components/deleteBtn/deleteBtn";
 import { Wrapper } from "./styledHeader";
 
 export const Header: FC = () => {
     return (
         <div>
             <Wrapper>
-                <div>
-                    <span>List</span>
-                </div>
+                <SelectLabels />
+                <DeleteBtn />
             </Wrapper>
         </div>
     )
