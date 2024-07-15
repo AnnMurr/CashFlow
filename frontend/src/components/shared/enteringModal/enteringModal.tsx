@@ -2,7 +2,7 @@ import { FC, useEffect, useRef } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
-import { BUTTONS_VALUE, OPERATOR_REGEXP } from "../../../consts/index";
+import { BUTTONS_VALUE, OPERATOR_REGEX } from "../../../consts/index";
 import { BtnClose } from "../btnClose/btnClose";
 import { ButtonComponent } from "../button/button";
 import { getAlert } from "../../../utils/getAlert";
@@ -46,18 +46,18 @@ export const EnteringModal: FC<EnteringModalProps> = ({
         if (!value && !isDeleteButton) return;
         isError && setInputValue("");
 
-        if (value && inputValue === "0" && value !== "." && !OPERATOR_REGEXP.test(value)) {
+        if (value && inputValue === "0" && value !== "." && !OPERATOR_REGEX.test(value)) {
             setInputValue("");
         }
 
-        if (value && OPERATOR_REGEXP.test(value)) {
+        if (value && OPERATOR_REGEX.test(value)) {
             const lastChar = inputValue.slice(-1);
 
-            !OPERATOR_REGEXP.test(lastChar) && setInputValue((prev) => sliceNumber(prev + value));
+            !OPERATOR_REGEX.test(lastChar) && setInputValue((prev) => sliceNumber(prev + value));
         } else if (isDeleteButton || value === "Backspace") {
             setInputValue(inputValue.length === 1 || isError ? "0" : (prev) => sliceNumber(prev.slice(0, -1)));
         } else if (value === ".") {
-            const parts = inputValue.split(OPERATOR_REGEXP);
+            const parts = inputValue.split(OPERATOR_REGEX);
             const lastSymbol = parts[parts.length - 1];
             checkForErrors();
 

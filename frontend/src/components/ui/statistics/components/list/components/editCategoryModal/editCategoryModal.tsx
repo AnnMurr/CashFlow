@@ -10,6 +10,7 @@ import { VALID_SUM_REGEX } from "../../../../../../../consts/index";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { getAlert } from "../../../../../../../utils/getAlert";
+import { addScroll } from "../../../../../../../utils/toggleScroll";
 import { BtnCloseInner, BtnInner, Container, Label, Wrapper } from "./styledEditCategoryModal";
 interface EditCategoryModalProps {
     choosedCategoryId: string | null;
@@ -86,6 +87,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                         setIsAlertActive({ type: "success", text: "Data updated successfully" });
                         setTimeout(() => setIsAlertActive(null), 2000);
                         closeEditCategoryModal(false);
+                        addScroll();
                         getDataDataForStatistic();
                     }
                 }
@@ -104,7 +106,10 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
         <Container>
             <Wrapper>
                 <BtnCloseInner>
-                    <BtnClose func={() => closeEditCategoryModal(false)} />
+                    <BtnClose func={() => {
+                        closeEditCategoryModal(false);
+                        addScroll();
+                    }} />
                 </BtnCloseInner>
                 <div>
                     <Label>Category</Label>

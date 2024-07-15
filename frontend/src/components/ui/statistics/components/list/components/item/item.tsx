@@ -4,6 +4,7 @@ import { ItemType } from "../../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Container, Edit, IconInner, Settings, TimeEditBlock } from "./styledItem";
+import { hideScroll } from "../../../../../../../utils/toggleScroll";
 interface ItemProps {
     dataItem: ItemType;
     setIsEditCategoryModalActive: (value: boolean) => void;
@@ -17,11 +18,13 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
     const getEditModal = (event: any) => {
         setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id);
         setIsEditCategoryModalActive(true);
+        hideScroll();
     }
 
     const getDeleteModal = (event: any) => {
         setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id)
         setIsDeleteCategoryModalActive(true);
+        hideScroll();
     }
 
     return (

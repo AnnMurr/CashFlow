@@ -21,7 +21,7 @@ export const Container = styled.div`
     &:hover {
         ${Settings} {
             display: flex;
-            animation: showEdit 0.8s ease forwards;
+            animation: showEdit 0.5s ease forwards;
         }
     }
 
