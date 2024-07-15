@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { OutlinedInput } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
 import { RootState, Transaction, UserStorageDataType } from "../../../../../../../redux/reducers/userStorageReduser/types";
@@ -6,10 +6,11 @@ import { BtnClose } from "../../../../../../shared/btnClose/btnClose";
 import { ButtonComponent } from "../../../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
 import { MultipleSelectPlaceholder } from "./components/select/select";
-import { INVALID_CHARS_REGEXP } from "../../../../../../../consts/index";
+import { VALID_SUM_REGEX } from "../../../../../../../consts/index";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { getAlert } from "../../../../../../../utils/getAlert";
+import { addScroll } from "../../../../../../../utils/toggleScroll";
 import { BtnCloseInner, BtnInner, Container, Label, Wrapper } from "./styledEditCategoryModal";
 interface EditCategoryModalProps {
     choosedCategoryId: string | null;
@@ -39,14 +40,12 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
 
     useEffect(() => {
         const getCategoryData = () => {
-            if (transactions) {
-                const currentCategory = transactions.find(item => item.uid === choosedCategoryId);
-                
-                if (currentCategory) {
-                    setCategoryData(currentCategory);
-                    currentCategory && setCategoryName(currentCategory?.category);
-                    currentCategory && setCategorySum(currentCategory?.sum.toString());
-                }
+            const currentCategory = transactions && transactions.find(item => item.uid === choosedCategoryId);
+
+            if (currentCategory) {
+                setCategoryData(currentCategory);
+                currentCategory && setCategoryName(currentCategory?.category);
+                currentCategory && setCategorySum(currentCategory?.sum.toString());
             }
         }
 
@@ -54,14 +53,16 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
     }, []);
 
     const saveChanges = async () => {
-        if (!INVALID_CHARS_REGEXP.test(categorySum) || categorySum === "0") {
+        const sum = categorySum.toString().replace(/[^\d.,]/g, '').replace(',', '.');
+
+        if (!VALID_SUM_REGEX.test(sum)) {
             getAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
             setCategoryNameError(true);
         } else {
             try {
                 const token = getDataFromLocalStorage("token");
-                const storageDataCopy: UserStorageDataType = JSON.parse(JSON.stringify(storageData))
-                let newData = null
+                const storageDataCopy: UserStorageDataType = JSON.parse(JSON.stringify(storageData));
+                let newData = null;
 
                 if (storageDataCopy && categoryData) {
                     const icon = typesOfCategories && typesOfCategories[categoryData?.type].find(item => item.name === categoryName)?.icon;
@@ -70,8 +71,8 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                         if (element.uid === categoryData?.uid) {
                             newData = {
                                 ...element,
-                                icon: icon,
-                                sum: +categorySum,
+                                icon: icon ? icon : element.icon,
+                                sum: parseFloat(sum),
                                 category: categoryName
                             }
                         }
@@ -86,6 +87,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                         setIsAlertActive({ type: "success", text: "Data updated successfully" });
                         setTimeout(() => setIsAlertActive(null), 2000);
                         closeEditCategoryModal(false);
+                        addScroll();
                         getDataDataForStatistic();
                     }
                 }
@@ -95,14 +97,19 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
         }
     }
 
-    console.log(typesOfCategories)
-    console.log(categoryData)
+    const handleSum = (event: ChangeEvent<HTMLInputElement>) => {
+        const target = event.target;
+        setCategorySum(target.value.trimStart());
+    }
 
     return (
         <Container>
             <Wrapper>
                 <BtnCloseInner>
-                    <BtnClose func={() => closeEditCategoryModal(false)} />
+                    <BtnClose func={() => {
+                        closeEditCategoryModal(false);
+                        addScroll();
+                    }} />
                 </BtnCloseInner>
                 <div>
                     <Label>Category</Label>
@@ -113,7 +120,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                             names={typesOfCategories[categoryData?.type]} />}
                 </div>
                 <div>
-                    <Label>Value</Label>
+                    <Label>Sum</Label>
                     <OutlinedInput
                         sx={{
                             marginBottom: "20px",
@@ -121,12 +128,12 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                             width: "100%",
                             fontSize: "14px"
                         }}
+                        inputProps={{ maxLength: 10 }}
                         error={categoryNameError}
-                        maxRows={20}
                         value={categorySum}
-                        onChange={(event) => setCategorySum(event.target.value.trimStart())}
+                        onChange={handleSum}
                         size="small"
-                        placeholder="Name" />
+                        placeholder="Sum" />
                 </div>
                 <BtnInner>
                     <ButtonComponent

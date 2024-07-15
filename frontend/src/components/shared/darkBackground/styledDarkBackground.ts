@@ -5,7 +5,7 @@ interface ContainerProps {
 
 export const Container = styled.div<ContainerProps>`
     background-color: #030303b3;
-    position: absolute;
+    position: fixed;
     z-index: 21;
     inset: 0;
     cursor: ${({type}) => type === "clickable" ? "pointer" : ""};

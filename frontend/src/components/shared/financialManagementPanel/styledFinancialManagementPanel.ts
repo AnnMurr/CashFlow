@@ -9,7 +9,7 @@ const CrossStyled = `
     background-color: #fff;
     width: 25px;
     display: block;
-    position: absolute;
+    position: fixed;
     height: 1px;
 `
 

@@ -1,41 +1,75 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
-import { BUTTONS_VALUE } from "../../../consts/index";
+import { BUTTONS_VALUE, OPERATOR_REGEX } from "../../../consts/index";
 import { BtnClose } from "../btnClose/btnClose";
 import { ButtonComponent } from "../button/button";
+import { getAlert } from "../../../utils/getAlert";
+import { AlertComponentProps } from "../alert/alert";
 import { Container, Wrapper, ButtonsInner, Input, BtnInner, CloseBtnInner, SaveBtnInner, InputInner, DeleteBtnInner } from "./styledEnteringModal";
 interface EnteringModalProps {
     closeModal: (value: boolean) => void;
     addTransaction: () => void;
     inputValue: string;
+    setIsAlertActive: (value: AlertComponentProps | null) => void;
     setInputValue: (value: string | ((prev: string) => string)) => void;
 }
 
 export const EnteringModal: FC<EnteringModalProps> = ({
-    closeModal, addTransaction, inputValue, setInputValue }) => {
-    const sliceNumber = (value: string) => value.slice(0, 10);
+    closeModal, addTransaction, inputValue, setInputValue, setIsAlertActive }) => {
+    const sliceNumber = (value: string) => value.slice(0, 10).replace(/[$\s]/g, '');
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const checkForErrors = () => {
+        const errorValues = [Infinity, -Infinity, "Error", "NaN"];
+
+        if (errorValues.includes(+inputValue) || errorValues.includes(inputValue)) {
+            return true;
+        }
+        return false;
+    }
 
     const enterValue = (event: any) => {
-        const value = event.currentTarget.textContent;
-        inputValue === "0" && setInputValue(prev => prev = "");
+        inputRef.current && inputRef.current.focus()
+        const currentTarget = event.currentTarget as HTMLButtonElement;
+        const keyValue = BUTTONS_VALUE.includes(event.key) ? event.key : null;
+        const value = keyValue || currentTarget.textContent;
+        const isDeleteButton = currentTarget.classList.contains("btn_delete");
+        const isError = checkForErrors();
 
-        if (event.currentTarget.classList.contains("btn_delete")) {
-            setInputValue((prev: string) => sliceNumber(prev.slice(0, prev.length - 1)));
+        if (event.key === "Enter") {
+            addTransaction();
+            return;
+        }
+
+        if (!value && !isDeleteButton) return;
+        isError && setInputValue("");
+
+        if (value && inputValue === "0" && value !== "." && !OPERATOR_REGEX.test(value)) {
+            setInputValue("");
+        }
+
+        if (value && OPERATOR_REGEX.test(value)) {
+            const lastChar = inputValue.slice(-1);
+
+            !OPERATOR_REGEX.test(lastChar) && setInputValue((prev) => sliceNumber(prev + value));
+        } else if (isDeleteButton || value === "Backspace") {
+            setInputValue(inputValue.length === 1 || isError ? "0" : (prev) => sliceNumber(prev.slice(0, -1)));
         } else if (value === ".") {
-            const parts = inputValue.split(/[+\-\/\*]/);
-            if (!parts[parts.length - 1].includes(".") && parts[parts.length - 1].length > 0)
+            const parts = inputValue.split(OPERATOR_REGEX);
+            const lastSymbol = parts[parts.length - 1];
+            checkForErrors();
+
+            if (!lastSymbol.includes(".") && lastSymbol.length > 0) {
                 setInputValue((prev) => prev + value);
+            }
         } else if (value === "=") {
             try {
-                const result = eval(inputValue);
-
-                !isNaN(result) && isFinite(result) ?
-                    setInputValue(sliceNumber(result.toString())) :
-                    console.error("Invalid expression");
+                const result = eval(inputValue).toString();
+                setInputValue(sliceNumber(result));
             } catch (error) {
-                console.error("Error evaluating expression:", error);
+                getAlert({ text: "Invalid input", type: "error" }, setIsAlertActive, 3000);
             }
         } else {
             setInputValue((prev) => sliceNumber(prev + value));
@@ -43,6 +77,8 @@ export const EnteringModal: FC<EnteringModalProps> = ({
     }
 
     useEffect(() => {
+        inputRef?.current && inputRef.current.focus();
+
         return () => { setInputValue("0") };
     }, []);
 
@@ -53,7 +89,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                     <BtnClose func={() => closeModal(false)} color="#fff" />
                 </CloseBtnInner>
                 <InputInner>
-                    <Input value={inputValue} disabled type="text" />
+                    <Input ref={inputRef} onKeyDown={enterValue} value={inputValue} readOnly type="text" />
                     <DeleteBtnInner>
                         <button
                             className={"btn_delete"}
@@ -63,7 +99,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                     </DeleteBtnInner>
                 </InputInner>
                 <ButtonsInner>
-                    {BUTTONS_VALUE.map(value => (
+                    {BUTTONS_VALUE.slice(0, -2).map(value => (
                         <BtnInner key={uuidV4()}>
                             <button
                                 className={value === "delete" ? "btn_delete" : ""}

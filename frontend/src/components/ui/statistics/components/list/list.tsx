@@ -13,6 +13,7 @@ import { EditCategoryModal } from "./components/editCategoryModal/editCategoryMo
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { AlertComponent, AlertComponentProps } from "../../../../shared/alert/alert";
 import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
+import { addScroll } from "../../../../../utils/toggleScroll";
 import { ItemsInner } from "./styledList";
 
 export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive }) => {
@@ -87,6 +88,7 @@ export const List: FC = () => {
             if (darkBackgroundRef.current && darkBackgroundRef.current.contains(event.target as HTMLElement)) {
                 isEditCategoryModalActive && setIsEditCategoryModalActive(false);
                 isDeleteCategoryModalActive && setIsDeleteCategoryModalActive(false);
+                addScroll();
             }
         }
 

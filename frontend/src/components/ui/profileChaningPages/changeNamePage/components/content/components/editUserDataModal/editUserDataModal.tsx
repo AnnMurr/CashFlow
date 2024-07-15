@@ -71,7 +71,7 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
                             fontSize: "14px"
                         }}
                         error={error}
-                        maxRows={20}
+                        maxRows={1}
                         value={value}
                         onChange={(event) => setValue((event.target.value.trimStart()))}
                         size="small"

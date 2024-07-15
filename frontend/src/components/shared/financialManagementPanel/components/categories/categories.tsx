@@ -9,8 +9,8 @@ import { Icon } from "./components/icon/icon";
 import { changeUserData, getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { CategoriesType, CategoryKeys, UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
-import { CrossBtnInner, Item, List } from "./styledCategories";
 import { getAlert } from "../../../../../utils/getAlert";
+import { CrossBtnInner, Item, List } from "./styledCategories";
 interface CategoriesProps {
     categoriesList: Array<CategoriesType> | null;
     setChoosedCategory: (value: { category: string, icon: string } | null) => void;
@@ -54,6 +54,7 @@ export const Categories: FC<CategoriesProps> = ({
             const icon = (event.currentTarget as HTMLLIElement).children[0].children[0].getAttribute("src");
 
             if (category && icon) setChoosedCategory({ category: category, icon: icon });
+
             setIsEnteringModalActive(true);
         }
     }

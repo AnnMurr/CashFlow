@@ -7,6 +7,7 @@ import { RootState, Transaction, UserStorageDataType } from "../../../../../../.
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
 import { getAlert } from "../../../../../../../utils/getAlert";
+import { addScroll } from "../../../../../../../utils/toggleScroll";
 import { BtnCloseInner, BtnInner, Container, Title, Wrapper } from "./styledDeleteCategoryModal";
 interface DeleteCategoryModalProps {
     closeDeleteModal: (value: boolean) => void;
@@ -42,6 +43,7 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
                     getAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
                     closeDeleteModal(false);
                     getDataDataForStatistic();
+                    addScroll();
                 }
             }
         } catch (error) {
@@ -53,7 +55,10 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
         <Container>
             <Wrapper>
                 <BtnCloseInner>
-                    <BtnClose func={() => closeDeleteModal(false)} />
+                    <BtnClose func={() => {
+                        closeDeleteModal(false);
+                        addScroll();
+                    }} />
                 </BtnCloseInner>
                 <Title>
                     <h5>
