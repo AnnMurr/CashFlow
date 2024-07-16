@@ -56,5 +56,7 @@ export interface RootState {
         transactions: Array<Transaction> | null;
         statisticalData: StatisticalDataType | null;
         isEditingData: boolean;
+        chosenFilter: {isFilter: boolean, type: string, date: string} | null;
+        chosenCategoryStatistic: Array<ItemType> | null;
     };
 }

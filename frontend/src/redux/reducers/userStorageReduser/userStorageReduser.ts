@@ -8,6 +8,8 @@ const initialstate = {
     transactions: null,
     statisticalData: null,
     isEditingData: true,
+    chosenFilter: null,
+    chosenCategoryStatistic: null,
 }
 
 export const storageSlice = createSlice({
@@ -28,6 +30,12 @@ export const storageSlice = createSlice({
         },
         setIsEditingData: (state, action) => {
             state.isEditingData = action.payload;
+        },
+        setChosenFilter: (state, action) => {
+            state.chosenFilter = action.payload;
+        },
+        setChosenCategoryStatistic: (state, action) => {
+            state.chosenCategoryStatistic = action.payload;
         }
     }
 });
@@ -139,4 +147,4 @@ export const deleteUserStore = createAsyncThunk<string, string>(
 )
 
 export const userStorageReducer = storageSlice.reducer;
-export const { setUserDataToReduxStore, setCategoriesTypes, setTransactions, setStatisticalData, setIsEditingData } = storageSlice.actions;
+export const { setUserDataToReduxStore, setCategoriesTypes, setTransactions, setStatisticalData, setIsEditingData, setChosenFilter, setChosenCategoryStatistic } = storageSlice.actions;

@@ -7,9 +7,10 @@ import { STATISTICS_OPTIONS } from '../../../../../../../consts';
 import { Container } from './styledSelect';
 interface SelectLabelsProps {
     openDatePikerModal: (value: boolean) => void;
+    setChosenFilterType: (value: string | null) => void,
 }
 
-export const SelectLabels: FC<SelectLabelsProps> = ({ openDatePikerModal }) => {
+export const SelectLabels: FC<SelectLabelsProps> = ({ setChosenFilterType, openDatePikerModal }) => {
     const [option, setOption] = useState<string>("0");
 
     const selectStyles = {
@@ -54,11 +55,13 @@ export const SelectLabels: FC<SelectLabelsProps> = ({ openDatePikerModal }) => {
     }
 
     const handleChange = (event: SelectChangeEvent) => {
-        const value = event.target.value
+        const value = event.target.value;
+        const type = STATISTICS_OPTIONS[+value - 1]
         setOption(value);
 
-        if (STATISTICS_OPTIONS[+value - 1] === "Day") {
-            openDatePikerModal(true)
+        if (type === "Day") {
+            openDatePikerModal(true);
+            setChosenFilterType(type)
         }
     };
 

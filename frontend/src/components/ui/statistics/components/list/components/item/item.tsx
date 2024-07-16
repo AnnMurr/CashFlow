@@ -4,39 +4,60 @@ import { ItemType, RootState } from "../../../../../../../redux/reducers/userSto
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { hideScroll } from "../../../../../../../utils/toggleScroll";
-import { useAppSelector } from "../../../../../../../redux/store/store";
-import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
+import { setChosenCategoryStatistic } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { Container, Edit, IconInner, Settings, TimeEditBlock } from "./styledItem";
 interface ItemProps {
     dataItem: ItemType;
-    setIsEditCategoryModalActive: (value: boolean) => void;
-    setIsDeleteCategoryModalActive: (value: boolean) => void;
-    setChoosedCategoryId: (value: string) => void;
+    setIsEditCategoryModalActive?: (value: boolean) => void;
+    setIsDeleteCategoryModalActive?: (value: boolean) => void;
+    setChoosedCategoryId?: (value: string) => void;
+    categoryStatistic: boolean;
 }
 
-export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive }) => {
+export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive, categoryStatistic }) => {
     const date = getCurrentDate(dataItem.date);
-    const { isEditingData } = useAppSelector((state: RootState) => state.storage);
+    const dispatch = useAppDispatch();
+    const { isEditingData, chosenFilter, statisticalData } = useAppSelector((state: RootState) => state.storage);
+
 
     const getEditModal = (event: any) => {
-        setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id);
-        setIsEditCategoryModalActive(true);
+        setChoosedCategoryId && setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id);
+        setIsEditCategoryModalActive && setIsEditCategoryModalActive(true);
         hideScroll();
     }
 
     const getDeleteModal = (event: any) => {
-        setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id)
-        setIsDeleteCategoryModalActive(true);
+        setChoosedCategoryId && setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id)
+        setIsDeleteCategoryModalActive && setIsDeleteCategoryModalActive(true);
         hideScroll();
     }
 
     const getData = (event: any) => {
-        console.log(event.currentTarget.dataset["categorytype"]);
+        const category = event.currentTarget.dataset["categorytype"];
+        
+        if (statisticalData && chosenFilter) {
+            const currentFilter = statisticalData?.data[chosenFilter?.date];
+            const chosenFilteredCategory = currentFilter.filter(item => item.category === category);
+            dispatch(setChosenCategoryStatistic(chosenFilteredCategory));
+        }
     }
 
-    return (
-
-        <Container
+    return categoryStatistic ?
+        (<Container
+            categorystatistic={categoryStatistic.toString()}
+            iseditingdata={isEditingData.toString()}
+            id={dataItem.uid} >
+            <div>
+                <span>{dataItem.sum}$</span>
+            </div>
+            <TimeEditBlock>
+                <span>{date.split(" ")[1]}</span>
+            </TimeEditBlock>
+        </Container>)
+        :
+        (<Container
+            categorystatistic={categoryStatistic.toString()}
             onClick={getData}
             data-categorytype={dataItem.category}
             iseditingdata={isEditingData.toString()}
@@ -52,17 +73,16 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
             </div>
             <TimeEditBlock>
                 <span>{date.split(" ")[1]}</span>
-                {isEditingData ? <Settings>
-                    <Edit onClick={getEditModal}>
-                        <FontAwesomeIcon icon={faPen} />
-                    </Edit>
-                    <button onClick={getDeleteModal}>
-                        <FontAwesomeIcon icon={faTrash} />
-                    </button>
-                </Settings>
+                {isEditingData ?
+                    <Settings>
+                        <Edit onClick={getEditModal}>
+                            <FontAwesomeIcon icon={faPen} />
+                        </Edit>
+                        <button onClick={getDeleteModal}>
+                            <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                    </Settings>
                     : null}
             </TimeEditBlock>
-        </Container>
-
-    )
+        </Container>)
 }

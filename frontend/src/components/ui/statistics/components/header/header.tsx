@@ -1,18 +1,29 @@
 import { FC } from "react";
 import { DeleteBtn } from "./components/deleteBtn/deleteBtn";
 import { SelectLabels } from "./components/select/select";
+import { useAppSelector } from "../../../../../redux/store/store";
+import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
+import { BtnGoBack } from "../../../../shared/btnGoBack/btnGoBack";
 import { Wrapper } from "./styledHeader";
-
 interface HeaderProps {
-    openDatePikerModal: (value: boolean) => void;
+    openDatePikerModal: (value: boolean) => void,
+    setChosenFilterType: (value: string | null) => void,
 }
 
-export const Header: FC<HeaderProps> = ({ openDatePikerModal }) => {
+export const Header: FC<HeaderProps> = ({ openDatePikerModal, setChosenFilterType }) => {
+    const { chosenFilter } = useAppSelector((state: RootState) => state.storage);
+
     return (
         <div>
             <Wrapper>
-                <SelectLabels openDatePikerModal={openDatePikerModal} />
-                <DeleteBtn />
+                {chosenFilter ?
+                    <BtnGoBack /> :
+                    <>
+                        <SelectLabels
+                            setChosenFilterType={setChosenFilterType}
+                            openDatePikerModal={openDatePikerModal} />
+                        <DeleteBtn />
+                    </>}
             </Wrapper>
         </div>
     )

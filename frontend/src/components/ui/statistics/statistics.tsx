@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store/store";
 import { DatePikerModal } from "./components/datePikerModal/datePikerModal";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { ItemType, ItemsType, RootState } from "../../../redux/reducers/userStorageReduser/types";
-import { setIsEditingData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { setChosenFilter, setIsEditingData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
 import { getAlert } from "../../../utils/getAlert";
 import { Container, Wrapper } from "./styledStatistics";
@@ -15,9 +15,10 @@ export const Statistics: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
     const [items, setItems] = useState<ItemsType | null>(null);
     const [days, setDays] = useState<Array<string> | null>(null);
+    const [chosenFilterType, setChosenFilterType] = useState<string | null>(null);
     const [isDatePikerModal, setIsDatePikerModal] = useState<boolean>(false);
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
-    const { statisticalData } = useAppSelector((state: RootState) => state.storage);
+    const { statisticalData, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -59,6 +60,7 @@ export const Statistics: FC = () => {
                     setDays([chosenDate]);
                     dispatch(setIsEditingData(false));
                     setIsDatePikerModal(false);
+                    dispatch(setChosenFilter({isFilter: true, type: chosenFilterType, date: chosenDate}))
                 }
             } else {
                 getAlert({ type: "error", text: "No data for this day" }, setIsAlertActive, 3000);
@@ -71,7 +73,7 @@ export const Statistics: FC = () => {
             <Container>
                 <Wrapper>
                     <SubBar />
-                    <Header openDatePikerModal={setIsDatePikerModal} />
+                    <Header setChosenFilterType={setChosenFilterType} openDatePikerModal={setIsDatePikerModal} />
                     <List
                         setIsAlertActive={setIsAlertActive}
                         setItems={setItems}

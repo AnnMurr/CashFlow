@@ -10,30 +10,43 @@ import { Item } from "./components/item/item";
 import { getCurrentDate } from "../../../../../utils/getCurrentDate";
 import { EditCategoryModal } from "./components/editCategoryModal/editCategoryModal";
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
-import { AlertComponent, AlertComponentProps } from "../../../../shared/alert/alert";
+import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
 import { addScroll } from "../../../../../utils/toggleScroll";
 import { ItemsInner } from "./styledList";
 
-export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive }) => {
+export const Line: FC<LineProps> = ({
+    data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive
+}) => {
+    const { chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
+
     return (
         <ItemsInner>
-            {data && data.map(item => (
-                <li key={uuidV4()}>
-                    <Item
-                        setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
-                        setIsEditCategoryModalActive={setIsEditCategoryModalActive}
-                        dataItem={item}
-                        setChoosedCategoryId={setChoosedCategoryId} />
-                </li>
-            ))}
+            {chosenCategoryStatistic ?
+                data && data.map(item => (
+                    <li key={uuidV4()}>
+                        <Item
+                            categoryStatistic={true}
+                            dataItem={item} />
+                    </li>
+                ))
+                : data && data.map(item => (
+                    <li key={uuidV4()}>
+                        <Item
+                            categoryStatistic={false}
+                            setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
+                            setIsEditCategoryModalActive={setIsEditCategoryModalActive}
+                            dataItem={item}
+                            setChoosedCategoryId={setChoosedCategoryId} />
+                    </li>
+                ))}
         </ItemsInner>
     )
 }
 interface ListProps {
-    setItems: (value: ItemsType | null) => void; 
+    setItems: (value: ItemsType | null) => void;
     items: ItemsType | null;
-    setDays: (value: Array<string> | null) => void;  
+    setDays: (value: Array<string> | null) => void;
     days: Array<string> | null;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
 }
@@ -42,8 +55,7 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
     const [isEditCategoryModalActive, setIsEditCategoryModalActive] = useState<boolean>(false);
     const [isDeleteCategoryModalActive, setIsDeleteCategoryModalActive] = useState<boolean>(false);
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
-
-    const {statisticalData} = useAppSelector((state: RootState) => state.storage);
+    const { statisticalData, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
     const dispatch = useAppDispatch();
 
@@ -82,7 +94,7 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
             });
         }
 
-        dispatch(setStatisticalData({days: sortedDays, data: financialData }))
+        dispatch(setStatisticalData({ days: sortedDays, data: financialData }))
     }
 
     useEffect(() => { getDataDataForStatistic() }, []);
@@ -105,7 +117,7 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
     }, [isEditCategoryModalActive, isDeleteCategoryModalActive]);
 
     useEffect(() => {
-        if(statisticalData ) {
+        if (statisticalData) {
             setDays(statisticalData?.days);
             setItems(statisticalData?.data);
         }
@@ -117,15 +129,23 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
                 {days &&
                     days.map(day => (
                         <React.Fragment key={uuidV4()}>
-                            <div>
-                                <ItemDay title={day} />
-                            </div>
-                            {items &&
+                            {
+                                <div>
+                                    <ItemDay title={day} />
+                                </div>}
+                            {chosenCategoryStatistic ?
                                 <Line
                                     setIsEditCategoryModalActive={setIsEditCategoryModalActive}
                                     setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
-                                    data={items[day]}
-                                    setChoosedCategoryId={setChoosedCategoryId} />}
+                                    data={chosenCategoryStatistic}
+                                    setChoosedCategoryId={setChoosedCategoryId} /> :
+                                items ?
+                                    <Line
+                                        setIsEditCategoryModalActive={setIsEditCategoryModalActive}
+                                        setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
+                                        data={items[day]}
+                                        setChoosedCategoryId={setChoosedCategoryId} />
+                                    : null}
                         </React.Fragment>
                     ))}
                 {isEditCategoryModalActive ?
