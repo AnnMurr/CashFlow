@@ -4,3 +4,4 @@ export const BUTTONS_VALUE = [ '1', '2', '3', '+', '4', '5', '6', '-',  '7', '8'
 export const VALID_SUM_REGEX = /^(?!0+(\.00?)?$)\d+(\.\d{1,2})?$/;
 export const OPERATOR_REGEX = /[+\-\/\*]/;
 export const ONLY_SPACES_REGEX = /^\s+$/;
+export const STATISTICS_OPTIONS = ["Day", "Week", "Month", "Year", "All", "Range"];

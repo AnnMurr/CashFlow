@@ -84,8 +84,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                     const changeUserDataResponse = (await dispatch(changeUserData({ userToken: token, updatedData: storageDataCopy }))).payload
 
                     if (changeUserDataResponse) {
-                        setIsAlertActive({ type: "success", text: "Data updated successfully" });
-                        setTimeout(() => setIsAlertActive(null), 2000);
+                        getAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
                         closeEditCategoryModal(false);
                         addScroll();
                         getDataDataForStatistic();

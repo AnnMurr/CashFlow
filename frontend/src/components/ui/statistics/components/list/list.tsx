@@ -1,14 +1,13 @@
 import React, { useRef } from "react";
 import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { useAppDispatch } from "../../../../../redux/store/store";
-import { UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
+import { getDataFromUserStore, setStatisticalData } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
+import { ItemType, ItemsType, LineProps, RootState, UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { ItemDay } from "./components/itemDay/itemDay";
 import { Item } from "./components/item/item";
 import { getCurrentDate } from "../../../../../utils/getCurrentDate";
-import { ItemType, ItemsType, LineProps } from "./types";
 import { EditCategoryModal } from "./components/editCategoryModal/editCategoryModal";
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { AlertComponent, AlertComponentProps } from "../../../../shared/alert/alert";
@@ -19,7 +18,7 @@ import { ItemsInner } from "./styledList";
 export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive }) => {
     return (
         <ItemsInner>
-            {data.map(item => (
+            {data && data.map(item => (
                 <li key={uuidV4()}>
                     <Item
                         setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
@@ -31,14 +30,20 @@ export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setCho
         </ItemsInner>
     )
 }
+interface ListProps {
+    setItems: (value: ItemsType | null) => void; 
+    items: ItemsType | null;
+    setDays: (value: Array<string> | null) => void;  
+    days: Array<string> | null;
+    setIsAlertActive: (value: AlertComponentProps | null) => void;
+}
 
-export const List: FC = () => {
-    const [items, setItems] = useState<ItemsType | null>(null);
-    const [days, setDays] = useState<Array<string> | null>(null);
+export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlertActive }) => {
     const [isEditCategoryModalActive, setIsEditCategoryModalActive] = useState<boolean>(false);
     const [isDeleteCategoryModalActive, setIsDeleteCategoryModalActive] = useState<boolean>(false);
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
-    const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
+
+    const {statisticalData} = useAppSelector((state: RootState) => state.storage);
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
     const dispatch = useAppDispatch();
 
@@ -77,8 +82,7 @@ export const List: FC = () => {
             });
         }
 
-        setDays(sortedDays);
-        setItems(financialData);
+        dispatch(setStatisticalData({days: sortedDays, data: financialData }))
     }
 
     useEffect(() => { getDataDataForStatistic() }, []);
@@ -99,6 +103,13 @@ export const List: FC = () => {
             window.removeEventListener("click", handleClickOutsideModal);
         };
     }, [isEditCategoryModalActive, isDeleteCategoryModalActive]);
+
+    useEffect(() => {
+        if(statisticalData ) {
+            setDays(statisticalData?.days);
+            setItems(statisticalData?.data);
+        }
+    }, [statisticalData]);
 
     return (
         <div>
@@ -139,7 +150,6 @@ export const List: FC = () => {
                             type={"clickable"}
                             darkBackgroundRef={darkBackgroundRef} />
                     </> : null}
-                {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
             </div>
         </div>
     )

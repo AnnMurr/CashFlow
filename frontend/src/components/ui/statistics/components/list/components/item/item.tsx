@@ -1,10 +1,12 @@
 import { FC } from "react";
 import { getCurrentDate } from "../../../../../../../utils/getCurrentDate";
-import { ItemType } from "../../types";
+import { ItemType, RootState } from "../../../../../../../redux/reducers/userStorageReduser/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Container, Edit, IconInner, Settings, TimeEditBlock } from "./styledItem";
 import { hideScroll } from "../../../../../../../utils/toggleScroll";
+import { useAppSelector } from "../../../../../../../redux/store/store";
+import { Link } from "react-router-dom";
+import { Container, Edit, IconInner, Settings, TimeEditBlock } from "./styledItem";
 interface ItemProps {
     dataItem: ItemType;
     setIsEditCategoryModalActive: (value: boolean) => void;
@@ -14,6 +16,7 @@ interface ItemProps {
 
 export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive }) => {
     const date = getCurrentDate(dataItem.date);
+    const { isEditingData } = useAppSelector((state: RootState) => state.storage);
 
     const getEditModal = (event: any) => {
         setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id);
@@ -27,8 +30,17 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
         hideScroll();
     }
 
+    const getData = (event: any) => {
+        console.log(event.currentTarget.dataset["categorytype"]);
+    }
+
     return (
-        <Container id={dataItem.uid}>
+
+        <Container
+            onClick={getData}
+            data-categorytype={dataItem.category}
+            iseditingdata={isEditingData.toString()}
+            id={dataItem.uid}>
             <IconInner>
                 <img src={dataItem.icon} alt={dataItem.category} />
             </IconInner>
@@ -40,7 +52,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
             </div>
             <TimeEditBlock>
                 <span>{date.split(" ")[1]}</span>
-                <Settings>
+                {isEditingData ? <Settings>
                     <Edit onClick={getEditModal}>
                         <FontAwesomeIcon icon={faPen} />
                     </Edit>
@@ -48,7 +60,9 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
                         <FontAwesomeIcon icon={faTrash} />
                     </button>
                 </Settings>
+                    : null}
             </TimeEditBlock>
         </Container>
+
     )
 }

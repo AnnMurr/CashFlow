@@ -1,4 +1,7 @@
 import styled from "styled-components";
+interface ContainerProps {
+    iseditingdata: string;
+}
 
 export const Edit = styled.button`
     margin-right: 10px;
@@ -10,19 +13,21 @@ export const Settings = styled.div`
     display: none;
 `
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerProps>`
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     cursor: pointer;
+    padding: 5px 20px;
+    color: #000;
 
     &:hover {
         ${Settings} {
             display: flex;
             animation: showEdit 0.5s ease forwards;
         }
+        background-color: ${({ iseditingdata }) => !iseditingdata ? "#dedede" : "none"};
     }
 
     @keyframes showEdit {

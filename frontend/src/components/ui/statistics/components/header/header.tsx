@@ -1,13 +1,17 @@
 import { FC } from "react";
-import SelectLabels from "./components/select/select";
 import { DeleteBtn } from "./components/deleteBtn/deleteBtn";
+import { SelectLabels } from "./components/select/select";
 import { Wrapper } from "./styledHeader";
 
-export const Header: FC = () => {
+interface HeaderProps {
+    openDatePikerModal: (value: boolean) => void;
+}
+
+export const Header: FC<HeaderProps> = ({ openDatePikerModal }) => {
     return (
         <div>
             <Wrapper>
-                <SelectLabels />
+                <SelectLabels openDatePikerModal={openDatePikerModal} />
                 <DeleteBtn />
             </Wrapper>
         </div>

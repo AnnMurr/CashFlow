@@ -1,17 +1,16 @@
-import * as React from 'react';
+import { FC, useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { v4 as uuidV4 } from "uuid";
+import { STATISTICS_OPTIONS } from '../../../../../../../consts';
 import { Container } from './styledSelect';
+interface SelectLabelsProps {
+    openDatePikerModal: (value: boolean) => void;
+}
 
-export default function SelectLabels() {
-    const STATISTICS_OPTIONS = ["Day", "Week", "Month", "Year", "All", "Range"];
-    const [option, setOption] = React.useState("");
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setOption(event.target.value);
-    };
+export const SelectLabels: FC<SelectLabelsProps> = ({ openDatePikerModal }) => {
+    const [option, setOption] = useState<string>("0");
 
     const selectStyles = {
         width: "100%",
@@ -54,6 +53,15 @@ export default function SelectLabels() {
         },
     }
 
+    const handleChange = (event: SelectChangeEvent) => {
+        const value = event.target.value
+        setOption(value);
+
+        if (STATISTICS_OPTIONS[+value - 1] === "Day") {
+            openDatePikerModal(true)
+        }
+    };
+
     return (
         <Container>
             <FormControl sx={formControlStyles}>
@@ -64,11 +72,16 @@ export default function SelectLabels() {
                     onChange={handleChange}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}>
-                    <MenuItem value="" sx={menuItemStyles}>
+                    <MenuItem value={0} sx={menuItemStyles}>
                         <em>Filter</em>
                     </MenuItem>
                     {STATISTICS_OPTIONS.map((option, index) => (
-                        <MenuItem sx={menuItemStyles} key={uuidV4()} value={index}>{option}</MenuItem>
+                        <MenuItem
+                            sx={menuItemStyles}
+                            key={uuidV4()}
+                            value={index + 1}>
+                            {option}
+                        </MenuItem>
                     ))}
                 </Select>
             </FormControl>
