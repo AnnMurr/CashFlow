@@ -8,10 +8,11 @@ import { Wrapper } from "./styledHeader";
 interface HeaderProps {
     openDatePikerModal: (value: boolean) => void,
     openMonthSelectModal: (value: boolean) => void,
+    openYearSelectModal: (value: boolean) => void,
     setChosenFilterType: (value: string | null) => void,
 }
 
-export const Header: FC<HeaderProps> = ({ openDatePikerModal, setChosenFilterType, openMonthSelectModal }) => {
+export const Header: FC<HeaderProps> = ({ openDatePikerModal, setChosenFilterType, openMonthSelectModal, openYearSelectModal }) => {
     const { chosenFilter } = useAppSelector((state: RootState) => state.storage);
 
     return (
@@ -23,7 +24,8 @@ export const Header: FC<HeaderProps> = ({ openDatePikerModal, setChosenFilterTyp
                         <SelectLabels
                             setChosenFilterType={setChosenFilterType}
                             openDatePikerModal={openDatePikerModal}
-                            openMonthSelectModal={openMonthSelectModal} />
+                            openMonthSelectModal={openMonthSelectModal} 
+                            openYearSelectModal={openYearSelectModal} />
                         <DeleteBtn />
                     </>}
             </Wrapper>

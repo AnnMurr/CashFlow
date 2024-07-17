@@ -8,10 +8,11 @@ import { Container } from './styledSelect';
 interface SelectLabelsProps {
     openDatePikerModal: (value: boolean) => void;
     openMonthSelectModal: (value: boolean) => void;
+    openYearSelectModal: (value: boolean) => void;
     setChosenFilterType: (value: string | null) => void,
 }
 
-export const SelectLabels: FC<SelectLabelsProps> = ({ setChosenFilterType, openDatePikerModal, openMonthSelectModal }) => {
+export const SelectLabels: FC<SelectLabelsProps> = ({ setChosenFilterType, openDatePikerModal, openMonthSelectModal, openYearSelectModal }) => {
     const [option, setOption] = useState<string>("0");
 
     const selectStyles = {
@@ -66,7 +67,10 @@ export const SelectLabels: FC<SelectLabelsProps> = ({ setChosenFilterType, openD
         } else if (type === "Week") {
             setChosenFilterType(type);
         } else if (type === "Month") {
-            openMonthSelectModal(true)
+            openMonthSelectModal(true);
+            setChosenFilterType(type);
+        } else if (type === "Year") {
+            openYearSelectModal(true);
             setChosenFilterType(type);
         }
     };
