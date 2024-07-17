@@ -5,7 +5,11 @@ import { ICONS_EXPENSES_COLLECTION } from "../../../consts/images";
 const initialstate = {
     storageData: null,
     typesOfCategories: null,
-    transactions: null
+    transactions: null,
+    statisticalData: null,
+    isEditingData: true,
+    chosenFilter: null,
+    chosenCategoryStatistic: null,
 }
 
 export const storageSlice = createSlice({
@@ -20,6 +24,18 @@ export const storageSlice = createSlice({
         },
         setTransactions: (state, action) => {
             state.transactions = action.payload;
+        },
+        setStatisticalData: (state, action) => {
+            state.statisticalData = action.payload;
+        },
+        setIsEditingData: (state, action) => {
+            state.isEditingData = action.payload;
+        },
+        setChosenFilter: (state, action) => {
+            state.chosenFilter = action.payload;
+        },
+        setChosenCategoryStatistic: (state, action) => {
+            state.chosenCategoryStatistic = action.payload;
         }
     }
 });
@@ -131,4 +147,4 @@ export const deleteUserStore = createAsyncThunk<string, string>(
 )
 
 export const userStorageReducer = storageSlice.reducer;
-export const { setUserDataToReduxStore, setCategoriesTypes, setTransactions } = storageSlice.actions;
+export const { setUserDataToReduxStore, setCategoriesTypes, setTransactions, setStatisticalData, setIsEditingData, setChosenFilter, setChosenCategoryStatistic } = storageSlice.actions;

@@ -20,7 +20,9 @@ export const Body: FC = () => {
                     {isModalActive ?
                         <>
                             <ModalWindow />
-                            <DarkBackground />
+                            <DarkBackground
+                                setIsModalActive={setIsModalActive}
+                                isModalActive={isModalActive} />
                         </> : null}
                 </Wrapper>
             </Container>

@@ -41,7 +41,9 @@ export const Content: FC = () => {
                             changeUserData={setUserName}
                             setIsModalActive={setIsModalActive}
                             setIsAlertActive={setIsAlertActive} />
-                        <DarkBackground />
+                        <DarkBackground
+                            setIsModalActive={setIsModalActive}
+                            isModalActive={isModalActive} />
                     </> : null}
                 {isAlertActive ?
                     <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />

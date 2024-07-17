@@ -1,46 +1,67 @@
-import React, { useRef } from "react";
+import React from "react";
 import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { useAppDispatch } from "../../../../../redux/store/store";
-import { UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
+import { getDataFromUserStore, setStatisticalData } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
+import { ItemType, ItemsType, LineProps, RootState, UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { ItemDay } from "./components/itemDay/itemDay";
 import { Item } from "./components/item/item";
 import { getCurrentDate } from "../../../../../utils/getCurrentDate";
-import { ItemType, ItemsType, LineProps } from "./types";
 import { EditCategoryModal } from "./components/editCategoryModal/editCategoryModal";
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
-import { AlertComponent, AlertComponentProps } from "../../../../shared/alert/alert";
+import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
-import { addScroll } from "../../../../../utils/toggleScroll";
 import { ItemsInner } from "./styledList";
 
-export const Line: FC<LineProps> = ({ data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive }) => {
+export const Line: FC<LineProps> = ({
+    data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive
+}) => {
+    const { chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
+
     return (
         <ItemsInner>
-            {data.map(item => (
-                <li key={uuidV4()}>
-                    <Item
-                        setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
-                        setIsEditCategoryModalActive={setIsEditCategoryModalActive}
-                        dataItem={item}
-                        setChoosedCategoryId={setChoosedCategoryId} />
-                </li>
-            ))}
+            {chosenCategoryStatistic ?
+                data && data.map(item => (
+                    <li key={uuidV4()}>
+                        <Item
+                            categoryStatistic={true}
+                            dataItem={item} />
+                    </li>
+                ))
+                : data && data.map(item => (
+                    <li key={uuidV4()}>
+                        <Item
+                            categoryStatistic={false}
+                            setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
+                            setIsEditCategoryModalActive={setIsEditCategoryModalActive}
+                            dataItem={item}
+                            setChoosedCategoryId={setChoosedCategoryId} />
+                    </li>
+                ))}
         </ItemsInner>
     )
 }
+interface ListProps {
+    setItems: (value: ItemsType | null) => void;
+    items: ItemsType | null;
+    setDays: (value: Array<string> | null) => void;
+    days: Array<string> | null;
+    setIsAlertActive: (value: AlertComponentProps | null) => void;
+}
 
-export const List: FC = () => {
-    const [items, setItems] = useState<ItemsType | null>(null);
-    const [days, setDays] = useState<Array<string> | null>(null);
+export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlertActive }) => {
     const [isEditCategoryModalActive, setIsEditCategoryModalActive] = useState<boolean>(false);
     const [isDeleteCategoryModalActive, setIsDeleteCategoryModalActive] = useState<boolean>(false);
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
-    const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
-    const darkBackgroundRef = useRef<HTMLDivElement>(null);
+    const { statisticalData, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
+
+    const currentSetIsModal = isEditCategoryModalActive
+        ? setIsEditCategoryModalActive
+        : setIsDeleteCategoryModalActive;
+
+    const currentIsModal = isEditCategoryModalActive || isDeleteCategoryModalActive;
 
     const getDataDataForStatistic = async () => {
         const token = getDataFromLocalStorage("token");
@@ -77,28 +98,18 @@ export const List: FC = () => {
             });
         }
 
-        setDays(sortedDays);
-        setItems(financialData);
+        dispatch(setStatisticalData({ days: sortedDays, data: financialData }))
     }
 
     useEffect(() => { getDataDataForStatistic() }, []);
 
     useEffect(() => {
-        const handleClickOutsideModal = (event: MouseEvent) => {
-            if (darkBackgroundRef.current && darkBackgroundRef.current.contains(event.target as HTMLElement)) {
-                isEditCategoryModalActive && setIsEditCategoryModalActive(false);
-                isDeleteCategoryModalActive && setIsDeleteCategoryModalActive(false);
-                addScroll();
-            }
+        if (statisticalData) {
+            console.log("statisticalData", statisticalData)
+            setDays(statisticalData?.days);
+            setItems(statisticalData?.data);
         }
-
-        if (isEditCategoryModalActive || isDeleteCategoryModalActive)
-            window.addEventListener("click", handleClickOutsideModal);
-
-        return () => {
-            window.removeEventListener("click", handleClickOutsideModal);
-        };
-    }, [isEditCategoryModalActive, isDeleteCategoryModalActive]);
+    }, [statisticalData]);
 
     return (
         <div>
@@ -106,40 +117,45 @@ export const List: FC = () => {
                 {days &&
                     days.map(day => (
                         <React.Fragment key={uuidV4()}>
-                            <div>
-                                <ItemDay title={day} />
-                            </div>
-                            {items &&
+                            {
+                                <div>
+                                    <ItemDay title={day} />
+                                </div>}
+                            {chosenCategoryStatistic ?
                                 <Line
                                     setIsEditCategoryModalActive={setIsEditCategoryModalActive}
                                     setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
-                                    data={items[day]}
-                                    setChoosedCategoryId={setChoosedCategoryId} />}
+                                    data={chosenCategoryStatistic}
+                                    setChoosedCategoryId={setChoosedCategoryId} /> :
+                                items ?
+                                    <Line
+                                        setIsEditCategoryModalActive={setIsEditCategoryModalActive}
+                                        setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
+                                        data={items[day]}
+                                        setChoosedCategoryId={setChoosedCategoryId} />
+                                    : null}
                         </React.Fragment>
                     ))}
                 {isEditCategoryModalActive ?
-                    <>
-                        <EditCategoryModal
-                            setIsAlertActive={setIsAlertActive}
-                            closeEditCategoryModal={setIsEditCategoryModalActive}
-                            choosedCategoryId={choosedCategoryId}
-                            getDataDataForStatistic={getDataDataForStatistic} />
-                        <DarkBackground
-                            type={"clickable"}
-                            darkBackgroundRef={darkBackgroundRef} />
-                    </> : null}
+                    <EditCategoryModal
+                        setIsAlertActive={setIsAlertActive}
+                        closeEditCategoryModal={setIsEditCategoryModalActive}
+                        choosedCategoryId={choosedCategoryId}
+                        getDataDataForStatistic={getDataDataForStatistic} />
+                    : null}
                 {isDeleteCategoryModalActive ?
-                    <>
-                        <DeleteCategoryModal
-                            setIsAlertActive={setIsAlertActive}
-                            getDataDataForStatistic={getDataDataForStatistic}
-                            choosedCategoryId={choosedCategoryId}
-                            closeDeleteModal={setIsDeleteCategoryModalActive} />
-                        <DarkBackground
-                            type={"clickable"}
-                            darkBackgroundRef={darkBackgroundRef} />
-                    </> : null}
-                {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
+                    <DeleteCategoryModal
+                        setIsAlertActive={setIsAlertActive}
+                        getDataDataForStatistic={getDataDataForStatistic}
+                        choosedCategoryId={choosedCategoryId}
+                        closeDeleteModal={setIsDeleteCategoryModalActive} />
+                    : null}
+
+                {currentIsModal ?
+                    <DarkBackground
+                        setIsModalActive={currentSetIsModal}
+                        isModalActive={currentIsModal} />
+                    : null}
             </div>
         </div>
     )

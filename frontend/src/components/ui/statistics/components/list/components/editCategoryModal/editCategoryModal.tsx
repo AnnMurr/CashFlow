@@ -5,7 +5,7 @@ import { RootState, Transaction, UserStorageDataType } from "../../../../../../.
 import { BtnClose } from "../../../../../../shared/btnClose/btnClose";
 import { ButtonComponent } from "../../../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
-import { MultipleSelectPlaceholder } from "./components/select/select";
+import { MultipleSelectPlaceholder } from "../../../../../../shared/select/select";
 import { VALID_SUM_REGEX } from "../../../../../../../consts/index";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
@@ -84,8 +84,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                     const changeUserDataResponse = (await dispatch(changeUserData({ userToken: token, updatedData: storageDataCopy }))).payload
 
                     if (changeUserDataResponse) {
-                        setIsAlertActive({ type: "success", text: "Data updated successfully" });
-                        setTimeout(() => setIsAlertActive(null), 2000);
+                        getAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
                         closeEditCategoryModal(false);
                         addScroll();
                         getDataDataForStatistic();

@@ -1,4 +1,8 @@
 import styled from "styled-components";
+interface ContainerProps {
+    iseditingdata: string;
+    categorystatistic: string;
+}
 
 export const Edit = styled.button`
     margin-right: 10px;
@@ -10,19 +14,22 @@ export const Settings = styled.div`
     display: none;
 `
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerProps>`
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: ${({ categorystatistic }) => categorystatistic === "true" ? "repeat(2, 1fr)" : "repeat(4, 1fr)"};
+    align-items: center;
     cursor: pointer;
+    padding: 5px 20px;
+    color: #000;
 
     &:hover {
         ${Settings} {
             display: flex;
             animation: showEdit 0.5s ease forwards;
         }
+        background-color: ${({ iseditingdata }) => iseditingdata === "false" ? "#dedede" : "none"};
     }
 
     @keyframes showEdit {

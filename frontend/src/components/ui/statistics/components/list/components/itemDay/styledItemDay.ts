@@ -9,3 +9,8 @@ export const Container = styled.div`
         font-weight: 600;
     }
 `
+
+export const IconInner = styled.div`
+    max-width: 30px;
+    margin: 0 auto;
+`
