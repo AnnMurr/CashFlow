@@ -37,7 +37,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
         const category = event.currentTarget.dataset["categorytype"];
         
         if (statisticalData && chosenFilter) {
-            const currentFilter = statisticalData?.data[chosenFilter?.date];
+            const currentFilter = chosenFilter?.data;
             const chosenFilteredCategory = currentFilter.filter(item => item.category === category);
             dispatch(setChosenCategoryStatistic(chosenFilteredCategory));
         }

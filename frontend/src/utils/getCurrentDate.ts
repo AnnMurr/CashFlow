@@ -8,3 +8,29 @@ export const getCurrentDate = (date: Date) => {
 
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
+
+export const formatDate = (date: any) => {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    
+    return `${day}.${month}.${year}`;
+};
+
+export const getWeek = () => {
+    const currentDate = new Date();
+    const dayOfWeek = (currentDate.getDay() + 6) % 7; 
+    const startOfWeek = new Date(currentDate);
+    const endOfWeek = new Date(currentDate);
+
+    startOfWeek.setDate(currentDate.getDate() - dayOfWeek);
+
+    endOfWeek.setDate(currentDate.getDate() + (6 - dayOfWeek));
+
+    const dates = [];
+    for (let date = new Date(startOfWeek); date <= endOfWeek; date.setDate(date.getDate() + 1)) {
+        dates.push(formatDate(new Date(date)));
+    }
+
+    return dates
+}

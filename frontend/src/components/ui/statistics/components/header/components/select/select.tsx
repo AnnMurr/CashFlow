@@ -56,12 +56,14 @@ export const SelectLabels: FC<SelectLabelsProps> = ({ setChosenFilterType, openD
 
     const handleChange = (event: SelectChangeEvent) => {
         const value = event.target.value;
-        const type = STATISTICS_OPTIONS[+value - 1]
+        const type = STATISTICS_OPTIONS[+value - 1];
         setOption(value);
 
         if (type === "Day") {
             openDatePikerModal(true);
-            setChosenFilterType(type)
+            setChosenFilterType(type);
+        } else if (type === "Week") {
+            setChosenFilterType(type);
         }
     };
 

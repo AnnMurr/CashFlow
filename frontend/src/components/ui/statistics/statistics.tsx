@@ -6,9 +6,10 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store/store";
 import { DatePikerModal } from "./components/datePikerModal/datePikerModal";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { ItemType, ItemsType, RootState } from "../../../redux/reducers/userStorageReduser/types";
-import { setChosenFilter, setIsEditingData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { setChosenFilter, setIsEditingData, setStatisticalData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
 import { getAlert } from "../../../utils/getAlert";
+import { getWeek } from "../../../utils/getCurrentDate";
 import { Container, Wrapper } from "./styledStatistics";
 
 export const Statistics: FC = () => {
@@ -18,7 +19,7 @@ export const Statistics: FC = () => {
     const [chosenFilterType, setChosenFilterType] = useState<string | null>(null);
     const [isDatePikerModal, setIsDatePikerModal] = useState<boolean>(false);
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
-    const { statisticalData, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
+    const { statisticalData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -36,15 +37,18 @@ export const Statistics: FC = () => {
         };
     }, [isDatePikerModal]);
 
-    const getFilterStatistics = (chosenDate: string | null) => {
+    const getFilterStatisticsForDay = (chosenDate: string | null) => {
         if (statisticalData && chosenDate) {
             const filteredStatisticalData = statisticalData?.data[chosenDate];
 
             if (filteredStatisticalData) {
+                const chosenDateStatisticalData: Array<ItemType> = [];
                 const sortedStatisticalData: Array<ItemType> = [];
 
                 filteredStatisticalData.forEach(item => {
                     const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
+                    chosenDateStatisticalData.push(item);
+                    
                     if (existingItemIndex !== -1) {
                         sortedStatisticalData[existingItemIndex] = {
                             ...sortedStatisticalData[existingItemIndex],
@@ -56,17 +60,53 @@ export const Statistics: FC = () => {
                 });
 
                 if (sortedStatisticalData) {
-                    setItems({ [chosenDate]: sortedStatisticalData });
-                    setDays([chosenDate]);
                     dispatch(setIsEditingData(false));
                     setIsDatePikerModal(false);
-                    dispatch(setChosenFilter({isFilter: true, type: chosenFilterType, date: chosenDate}))
+                    dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: [chosenDate], data: chosenDateStatisticalData }));
+                    dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
                 }
             } else {
                 getAlert({ type: "error", text: "No data for this day" }, setIsAlertActive, 3000);
             }
         }
     }
+
+    const getFilterStatisticsForWeek = () => {
+        const week = getWeek();
+        const sortedStatisticalData: Array<ItemType> = [];
+        const chosenDateStatisticalData: Array<ItemType> = [];
+
+        if (statisticalData) {
+            for (const key in statisticalData.data) {
+                if (week.includes(key)) {
+                    statisticalData.data[key].forEach(item => {
+                        const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
+                        chosenDateStatisticalData.push(item);
+
+                        if (existingItemIndex !== -1) {
+                            sortedStatisticalData[existingItemIndex] = {
+                                ...sortedStatisticalData[existingItemIndex],
+                                sum: sortedStatisticalData[existingItemIndex].sum + item.sum,
+                            };
+                        } else {
+                            sortedStatisticalData.push(item);
+                        }
+                    });
+                }
+            }
+        }
+
+        if (sortedStatisticalData) {
+            const weekRange = [`${week[0]} - ${week[week.length - 1]}`];
+            dispatch(setIsEditingData(false));
+            dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: week, data: chosenDateStatisticalData }));
+            dispatch(setStatisticalData({ days: weekRange, data: { weekRange: sortedStatisticalData } }));
+        }
+    }
+
+    useEffect(() => {
+        chosenFilterType === "Week" && getFilterStatisticsForWeek()
+    }, [chosenFilterType])
 
     return (
         <section>
@@ -82,7 +122,7 @@ export const Statistics: FC = () => {
                         days={days} />
                     {isDatePikerModal ?
                         <>
-                            <DatePikerModal getFilterStatistics={getFilterStatistics} />
+                            <DatePikerModal getFilterStatisticsForDay={getFilterStatisticsForDay} />
                             <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
                         </>
                         : null}

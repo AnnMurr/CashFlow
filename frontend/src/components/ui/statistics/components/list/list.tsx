@@ -15,8 +15,8 @@ import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCate
 import { addScroll } from "../../../../../utils/toggleScroll";
 import { ItemsInner } from "./styledList";
 
-export const Line: FC<LineProps> = ({
-    data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive
+export const Line: FC<LineProps> = ({ 
+    data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive 
 }) => {
     const { chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
 

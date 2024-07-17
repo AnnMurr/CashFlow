@@ -15,7 +15,6 @@ export const DatePiker: FC<any> = ({ setChosenDate }) => {
             const date = getCurrentDate(value?.toDate()).slice(0, -6);
             setChosenDate(date);
         }
-
     }, [value]);
 
     return (
