@@ -9,10 +9,12 @@ interface HeaderProps {
     openDatePikerModal: (value: boolean) => void,
     openMonthSelectModal: (value: boolean) => void,
     openYearSelectModal: (value: boolean) => void,
+    openDateRangeModal: (value: boolean) => void,
     setChosenFilterType: (value: string | null) => void,
 }
 
-export const Header: FC<HeaderProps> = ({ openDatePikerModal, setChosenFilterType, openMonthSelectModal, openYearSelectModal }) => {
+export const Header: FC<HeaderProps> = ({ 
+    openDatePikerModal, setChosenFilterType, openMonthSelectModal, openYearSelectModal, openDateRangeModal }) => {
     const { chosenFilter } = useAppSelector((state: RootState) => state.storage);
 
     return (
@@ -25,6 +27,7 @@ export const Header: FC<HeaderProps> = ({ openDatePikerModal, setChosenFilterTyp
                             setChosenFilterType={setChosenFilterType}
                             openDatePikerModal={openDatePikerModal}
                             openMonthSelectModal={openMonthSelectModal} 
+                            openDateRangeModal={openDateRangeModal} 
                             openYearSelectModal={openYearSelectModal} />
                         <DeleteBtn />
                     </>}

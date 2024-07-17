@@ -9,11 +9,12 @@ import { ItemType, ItemsType, RootState } from "../../../redux/reducers/userStor
 import { setChosenFilter, setIsEditingData, setStatisticalData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
 import { getAlert } from "../../../utils/getAlert";
-import { getWeek } from "../../../utils/getCurrentDate";
+import { getWeek, parseEuropeanDate } from "../../../utils/getCurrentDate";
 import { MonthSelectModal } from "./components/monthSelectModal/monthSelectModal";
 import { MONTH } from "../../../consts";
 import { Container, Wrapper } from "./styledStatistics";
 import { YearSelectModal } from "./components/yearSelectModal/yearSelectModal";
+import { DateRangeModal } from "./components/dateRangeModal/dateRangeModal";
 
 export const Statistics: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
@@ -23,6 +24,7 @@ export const Statistics: FC = () => {
     const [isDatePikerModal, setIsDatePikerModal] = useState<boolean>(false);
     const [isMonthSelectModal, setIsMonthSelectModal] = useState<boolean>(false);
     const [isYearSelectModal, setIsYearSelectModal] = useState<boolean>(false);
+    const [isDateRangeModal, setIsDateRangeModal] = useState<boolean>(false);
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
@@ -186,6 +188,51 @@ export const Statistics: FC = () => {
         }
     }
 
+    const getFilterStatisticsForRange = (chosenDate: { startDate: string | null; endDate: string | null; }) => {
+        const sortedStatisticalData: Array<ItemType> = [];
+        const chosenDateStatisticalData: Array<ItemType> = [];
+
+        if (statisticalData && chosenDate.endDate && chosenDate.startDate) {
+            const dateStart = parseEuropeanDate(chosenDate.startDate!);
+            const dateEnd = parseEuropeanDate(chosenDate.endDate!);
+
+            const dateRange = statisticalData.days.filter(item => {
+                const itemDate = parseEuropeanDate(item);
+                return itemDate >= dateStart && itemDate <= dateEnd;
+            });
+
+            if (dateRange.length > 0) {
+                for (const key in statisticalData.data) {
+                    if (dateRange.includes(key)) {
+                        statisticalData.data[key].forEach(item => {
+                            const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
+                            chosenDateStatisticalData.push(item);
+
+                            if (existingItemIndex !== -1) {
+                                sortedStatisticalData[existingItemIndex] = {
+                                    ...sortedStatisticalData[existingItemIndex],
+                                    sum: sortedStatisticalData[existingItemIndex].sum + item.sum,
+                                };
+                            } else {
+                                sortedStatisticalData.push(item);
+                            }
+                        });
+                    }
+                }
+            }
+
+            if (sortedStatisticalData.length > 0) {
+                const range = `${chosenDate.startDate} - ${chosenDate.endDate}`;
+                setIsDateRangeModal(false);
+                dispatch(setIsEditingData(false));
+                dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: range, data: chosenDateStatisticalData }));
+                dispatch(setStatisticalData({ days: [range], data: { [range]: sortedStatisticalData } }));
+            } else {
+                getAlert({ type: "error", text: "No data for this range" }, setIsAlertActive, 3000);
+            }
+        }
+    }
+
     useEffect(() => {
         chosenFilterType === "Week" && getFilterStatisticsForWeek();
     }, [chosenFilterType]);
@@ -199,7 +246,8 @@ export const Statistics: FC = () => {
                         setChosenFilterType={setChosenFilterType}
                         openDatePikerModal={setIsDatePikerModal}
                         openMonthSelectModal={setIsMonthSelectModal}
-                        openYearSelectModal={setIsYearSelectModal} />
+                        openYearSelectModal={setIsYearSelectModal}
+                        openDateRangeModal={setIsDateRangeModal} />
                     <List
                         setIsAlertActive={setIsAlertActive}
                         setItems={setItems}
@@ -221,6 +269,12 @@ export const Statistics: FC = () => {
                     {isYearSelectModal ?
                         <>
                             <YearSelectModal getFilterStatisticsForYear={getFilterStatisticsForYear} />
+                            <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
+                        </>
+                        : null}
+                    {isDateRangeModal ?
+                        <>
+                            <DateRangeModal getFilterStatisticsForRange={getFilterStatisticsForRange} />
                             <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
                         </>
                         : null}

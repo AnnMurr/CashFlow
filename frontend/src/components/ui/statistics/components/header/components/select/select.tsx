@@ -9,10 +9,12 @@ interface SelectLabelsProps {
     openDatePikerModal: (value: boolean) => void;
     openMonthSelectModal: (value: boolean) => void;
     openYearSelectModal: (value: boolean) => void;
+    openDateRangeModal: (value: boolean) => void;
     setChosenFilterType: (value: string | null) => void,
 }
 
-export const SelectLabels: FC<SelectLabelsProps> = ({ setChosenFilterType, openDatePikerModal, openMonthSelectModal, openYearSelectModal }) => {
+export const SelectLabels: FC<SelectLabelsProps> = ({ 
+    setChosenFilterType, openDatePikerModal, openMonthSelectModal, openYearSelectModal, openDateRangeModal }) => {
     const [option, setOption] = useState<string>("0");
 
     const selectStyles = {
@@ -71,6 +73,9 @@ export const SelectLabels: FC<SelectLabelsProps> = ({ setChosenFilterType, openD
             setChosenFilterType(type);
         } else if (type === "Year") {
             openYearSelectModal(true);
+            setChosenFilterType(type);
+        } else if (type === "Range") {
+            openDateRangeModal(true);
             setChosenFilterType(type);
         }
     };

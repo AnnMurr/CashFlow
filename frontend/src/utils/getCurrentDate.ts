@@ -23,6 +23,14 @@ export const getCurrentDate = (date: Date) => {
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
 
+export const parseEuropeanDate = (dateString: string) => {
+    const day = parseInt(dateString.substring(0, 2), 10);
+    const month = parseInt(dateString.substring(3, 5), 10) - 1;
+    const year = parseInt(dateString.substring(6, 10), 10);
+  
+    return new Date(year, month, day);
+  }
+
 export const formatDate = (date: any) => {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
