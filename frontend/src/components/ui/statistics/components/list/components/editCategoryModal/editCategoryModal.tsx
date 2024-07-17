@@ -5,7 +5,7 @@ import { RootState, Transaction, UserStorageDataType } from "../../../../../../.
 import { BtnClose } from "../../../../../../shared/btnClose/btnClose";
 import { ButtonComponent } from "../../../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
-import { MultipleSelectPlaceholder } from "./components/select/select";
+import { MultipleSelectPlaceholder } from "../../../../../../shared/select/select";
 import { VALID_SUM_REGEX } from "../../../../../../../consts/index";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";

@@ -7,10 +7,11 @@ import { STATISTICS_OPTIONS } from '../../../../../../../consts';
 import { Container } from './styledSelect';
 interface SelectLabelsProps {
     openDatePikerModal: (value: boolean) => void;
+    openMonthSelectModal: (value: boolean) => void;
     setChosenFilterType: (value: string | null) => void,
 }
 
-export const SelectLabels: FC<SelectLabelsProps> = ({ setChosenFilterType, openDatePikerModal }) => {
+export const SelectLabels: FC<SelectLabelsProps> = ({ setChosenFilterType, openDatePikerModal, openMonthSelectModal }) => {
     const [option, setOption] = useState<string>("0");
 
     const selectStyles = {
@@ -63,6 +64,9 @@ export const SelectLabels: FC<SelectLabelsProps> = ({ setChosenFilterType, openD
             openDatePikerModal(true);
             setChosenFilterType(type);
         } else if (type === "Week") {
+            setChosenFilterType(type);
+        } else if (type === "Month") {
+            openMonthSelectModal(true)
             setChosenFilterType(type);
         }
     };

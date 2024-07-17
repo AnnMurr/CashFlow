@@ -1,3 +1,17 @@
+export const getMonth = () => {
+    const newDate = new Date();
+    const month = (newDate.getMonth() + 1).toString().padStart(2);
+
+    return month;
+}
+
+export const getYear = () => {
+    const newDate = new Date();
+    const year = newDate.getFullYear();
+
+    return year;
+}
+
 export const getCurrentDate = (date: Date) => {
     const newDate = new Date(date);
     const day = newDate.getDate().toString().padStart(2, '0');
@@ -28,9 +42,10 @@ export const getWeek = () => {
     endOfWeek.setDate(currentDate.getDate() + (6 - dayOfWeek));
 
     const dates = [];
+    
     for (let date = new Date(startOfWeek); date <= endOfWeek; date.setDate(date.getDate() + 1)) {
         dates.push(formatDate(new Date(date)));
     }
 
-    return dates
+    return dates;
 }

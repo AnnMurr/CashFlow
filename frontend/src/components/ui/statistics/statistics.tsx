@@ -10,6 +10,8 @@ import { setChosenFilter, setIsEditingData, setStatisticalData } from "../../../
 import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
 import { getAlert } from "../../../utils/getAlert";
 import { getWeek } from "../../../utils/getCurrentDate";
+import { MonthSelectModal } from "./components/monthSelectModal/monthSelectModal";
+import { MONTH } from "../../../consts";
 import { Container, Wrapper } from "./styledStatistics";
 
 export const Statistics: FC = () => {
@@ -18,6 +20,7 @@ export const Statistics: FC = () => {
     const [days, setDays] = useState<Array<string> | null>(null);
     const [chosenFilterType, setChosenFilterType] = useState<string | null>(null);
     const [isDatePikerModal, setIsDatePikerModal] = useState<boolean>(false);
+    const [isMonthSelectModal, setIsMonthSelectModal] = useState<boolean>(false);
     const darkBackgroundRef = useRef<HTMLDivElement>(null);
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
@@ -48,7 +51,7 @@ export const Statistics: FC = () => {
                 filteredStatisticalData.forEach(item => {
                     const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
                     chosenDateStatisticalData.push(item);
-                    
+
                     if (existingItemIndex !== -1) {
                         sortedStatisticalData[existingItemIndex] = {
                             ...sortedStatisticalData[existingItemIndex],
@@ -59,7 +62,7 @@ export const Statistics: FC = () => {
                     }
                 });
 
-                if (sortedStatisticalData) {
+                if (sortedStatisticalData.length > 0) {
                     dispatch(setIsEditingData(false));
                     setIsDatePikerModal(false);
                     dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: [chosenDate], data: chosenDateStatisticalData }));
@@ -96,24 +99,67 @@ export const Statistics: FC = () => {
             }
         }
 
-        if (sortedStatisticalData) {
-            const weekRange = [`${week[0]} - ${week[week.length - 1]}`];
+        if (sortedStatisticalData.length > 0) {
+            const weekRange = `${week[0]} - ${week[week.length - 1]}`;
             dispatch(setIsEditingData(false));
             dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: week, data: chosenDateStatisticalData }));
-            dispatch(setStatisticalData({ days: weekRange, data: { weekRange: sortedStatisticalData } }));
+            dispatch(setStatisticalData({ days: [weekRange], data: { [weekRange]: sortedStatisticalData } }));
+        }
+    }
+
+    const getFilterStatisticsForMonth = (chosenDate: string | null) => {
+        const sortedStatisticalData: Array<ItemType> = [];
+        const chosenDateStatisticalData: Array<ItemType> = [];
+
+        if (statisticalData && chosenDate) {
+            const monthNumber = `0${MONTH.indexOf(chosenDate?.split(" ")[0]) + 1}`;
+            const dateRange = statisticalData.days.filter((date) => date.split(".")[1] === monthNumber);
+
+            if(dateRange.length > 0) {
+                for (const key in statisticalData.data) {
+                    if (dateRange.includes(key)) {
+                        statisticalData.data[key].forEach(item => {
+                            const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
+                            chosenDateStatisticalData.push(item);
+    
+                            if (existingItemIndex !== -1) {
+                                sortedStatisticalData[existingItemIndex] = {
+                                    ...sortedStatisticalData[existingItemIndex],
+                                    sum: sortedStatisticalData[existingItemIndex].sum + item.sum,
+                                };
+                            } else {
+                                sortedStatisticalData.push(item);
+                            }
+                        });
+                    }
+                }
+            } else {
+                getAlert({ type: "error", text: "No data for this month" }, setIsAlertActive, 3000);
+            }
+
+            if (sortedStatisticalData.length > 0) {
+                const weekRange = `${dateRange[0]} - ${dateRange[dateRange.length - 1]}`;
+                setIsMonthSelectModal(false);
+                dispatch(setIsEditingData(false));
+                dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: chosenDate, data: chosenDateStatisticalData }));
+                dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
+            }      
         }
     }
 
     useEffect(() => {
-        chosenFilterType === "Week" && getFilterStatisticsForWeek()
-    }, [chosenFilterType])
+        chosenFilterType === "Week" && getFilterStatisticsForWeek();
+    }, [chosenFilterType]);
 
     return (
         <section>
             <Container>
                 <Wrapper>
                     <SubBar />
-                    <Header setChosenFilterType={setChosenFilterType} openDatePikerModal={setIsDatePikerModal} />
+                    <Header 
+                    setChosenFilterType={setChosenFilterType} 
+                    openDatePikerModal={setIsDatePikerModal}
+                    openMonthSelectModal={setIsMonthSelectModal} />
                     <List
                         setIsAlertActive={setIsAlertActive}
                         setItems={setItems}
@@ -123,6 +169,12 @@ export const Statistics: FC = () => {
                     {isDatePikerModal ?
                         <>
                             <DatePikerModal getFilterStatisticsForDay={getFilterStatisticsForDay} />
+                            <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
+                        </>
+                        : null}
+                    {isMonthSelectModal ?
+                        <>
+                            <MonthSelectModal getFilterStatisticsForMonth={getFilterStatisticsForMonth} />
                             <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
                         </>
                         : null}

@@ -4,12 +4,12 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { CategoriesType } from "../../../../../../../../../redux/reducers/userStorageReduser/types";
+import { CategoriesType } from "../../../redux/reducers/userStorageReduser/types";
 import { v4 as uuidv4 } from 'uuid';
 
 interface MultipleSelectPlaceholderType {
-  names: Array<CategoriesType> | null,
-  categoryName: string,
+  names: Array<CategoriesType> | Array<string> | null,
+  categoryName: string | null,
   setCategoryName: (value: string) => void
 }
 
@@ -43,18 +43,28 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
     setCategory(typeof value === 'string' ? value.split(',') : value);
   };
 
+  const formControlStyles = {
+    m: 1,
+    width: "100%",
+    mt: 3,
+    margin: "0 0 10px 0",
+    marginTop: "10px"
+  }
+
+  const selectStyles = {
+    '& .MuiSelect-select': {
+      padding: '10px',
+    },
+    '& em': {
+      fontStyle: 'normal'
+    }
+  }
+
   return (
     <div>
-      <FormControl sx={{ m: 1, width: "100%", mt: 3, margin: "0 0 10px 0", marginTop: "10px" }}>
+      <FormControl sx={formControlStyles}>
         <Select
-          sx={{
-            '& .MuiSelect-select': {
-              padding: '10px',
-            },
-            '& em': {
-              fontStyle: 'normal'
-            }
-          }}
+          sx={selectStyles}
           displayEmpty
           value={category}
           onChange={handleChange}
@@ -67,14 +77,18 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
           }}
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }} >
-          {names && names.map((item) => (
-            <MenuItem
-              key={uuidv4()}
-              value={item.name}
-              style={getStyles(item.name, category, theme)}>
-              {item.name}
-            </MenuItem>
-          ))}
+          {names && names.map((item) => {
+            const itemName = typeof item === 'string' ? item : item.name;
+
+            return (
+              <MenuItem
+                key={uuidv4()}
+                value={itemName}
+                style={getStyles(itemName, category, theme)}>
+                {itemName}
+              </MenuItem>
+            )
+          })}
         </Select>
       </FormControl>
     </div>

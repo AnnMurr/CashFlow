@@ -118,6 +118,7 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
 
     useEffect(() => {
         if (statisticalData) {
+            console.log("statisticalData", statisticalData)
             setDays(statisticalData?.days);
             setItems(statisticalData?.data);
         }

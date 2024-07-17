@@ -7,10 +7,11 @@ import { BtnGoBack } from "../../../../shared/btnGoBack/btnGoBack";
 import { Wrapper } from "./styledHeader";
 interface HeaderProps {
     openDatePikerModal: (value: boolean) => void,
+    openMonthSelectModal: (value: boolean) => void,
     setChosenFilterType: (value: string | null) => void,
 }
 
-export const Header: FC<HeaderProps> = ({ openDatePikerModal, setChosenFilterType }) => {
+export const Header: FC<HeaderProps> = ({ openDatePikerModal, setChosenFilterType, openMonthSelectModal }) => {
     const { chosenFilter } = useAppSelector((state: RootState) => state.storage);
 
     return (
@@ -21,7 +22,8 @@ export const Header: FC<HeaderProps> = ({ openDatePikerModal, setChosenFilterTyp
                     <>
                         <SelectLabels
                             setChosenFilterType={setChosenFilterType}
-                            openDatePikerModal={openDatePikerModal} />
+                            openDatePikerModal={openDatePikerModal}
+                            openMonthSelectModal={openMonthSelectModal} />
                         <DeleteBtn />
                     </>}
             </Wrapper>
