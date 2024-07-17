@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { SubBar } from "../../shared/subBar/subBar";
 import { Header } from "./components/header/header";
 import { List } from "./components/list/list";
@@ -12,9 +12,9 @@ import { getAlert } from "../../../utils/getAlert";
 import { getWeek, parseEuropeanDate } from "../../../utils/getCurrentDate";
 import { MonthSelectModal } from "./components/monthSelectModal/monthSelectModal";
 import { MONTH } from "../../../consts";
-import { Container, Wrapper } from "./styledStatistics";
 import { YearSelectModal } from "./components/yearSelectModal/yearSelectModal";
 import { DateRangeModal } from "./components/dateRangeModal/dateRangeModal";
+import { Container, Wrapper } from "./styledStatistics";
 
 export const Statistics: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
@@ -25,24 +25,18 @@ export const Statistics: FC = () => {
     const [isMonthSelectModal, setIsMonthSelectModal] = useState<boolean>(false);
     const [isYearSelectModal, setIsYearSelectModal] = useState<boolean>(false);
     const [isDateRangeModal, setIsDateRangeModal] = useState<boolean>(false);
-    const darkBackgroundRef = useRef<HTMLDivElement>(null);
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        const handleClickOutsideModal = (event: MouseEvent) => {
-            if (darkBackgroundRef.current && darkBackgroundRef.current.contains(event.target as HTMLElement)) {
-                isDatePikerModal && setIsDatePikerModal(false);
-            }
-        }
+    const currentSetIsModal = isDatePikerModal
+        ? setIsDatePikerModal
+        : isMonthSelectModal
+            ? setIsMonthSelectModal
+            : isYearSelectModal
+                ? setIsYearSelectModal
+                : setIsDateRangeModal;
 
-        if (isDatePikerModal)
-            window.addEventListener("click", handleClickOutsideModal);
-
-        return () => {
-            window.removeEventListener("click", handleClickOutsideModal);
-        };
-    }, [isDatePikerModal]);
+    const currentIsModal = isDatePikerModal || isMonthSelectModal || isYearSelectModal || isDateRangeModal;
 
     const getFilterStatisticsForDay = (chosenDate: string | null) => {
         if (statisticalData && chosenDate) {
@@ -254,33 +248,19 @@ export const Statistics: FC = () => {
                         items={items}
                         setDays={setDays}
                         days={days} />
-                    {isDatePikerModal ?
-                        <>
-                            <DatePikerModal getFilterStatisticsForDay={getFilterStatisticsForDay} />
-                            <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
-                        </>
+
+                    {isDatePikerModal ? <DatePikerModal getFilter={getFilterStatisticsForDay} /> : null}
+                    {isMonthSelectModal ? <MonthSelectModal getFilter={getFilterStatisticsForMonth} /> : null}
+                    {isYearSelectModal ? <YearSelectModal getFilter={getFilterStatisticsForYear} /> : null}
+                    {isDateRangeModal ? <DateRangeModal getFilter={getFilterStatisticsForRange} /> : null}
+
+                    {currentIsModal ?
+                        <DarkBackground
+                            setIsModalActive={currentSetIsModal}
+                            isModalActive={currentIsModal} />
                         : null}
-                    {isMonthSelectModal ?
-                        <>
-                            <MonthSelectModal getFilterStatisticsForMonth={getFilterStatisticsForMonth} />
-                            <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
-                        </>
-                        : null}
-                    {isYearSelectModal ?
-                        <>
-                            <YearSelectModal getFilterStatisticsForYear={getFilterStatisticsForYear} />
-                            <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
-                        </>
-                        : null}
-                    {isDateRangeModal ?
-                        <>
-                            <DateRangeModal getFilterStatisticsForRange={getFilterStatisticsForRange} />
-                            <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
-                        </>
-                        : null}
-                    {isAlertActive ?
-                        <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
-                        : null}
+
+                    {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
                 </Wrapper>
             </Container>
         </section >

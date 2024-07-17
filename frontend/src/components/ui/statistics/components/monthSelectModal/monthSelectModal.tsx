@@ -6,10 +6,10 @@ import { getMonth, getYear } from "../../../../../utils/getCurrentDate";
 import { BtnInner, Container, Wrapper } from "./styledMonthSelectModal";
 
 interface MonthSelectModalProps {
-    getFilterStatisticsForMonth: (value: string | null) => void;
+    getFilter: (value: string | null) => void;
 }
 
-export const MonthSelectModal: FC<MonthSelectModalProps> = ({ getFilterStatisticsForMonth }) => {
+export const MonthSelectModal: FC<MonthSelectModalProps> = ({ getFilter }) => {
     const [months, setMonths] = useState<Array<string> | null>(null);
     const [month, setMonth] = useState<string | null>(null);
 
@@ -45,7 +45,7 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({ getFilterStatistic
                         text="Apply"
                         color="#fff"
                         type="button"
-                        func={() => getFilterStatisticsForMonth(month)} />
+                        func={() => getFilter(month)} />
                 </BtnInner>
             </Wrapper>
         </Container>

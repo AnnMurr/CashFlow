@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { CategorySelectionModal } from "../../shared/categorySelectionModal/categorySelectionModal";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
@@ -26,8 +26,13 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const [isEnteringModalActive, setIsEnteringModalActive] = useState<boolean>(false);
     const [choosedCategory, setChoosedCategory] = useState<{ category: string, icon: string } | null>(null);
     const [categorySum, setCategorySum] = useState<string>("0");
-    const darkBackgroundRef = useRef<HTMLDivElement>(null);
     const dispatch = useAppDispatch();
+
+    const currentSetIsModal = isCategorySelectionModalActive
+        ? setIsCategorySelectionModalActive
+        : setIsEnteringModalActive;
+
+    const currentIsModal = isCategorySelectionModalActive || isEnteringModalActive;
 
     const toggleCategorySelectionModal = () => setIsCategorySelectionModalActive(true);
 
@@ -63,7 +68,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                         uid: uuidv4()
                     });
 
-                    const updatedData = { 
+                    const updatedData = {
                         ...dataFromUserStore,
                         data: {
                             ...dataFromUserStore.data,
@@ -84,25 +89,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
         }
     }
 
-    useEffect(() => {
-        const handleClickOutsideModal = (event: MouseEvent) => {
-            if (darkBackgroundRef.current && darkBackgroundRef.current.contains(event.target as HTMLElement)) {
-                isCategorySelectionModalActive && setIsCategorySelectionModalActive(false);
-                isEnteringModalActive && setIsEnteringModalActive(false);
-            }
-        }
-
-        if (isCategorySelectionModalActive || isEnteringModalActive)
-            window.addEventListener("click", handleClickOutsideModal);
-
-        return () => {
-            window.removeEventListener("click", handleClickOutsideModal);
-        };
-    }, [isCategorySelectionModalActive, isEnteringModalActive]);
-
-    useEffect(() => {
-        getUserDataFromStorage();
-    }, []);
+    useEffect(() => { getUserDataFromStorage(); }, []);
 
     return (
         <Container>
@@ -120,31 +107,32 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                     </AddCategoryBtnInner>
                 </> :
                 <Loading size={40} height={3} />}
+
             {isCategorySelectionModalActive ?
-                <>
-                    <CategorySelectionModal
-                        getUserDataFromStorage={getUserDataFromStorage}
-                        setIsAlertActive={setIsAlertActive}
-                        togleModal={setIsCategorySelectionModalActive}
-                        iconsCollection={iconsCollection}
-                        dataKey={dataKey} />
-                    <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
-                </>
-                : null}
-            {isAlertActive ?
-                <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
-                : null}
-            {isEnteringModalActive ?
-                <>
-                    <EnteringModal
+                <CategorySelectionModal
+                    getUserDataFromStorage={getUserDataFromStorage}
                     setIsAlertActive={setIsAlertActive}
-                        inputValue={categorySum}
-                        setInputValue={setCategorySum}
-                        addTransaction={addTransaction}
-                        closeModal={setIsEnteringModalActive} />
-                    <DarkBackground type={"clickable"} darkBackgroundRef={darkBackgroundRef} />
-                </>
+                    togleModal={setIsCategorySelectionModalActive}
+                    iconsCollection={iconsCollection}
+                    dataKey={dataKey} />
                 : null}
+
+            {isEnteringModalActive ?
+                <EnteringModal
+                    setIsAlertActive={setIsAlertActive}
+                    inputValue={categorySum}
+                    setInputValue={setCategorySum}
+                    addTransaction={addTransaction}
+                    closeModal={setIsEnteringModalActive} />
+                : null}
+
+            {currentIsModal ?
+                <DarkBackground
+                    setIsModalActive={currentSetIsModal}
+                    isModalActive={currentIsModal} />
+                : null}
+
+            {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
         </Container>
     )
 }

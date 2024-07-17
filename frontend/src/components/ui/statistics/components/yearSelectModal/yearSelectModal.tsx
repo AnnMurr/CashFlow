@@ -3,7 +3,7 @@ import { ButtonComponent } from "../../../../shared/button/button";
 import { BtnInner, Container, Wrapper } from "./styledYearSelectModal";
 import { YearPicker } from "../../../../shared/yearPicker/yearPicker";
 
-export const YearSelectModal: FC<any> = ({ getFilterStatisticsForYear }) => {
+export const YearSelectModal: FC<any> = ({ getFilter }) => {
     const [chosenYear, setChosenYear] = useState();
 
     return (
@@ -17,7 +17,7 @@ export const YearSelectModal: FC<any> = ({ getFilterStatisticsForYear }) => {
                         text="Apply"
                         color="#fff"
                         type="button"
-                        func={() => getFilterStatisticsForYear(chosenYear)} />
+                        func={() => getFilter(chosenYear)} />
                 </BtnInner>
             </Wrapper>
         </Container>

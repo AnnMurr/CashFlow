@@ -5,6 +5,7 @@ import { useAppSelector } from "../../../../../redux/store/store";
 import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { BtnGoBack } from "../../../../shared/btnGoBack/btnGoBack";
 import { Wrapper } from "./styledHeader";
+
 interface HeaderProps {
     openDatePikerModal: (value: boolean) => void,
     openMonthSelectModal: (value: boolean) => void,

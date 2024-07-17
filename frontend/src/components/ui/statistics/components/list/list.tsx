@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { getDataFromUserStore, setStatisticalData } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
@@ -12,11 +12,10 @@ import { EditCategoryModal } from "./components/editCategoryModal/editCategoryMo
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
-import { addScroll } from "../../../../../utils/toggleScroll";
 import { ItemsInner } from "./styledList";
 
-export const Line: FC<LineProps> = ({ 
-    data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive 
+export const Line: FC<LineProps> = ({
+    data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive
 }) => {
     const { chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
 
@@ -56,8 +55,13 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
     const [isDeleteCategoryModalActive, setIsDeleteCategoryModalActive] = useState<boolean>(false);
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
     const { statisticalData, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
-    const darkBackgroundRef = useRef<HTMLDivElement>(null);
     const dispatch = useAppDispatch();
+
+    const currentSetIsModal = isEditCategoryModalActive
+        ? setIsEditCategoryModalActive
+        : setIsDeleteCategoryModalActive;
+
+    const currentIsModal = isEditCategoryModalActive || isDeleteCategoryModalActive;
 
     const getDataDataForStatistic = async () => {
         const token = getDataFromLocalStorage("token");
@@ -100,23 +104,6 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
     useEffect(() => { getDataDataForStatistic() }, []);
 
     useEffect(() => {
-        const handleClickOutsideModal = (event: MouseEvent) => {
-            if (darkBackgroundRef.current && darkBackgroundRef.current.contains(event.target as HTMLElement)) {
-                isEditCategoryModalActive && setIsEditCategoryModalActive(false);
-                isDeleteCategoryModalActive && setIsDeleteCategoryModalActive(false);
-                addScroll();
-            }
-        }
-
-        if (isEditCategoryModalActive || isDeleteCategoryModalActive)
-            window.addEventListener("click", handleClickOutsideModal);
-
-        return () => {
-            window.removeEventListener("click", handleClickOutsideModal);
-        };
-    }, [isEditCategoryModalActive, isDeleteCategoryModalActive]);
-
-    useEffect(() => {
         if (statisticalData) {
             console.log("statisticalData", statisticalData)
             setDays(statisticalData?.days);
@@ -150,27 +137,25 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
                         </React.Fragment>
                     ))}
                 {isEditCategoryModalActive ?
-                    <>
-                        <EditCategoryModal
-                            setIsAlertActive={setIsAlertActive}
-                            closeEditCategoryModal={setIsEditCategoryModalActive}
-                            choosedCategoryId={choosedCategoryId}
-                            getDataDataForStatistic={getDataDataForStatistic} />
-                        <DarkBackground
-                            type={"clickable"}
-                            darkBackgroundRef={darkBackgroundRef} />
-                    </> : null}
+                    <EditCategoryModal
+                        setIsAlertActive={setIsAlertActive}
+                        closeEditCategoryModal={setIsEditCategoryModalActive}
+                        choosedCategoryId={choosedCategoryId}
+                        getDataDataForStatistic={getDataDataForStatistic} />
+                    : null}
                 {isDeleteCategoryModalActive ?
-                    <>
-                        <DeleteCategoryModal
-                            setIsAlertActive={setIsAlertActive}
-                            getDataDataForStatistic={getDataDataForStatistic}
-                            choosedCategoryId={choosedCategoryId}
-                            closeDeleteModal={setIsDeleteCategoryModalActive} />
-                        <DarkBackground
-                            type={"clickable"}
-                            darkBackgroundRef={darkBackgroundRef} />
-                    </> : null}
+                    <DeleteCategoryModal
+                        setIsAlertActive={setIsAlertActive}
+                        getDataDataForStatistic={getDataDataForStatistic}
+                        choosedCategoryId={choosedCategoryId}
+                        closeDeleteModal={setIsDeleteCategoryModalActive} />
+                    : null}
+
+                {currentIsModal ?
+                    <DarkBackground
+                        setIsModalActive={currentSetIsModal}
+                        isModalActive={currentIsModal} />
+                    : null}
             </div>
         </div>
     )

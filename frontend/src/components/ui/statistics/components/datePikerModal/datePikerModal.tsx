@@ -4,10 +4,10 @@ import { ButtonComponent } from "../../../../shared/button/button";
 import { BtnInner, Container, Wrapper } from "./styledDatePikerModal";
 
 interface DatePikerModalProps {
-    getFilterStatisticsForDay: (chosenDate: string | null) => void;
+    getFilter: (chosenDate: string | null) => void;
 }
 
-export const DatePikerModal: FC<DatePikerModalProps> = ({ getFilterStatisticsForDay }) => {
+export const DatePikerModal: FC<DatePikerModalProps> = ({ getFilter }) => {
     const [chosenDate, setChosenDate] = useState(null);
 
     return (
@@ -21,7 +21,7 @@ export const DatePikerModal: FC<DatePikerModalProps> = ({ getFilterStatisticsFor
                         text="Apply"
                         color="#fff"
                         type="button"
-                        func={() => getFilterStatisticsForDay(chosenDate)} />
+                        func={() => getFilter(chosenDate)} />
                 </BtnInner>
             </Wrapper>
         </Container>

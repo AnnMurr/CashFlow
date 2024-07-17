@@ -3,7 +3,6 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Grid } from '@material-ui/core';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-
 interface DateRangePickerProps {
   onSelectDateRange: (startDate: Date | null, endDate: Date | null) => void;
 }
@@ -34,9 +33,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
             id="start-date-picker"
             label="Start Date"
             value={startDate}
-            onChange={handleStartDateChange}
-            // TextFieldProps={{'aria-label': 'change start date' }}
-          />
+            onChange={handleStartDateChange} />
         </Grid>
         <Grid item xs={6}>
           <DatePicker
@@ -47,11 +44,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
             id="end-date-picker"
             label="End Date"
             value={endDate}
-            onChange={handleEndDateChange}
-            // TextFieldProps={{
-            //   'aria-label': 'change end date',
-            // }}
-          />
+            onChange={handleEndDateChange} />
         </Grid>
       </Grid>
     </MuiPickersUtilsProvider>

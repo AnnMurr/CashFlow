@@ -5,6 +5,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { v4 as uuidV4 } from "uuid";
 import { STATISTICS_OPTIONS } from '../../../../../../../consts';
 import { Container } from './styledSelect';
+
 interface SelectLabelsProps {
     openDatePikerModal: (value: boolean) => void;
     openMonthSelectModal: (value: boolean) => void;
@@ -13,7 +14,7 @@ interface SelectLabelsProps {
     setChosenFilterType: (value: string | null) => void,
 }
 
-export const SelectLabels: FC<SelectLabelsProps> = ({ 
+export const SelectLabels: FC<SelectLabelsProps> = ({
     setChosenFilterType, openDatePikerModal, openMonthSelectModal, openYearSelectModal, openDateRangeModal }) => {
     const [option, setOption] = useState<string>("0");
 
@@ -47,6 +48,9 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
     }
 
     const menuItemStyles = {
+        '&.Mui-selected.Mui-focusVisible': {
+            backgroundColor: "#56776c21",
+        },
         '&.Mui-selected': {
             backgroundColor: "#56776c21",
         },
@@ -62,21 +66,21 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
         const value = event.target.value;
         const type = STATISTICS_OPTIONS[+value - 1];
         setOption(value);
+        setChosenFilterType(type);
 
-        if (type === "Day") {
-            openDatePikerModal(true);
-            setChosenFilterType(type);
-        } else if (type === "Week") {
-            setChosenFilterType(type);
-        } else if (type === "Month") {
-            openMonthSelectModal(true);
-            setChosenFilterType(type);
-        } else if (type === "Year") {
-            openYearSelectModal(true);
-            setChosenFilterType(type);
-        } else if (type === "Range") {
-            openDateRangeModal(true);
-            setChosenFilterType(type);
+        switch (type) {
+            case "Day":
+                openDatePikerModal(true);
+                break;
+            case "Month":
+                openMonthSelectModal(true);
+                break;
+            case "Year":
+                openYearSelectModal(true);
+                break;
+            case "Range":
+                openDateRangeModal(true);
+                break;
         }
     };
 
@@ -90,9 +94,11 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
                     onChange={handleChange}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}>
+                        
                     <MenuItem value={0} sx={menuItemStyles}>
                         <em>Filter</em>
                     </MenuItem>
+
                     {STATISTICS_OPTIONS.map((option, index) => (
                         <MenuItem
                             sx={menuItemStyles}
@@ -101,6 +107,7 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
                             {option}
                         </MenuItem>
                     ))}
+
                 </Select>
             </FormControl>
         </Container>

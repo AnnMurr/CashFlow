@@ -6,10 +6,10 @@ import { DateRangePicker } from "../../../../shared/dateRangePicker/dateRangePic
 import { getCurrentDate } from "../../../../../utils/getCurrentDate";
 
 interface DatePikerModalProps {
-    getFilterStatisticsForRange: (chosenDate: { startDate: string | null, endDate: string | null }) => void;
+    getFilter: (chosenDate: { startDate: string | null, endDate: string | null }) => void;
 }
 
-export const DateRangeModal: FC<DatePikerModalProps> = ({ getFilterStatisticsForRange }) => {
+export const DateRangeModal: FC<DatePikerModalProps> = ({ getFilter }) => {
     const [selectedStartDate, setSelectedStartDate] = useState<string | null>(null);
     const [selectedEndDate, setSelectedEndDate] = useState<string | null>(null);
 
@@ -29,7 +29,7 @@ export const DateRangeModal: FC<DatePikerModalProps> = ({ getFilterStatisticsFor
                         text="Apply"
                         color="#fff"
                         type="button"
-                        func={() => getFilterStatisticsForRange({ startDate: selectedStartDate, endDate: selectedEndDate })} />
+                        func={() => getFilter({ startDate: selectedStartDate, endDate: selectedEndDate })} />
                 </BtnInner>
             </Wrapper>
         </Container>

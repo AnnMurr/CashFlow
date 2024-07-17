@@ -20,7 +20,6 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
     const dispatch = useAppDispatch();
     const { isEditingData, chosenFilter, statisticalData } = useAppSelector((state: RootState) => state.storage);
 
-
     const getEditModal = (event: any) => {
         setChoosedCategoryId && setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id);
         setIsEditCategoryModalActive && setIsEditCategoryModalActive(true);
@@ -35,7 +34,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
 
     const getData = (event: any) => {
         const category = event.currentTarget.dataset["categorytype"];
-        
+
         if (statisticalData && chosenFilter) {
             const currentFilter = chosenFilter?.data;
             const chosenFilteredCategory = currentFilter.filter(item => item.category === category);
