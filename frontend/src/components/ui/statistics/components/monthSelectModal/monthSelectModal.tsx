@@ -3,15 +3,18 @@ import { MONTH } from "../../../../../consts";
 import { FC, useEffect, useState } from "react";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { getMonth, getYear } from "../../../../../utils/getCurrentDate";
+import { useAppSelector } from "../../../../../redux/store/store";
+import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { BtnInner, Container, Wrapper } from "./styledMonthSelectModal";
 
 interface MonthSelectModalProps {
-    getFilter: (value: string | null) => void;
+    getFilter: (chosenDate: string | null, statisticalData: StatisticalDataType | null) => void;
 }
 
 export const MonthSelectModal: FC<MonthSelectModalProps> = ({ getFilter }) => {
     const [months, setMonths] = useState<Array<string> | null>(null);
     const [month, setMonth] = useState<string | null>(null);
+    const { statisticalData } = useAppSelector((state: RootState) => state.storage);
 
     useEffect(() => {
         const currentMonthIndex = +getMonth();
@@ -45,7 +48,7 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({ getFilter }) => {
                         text="Apply"
                         color="#fff"
                         type="button"
-                        func={() => getFilter(month)} />
+                        func={() => getFilter(month, statisticalData)} />
                 </BtnInner>
             </Wrapper>
         </Container>

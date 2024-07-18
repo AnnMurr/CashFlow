@@ -5,7 +5,7 @@ import { List } from "./components/list/list";
 import { useAppDispatch, useAppSelector } from "../../../redux/store/store";
 import { DatePikerModal } from "./components/datePikerModal/datePikerModal";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
-import { ItemType, ItemsType, RootState } from "../../../redux/reducers/userStorageReduser/types";
+import { ItemType, ItemsType, RootState, StatisticalDataType } from "../../../redux/reducers/userStorageReduser/types";
 import { setChosenFilter, setIsEditingData, setStatisticalData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
 import { getAlert } from "../../../utils/getAlert";
@@ -38,197 +38,141 @@ export const Statistics: FC = () => {
 
     const currentIsModal = isDatePikerModal || isMonthSelectModal || isYearSelectModal || isDateRangeModal;
 
-    const getFilterStatisticsForDay = (chosenDate: string | null) => {
-        if (statisticalData && chosenDate) {
-            const filteredStatisticalData = statisticalData?.data[chosenDate];
-
-            if (filteredStatisticalData) {
-                const chosenDateStatisticalData: Array<ItemType> = [];
-                const sortedStatisticalData: Array<ItemType> = [];
-
-                filteredStatisticalData.forEach(item => {
-                    const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
-                    chosenDateStatisticalData.push(item);
-
-                    if (existingItemIndex !== -1) {
-                        sortedStatisticalData[existingItemIndex] = {
-                            ...sortedStatisticalData[existingItemIndex],
-                            sum: sortedStatisticalData[existingItemIndex].sum + item.sum,
-                        };
-                    } else {
-                        sortedStatisticalData.push(item);
-                    }
-                });
-
-                if (sortedStatisticalData.length > 0) {
-                    dispatch(setIsEditingData(false));
-                    setIsDatePikerModal(false);
-                    dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: [chosenDate], data: chosenDateStatisticalData }));
-                    dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
-                }
-            } else {
-                getAlert({ type: "error", text: "No data for this day" }, setIsAlertActive, 3000);
-            }
-        }
-    }
-
-    const getFilterStatisticsForWeek = () => {
-        const week = getWeek();
+    const processStatisticalData = (data: ItemsType, dateRange: string[]) => {
         const sortedStatisticalData: Array<ItemType> = [];
         const chosenDateStatisticalData: Array<ItemType> = [];
 
-        if (statisticalData) {
-            for (const key in statisticalData.data) {
-                if (week.includes(key)) {
-                    statisticalData.data[key].forEach(item => {
-                        const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
-                        chosenDateStatisticalData.push(item);
+        dateRange.forEach(date => {
+            data[date]?.forEach(item => {
+                const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
+                chosenDateStatisticalData.push(item);
 
-                        if (existingItemIndex !== -1) {
-                            sortedStatisticalData[existingItemIndex] = {
-                                ...sortedStatisticalData[existingItemIndex],
-                                sum: sortedStatisticalData[existingItemIndex].sum + item.sum,
-                            };
-                        } else {
-                            sortedStatisticalData.push(item);
-                        }
-                    });
+                if (existingItemIndex !== -1) {
+                    sortedStatisticalData[existingItemIndex] = {
+                        ...sortedStatisticalData[existingItemIndex],
+                        sum: sortedStatisticalData[existingItemIndex].sum + item.sum,
+                    };
+                } else {
+                    sortedStatisticalData.push(item);
                 }
-            }
-        }
+            });
+        });
 
         if (sortedStatisticalData.length > 0) {
+            return { sortedStatisticalData, chosenDateStatisticalData };
+        } else {
+            getAlert({ type: "error", text: "No data for this period" }, setIsAlertActive, 3000);
+            return null;
+        }
+    };
+
+    const getFilterStatisticsForDay = (chosenDate: string | null, statisticalData: StatisticalDataType | null) => {
+        if (!statisticalData || !chosenDate) return;
+
+        const filteredStatisticalData = statisticalData.data[chosenDate];
+        if (!filteredStatisticalData) {
+            getAlert({ type: "error", text: "No data for this day" }, setIsAlertActive, 3000);
+            return;
+        }
+
+        const result = processStatisticalData(statisticalData.data, [chosenDate]);
+
+        if (result) {
+            const { sortedStatisticalData, chosenDateStatisticalData } = result;
+            dispatch(setIsEditingData(false));
+            setIsDatePikerModal(false);
+            dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: [chosenDate], data: chosenDateStatisticalData }));
+            dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
+        }
+    };
+
+    const getFilterStatisticsForWeek = (statisticalData: StatisticalDataType | null) => {
+        if (!statisticalData) return;
+
+        const week = getWeek();
+        const result = processStatisticalData(statisticalData.data, week);
+
+        if (result) {
+            const { sortedStatisticalData, chosenDateStatisticalData } = result;
             const weekRange = `${week[0]} - ${week[week.length - 1]}`;
             dispatch(setIsEditingData(false));
             dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: week, data: chosenDateStatisticalData }));
             dispatch(setStatisticalData({ days: [weekRange], data: { [weekRange]: sortedStatisticalData } }));
         }
-    }
+    };
 
-    const getFilterStatisticsForMonth = (chosenDate: string | null) => {
-        const sortedStatisticalData: Array<ItemType> = [];
-        const chosenDateStatisticalData: Array<ItemType> = [];
+    const getFilterStatisticsForMonth = (chosenDate: string | null, statisticalData: StatisticalDataType | null) => {
+        if (!statisticalData || !chosenDate) return;
 
-        if (statisticalData && chosenDate) {
-            const monthNumber = `0${MONTH.indexOf(chosenDate?.split(" ")[0]) + 1}`;
-            const dateRange = statisticalData.days.filter((date) => date.split(".")[1] === monthNumber);
+        const monthNumber = `0${MONTH.indexOf(chosenDate.split(" ")[0]) + 1}`;
+        const dateRange = statisticalData.days.filter((date) => date.split(".")[1] === monthNumber);
 
-            if (dateRange.length > 0) {
-                for (const key in statisticalData.data) {
-                    if (dateRange.includes(key)) {
-                        statisticalData.data[key].forEach(item => {
-                            const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
-                            chosenDateStatisticalData.push(item);
-
-                            if (existingItemIndex !== -1) {
-                                sortedStatisticalData[existingItemIndex] = {
-                                    ...sortedStatisticalData[existingItemIndex],
-                                    sum: sortedStatisticalData[existingItemIndex].sum + item.sum,
-                                };
-                            } else {
-                                sortedStatisticalData.push(item);
-                            }
-                        });
-                    }
-                }
-            } else {
-                getAlert({ type: "error", text: "No data for this month" }, setIsAlertActive, 3000);
-            }
-
-            if (sortedStatisticalData.length > 0) {
-                setIsMonthSelectModal(false);
-                dispatch(setIsEditingData(false));
-                dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: chosenDate, data: chosenDateStatisticalData }));
-                dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
-            }
+        if (dateRange.length === 0) {
+            getAlert({ type: "error", text: "No data for this month" }, setIsAlertActive, 3000);
+            return;
         }
-    }
 
-    const getFilterStatisticsForYear = (chosenYear: any) => {
-        const sortedStatisticalData: Array<ItemType> = [];
-        const chosenDateStatisticalData: Array<ItemType> = [];
+        const result = processStatisticalData(statisticalData.data, dateRange);
 
-        if (statisticalData && chosenYear) {
-            const dateRange = statisticalData.days.filter((date) => date.split(".")[2] === chosenYear);
-
-            if (dateRange.length > 0) {
-                for (const key in statisticalData.data) {
-                    if (dateRange.includes(key)) {
-                        statisticalData.data[key].forEach(item => {
-                            const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
-                            chosenDateStatisticalData.push(item);
-
-                            if (existingItemIndex !== -1) {
-                                sortedStatisticalData[existingItemIndex] = {
-                                    ...sortedStatisticalData[existingItemIndex],
-                                    sum: sortedStatisticalData[existingItemIndex].sum + item.sum,
-                                };
-                            } else {
-                                sortedStatisticalData.push(item);
-                            }
-                        });
-                    }
-                }
-            } else {
-                getAlert({ type: "error", text: "No data for this year" }, setIsAlertActive, 3000);
-            }
-
-            if (sortedStatisticalData.length > 0) {
-                setIsYearSelectModal(false);
-                dispatch(setIsEditingData(false));
-                dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: chosenYear, data: chosenDateStatisticalData }));
-                dispatch(setStatisticalData({ days: [chosenYear], data: { [chosenYear]: sortedStatisticalData } }));
-            }
+        if (result) {
+            const { sortedStatisticalData, chosenDateStatisticalData } = result;
+            setIsMonthSelectModal(false);
+            dispatch(setIsEditingData(false));
+            dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: chosenDate, data: chosenDateStatisticalData }));
+            dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
         }
-    }
+    };
 
-    const getFilterStatisticsForRange = (chosenDate: { startDate: string | null; endDate: string | null; }) => {
-        const sortedStatisticalData: Array<ItemType> = [];
-        const chosenDateStatisticalData: Array<ItemType> = [];
+    const getFilterStatisticsForYear = (chosenYear: string | null, statisticalData: StatisticalDataType | null) => {
+        if (!statisticalData || !chosenYear) return;
 
-        if (statisticalData && chosenDate.endDate && chosenDate.startDate) {
-            const dateStart = parseEuropeanDate(chosenDate.startDate!);
-            const dateEnd = parseEuropeanDate(chosenDate.endDate!);
+        const dateRange = statisticalData.days.filter((date) => date.split(".")[2] === chosenYear);
 
-            const dateRange = statisticalData.days.filter(item => {
-                const itemDate = parseEuropeanDate(item);
-                return itemDate >= dateStart && itemDate <= dateEnd;
-            });
-
-            if (dateRange.length > 0) {
-                for (const key in statisticalData.data) {
-                    if (dateRange.includes(key)) {
-                        statisticalData.data[key].forEach(item => {
-                            const existingItemIndex = sortedStatisticalData.findIndex((x) => x.category === item.category);
-                            chosenDateStatisticalData.push(item);
-
-                            if (existingItemIndex !== -1) {
-                                sortedStatisticalData[existingItemIndex] = {
-                                    ...sortedStatisticalData[existingItemIndex],
-                                    sum: sortedStatisticalData[existingItemIndex].sum + item.sum,
-                                };
-                            } else {
-                                sortedStatisticalData.push(item);
-                            }
-                        });
-                    }
-                }
-            }
-
-            if (sortedStatisticalData.length > 0) {
-                const range = `${chosenDate.startDate} - ${chosenDate.endDate}`;
-                setIsDateRangeModal(false);
-                dispatch(setIsEditingData(false));
-                dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: range, data: chosenDateStatisticalData }));
-                dispatch(setStatisticalData({ days: [range], data: { [range]: sortedStatisticalData } }));
-            } else {
-                getAlert({ type: "error", text: "No data for this range" }, setIsAlertActive, 3000);
-            }
+        if (dateRange.length === 0) {
+            getAlert({ type: "error", text: "No data for this year" }, setIsAlertActive, 3000);
+            return;
         }
-    }
+
+        const result = processStatisticalData(statisticalData.data, dateRange);
+
+        if (result) {
+            const { sortedStatisticalData, chosenDateStatisticalData } = result;
+            setIsYearSelectModal(false);
+            dispatch(setIsEditingData(false));
+            dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: chosenYear, data: chosenDateStatisticalData }));
+            dispatch(setStatisticalData({ days: [chosenYear], data: { [chosenYear]: sortedStatisticalData } }));
+        }
+    };
+
+    const getFilterStatisticsForRange = (chosenDate: { startDate: string | null; endDate: string | null }, statisticalData: StatisticalDataType | null) => {
+        if (!statisticalData || !chosenDate.startDate || !chosenDate.endDate) return;
+
+        const dateStart = parseEuropeanDate(chosenDate.startDate);
+        const dateEnd = parseEuropeanDate(chosenDate.endDate);
+        const dateRange = statisticalData.days.filter(item => {
+            const itemDate = parseEuropeanDate(item);
+            return itemDate >= dateStart && itemDate <= dateEnd;
+        });
+
+        if (dateRange.length === 0) {
+            getAlert({ type: "error", text: "No data for this range" }, setIsAlertActive, 3000);
+            return;
+        }
+
+        const result = processStatisticalData(statisticalData.data, dateRange);
+
+        if (result) {
+            const { sortedStatisticalData, chosenDateStatisticalData } = result;
+            const range = `${chosenDate.startDate} - ${chosenDate.endDate}`;
+            setIsDateRangeModal(false);
+            dispatch(setIsEditingData(false));
+            dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: range, data: chosenDateStatisticalData }));
+            dispatch(setStatisticalData({ days: [range], data: { [range]: sortedStatisticalData } }));
+        }
+    };
 
     useEffect(() => {
-        chosenFilterType === "Week" && getFilterStatisticsForWeek();
+        chosenFilterType === "Week" && getFilterStatisticsForWeek(statisticalData);
     }, [chosenFilterType]);
 
     return (

@@ -1,10 +1,17 @@
 import { FC, useState } from "react";
 import { ButtonComponent } from "../../../../shared/button/button";
-import { BtnInner, Container, Wrapper } from "./styledYearSelectModal";
 import { YearPicker } from "../../../../shared/yearPicker/yearPicker";
+import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
+import { useAppSelector } from "../../../../../redux/store/store";
+import { BtnInner, Container, Wrapper } from "./styledYearSelectModal";
 
-export const YearSelectModal: FC<any> = ({ getFilter }) => {
-    const [chosenYear, setChosenYear] = useState();
+interface YearSelectModalProps {
+    getFilter: (chosenYear: string | null, statisticalData: StatisticalDataType | null) => void;
+}
+
+export const YearSelectModal: FC<YearSelectModalProps> = ({ getFilter }) => {
+    const [chosenYear, setChosenYear] = useState<string | null>(null);
+    const { statisticalData } = useAppSelector((state: RootState) => state.storage);
 
     return (
         <Container>
@@ -17,7 +24,7 @@ export const YearSelectModal: FC<any> = ({ getFilter }) => {
                         text="Apply"
                         color="#fff"
                         type="button"
-                        func={() => getFilter(chosenYear)} />
+                        func={() => getFilter(chosenYear, statisticalData)} />
                 </BtnInner>
             </Wrapper>
         </Container>
