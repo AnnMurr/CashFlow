@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { DateRangePicker } from "../../../../shared/dateRangePicker/dateRangePicker";
+import { BtnClose } from "../../../../shared/btnClose/btnClose";
 import { getCurrentDate } from "../../../../../utils/getCurrentDate";
 import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
@@ -34,6 +35,14 @@ export const DateRangeModal: FC<DatePikerModalProps> = ({ getFilter, setIsAlertA
 
     return (
         <FiltersModalContainer>
+            <BtnClose
+                btnInnerstyles={{
+                    marginLeft: "auto",
+                    paddingBottom: "10px",
+                }}
+                closeBlock={setIsDateRangeModal}
+                size="lg"
+                color="#000" />
             <DateRangePicker onSelectDateRange={handleDateRangeSelect} />
             <BtnInner>
                 <ButtonComponent

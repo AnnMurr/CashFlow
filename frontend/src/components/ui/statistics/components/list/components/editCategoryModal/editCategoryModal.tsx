@@ -11,7 +11,8 @@ import { getDataFromLocalStorage } from "../../../../../../../storage/localStora
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { getAlert } from "../../../../../../../utils/getAlert";
 import { addScroll } from "../../../../../../../utils/toggleScroll";
-import { BtnCloseInner, BtnInner, Container, Label, Wrapper } from "./styledEditCategoryModal";
+import { BtnInner, Container, Label, Wrapper } from "./styledEditCategoryModal";
+
 interface EditCategoryModalProps {
     choosedCategoryId: string | null;
     closeEditCategoryModal: (value: boolean) => void;
@@ -104,12 +105,11 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
     return (
         <Container>
             <Wrapper>
-                <BtnCloseInner>
-                    <BtnClose func={() => {
-                        closeEditCategoryModal(false);
-                        addScroll();
-                    }} />
-                </BtnCloseInner>
+                <BtnClose
+                    btnInnerstyles={{ marginLeft: "auto" }}
+                    closeBlock={closeEditCategoryModal}
+                    size="lg"
+                    color="#000" />
                 <div>
                     <Label>Category</Label>
                     {(typesOfCategories && categoryData) &&

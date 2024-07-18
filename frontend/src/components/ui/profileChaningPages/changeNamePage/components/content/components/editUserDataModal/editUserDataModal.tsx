@@ -8,7 +8,7 @@ import { OutlinedInput } from "@mui/material";
 import { AlertComponentProps } from "../../../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../../../shared/button/button";
 import { BtnClose } from "../../../../../../../shared/btnClose/btnClose";
-import { Container, Wrapper, BtnCloseInner } from "./styledEditUserDataModal";
+import { Container, Wrapper } from "./styledEditUserDataModal";
 interface EditUserDataModalProps {
     setIsModalActive: (value: boolean) => void;
     userData: string | undefined | null;
@@ -60,9 +60,14 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
     return (
         <Container>
             <Wrapper>
-                <BtnCloseInner>
-                    <BtnClose func={() => setIsModalActive(false)} />
-                </BtnCloseInner>
+                <BtnClose
+                    btnInnerstyles={{
+                        marginLeft: "auto",
+                        paddingBottom: "15px"
+                    }}
+                    closeBlock={setIsModalActive}
+                    size="lg"
+                    color="#000" />
                 <div>
                     <OutlinedInput
                         sx={{

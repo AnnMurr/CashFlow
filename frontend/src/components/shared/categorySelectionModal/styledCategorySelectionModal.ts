@@ -59,9 +59,3 @@ export const BtnInner = styled.div`
     max-width: 30%;
     margin-left: auto;
 `
-
-export const CloseBtnInner = styled.div`
-    width: fit-content;
-    margin-left: auto;
-    margin-bottom: 10px;
-`

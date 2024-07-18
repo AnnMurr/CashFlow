@@ -15,11 +15,6 @@ export const Wrapper = styled.div`
     padding: 30px;
 `
 
-export const BtnCloseInner = styled.div`
-    width: fit-content;
-    margin-left: auto;
-`
-
 export const Title = styled.div`
     padding-bottom: 20px;
 

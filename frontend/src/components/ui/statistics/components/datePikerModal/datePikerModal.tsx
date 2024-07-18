@@ -5,7 +5,9 @@ import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
+import { BtnClose } from "../../../../shared/btnClose/btnClose";
 import { BtnInner } from "./styledDatePikerModal";
+
 interface DatePikerModalProps {
     getFilter: (
         chosenDate: string | null,
@@ -27,6 +29,14 @@ export const DatePikerModal: FC<DatePikerModalProps> = ({
 
     return (
         <FiltersModalContainer>
+            <BtnClose
+                btnInnerstyles={{
+                    marginLeft: "auto",
+                    marginBottom: "10px",
+                }}
+                closeBlock={setIsDatePikerModal}
+                size="lg"
+                color="#000" />
             <DatePiker setChosenDate={setChosenDate} />
             <BtnInner>
                 <ButtonComponent

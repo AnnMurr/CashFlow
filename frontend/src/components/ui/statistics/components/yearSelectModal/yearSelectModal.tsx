@@ -2,10 +2,12 @@ import { FC, useState } from "react";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { YearPicker } from "../../../../shared/yearPicker/yearPicker";
+import { BtnClose } from "../../../../shared/btnClose/btnClose";
 import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
 import { BtnInner } from "./styledYearSelectModal";
+
 interface YearSelectModalProps {
     getFilter: (
         chosenDate: string | null,
@@ -27,6 +29,14 @@ export const YearSelectModal: FC<YearSelectModalProps> = ({
 
     return (
         <FiltersModalContainer>
+            <BtnClose
+                btnInnerstyles={{
+                    marginLeft: "auto",
+                    paddingBottom: "10px",
+                }}
+                closeBlock={setIsYearSelectModal}
+                size="lg"
+                color="#000" />
             <YearPicker setChosenYear={setChosenYear} />
             <BtnInner>
                 <ButtonComponent

@@ -67,12 +67,6 @@ export const BtnInner = styled.div`
     }
 `
 
-export const CloseBtnInner = styled.div`
-    width: fit-content;
-    margin-left: auto;
-    margin-bottom: 10px;
-`
-
 export const SaveBtnInner = styled.div`
     margin-top: 10px;
 `

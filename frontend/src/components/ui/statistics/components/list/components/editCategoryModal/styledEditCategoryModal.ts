@@ -20,11 +20,6 @@ export const BtnInner = styled.div`
     margin-left: auto;
 `
 
-export const BtnCloseInner = styled.div`
-    width: fit-content;
-    margin-left: auto;
-`
-
 export const Label = styled.label`
     font-weight: 600;
     padding-bottom: 10px;
