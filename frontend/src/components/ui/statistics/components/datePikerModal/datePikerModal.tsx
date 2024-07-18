@@ -4,8 +4,8 @@ import { ButtonComponent } from "../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
-import { BtnInner, Container, Wrapper } from "./styledDatePikerModal";
-
+import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
+import { BtnInner } from "./styledDatePikerModal";
 interface DatePikerModalProps {
     getFilter: (
         chosenDate: string | null,
@@ -26,26 +26,24 @@ export const DatePikerModal: FC<DatePikerModalProps> = ({
     const dispatch = useAppDispatch();
 
     return (
-        <Container>
-            <Wrapper>
-                <DatePiker setChosenDate={setChosenDate} />
-                <BtnInner>
-                    <ButtonComponent
-                        backgroundColor="#5B8A72"
-                        BackgroundColorHover="#0f4a34"
-                        text="Apply"
-                        color="#fff"
-                        type="button"
-                        func={() =>
-                            getFilter(
-                                chosenDate,
-                                statisticalData,
-                                setIsAlertActive,
-                                chosenFilterType,
-                                dispatch,
-                                setIsDatePikerModal)} />
-                </BtnInner>
-            </Wrapper>
-        </Container>
+        <FiltersModalContainer>
+            <DatePiker setChosenDate={setChosenDate} />
+            <BtnInner>
+                <ButtonComponent
+                    backgroundColor="#5B8A72"
+                    BackgroundColorHover="#0f4a34"
+                    text="Apply"
+                    color="#fff"
+                    type="button"
+                    func={() =>
+                        getFilter(
+                            chosenDate,
+                            statisticalData,
+                            setIsAlertActive,
+                            chosenFilterType,
+                            dispatch,
+                            setIsDatePikerModal)} />
+            </BtnInner>
+        </FiltersModalContainer>
     )
 }

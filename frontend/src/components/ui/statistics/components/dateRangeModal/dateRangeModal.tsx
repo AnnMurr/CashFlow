@@ -5,7 +5,8 @@ import { DateRangePicker } from "../../../../shared/dateRangePicker/dateRangePic
 import { getCurrentDate } from "../../../../../utils/getCurrentDate";
 import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
-import { BtnInner, Container, Wrapper } from "./styledDateRangeModal";
+import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
+import { BtnInner } from "./styledDateRangeModal";
 
 interface DatePikerModalProps {
     getFilter: (
@@ -32,25 +33,23 @@ export const DateRangeModal: FC<DatePikerModalProps> = ({ getFilter, setIsAlertA
     };
 
     return (
-        <Container>
-            <Wrapper>
-                <DateRangePicker onSelectDateRange={handleDateRangeSelect} />
-                <BtnInner>
-                    <ButtonComponent
-                        backgroundColor="#5B8A72"
-                        BackgroundColorHover="#0f4a34"
-                        text="Apply"
-                        color="#fff"
-                        type="button"
-                        func={() => getFilter(
-                            { startDate: selectedStartDate, endDate: selectedEndDate },
-                            statisticalData,
-                            setIsAlertActive,
-                            chosenFilterType,
-                            dispatch,
-                            setIsDateRangeModal)} />
-                </BtnInner>
-            </Wrapper>
-        </Container>
+        <FiltersModalContainer>
+            <DateRangePicker onSelectDateRange={handleDateRangeSelect} />
+            <BtnInner>
+                <ButtonComponent
+                    backgroundColor="#5B8A72"
+                    BackgroundColorHover="#0f4a34"
+                    text="Apply"
+                    color="#fff"
+                    type="button"
+                    func={() => getFilter(
+                        { startDate: selectedStartDate, endDate: selectedEndDate },
+                        statisticalData,
+                        setIsAlertActive,
+                        chosenFilterType,
+                        dispatch,
+                        setIsDateRangeModal)} />
+            </BtnInner>
+        </FiltersModalContainer>
     )
 }

@@ -6,7 +6,8 @@ import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { getMonth, getYear } from "../../../../../utils/getCurrentDate";
 import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
-import { BtnInner, Container, Wrapper } from "./styledMonthSelectModal";
+import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
+import { BtnInner } from "./styledMonthSelectModal";
 
 interface MonthSelectModalProps {
     getFilter: (
@@ -47,29 +48,27 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({
     }, []);
 
     return (
-        <Container>
-            <Wrapper>
-                <MultipleSelectPlaceholder
-                    setCategoryName={setMonth}
-                    categoryName={month}
-                    names={months} />
-                <BtnInner>
-                    <ButtonComponent
-                        backgroundColor="#5B8A72"
-                        BackgroundColorHover="#0f4a34"
-                        text="Apply"
-                        color="#fff"
-                        type="button"
-                        func={() =>
-                            getFilter(
-                                month,
-                                statisticalData,
-                                setIsAlertActive,
-                                chosenFilterType,
-                                dispatch,
-                                setIsMonthSelectModal)} />
-                </BtnInner>
-            </Wrapper>
-        </Container>
+        <FiltersModalContainer>
+            <MultipleSelectPlaceholder
+                setCategoryName={setMonth}
+                categoryName={month}
+                names={months} />
+            <BtnInner>
+                <ButtonComponent
+                    backgroundColor="#5B8A72"
+                    BackgroundColorHover="#0f4a34"
+                    text="Apply"
+                    color="#fff"
+                    type="button"
+                    func={() =>
+                        getFilter(
+                            month,
+                            statisticalData,
+                            setIsAlertActive,
+                            chosenFilterType,
+                            dispatch,
+                            setIsMonthSelectModal)} />
+            </BtnInner>
+        </FiltersModalContainer>
     )
 }
