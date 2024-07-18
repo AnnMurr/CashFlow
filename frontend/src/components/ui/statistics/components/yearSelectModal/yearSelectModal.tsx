@@ -1,17 +1,29 @@
 import { FC, useState } from "react";
 import { ButtonComponent } from "../../../../shared/button/button";
+import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { YearPicker } from "../../../../shared/yearPicker/yearPicker";
 import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
-import { useAppSelector } from "../../../../../redux/store/store";
+import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { BtnInner, Container, Wrapper } from "./styledYearSelectModal";
 
 interface YearSelectModalProps {
-    getFilter: (chosenYear: string | null, statisticalData: StatisticalDataType | null) => void;
+    getFilter: (
+        chosenDate: string | null,
+        statisticalData: StatisticalDataType | null,
+        setIsAlertActive: (value: AlertComponentProps | null) => void,
+        chosenFilterType: string | null,
+        dispatch: AppDispatch,
+        setIsYearSelectModal: (value: boolean) => void) => void;
+    setIsAlertActive: (value: AlertComponentProps | null) => void;
+    chosenFilterType: string | null;
+    setIsYearSelectModal: (value: boolean) => void;
 }
 
-export const YearSelectModal: FC<YearSelectModalProps> = ({ getFilter }) => {
+export const YearSelectModal: FC<YearSelectModalProps> = ({
+    getFilter, setIsAlertActive, chosenFilterType, setIsYearSelectModal }) => {
     const [chosenYear, setChosenYear] = useState<string | null>(null);
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
+    const dispatch = useAppDispatch();
 
     return (
         <Container>
@@ -24,7 +36,14 @@ export const YearSelectModal: FC<YearSelectModalProps> = ({ getFilter }) => {
                         text="Apply"
                         color="#fff"
                         type="button"
-                        func={() => getFilter(chosenYear, statisticalData)} />
+                        func={() =>
+                            getFilter(
+                                chosenYear,
+                                statisticalData,
+                                setIsAlertActive,
+                                chosenFilterType,
+                                dispatch,
+                                setIsYearSelectModal)} />
                 </BtnInner>
             </Wrapper>
         </Container>

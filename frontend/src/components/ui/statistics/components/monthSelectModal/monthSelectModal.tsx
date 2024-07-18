@@ -1,20 +1,32 @@
+import { FC, useEffect, useState } from "react";
 import { MultipleSelectPlaceholder } from "../../../../shared/select/select";
 import { MONTH } from "../../../../../consts";
-import { FC, useEffect, useState } from "react";
 import { ButtonComponent } from "../../../../shared/button/button";
+import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { getMonth, getYear } from "../../../../../utils/getCurrentDate";
-import { useAppSelector } from "../../../../../redux/store/store";
+import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { BtnInner, Container, Wrapper } from "./styledMonthSelectModal";
 
 interface MonthSelectModalProps {
-    getFilter: (chosenDate: string | null, statisticalData: StatisticalDataType | null) => void;
+    getFilter: (
+        chosenDate: string | null,
+        statisticalData: StatisticalDataType | null,
+        setIsAlertActive: (value: AlertComponentProps | null) => void,
+        chosenFilterType: string | null,
+        dispatch: AppDispatch,
+        setIsMonthSelectModal: (value: boolean) => void) => void,
+    setIsAlertActive: (value: AlertComponentProps | null) => void;
+    chosenFilterType: string | null;
+    setIsMonthSelectModal: (value: boolean) => void;
 }
 
-export const MonthSelectModal: FC<MonthSelectModalProps> = ({ getFilter }) => {
+export const MonthSelectModal: FC<MonthSelectModalProps> = ({
+    getFilter, setIsAlertActive, chosenFilterType, setIsMonthSelectModal }) => {
     const [months, setMonths] = useState<Array<string> | null>(null);
     const [month, setMonth] = useState<string | null>(null);
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const currentMonthIndex = +getMonth();
@@ -48,7 +60,14 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({ getFilter }) => {
                         text="Apply"
                         color="#fff"
                         type="button"
-                        func={() => getFilter(month, statisticalData)} />
+                        func={() =>
+                            getFilter(
+                                month,
+                                statisticalData,
+                                setIsAlertActive,
+                                chosenFilterType,
+                                dispatch,
+                                setIsMonthSelectModal)} />
                 </BtnInner>
             </Wrapper>
         </Container>
