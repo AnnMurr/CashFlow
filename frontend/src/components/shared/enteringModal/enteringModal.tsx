@@ -7,7 +7,8 @@ import { BtnClose } from "../btnClose/btnClose";
 import { ButtonComponent } from "../button/button";
 import { getAlert } from "../../../utils/getAlert";
 import { AlertComponentProps } from "../alert/alert";
-import { Container, Wrapper, ButtonsInner, Input, BtnInner, CloseBtnInner, SaveBtnInner, InputInner, DeleteBtnInner } from "./styledEnteringModal";
+import { Container, Wrapper, ButtonsInner, Input, BtnInner, SaveBtnInner, InputInner, DeleteBtnInner } from "./styledEnteringModal";
+
 interface EnteringModalProps {
     closeModal: (value: boolean) => void;
     addTransaction: () => void;
@@ -85,9 +86,14 @@ export const EnteringModal: FC<EnteringModalProps> = ({
     return (
         <Container>
             <Wrapper>
-                <CloseBtnInner>
-                    <BtnClose func={() => closeModal(false)} color="#fff" />
-                </CloseBtnInner>
+                <BtnClose
+                    btnInnerstyles={{
+                        marginLeft: "auto", 
+                        marginBottom: "10px"
+                    }}
+                    closeBlock={closeModal}
+                    size="lg"
+                    color="#fff" />
                 <InputInner>
                     <Input ref={inputRef} onKeyDown={enterValue} value={inputValue} readOnly type="text" />
                     <DeleteBtnInner>

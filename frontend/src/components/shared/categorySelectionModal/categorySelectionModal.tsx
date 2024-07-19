@@ -9,7 +9,7 @@ import { CategoriesType, StorageDataKeys, UserStorageDataType } from "../../../r
 import { useAppDispatch } from "../../../redux/store/store";
 import { getAlert } from "../../../utils/getAlert";
 import { ONLY_SPACES_REGEX } from "../../../consts";
-import { BtnInner, CloseBtnInner, Container, Input, InputInner, Item, Label, List, Wrapper } from "./styledCategorySelectionModal";
+import { BtnInner, Container, Input, InputInner, Item, Label, List, Wrapper } from "./styledCategorySelectionModal";
 interface CategorySelectionModalProps {
     togleModal: (value: boolean) => void;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
@@ -70,14 +70,16 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
         }
     }
 
-    const closeModal = () => togleModal(false);
-
     return (
         <Container>
             <Wrapper>
-                <CloseBtnInner>
-                    <BtnClose func={closeModal} />
-                </CloseBtnInner>
+                    <BtnClose
+                        btnInnerstyles={{
+                            marginLeft: "auto",
+                            marginBottom: "10px"
+                        }}
+                        closeBlock={togleModal}
+                        size="lg" color="#000" />
                 <InputInner>
                     <Label>Category name</Label>
                     <Input

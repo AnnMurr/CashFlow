@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -15,9 +15,12 @@ interface SelectLabelsProps {
 }
 
 export const SelectLabels: FC<SelectLabelsProps> = ({
-    setChosenFilterType, openDatePikerModal, openMonthSelectModal, openYearSelectModal, openDateRangeModal }) => {
-    const [option, setOption] = useState<string>("0");
-
+    setChosenFilterType,
+    openDatePikerModal,
+    openMonthSelectModal,
+    openYearSelectModal,
+    openDateRangeModal
+}) => {
     const selectStyles = {
         width: "100%",
         '& .MuiOutlinedInput-root': {
@@ -38,13 +41,26 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
             fontWeight: "600",
             fontSize: "18px"
         },
+        '& .MuiInputBase-input': {
+            padding: "16.5px 14px"
+        },
+        '&.MuiInputBase-root': {
+            lineHeight: "1.4375em",
+        },
     }
 
     const formControlStyles = {
         m: 1,
         width: "15rem",
         paddingRight: 0,
-        textAlign: "center"
+        textAlign: "center",
+
+        '&.MuiFormControl-root': {
+            margin: "8px",
+        },
+        '&.MuiInputBase-root': {
+            lineHeight: "1.4375em",
+        },
     }
 
     const menuItemStyles = {
@@ -65,7 +81,6 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
     const handleChange = (event: SelectChangeEvent) => {
         const value = event.target.value;
         const type = STATISTICS_OPTIONS[+value - 1];
-        setOption(value);
         setChosenFilterType(type);
 
         switch (type) {
@@ -90,15 +105,13 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
                 <Select
                     sx={selectStyles}
                     IconComponent={() => null}
-                    value={option}
+                    value={"0"}
                     onChange={handleChange}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}>
-                        
                     <MenuItem value={0} sx={menuItemStyles}>
                         <em>Filter</em>
                     </MenuItem>
-
                     {STATISTICS_OPTIONS.map((option, index) => (
                         <MenuItem
                             sx={menuItemStyles}
@@ -107,7 +120,6 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
                             {option}
                         </MenuItem>
                     ))}
-
                 </Select>
             </FormControl>
         </Container>

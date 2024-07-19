@@ -117,10 +117,9 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
                 {days &&
                     days.map(day => (
                         <React.Fragment key={uuidV4()}>
-                            {
-                                <div>
-                                    <ItemDay title={day} />
-                                </div>}
+                            <div>
+                                <ItemDay title={day} />
+                            </div>
                             {chosenCategoryStatistic ?
                                 <Line
                                     setIsEditCategoryModalActive={setIsEditCategoryModalActive}

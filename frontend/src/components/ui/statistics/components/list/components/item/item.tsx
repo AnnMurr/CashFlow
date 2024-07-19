@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { getCurrentDate } from "../../../../../../../utils/getCurrentDate";
 import { ItemType, RootState } from "../../../../../../../redux/reducers/userStorageReduser/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,7 +6,7 @@ import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { hideScroll } from "../../../../../../../utils/toggleScroll";
 import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
 import { setChosenCategoryStatistic } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { Container, Edit, IconInner, Settings, TimeEditBlock } from "./styledItem";
+import { Category, Container, Edit, IconInner, Settings, TimeEditBlock } from "./styledItem";
 interface ItemProps {
     dataItem: ItemType;
     setIsEditCategoryModalActive?: (value: boolean) => void;
@@ -44,6 +44,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
 
     return categoryStatistic ?
         (<Container
+            chosenfilter={chosenFilter !== null ? "true" : 'false'}
             categorystatistic={categoryStatistic.toString()}
             iseditingdata={isEditingData.toString()}
             id={dataItem.uid} >
@@ -53,35 +54,54 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
             <TimeEditBlock>
                 <span>{date.split(" ")[1]}</span>
             </TimeEditBlock>
-        </Container>)
-        :
-        (<Container
-            categorystatistic={categoryStatistic.toString()}
-            onClick={getData}
-            data-categorytype={dataItem.category}
-            iseditingdata={isEditingData.toString()}
-            id={dataItem.uid}>
-            <IconInner>
-                <img src={dataItem.icon} alt={dataItem.category} />
-            </IconInner>
-            <div>
-                <span>{dataItem.category}</span>
-            </div>
-            <div>
-                <span>{dataItem.sum}$</span>
-            </div>
-            <TimeEditBlock>
-                <span>{date.split(" ")[1]}</span>
-                {isEditingData ?
-                    <Settings>
-                        <Edit onClick={getEditModal}>
-                            <FontAwesomeIcon icon={faPen} />
-                        </Edit>
-                        <button onClick={getDeleteModal}>
-                            <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                    </Settings>
-                    : null}
-            </TimeEditBlock>
-        </Container>)
+        </Container>) :
+        chosenFilter ?
+            (<Container
+                categorystatistic={categoryStatistic.toString()}
+                chosenfilter={chosenFilter !== null ? "true" : 'false'}
+                onClick={getData}
+                data-categorytype={dataItem.category}
+                iseditingdata={isEditingData.toString()}
+                id={dataItem.uid}>
+                <IconInner>
+                    <img src={dataItem.icon} alt={dataItem.category} />
+                </IconInner>
+                <Category chosenfilter={chosenFilter !== null ? "true" : 'false'}>
+                    <span>{dataItem.category}</span>
+                </Category>
+                <div>
+                    <span>{dataItem.sum}$</span>
+                </div>
+            </Container>)
+            :
+            (<Container
+                chosenfilter={chosenFilter ? "true" : 'false'}
+                categorystatistic={categoryStatistic.toString()}
+                onClick={getData}
+                data-categorytype={dataItem.category}
+                iseditingdata={isEditingData.toString()}
+                id={dataItem.uid}>
+                <IconInner>
+                    <img src={dataItem.icon} alt={dataItem.category} />
+                </IconInner>
+                <Category chosenfilter={chosenFilter !== null ? "true" : 'false'}>
+                    <span>{dataItem.category}</span>
+                </Category>
+                <div>
+                    <span>{dataItem.sum}$</span>
+                </div>
+                <TimeEditBlock>
+                    <span>{date.split(" ")[1]}</span>
+                    {isEditingData ?
+                        <Settings>
+                            <Edit onClick={getEditModal}>
+                                <FontAwesomeIcon icon={faPen} />
+                            </Edit>
+                            <button onClick={getDeleteModal}>
+                                <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                        </Settings>
+                        : null}
+                </TimeEditBlock>
+            </Container>)
 }

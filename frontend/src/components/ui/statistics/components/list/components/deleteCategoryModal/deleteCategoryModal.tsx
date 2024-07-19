@@ -8,7 +8,8 @@ import { changeUserData } from "../../../../../../../redux/reducers/userStorageR
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
 import { getAlert } from "../../../../../../../utils/getAlert";
 import { addScroll } from "../../../../../../../utils/toggleScroll";
-import { BtnCloseInner, BtnInner, Container, Title, Wrapper } from "./styledDeleteCategoryModal";
+import { BtnInner, Container, Title, Wrapper } from "./styledDeleteCategoryModal";
+
 interface DeleteCategoryModalProps {
     closeDeleteModal: (value: boolean) => void;
     choosedCategoryId: string | null;
@@ -54,12 +55,11 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
     return (
         <Container>
             <Wrapper>
-                <BtnCloseInner>
-                    <BtnClose func={() => {
-                        closeDeleteModal(false);
-                        addScroll();
-                    }} />
-                </BtnCloseInner>
+                <BtnClose
+                    btnInnerstyles={{ marginLeft: "auto" }}
+                    closeBlock={closeDeleteModal}
+                    size="lg"
+                    color="#000" />
                 <Title>
                     <h5>
                         Are you sure you want to delete this category?
