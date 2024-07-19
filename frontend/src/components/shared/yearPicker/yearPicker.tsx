@@ -6,7 +6,11 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Dayjs } from "dayjs";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 
-export const YearPicker: FC<any> = ({ setChosenYear }) => {
+interface YearPickerProps {
+    setChosenYear: (value: string) => void;
+}
+
+export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
     const [value, setValue] = useState<Dayjs | null>(null);
 
     useEffect(() => {
@@ -19,7 +23,17 @@ export const YearPicker: FC<any> = ({ setChosenYear }) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DatePicker', 'DatePicker', 'DatePicker']}>
-                <DatePicker onChange={(newValue) => setValue(newValue)} label={'year'} views={['year']} />
+                <DatePicker sx={{
+                    '& .MuiOutlinedInput-input': {
+                        padding: "10px",
+                    },
+                    '& label': {
+                        top: "-4px",
+                    }
+                }}
+                    onChange={(newValue) => setValue(newValue)}
+                    label={'year'}
+                    views={['year']} />
             </DemoContainer>
         </LocalizationProvider>
     );
