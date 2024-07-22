@@ -17,11 +17,12 @@ interface EditCategoryModalProps {
     choosedCategoryId: string | null;
     closeEditCategoryModal: (value: boolean) => void;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
-    getDataDataForStatistic: () => void;
+    getDataDataForStatistic: (value: "expenses" | "income") => void;
+    statisticType:  "expenses" | "income";
 }
 
 export const EditCategoryModal: FC<EditCategoryModalProps> = ({
-    choosedCategoryId, closeEditCategoryModal, setIsAlertActive, getDataDataForStatistic }) => {
+    choosedCategoryId, closeEditCategoryModal, setIsAlertActive, getDataDataForStatistic, statisticType }) => {
     const [categoryData, setCategoryData] = useState<null | Transaction>(null);
     const [categoryName, setCategoryName] = useState<string>("");
     const [categoryNameError, setCategoryNameError] = useState<boolean>(false);
@@ -88,7 +89,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                         getAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
                         closeEditCategoryModal(false);
                         addScroll();
-                        getDataDataForStatistic();
+                        getDataDataForStatistic(statisticType);
                     }
                 }
             } catch (error) {

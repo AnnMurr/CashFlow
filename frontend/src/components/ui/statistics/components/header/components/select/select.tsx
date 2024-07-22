@@ -47,7 +47,7 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
         '&.MuiInputBase-root': {
             lineHeight: "1.4375em",
         },
-    }
+    };
 
     const formControlStyles = {
         m: 1,
@@ -61,7 +61,7 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
         '&.MuiInputBase-root': {
             lineHeight: "1.4375em",
         },
-    }
+    };
 
     const menuItemStyles = {
         '&.Mui-selected.Mui-focusVisible': {
@@ -76,12 +76,14 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
         '& em': {
             fontStyle: 'normal',
         },
-    }
+    };
 
     const handleChange = (event: SelectChangeEvent) => {
         const value = event.target.value;
         const type = STATISTICS_OPTIONS[+value - 1];
-        setChosenFilterType(type);
+
+        setChosenFilterType(null);
+        setTimeout(() => { setChosenFilterType(type); }, 0);
 
         switch (type) {
             case "Day":

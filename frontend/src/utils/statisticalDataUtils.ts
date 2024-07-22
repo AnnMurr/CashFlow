@@ -73,7 +73,8 @@ export const getFilterStatisticsForWeek = (
 
     const week = getWeek();
     const result = processStatisticalData(statisticalData.data, week, setIsAlertActive);
-
+console.log("week", week);
+console.log("result", result);
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
         const weekRange = `${week[0]} - ${week[week.length - 1]}`;

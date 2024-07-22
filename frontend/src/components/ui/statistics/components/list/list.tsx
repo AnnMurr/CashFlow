@@ -1,13 +1,10 @@
 import React from "react";
 import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { getDataFromUserStore, setStatisticalData } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
-import { ItemType, ItemsType, LineProps, RootState, UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
-import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
+import { ItemsType, LineProps, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { ItemDay } from "./components/itemDay/itemDay";
 import { Item } from "./components/item/item";
-import { getCurrentDate } from "../../../../../utils/getCurrentDate";
 import { EditCategoryModal } from "./components/editCategoryModal/editCategoryModal";
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
@@ -18,7 +15,7 @@ export const Line: FC<LineProps> = ({
     data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive
 }) => {
     const { chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
-
+    
     return (
         <ItemsInner>
             {chosenCategoryStatistic ?
@@ -48,9 +45,11 @@ interface ListProps {
     setDays: (value: Array<string> | null) => void;
     days: Array<string> | null;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
+    getDataDataForStatistic: (value: "expenses" | "income") => void;
+    statisticType:  "expenses" | "income";
 }
 
-export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlertActive }) => {
+export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlertActive, getDataDataForStatistic, statisticType }) => {
     const [isEditCategoryModalActive, setIsEditCategoryModalActive] = useState<boolean>(false);
     const [isDeleteCategoryModalActive, setIsDeleteCategoryModalActive] = useState<boolean>(false);
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
@@ -63,49 +62,8 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
 
     const currentIsModal = isEditCategoryModalActive || isDeleteCategoryModalActive;
 
-    const getDataDataForStatistic = async () => {
-        const token = getDataFromLocalStorage("token");
-        const data = (await dispatch(getDataFromUserStore(token))).payload as UserStorageDataType;
-        const combinedAndSortedData = [...data.data.income, ...data.data.expenses];
-        const financialData: ItemsType = {};
-
-        combinedAndSortedData.forEach(item => {
-            const newDate = getCurrentDate(item.date);
-            const day = newDate.split(" ")[0];
-
-            if (financialData.hasOwnProperty(day)) {
-                financialData[day].push(item);
-            } else {
-                financialData[day] = [item];
-            }
-        })
-
-        const reverseDateRepresentation = (date: string): string => {
-            const [day, month, year] = date.split('.');
-            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-        };
-
-        const sortedDays = Object.keys(financialData).map(reverseDateRepresentation)
-            .sort((a, b) => b.localeCompare(a))
-            .map(date => {
-                const [year, month, day] = date.split('-');
-                return `${day}.${month}.${year}`;
-            });
-
-        for (const key in financialData) {
-            financialData[key].sort((a: ItemType, b: ItemType) => {
-                return new Date(b.date).getTime() - new Date(a.date).getTime();
-            });
-        }
-
-        dispatch(setStatisticalData({ days: sortedDays, data: financialData }))
-    }
-
-    useEffect(() => { getDataDataForStatistic() }, []);
-
     useEffect(() => {
         if (statisticalData) {
-            console.log("statisticalData", statisticalData)
             setDays(statisticalData?.days);
             setItems(statisticalData?.data);
         }
@@ -140,12 +98,14 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
                         setIsAlertActive={setIsAlertActive}
                         closeEditCategoryModal={setIsEditCategoryModalActive}
                         choosedCategoryId={choosedCategoryId}
-                        getDataDataForStatistic={getDataDataForStatistic} />
+                        getDataDataForStatistic={getDataDataForStatistic}
+                        statisticType={statisticType} />
                     : null}
                 {isDeleteCategoryModalActive ?
                     <DeleteCategoryModal
                         setIsAlertActive={setIsAlertActive}
                         getDataDataForStatistic={getDataDataForStatistic}
+                        statisticType={statisticType}
                         choosedCategoryId={choosedCategoryId}
                         closeDeleteModal={setIsDeleteCategoryModalActive} />
                     : null}
