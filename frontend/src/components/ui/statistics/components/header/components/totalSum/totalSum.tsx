@@ -4,13 +4,13 @@ import { ItemType, RootState } from "../../../../../../../redux/reducers/userSto
 import { Sum, TotalSumInner, TotalSumTitle } from "./styledTotalSum";
 
 export const TotalSum: FC = () => {
-    const [totalSum, setTotalSum] = useState<number | null>(null);
+    const [totalSum, setTotalSum] = useState<string | null>(null);
     const { chosenFilter, statisticalData, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
 
     const getTotalSum = (items: Array<ItemType>) => {
         if (items) {
             const totalSum: number = items.reduce((acc, value) => acc += value.sum, 0);
-            setTotalSum(totalSum);
+            setTotalSum(totalSum.toFixed(2));
         }
     }
 
@@ -24,18 +24,20 @@ export const TotalSum: FC = () => {
                 getTotalSum(flattenedData);
             }
         } else {
-            setTotalSum(0);
+            setTotalSum("0");
         }
     }, [statisticalData, chosenCategoryStatistic]);
 
     return (
-        <TotalSumInner isfiltered={chosenFilter ? "true" : "false"}>
-            <TotalSumTitle>
-                <h5>Total:</h5>
-            </TotalSumTitle>
-            <Sum>
-                <span>{totalSum}$</span>
-            </Sum>
-        </TotalSumInner>
+        totalSum ?
+            <TotalSumInner isfiltered={chosenFilter ? "true" : "false"}>
+                <TotalSumTitle>
+                    <h5>Total:</h5>
+                </TotalSumTitle>
+                <Sum>
+                    <span>{totalSum}$</span>
+                </Sum>
+            </TotalSumInner>
+            : null
     )
 }
