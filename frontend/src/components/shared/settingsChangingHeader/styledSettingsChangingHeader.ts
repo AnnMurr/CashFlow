@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 export const Title = styled.div`
     padding-left: 10px;
 
-    & h2 {
+    h2 {
         font-size: 25px;
         font-weight: 500;
     }

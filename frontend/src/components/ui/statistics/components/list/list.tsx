@@ -1,7 +1,7 @@
 import React from "react";
 import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
+import { useAppSelector } from "../../../../../redux/store/store";
 import { ItemsType, LineProps, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { ItemDay } from "./components/itemDay/itemDay";
 import { Item } from "./components/item/item";
@@ -54,7 +54,6 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
     const [isDeleteCategoryModalActive, setIsDeleteCategoryModalActive] = useState<boolean>(false);
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
     const { statisticalData, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
-    const dispatch = useAppDispatch();
 
     const currentSetIsModal = isEditCategoryModalActive
         ? setIsEditCategoryModalActive

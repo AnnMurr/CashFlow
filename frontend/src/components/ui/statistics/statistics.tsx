@@ -12,9 +12,9 @@ import { YearSelectModal } from "./components/yearSelectModal/yearSelectModal";
 import { DateRangeModal } from "./components/dateRangeModal/dateRangeModal";
 import { getFilterStatisticsForDay, getFilterStatisticsForMonth, getFilterStatisticsForRange, getFilterStatisticsForWeek, getFilterStatisticsForYear } from "../../../utils/statisticalDataUtils";
 import { getDataFromUserStore, setStatisticalData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { Container, Wrapper } from "./styledStatistics";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
+import { Container, Wrapper } from "./styledStatistics";
 
 export const Statistics: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);

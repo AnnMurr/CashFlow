@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 export const Title = styled.div`
     padding-bottom: 20px;
 
-    & h5 {
+    h5 {
         font-size: 18px;
         font-weight: 600;
     }
@@ -34,7 +34,7 @@ export const Label = styled.label`
 `
 
 export const TextInner = styled.div`
-    & span {
+    span {
         font-size: 15px;
     }
 `

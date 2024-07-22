@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Title = styled.div`
     padding-bottom: 30px;
 
-    & h5 {
+    h5 {
         font-size: 18px;
         font-weight: 400;
     }

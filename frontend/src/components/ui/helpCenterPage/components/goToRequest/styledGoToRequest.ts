@@ -15,13 +15,13 @@ export const Wrapper = styled.div`
 export const Title = styled.div`
     padding-bottom: 10px;
     
-    & h4 {
+    h4 {
         font-size: 18px;
     }
 `
 
 export const SubTitle = styled.div`
-    & h5 {
+    h5 {
         font-weight: 300;
         font-size: 18px;
     }

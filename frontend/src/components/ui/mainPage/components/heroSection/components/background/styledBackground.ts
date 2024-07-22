@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
         inset: 0;
     }
 
-    & img {
+    img {
         width: 100%;
     }
 `

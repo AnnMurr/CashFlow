@@ -15,7 +15,7 @@ export const Container = styled.div`
 export const Item = styled.li<ItemProps>`
     padding-bottom: 15px;
   
-    & button {
+    button {
         font-size: 20px;
         font-weight: 600;
         color: ${({ active }) => active === "true" ? "#000" : "#898989"};

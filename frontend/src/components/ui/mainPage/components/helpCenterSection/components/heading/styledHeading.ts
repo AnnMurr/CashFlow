@@ -8,14 +8,14 @@ export const Container = styled.div`
 export const Title = styled.div`
     padding-bottom: 20px;
 
-    & h2 {
+    h2 {
         font-size: 40px;
         font-weight: 800; 
     }
 `
 
 export const SubTitle = styled.div`
-    & h3 {
+    h3 {
         font-size: 30px;
         font-weight: 300;
     }

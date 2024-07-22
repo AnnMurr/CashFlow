@@ -25,16 +25,18 @@ export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticTy
             borderColor: "#000",
         },
         '&.MuiButtonGroup-root': {
-            marginRight: 'auto',
+            margin: '0 auto 0 0',
         }
     };
 
     const buttonStyles = {
-        '&.MuiButton-root': {
-            padding: "0px 8px",
-            '&:hover': {
-                backgroundColor: "rgb(49 163 71 / 4%)",
-            }
+        padding: "0px 8px",
+        
+        '&:first-of-type': {
+            paddingLeft: "0",
+        },
+        '&:hover': {
+            backgroundColor: "rgb(49 163 71 / 4%)",
         },
     };
 

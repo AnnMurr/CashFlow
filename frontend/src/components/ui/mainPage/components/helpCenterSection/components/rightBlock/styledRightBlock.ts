@@ -4,13 +4,13 @@ import styled from "styled-components";
 export const Title = styled.div`
     padding-bottom: 20px;
 
-    & h4 {
+    h4 {
         font-size: 30px;
     }
 `
 
 export const SubTitle = styled.div`
-    & h5 {
+    h5 {
         font-size: 25px;
         font-weight: 300;
     }

@@ -5,7 +5,7 @@ export const Container = styled.div`
     background-color: #56776c99;
     text-align: center;
 
-    & span {
+    span {
         font-weight: 600;
     }
 `
