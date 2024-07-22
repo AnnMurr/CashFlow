@@ -3,7 +3,7 @@ import { SubBar } from "../../shared/subBar/subBar";
 import { Header } from "./components/header/header";
 import { List } from "./components/list/list";
 import { useAppDispatch, useAppSelector } from "../../../redux/store/store";
-import { DatePikerModal } from "./components/datePikerModal/datePikerModal";
+import { DatePickerModal } from "./components/datePickerModal/datePickerModal";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { ItemType, ItemsType, RootState, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
 import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
@@ -21,7 +21,7 @@ export const Statistics: FC = () => {
     const [items, setItems] = useState<ItemsType | null>(null);
     const [days, setDays] = useState<Array<string> | null>(null);
     const [chosenFilterType, setChosenFilterType] = useState<string | null>(null);
-    const [isDatePikerModal, setIsDatePikerModal] = useState<boolean>(false);
+    const [isDatePickerModal, setIsDatePickerModal] = useState<boolean>(false);
     const [isMonthSelectModal, setIsMonthSelectModal] = useState<boolean>(false);
     const [isYearSelectModal, setIsYearSelectModal] = useState<boolean>(false);
     const [isDateRangeModal, setIsDateRangeModal] = useState<boolean>(false);
@@ -29,17 +29,17 @@ export const Statistics: FC = () => {
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
 
-    const currentSetIsModal = isDatePikerModal
-        ? setIsDatePikerModal
+    const currentSetIsModal = isDatePickerModal
+        ? setIsDatePickerModal
         : isMonthSelectModal
             ? setIsMonthSelectModal
             : isYearSelectModal
                 ? setIsYearSelectModal
                 : setIsDateRangeModal;
 
-    const currentIsModal = isDatePikerModal || isMonthSelectModal || isYearSelectModal || isDateRangeModal;
+    const currentIsModal = isDatePickerModal || isMonthSelectModal || isYearSelectModal || isDateRangeModal;
 
-    const getDataDataForStatistic = async (type: "expenses" | "income") => {
+    const getDataForStatistic = async (type: "expenses" | "income") => {
         const token = getDataFromLocalStorage("token");
         const response = (await dispatch(getDataFromUserStore(token))).payload as UserStorageDataType;
         const data = [...response.data[type]];
@@ -82,9 +82,9 @@ export const Statistics: FC = () => {
             getFilterStatisticsForWeek(statisticalData, setIsAlertActive, chosenFilterType, dispatch);
     }, [chosenFilterType]);
 
-    useEffect(() => { getDataDataForStatistic("expenses") }, []);
+    useEffect(() => { getDataForStatistic("expenses") }, []);
 
-    useEffect(() => { getDataDataForStatistic(statisticType) }, [statisticType]);
+    useEffect(() => { getDataForStatistic(statisticType) }, [statisticType]);
 
     return (
         <section>
@@ -94,25 +94,25 @@ export const Statistics: FC = () => {
                     <Header
                         setStatisticType={setStatisticType}
                         setChosenFilterType={setChosenFilterType}
-                        openDatePikerModal={setIsDatePikerModal}
+                        openDatePickerModal={setIsDatePickerModal}
                         openMonthSelectModal={setIsMonthSelectModal}
                         openYearSelectModal={setIsYearSelectModal}
                         openDateRangeModal={setIsDateRangeModal} />
                     <List
                         statisticType={statisticType}
-                        getDataDataForStatistic={getDataDataForStatistic}
+                        getDataForStatistic={getDataForStatistic}
                         setIsAlertActive={setIsAlertActive}
                         setItems={setItems}
                         items={items}
                         setDays={setDays}
                         days={days} />
 
-                    {isDatePikerModal ?
-                        <DatePikerModal
+                    {isDatePickerModal ?
+                        <DatePickerModal
                             chosenFilterType={chosenFilterType}
                             setIsAlertActive={setIsAlertActive}
                             getFilter={getFilterStatisticsForDay}
-                            setIsDatePikerModal={setIsDatePikerModal} />
+                            setIsDatePickerModal={setIsDatePickerModal} />
                         : null}
                     {isMonthSelectModal ?
                         <MonthSelectModal

@@ -14,14 +14,14 @@ interface DeleteCategoryModalProps {
     closeDeleteModal: (value: boolean) => void;
     choosedCategoryId: string | null;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
-    getDataDataForStatistic: (value: "expenses" | "income") => void;
+    getDataForStatistic: (value: "expenses" | "income") => void;
     statisticType:  "expenses" | "income";
 }
 
 type RemoveCategoryById = (categories: Array<Transaction>, categoryId: string | null) => Array<Transaction>
 
 export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
-    closeDeleteModal, choosedCategoryId, getDataDataForStatistic, setIsAlertActive, statisticType }) => {
+    closeDeleteModal, choosedCategoryId, getDataForStatistic, setIsAlertActive, statisticType }) => {
     const dispatch = useAppDispatch();
 
     const { storageData } = useAppSelector((state: RootState) => state.storage);
@@ -44,7 +44,7 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
                 if (changeUserDataResponse) {
                     getAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
                     closeDeleteModal(false);
-                    getDataDataForStatistic(statisticType);
+                    getDataForStatistic(statisticType);
                     addScroll();
                 }
             }

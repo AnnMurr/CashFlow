@@ -7,7 +7,7 @@ import { STATISTICS_OPTIONS } from '../../../../../../../consts';
 import { Container } from './styledSelect';
 
 interface SelectLabelsProps {
-    openDatePikerModal: (value: boolean) => void;
+    openDatePickerModal: (value: boolean) => void;
     openMonthSelectModal: (value: boolean) => void;
     openYearSelectModal: (value: boolean) => void;
     openDateRangeModal: (value: boolean) => void;
@@ -16,7 +16,7 @@ interface SelectLabelsProps {
 
 export const SelectLabels: FC<SelectLabelsProps> = ({
     setChosenFilterType,
-    openDatePikerModal,
+    openDatePickerModal,
     openMonthSelectModal,
     openYearSelectModal,
     openDateRangeModal
@@ -87,7 +87,7 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
 
         switch (type) {
             case "Day":
-                openDatePikerModal(true);
+                openDatePickerModal(true);
                 break;
             case "Month":
                 openMonthSelectModal(true);

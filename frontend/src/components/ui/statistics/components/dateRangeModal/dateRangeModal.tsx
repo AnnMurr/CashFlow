@@ -9,7 +9,7 @@ import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redu
 import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
 import { BtnInner } from "./styledDateRangeModal";
 
-interface DatePikerModalProps {
+interface DatePickerModalProps {
     getFilter: (
         chosenDate: { startDate: string | null, endDate: string | null },
         statisticalData: StatisticalDataType | null,
@@ -22,7 +22,7 @@ interface DatePikerModalProps {
     setIsDateRangeModal: (value: boolean) => void
 }
 
-export const DateRangeModal: FC<DatePikerModalProps> = ({ getFilter, setIsAlertActive, chosenFilterType, setIsDateRangeModal }) => {
+export const DateRangeModal: FC<DatePickerModalProps> = ({ getFilter, setIsAlertActive, chosenFilterType, setIsDateRangeModal }) => {
     const [selectedStartDate, setSelectedStartDate] = useState<string | null>(null);
     const [selectedEndDate, setSelectedEndDate] = useState<string | null>(null);
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);

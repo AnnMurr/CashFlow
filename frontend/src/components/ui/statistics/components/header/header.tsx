@@ -9,7 +9,7 @@ import { TotalSum } from "./components/totalSum/totalSum";
 import { Wrapper } from "./styledHeader";
 
 interface HeaderProps {
-    openDatePikerModal: (value: boolean) => void,
+    openDatePickerModal: (value: boolean) => void,
     openMonthSelectModal: (value: boolean) => void,
     openYearSelectModal: (value: boolean) => void,
     openDateRangeModal: (value: boolean) => void,
@@ -18,7 +18,7 @@ interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({
-    openDatePikerModal,
+    openDatePickerModal,
     setChosenFilterType,
     openMonthSelectModal,
     openYearSelectModal,
@@ -35,7 +35,7 @@ export const Header: FC<HeaderProps> = ({
                         <VariantButtonGroup setStatisticType={setStatisticType} />
                         <SelectLabels
                             setChosenFilterType={setChosenFilterType}
-                            openDatePikerModal={openDatePikerModal}
+                            openDatePickerModal={openDatePickerModal}
                             openMonthSelectModal={openMonthSelectModal}
                             openDateRangeModal={openDateRangeModal}
                             openYearSelectModal={openYearSelectModal} />

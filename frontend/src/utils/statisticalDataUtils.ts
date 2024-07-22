@@ -44,7 +44,7 @@ export const getFilterStatisticsForDay = (
     setIsAlertActive: (value: AlertComponentProps | null) => void,
     chosenFilterType: string | null,
     dispatch: AppDispatch,
-    setIsDatePikerModal: (value: boolean) => void) => {
+    setIsDatePickerModal: (value: boolean) => void) => {
     if (!statisticalData || !chosenDate) return;
 
     const filteredStatisticalData = statisticalData.data[chosenDate];
@@ -58,7 +58,7 @@ export const getFilterStatisticsForDay = (
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
         dispatch(setIsEditingData(false));
-        setIsDatePikerModal(false);
+        setIsDatePickerModal(false);
         dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: [chosenDate], data: chosenDateStatisticalData }));
         dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
     }

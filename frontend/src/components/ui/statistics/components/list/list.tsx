@@ -45,11 +45,11 @@ interface ListProps {
     setDays: (value: Array<string> | null) => void;
     days: Array<string> | null;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
-    getDataDataForStatistic: (value: "expenses" | "income") => void;
+    getDataForStatistic: (value: "expenses" | "income") => void;
     statisticType:  "expenses" | "income";
 }
 
-export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlertActive, getDataDataForStatistic, statisticType }) => {
+export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlertActive, getDataForStatistic, statisticType }) => {
     const [isEditCategoryModalActive, setIsEditCategoryModalActive] = useState<boolean>(false);
     const [isDeleteCategoryModalActive, setIsDeleteCategoryModalActive] = useState<boolean>(false);
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
@@ -97,13 +97,13 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
                         setIsAlertActive={setIsAlertActive}
                         closeEditCategoryModal={setIsEditCategoryModalActive}
                         choosedCategoryId={choosedCategoryId}
-                        getDataDataForStatistic={getDataDataForStatistic}
+                        getDataForStatistic={getDataForStatistic}
                         statisticType={statisticType} />
                     : null}
                 {isDeleteCategoryModalActive ?
                     <DeleteCategoryModal
                         setIsAlertActive={setIsAlertActive}
-                        getDataDataForStatistic={getDataDataForStatistic}
+                        getDataForStatistic={getDataForStatistic}
                         statisticType={statisticType}
                         choosedCategoryId={choosedCategoryId}
                         closeDeleteModal={setIsDeleteCategoryModalActive} />
