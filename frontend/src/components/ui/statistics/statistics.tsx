@@ -11,7 +11,7 @@ import { MonthSelectModal } from "./components/monthSelectModal/monthSelectModal
 import { YearSelectModal } from "./components/yearSelectModal/yearSelectModal";
 import { DateRangeModal } from "./components/dateRangeModal/dateRangeModal";
 import { getFilterStatisticsForDay, getFilterStatisticsForMonth, getFilterStatisticsForRange, getFilterStatisticsForWeek, getFilterStatisticsForYear } from "../../../utils/statisticalDataUtils";
-import { getDataFromUserStore, setStatisticalData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { getDataFromUserStore, setChosenCategoryStatistic, setChosenFilter, setIsEditingData, setStatisticalData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
 import { Container, Wrapper } from "./styledStatistics";
@@ -82,7 +82,15 @@ export const Statistics: FC = () => {
             getFilterStatisticsForWeek(statisticalData, setIsAlertActive, chosenFilterType, dispatch);
     }, [chosenFilterType]);
 
-    useEffect(() => { getDataForStatistic("expenses") }, []);
+    useEffect(() => {
+        getDataForStatistic("expenses");
+
+        return () => {
+            dispatch(setChosenCategoryStatistic(null));
+            dispatch(setChosenFilter(null));
+            dispatch(setIsEditingData(true));
+        }
+    }, []);
 
     useEffect(() => { getDataForStatistic(statisticType) }, [statisticType]);
 
@@ -92,6 +100,8 @@ export const Statistics: FC = () => {
                 <Wrapper>
                     <SubBar />
                     <Header
+                        statisticType={statisticType}
+                        getDataForStatistic={getDataForStatistic}
                         setStatisticType={setStatisticType}
                         setChosenFilterType={setChosenFilterType}
                         openDatePickerModal={setIsDatePickerModal}

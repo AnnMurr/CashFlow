@@ -1,11 +1,12 @@
 import { FC } from "react";
 import { DeleteBtn } from "./components/deleteBtn/deleteBtn";
 import { SelectLabels } from "./components/select/select";
-import { useAppSelector } from "../../../../../redux/store/store";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { BtnGoBack } from "../../../../shared/btnGoBack/btnGoBack";
 import { VariantButtonGroup } from "./components/variantButtonGroup/variantButtonGroup";
 import { TotalSum } from "./components/totalSum/totalSum";
+import { setChosenCategoryStatistic, setChosenFilter, setIsEditingData } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { Wrapper } from "./styledHeader";
 
 interface HeaderProps {
@@ -15,6 +16,8 @@ interface HeaderProps {
     openDateRangeModal: (value: boolean) => void,
     setChosenFilterType: (value: string | null) => void,
     setStatisticType: (value: "expenses" | "income") => void;
+    getDataForStatistic: (type: "expenses" | "income") => void;
+    statisticType: "expenses" | "income";
 }
 
 export const Header: FC<HeaderProps> = ({
@@ -22,17 +25,32 @@ export const Header: FC<HeaderProps> = ({
     setChosenFilterType,
     openMonthSelectModal,
     openYearSelectModal,
-    openDateRangeModal, 
-    setStatisticType }) => {
-    const { chosenFilter } = useAppSelector((state: RootState) => state.storage);
+    openDateRangeModal,
+    setStatisticType,
+    getDataForStatistic,
+    statisticType }) => {
+    const { chosenFilter, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
+    const dispatch = useAppDispatch();
+
+    const handleGoBack = () => {
+        if (chosenCategoryStatistic) {
+            dispatch(setChosenCategoryStatistic(null));
+        } else if (chosenFilter) {
+            dispatch(setChosenFilter(null));
+            getDataForStatistic(statisticType);
+            dispatch(setIsEditingData(true));
+        }
+    }
 
     return (
         <div>
             <Wrapper isfiltered={chosenFilter ? "true" : "false"}>
                 {chosenFilter ?
-                    <BtnGoBack /> :
+                    <BtnGoBack goBack={handleGoBack} /> :
                     <>
-                        <VariantButtonGroup setStatisticType={setStatisticType} />
+                        <VariantButtonGroup
+                            statisticType={statisticType}
+                            setStatisticType={setStatisticType} />
                         <SelectLabels
                             setChosenFilterType={setChosenFilterType}
                             openDatePickerModal={openDatePickerModal}

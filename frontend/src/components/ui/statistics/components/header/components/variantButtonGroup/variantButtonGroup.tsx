@@ -5,10 +5,11 @@ import Box from '@mui/material/Box';
 
 interface VariantButtonGroupProps {
     setStatisticType: (value: "expenses" | "income") => void;
+    statisticType: "expenses" | "income";
 }
 
-export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticType }) => {
-    const [type, setType] = useState("expenses");
+export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticType, statisticType }) => {
+    const [type, setType] = useState(statisticType);
 
     const containerStyles = {
         display: 'flex',
@@ -31,7 +32,8 @@ export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticTy
 
     const buttonStyles = {
         padding: "0px 8px",
-        
+        fontWeight: "600",
+
         '&:first-of-type': {
             paddingLeft: "0",
         },

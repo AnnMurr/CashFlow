@@ -9,13 +9,14 @@ import { EditCategoryModal } from "./components/editCategoryModal/editCategoryMo
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
-import { ItemsInner } from "./styledList";
+import { Loading } from "../../../../shared/loading/loading";
+import { ItemsInner, LoadingInner, Wrapper } from "./styledList";
 
 export const Line: FC<LineProps> = ({
     data, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive
 }) => {
     const { chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
-    
+
     return (
         <ItemsInner>
             {chosenCategoryStatistic ?
@@ -46,14 +47,14 @@ interface ListProps {
     days: Array<string> | null;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
     getDataForStatistic: (value: "expenses" | "income") => void;
-    statisticType:  "expenses" | "income";
+    statisticType: "expenses" | "income";
 }
 
 export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlertActive, getDataForStatistic, statisticType }) => {
     const [isEditCategoryModalActive, setIsEditCategoryModalActive] = useState<boolean>(false);
     const [isDeleteCategoryModalActive, setIsDeleteCategoryModalActive] = useState<boolean>(false);
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
-    const { statisticalData, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
+    const { statisticalData, chosenCategoryStatistic, chosenFilter } = useAppSelector((state: RootState) => state.storage);
 
     const currentSetIsModal = isEditCategoryModalActive
         ? setIsEditCategoryModalActive
@@ -70,8 +71,8 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
 
     return (
         <div>
-            <div>
-                {days &&
+            <Wrapper>
+                {days ?
                     days.map(day => (
                         <React.Fragment key={uuidV4()}>
                             <div>
@@ -91,7 +92,10 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
                                         setChoosedCategoryId={setChoosedCategoryId} />
                                     : null}
                         </React.Fragment>
-                    ))}
+                    )) :
+                    <LoadingInner>
+                        <Loading size={40} height={3} />
+                    </LoadingInner>}
                 {isEditCategoryModalActive ?
                     <EditCategoryModal
                         setIsAlertActive={setIsAlertActive}
@@ -114,7 +118,7 @@ export const List: FC<ListProps> = ({ setItems, items, setDays, days, setIsAlert
                         setIsModalActive={currentSetIsModal}
                         isModalActive={currentIsModal} />
                     : null}
-            </div>
+            </Wrapper>
         </div>
     )
 }
