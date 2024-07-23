@@ -1,10 +1,49 @@
 import { AlertComponentProps } from "../components/shared/alert/alert";
-import { ItemType, ItemsType, StatisticalDataType } from "../redux/reducers/userStorageReduser/types";
+import { ItemType, ItemsType, StatisticalDataType, UserStorageDataType } from "../redux/reducers/userStorageReduser/types";
 import { getAlert } from "./getAlert";
-import { getWeek, parseEuropeanDate } from "./getCurrentDate";
+import { getCurrentDate, getWeek, parseEuropeanDate } from "./getCurrentDate";
 import { MONTH } from "../consts/index";
 import { AppDispatch } from "../redux/store/store";
-import { setChosenFilter, setIsEditingData, setStatisticalData } from "../redux/reducers/userStorageReduser/userStorageReduser";
+import { getDataFromUserStore, setChosenFilter, setIsEditingData, setStatisticalData } from "../redux/reducers/userStorageReduser/userStorageReduser";
+import { getDataFromLocalStorage } from "../storage/localStorage/localStorage";
+
+export const getDataForStatistic = async (type: "expenses" | "income", dispatch: AppDispatch) => {
+    const token = getDataFromLocalStorage("token");
+    const response = (await dispatch(getDataFromUserStore(token))).payload as UserStorageDataType;
+    const data = [...response.data[type]];
+    const financialData: ItemsType = {};
+
+    data.forEach(item => {
+        const newDate = getCurrentDate(item.date);
+        const day = newDate.split(" ")[0];
+
+        if (financialData.hasOwnProperty(day)) {
+            financialData[day].push(item);
+        } else {
+            financialData[day] = [item];
+        }
+    })
+
+    const reverseDateRepresentation = (date: string): string => {
+        const [day, month, year] = date.split('.');
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    };
+
+    const sortedDays = Object.keys(financialData).map(reverseDateRepresentation)
+        .sort((a, b) => b.localeCompare(a))
+        .map(date => {
+            const [year, month, day] = date.split('-');
+            return `${day}.${month}.${year}`;
+        });
+
+    for (const key in financialData) {
+        financialData[key].sort((a: ItemType, b: ItemType) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+    }
+
+    dispatch(setStatisticalData({ days: sortedDays, data: financialData }))
+}
 
 const processStatisticalData = (
     data: ItemsType,
@@ -73,7 +112,7 @@ export const getFilterStatisticsForWeek = (
 
     const week = getWeek();
     const result = processStatisticalData(statisticalData.data, week, setIsAlertActive);
-    
+
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
         const weekRange = `${week[0]} - ${week[week.length - 1]}`;
@@ -146,6 +185,10 @@ export const getFilterStatisticsForRange = (
     dispatch: AppDispatch,
     setIsDateRangeModal: (value: boolean) => void) => {
     if (!statisticalData || !chosenDate.startDate || !chosenDate.endDate) return;
+    if(chosenDate.endDate < chosenDate.startDate) {
+        getAlert({ type: "error", text: "End date must be greater than start date" }, setIsAlertActive, 3000);
+        return;
+    }
 
     const dateStart = parseEuropeanDate(chosenDate.startDate);
     const dateEnd = parseEuropeanDate(chosenDate.endDate);

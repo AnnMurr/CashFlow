@@ -8,20 +8,20 @@ import { changeUserData } from "../../../../../../../redux/reducers/userStorageR
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
 import { getAlert } from "../../../../../../../utils/getAlert";
 import { addScroll } from "../../../../../../../utils/toggleScroll";
+import { getDataForStatistic } from "../../../../../../../utils/statisticalDataUtils";
 import { BtnInner, Container, Title, Wrapper } from "./styledDeleteCategoryModal";
 
 interface DeleteCategoryModalProps {
     closeDeleteModal: (value: boolean) => void;
     choosedCategoryId: string | null;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
-    getDataForStatistic: (value: "expenses" | "income") => void;
     statisticType:  "expenses" | "income";
 }
 
 type RemoveCategoryById = (categories: Array<Transaction>, categoryId: string | null) => Array<Transaction>
 
 export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
-    closeDeleteModal, choosedCategoryId, getDataForStatistic, setIsAlertActive, statisticType }) => {
+    closeDeleteModal, choosedCategoryId, setIsAlertActive, statisticType }) => {
     const dispatch = useAppDispatch();
 
     const { storageData } = useAppSelector((state: RootState) => state.storage);
@@ -44,7 +44,7 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
                 if (changeUserDataResponse) {
                     getAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
                     closeDeleteModal(false);
-                    getDataForStatistic(statisticType);
+                    getDataForStatistic(statisticType, dispatch);
                     addScroll();
                 }
             }

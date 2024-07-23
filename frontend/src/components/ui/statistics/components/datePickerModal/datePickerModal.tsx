@@ -6,23 +6,17 @@ import { RootState, StatisticalDataType } from "../../../../../redux/reducers/us
 import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
 import { BtnClose } from "../../../../shared/btnClose/btnClose";
+import { getFilterStatisticsForDay } from "../../../../../utils/statisticalDataUtils";
 import { BtnInner } from "./styledDatePickerModal";
 
 interface DatePickerModalProps {
-    getFilter: (
-        chosenDate: string | null,
-        statisticalData: StatisticalDataType | null,
-        setIsAlertActive: (value: AlertComponentProps | null) => void,
-        chosenFilterType: string | null,
-        dispatch: AppDispatch,
-        setIsDatePickerModal: (value: boolean) => void,) => void;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
     setIsDatePickerModal: (value: boolean) => void;
     chosenFilterType: string | null;
 }
 
 export const DatePickerModal: FC<DatePickerModalProps> = ({
-    getFilter, setIsAlertActive, chosenFilterType, setIsDatePickerModal }) => {
+    setIsAlertActive, chosenFilterType, setIsDatePickerModal }) => {
     const [chosenDate, setChosenDate] = useState(null);
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
@@ -46,7 +40,7 @@ export const DatePickerModal: FC<DatePickerModalProps> = ({
                     color="#fff"
                     type="button"
                     func={() =>
-                        getFilter(
+                        getFilterStatisticsForDay(
                             chosenDate,
                             statisticalData,
                             setIsAlertActive,

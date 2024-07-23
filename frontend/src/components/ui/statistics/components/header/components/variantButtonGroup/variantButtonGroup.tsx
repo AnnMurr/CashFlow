@@ -23,7 +23,7 @@ export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticTy
 
     const buttonGroupStyles = {
         '& .MuiButtonGroup-firstButton': {
-            borderColor: "#000",
+            borderRight: "2px solid #000",
         },
         '&.MuiButtonGroup-root': {
             margin: '0 auto 0 0',
