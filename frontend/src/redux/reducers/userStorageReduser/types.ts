@@ -6,6 +6,7 @@ export interface CategoriesType {
 export type CategoryKeys = "categoriesExpenses" | "categoriesIncome";
 export type TransactionKeys = "expenses" | "income";
 export type StorageDataKeys = CategoryKeys | TransactionKeys;
+
 export interface Transaction {
     type: TransactionKeys;
     category: string;
@@ -14,6 +15,7 @@ export interface Transaction {
     sum: number;
     uid: string;
 }
+
 export interface StorageDataType {
     categoriesExpenses: Array<CategoriesType>;
     categoriesIncome: Array<CategoriesType>;

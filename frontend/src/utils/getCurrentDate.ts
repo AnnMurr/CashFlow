@@ -27,21 +27,25 @@ export const parseEuropeanDate = (dateString: string) => {
     const day = parseInt(dateString.substring(0, 2), 10);
     const month = parseInt(dateString.substring(3, 5), 10) - 1;
     const year = parseInt(dateString.substring(6, 10), 10);
-  
+    console.log(`${day}.${month}.${year}`);
+
     return new Date(year, month, day);
-  }
+}
+
+export const areDatesEqual = (date1: Date, date2: Date): boolean =>
+    new Date(date1).setHours(0, 0, 0, 0) === new Date(date2).setHours(0, 0, 0, 0);
 
 export const formatDate = (date: any) => {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
-    
+
     return `${day}.${month}.${year}`;
 };
 
 export const getWeek = () => {
     const currentDate = new Date();
-    const dayOfWeek = (currentDate.getDay() + 6) % 7; 
+    const dayOfWeek = (currentDate.getDay() + 6) % 7;
     const startOfWeek = new Date(currentDate);
     const endOfWeek = new Date(currentDate);
 
@@ -50,7 +54,7 @@ export const getWeek = () => {
     endOfWeek.setDate(currentDate.getDate() + (6 - dayOfWeek));
 
     const dates = [];
-    
+
     for (let date = new Date(startOfWeek); date <= endOfWeek; date.setDate(date.getDate() + 1)) {
         dates.push(formatDate(new Date(date)));
     }
