@@ -5,26 +5,20 @@ import { ButtonComponent } from "../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { BtnClose } from "../../../../shared/btnClose/btnClose";
 import { getMonth, getYear } from "../../../../../utils/getCurrentDate";
-import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
-import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
+import { getFilterStatisticsForMonth } from "../../../../../utils/statisticalDataUtils";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
+import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
 import { BtnInner } from "./styledMonthSelectModal";
 
 interface MonthSelectModalProps {
-    getFilter: (
-        chosenDate: string | null,
-        statisticalData: StatisticalDataType | null,
-        setIsAlertActive: (value: AlertComponentProps | null) => void,
-        chosenFilterType: string | null,
-        dispatch: AppDispatch,
-        setIsMonthSelectModal: (value: boolean) => void) => void,
     setIsAlertActive: (value: AlertComponentProps | null) => void;
     chosenFilterType: string | null;
     setIsMonthSelectModal: (value: boolean) => void;
 }
 
 export const MonthSelectModal: FC<MonthSelectModalProps> = ({
-    getFilter, setIsAlertActive, chosenFilterType, setIsMonthSelectModal }) => {
+    setIsAlertActive, chosenFilterType, setIsMonthSelectModal }) => {
     const [months, setMonths] = useState<Array<string> | null>(null);
     const [month, setMonth] = useState<string | null>(null);
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
@@ -70,7 +64,7 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({
                     color="#fff"
                     type="button"
                     func={() =>
-                        getFilter(
+                        getFilterStatisticsForMonth(
                             month,
                             statisticalData,
                             setIsAlertActive,

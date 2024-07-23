@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 export const Heading = styled.div`
     padding-bottom: 20px;
 
-    & h2 {
+    h2 {
         font-size: 30px;
     }
 `

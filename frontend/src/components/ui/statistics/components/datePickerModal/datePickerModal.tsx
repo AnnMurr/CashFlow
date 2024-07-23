@@ -1,28 +1,22 @@
 import { FC, useState } from "react";
-import { DatePiker } from "../../../../shared/datePicker/datePicker";
+import { DatePickerComponent } from "../../../../shared/datePicker/datePicker";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { RootState, StatisticalDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { AppDispatch, useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
 import { BtnClose } from "../../../../shared/btnClose/btnClose";
-import { BtnInner } from "./styledDatePikerModal";
+import { getFilterStatisticsForDay } from "../../../../../utils/statisticalDataUtils";
+import { BtnInner } from "./styledDatePickerModal";
 
-interface DatePikerModalProps {
-    getFilter: (
-        chosenDate: string | null,
-        statisticalData: StatisticalDataType | null,
-        setIsAlertActive: (value: AlertComponentProps | null) => void,
-        chosenFilterType: string | null,
-        dispatch: AppDispatch,
-        setIsDatePikerModal: (value: boolean) => void,) => void;
+interface DatePickerModalProps {
     setIsAlertActive: (value: AlertComponentProps | null) => void;
-    setIsDatePikerModal: (value: boolean) => void;
+    setIsDatePickerModal: (value: boolean) => void;
     chosenFilterType: string | null;
 }
 
-export const DatePikerModal: FC<DatePikerModalProps> = ({
-    getFilter, setIsAlertActive, chosenFilterType, setIsDatePikerModal }) => {
+export const DatePickerModal: FC<DatePickerModalProps> = ({
+    setIsAlertActive, chosenFilterType, setIsDatePickerModal }) => {
     const [chosenDate, setChosenDate] = useState(null);
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
@@ -34,10 +28,10 @@ export const DatePikerModal: FC<DatePikerModalProps> = ({
                     marginLeft: "auto",
                     marginBottom: "10px",
                 }}
-                closeBlock={setIsDatePikerModal}
+                closeBlock={setIsDatePickerModal}
                 size="lg"
                 color="#000" />
-            <DatePiker setChosenDate={setChosenDate} />
+            <DatePickerComponent setChosenDate={setChosenDate} />
             <BtnInner>
                 <ButtonComponent
                     backgroundColor="#5B8A72"
@@ -46,13 +40,13 @@ export const DatePikerModal: FC<DatePikerModalProps> = ({
                     color="#fff"
                     type="button"
                     func={() =>
-                        getFilter(
+                        getFilterStatisticsForDay(
                             chosenDate,
                             statisticalData,
                             setIsAlertActive,
                             chosenFilterType,
                             dispatch,
-                            setIsDatePikerModal)} />
+                            setIsDatePickerModal)} />
             </BtnInner>
         </FiltersModalContainer>
     )

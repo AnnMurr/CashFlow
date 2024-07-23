@@ -21,10 +21,11 @@ export const DarkBackground: FC<DarkBackgroundProps> = ({ setIsModalActive, isMo
         if (isModalActive) {
             window.addEventListener("click", handleClickOutsideModal);
             hideScroll();
-        }
+        } 
 
         return () => {
             window.removeEventListener("click", handleClickOutsideModal);
+            addScroll();
         };
     }, []);
 

@@ -9,13 +9,13 @@ export const Container = styled.div`
 export const Title = styled.div`
     padding-bottom: 10px;
 
-    & h2 {
+    h2 {
         font-size: 25px;
     }
 `
 
 export const Sum = styled.div`
-    & span {
+    span {
         font-weight: 600;
         font-size: 20px;
     }

@@ -1,12 +1,12 @@
 import { FC, useEffect } from "react";
-import { getCurrentDate } from "../../../../../../../utils/getCurrentDate";
-import { ItemType, RootState } from "../../../../../../../redux/reducers/userStorageReduser/types";
+import { getCurrentDate } from "../../../../../../../../../utils/getCurrentDate";
+import { ItemType, RootState } from "../../../../../../../../../redux/reducers/userStorageReduser/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { hideScroll } from "../../../../../../../utils/toggleScroll";
-import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
-import { setChosenCategoryStatistic } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { Category, Container, Edit, IconInner, Settings, TimeEditBlock } from "./styledItem";
+import { hideScroll } from "../../../../../../../../../utils/toggleScroll";
+import { useAppDispatch, useAppSelector } from "../../../../../../../../../redux/store/store";
+import { setChosenCategoryStatistic } from "../../../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { Category, Container, Edit, IconInner, Settings, TimeEditBlock, Date } from "./styledItem";
 interface ItemProps {
     dataItem: ItemType;
     setIsEditCategoryModalActive?: (value: boolean) => void;
@@ -52,7 +52,10 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
                 <span>{dataItem.sum}$</span>
             </div>
             <TimeEditBlock>
-                <span>{date.split(" ")[1]}</span>
+                <Date>
+                    <span>{date.split(" ")[0]}</span>
+                    <span>{date.split(" ")[1]}</span>
+                </Date>
             </TimeEditBlock>
         </Container>) :
         chosenFilter ?

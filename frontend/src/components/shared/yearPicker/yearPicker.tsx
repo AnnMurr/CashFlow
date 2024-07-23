@@ -28,7 +28,7 @@ export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
                         padding: "10px",
                     },
                     '& label': {
-                        top: "-4px",
+                        top: "-6px",
                     }
                 }}
                     onChange={(newValue) => setValue(newValue)}

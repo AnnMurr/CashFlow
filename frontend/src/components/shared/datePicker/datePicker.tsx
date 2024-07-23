@@ -7,7 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { getCurrentDate } from '../../../utils/getCurrentDate';
 
-export const DatePiker: FC<any> = ({ setChosenDate }) => {
+export const DatePickerComponent: FC<any> = ({ setChosenDate }) => {
     const [value, setValue] = useState<Dayjs | null>(null);
 
     useEffect(() => {

@@ -4,7 +4,7 @@ export const SignUpWithGoogleTitle = styled.div`
     padding: 10px 0;
     text-align: center;
 
-    & span {
+    span {
         font-size: 13px;
         color: #767474;
     }

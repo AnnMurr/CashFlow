@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const ItemsInner = styled.ul`
-    overflow: hidden;
-    padding: 15px 0;
+export const LoadingInner = styled.div`
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
 `

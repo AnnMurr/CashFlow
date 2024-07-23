@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 `
 
 export const Title = styled.div`
-    & h5 {
+    h5 {
         font-size: 18px;
         font-weight: 400;
     }
@@ -16,7 +16,7 @@ export const Title = styled.div`
 export const SubTitle = styled.div`
     padding: 15px 0;
 
-    & span {
+    span {
         font-size: 14px;
         font-weight: 400;
     }

@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Container = styled.button`
     text-align: center;
 
-    & span {
+    span {
         font-size: 13px;
         color: #767474;
     }

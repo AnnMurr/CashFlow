@@ -5,7 +5,7 @@ export const AppIconsWrap = styled(motion.div)`
     display: flex;
     padding: 40px 0;
 
-    & a{
+    a{
         transition: all 0.5s ease-in-out;
 
         &:first-child {

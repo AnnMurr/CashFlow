@@ -1,7 +1,13 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-    padding: 20px 20px 20px 35px;
+interface StylesProps {
+    isfiltered: string;
+}
+
+export const Wrapper = styled.div<StylesProps>`
+    padding: 20px;
     align-items: center;
-    display: flex;
+    display: grid;
+    text-align: end;
+    grid-template-columns: ${({ isfiltered }) => isfiltered === "true" ? "repeat(2, 1fr)" : "repeat(3, 1fr)"};
 `

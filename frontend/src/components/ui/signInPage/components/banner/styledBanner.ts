@@ -19,7 +19,7 @@ export const IconInner = styled.div`
     width: fit-content;
     margin: 0 auto;
 
-    & img {
+    img {
         width: 80px;
     }
 `

@@ -75,3 +75,10 @@ export const TimeEditBlock = styled.div`
     align-items: center;
     justify-content: end;
 `
+
+export const Date = styled.div`
+    display: grid;
+    grid-template-columns: 85% 15%;
+    text-align: end;
+    width: 100%;
+`

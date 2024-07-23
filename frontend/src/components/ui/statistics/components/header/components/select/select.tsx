@@ -7,7 +7,7 @@ import { STATISTICS_OPTIONS } from '../../../../../../../consts';
 import { Container } from './styledSelect';
 
 interface SelectLabelsProps {
-    openDatePikerModal: (value: boolean) => void;
+    openDatePickerModal: (value: boolean) => void;
     openMonthSelectModal: (value: boolean) => void;
     openYearSelectModal: (value: boolean) => void;
     openDateRangeModal: (value: boolean) => void;
@@ -16,7 +16,7 @@ interface SelectLabelsProps {
 
 export const SelectLabels: FC<SelectLabelsProps> = ({
     setChosenFilterType,
-    openDatePikerModal,
+    openDatePickerModal,
     openMonthSelectModal,
     openYearSelectModal,
     openDateRangeModal
@@ -47,7 +47,7 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
         '&.MuiInputBase-root': {
             lineHeight: "1.4375em",
         },
-    }
+    };
 
     const formControlStyles = {
         m: 1,
@@ -61,7 +61,7 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
         '&.MuiInputBase-root': {
             lineHeight: "1.4375em",
         },
-    }
+    };
 
     const menuItemStyles = {
         '&.Mui-selected.Mui-focusVisible': {
@@ -76,16 +76,18 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
         '& em': {
             fontStyle: 'normal',
         },
-    }
+    };
 
     const handleChange = (event: SelectChangeEvent) => {
         const value = event.target.value;
         const type = STATISTICS_OPTIONS[+value - 1];
-        setChosenFilterType(type);
+
+        setChosenFilterType(null);
+        setTimeout(() => { setChosenFilterType(type); }, 0);
 
         switch (type) {
             case "Day":
-                openDatePikerModal(true);
+                openDatePickerModal(true);
                 break;
             case "Month":
                 openMonthSelectModal(true);

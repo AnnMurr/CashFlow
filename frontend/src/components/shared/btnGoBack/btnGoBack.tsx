@@ -4,12 +4,16 @@ import { faCircleLeft } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, Button } from "./styledBtnGoBack";
 
-export const BtnGoBack: FC = () => {
+interface BtnGoBackProps {
+    goBack?: () => void;
+}
+
+export const BtnGoBack: FC<BtnGoBackProps> = ({ goBack }) => {
     const navigate = useNavigate();
 
     return (
         <Container>
-            <Button onClick={() => navigate(-1)}>
+            <Button onClick={goBack ? goBack : () => navigate(-1)}>
                 <FontAwesomeIcon size="xl" color="black" icon={faCircleLeft} />
             </Button>
         </Container>
