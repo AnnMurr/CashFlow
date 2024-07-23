@@ -42,7 +42,7 @@ export const List: FC<ListProps> = ({ setIsAlertActive, statisticType }) => {
         <div>
             <div>
                 {days ?
-                    days.map(day => (
+                    days.slice(0, 30).map(day => (
                         <React.Fragment key={uuidV4()}>
                             <div>
                                 <ItemDay title={day} />

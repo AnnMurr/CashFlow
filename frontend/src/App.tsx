@@ -24,7 +24,7 @@ import { ChangePasswordModificationPage } from './components/ui/profileChaningPa
 import { DeletingAccountConfirmationPage } from './components/ui/profileChaningPages/deletingAccountСonfirmationPage/deletingAccountСonfirmationPage';
 import { DeletingAccountPage } from './components/ui/profileChaningPages/deletingAccountPage/deletingAccountPage';
 import { IcomePage } from './components/ui/icomePage/icomePage';
-import { Statistics } from './components/ui/statistics/statistics';
+import { Statistics } from './components/ui/statisticsPage/statistics';
 
 function App() {
   return (
