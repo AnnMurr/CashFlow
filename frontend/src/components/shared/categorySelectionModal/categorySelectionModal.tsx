@@ -88,7 +88,7 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                         onChange={(event) => setCategory(event.target.value.trimStart())} type="text" />
                 </InputInner>
                 <List>
-                    {iconsCollection.slice(0, 9).map((icon, index) => (
+                    {iconsCollection.map((icon, index) => (
                         <Item selected={selectedItem === index ? true : false} key={uuidV4()}>
                             <button onClick={() => selectCategoryIcon(index)} type="button">
                                 <img src={icon} alt="" />

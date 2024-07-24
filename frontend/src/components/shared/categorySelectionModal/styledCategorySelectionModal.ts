@@ -52,6 +52,9 @@ export const List = styled.ul`
     display: grid;
     grid-template-columns: repeat(5,1fr);
     gap: 20px;
+    overflow: hidden scroll;
+    max-height: 20rem;
+    scrollbar-width: none;
 `
 
 export const BtnInner = styled.div`
