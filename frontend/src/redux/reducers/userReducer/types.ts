@@ -15,3 +15,10 @@ export interface CheckUserDataByEmailType {
     email: string;
     link: string;
 }
+
+export interface UserDataType {
+    email: string;
+    name: string;
+    password?: string;
+    confirmPassword?: string;
+}

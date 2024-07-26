@@ -3,7 +3,7 @@ import { ButtonComponent } from "../../../shared/button/button";
 import { signInWithGooglePopup } from "../../../../utils/firebase/firebase";
 import { useAppDispatch, useAppSelector } from "../../../../redux/store/store";
 import { checkUserDataByEmail, updateUserData } from "../../../../redux/reducers/userReducer/userReducer";
-import { UserDataType } from "../../../../api/authApi/authApiTypes";
+import { UserDataType } from "../../../../redux/reducers/userReducer/types";
 import { AlertComponentProps } from "../../../shared/alert/alert";
 import { SubTitle, Title, Description } from "./styledChangeUserAccount";
 

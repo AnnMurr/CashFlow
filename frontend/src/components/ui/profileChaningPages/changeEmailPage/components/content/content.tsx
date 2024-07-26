@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "../../../../../../redux/store/store";
-import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
+import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { Description, Email, EmailAdressInner, SubTitle, Title, Wrapper } from "./styledContent";
 
 export const Content: FC = () => {
