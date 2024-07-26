@@ -5,7 +5,7 @@ import { EditUserDataModal } from "./components/editUserDataModal/editUserDataMo
 import { DarkBackground } from "../../../../../shared/darkBackground/darkBackground";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { useAppSelector } from "../../../../../../redux/store/store";
-import { UserDataType } from "../../../../../../api/authApi/authApiTypes";
+import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { Wrapper, UserName } from "./styledContent";
 
 export const Content: FC = () => {
