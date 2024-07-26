@@ -60,8 +60,10 @@ export const createUserStore = createAsyncThunk<UserStorageDataType, string>(
                         categoriesIncome: [{ name: "work", icon: ICONS_EXPENSES_COLLECTION[5] }],
                         expenses: [],
                         income: [],
-                        settings:{
+                        settings: {
                             currency: "USD",
+                            name: "United States dollar",
+                            symbol: "$"
                         }
                     }
                 })
@@ -115,10 +117,10 @@ export const changeUserData = createAsyncThunk<UserStorageDataType, { userToken:
                 })
 
                 if (!response.ok) throw new Error("Failed to update user's data");
-      
-                    const dataUpdated = await response.json();
-                    dispatch(setUserDataToReduxStore(dataUpdated));
-                    return dataUpdated;
+
+                const dataUpdated = await response.json();
+                dispatch(setUserDataToReduxStore(dataUpdated));
+                return dataUpdated;
             }
         } catch (error) {
             error instanceof Error && rejectWithValue(error.message);
