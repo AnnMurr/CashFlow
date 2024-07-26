@@ -1,20 +1,11 @@
-export type CurrencyCode = 
-  | 'USD'
-  | 'EUR'
-  | 'JPY'
-  | 'GBP'
-  | 'AUD'
-  | 'CAD'
-  | 'CHF'
-  | 'CNY'
-  | 'SEK'
-  | 'NZD'
+import { CURRENCY_TO_LOCALE } from "../consts/index";
 
-export function getFormatCurrency(price: number, currencyCode: CurrencyCode): string {
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: currencyCode,
-  });
+export function getFormatCurrency(price: number, currencyCode: string): string {
+    const formatter = new Intl.NumberFormat(CURRENCY_TO_LOCALE[currencyCode], {
+        style: 'currency',
+        currency: currencyCode,
+        currencyDisplay: 'narrowSymbol'
+    });
 
-  return formatter.format(price);
+    return formatter.format(price);
 }

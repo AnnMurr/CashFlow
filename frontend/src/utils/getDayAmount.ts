@@ -1,8 +1,8 @@
 import { UserStorageDataType } from "../redux/reducers/userStorageReduser/types";
 import { areDatesEqual } from "./getCurrentDate";
-import { CurrencyCode, getFormatCurrency } from "./getFormatCurrency";
+import { getFormatCurrency } from "./getFormatCurrency";
 
-type getDayAmountType = (storageData: UserStorageDataType, type: "expenses" | "income", setDayAmout: (value: string) => void, currency: CurrencyCode) => void;
+type getDayAmountType = (storageData: UserStorageDataType, type: "expenses" | "income", setDayAmout: (value: string) => void, currency: string) => void;
 
 export const getDayAmount: getDayAmountType = (storageData, type, setDayAmout, currency) => {
     const currentDate = new Date();

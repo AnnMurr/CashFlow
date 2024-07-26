@@ -22,19 +22,23 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
     const dispatch = useAppDispatch();
     const { isEditingData, chosenFilter, statisticalData, currency } = useAppSelector((state: RootState) => state.storage);
 
-    const getEditModal = (event: any) => {
-        setChoosedCategoryId && setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id);
+    const getEditModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const target = event.currentTarget as HTMLButtonElement;
+        const grandparent = target.parentNode?.parentNode?.parentNode as HTMLElement | null;
+        setChoosedCategoryId && grandparent && setChoosedCategoryId(grandparent.id);
         setIsEditCategoryModalActive && setIsEditCategoryModalActive(true);
         hideScroll();
     }
 
-    const getDeleteModal = (event: any) => {
-        setChoosedCategoryId && setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id)
+    const getDeleteModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const target = event.currentTarget as HTMLButtonElement;
+        const grandparent = target.parentNode?.parentNode?.parentNode as HTMLElement | null;
+        setChoosedCategoryId && grandparent && setChoosedCategoryId(grandparent.id);
         setIsDeleteCategoryModalActive && setIsDeleteCategoryModalActive(true);
         hideScroll();
     }
 
-    const getData = (event: any) => {
+    const getData = (event: React.MouseEvent<HTMLDivElement>) => {
         const category = event.currentTarget.dataset["categorytype"];
 
         if (statisticalData && chosenFilter) {

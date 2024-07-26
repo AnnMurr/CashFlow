@@ -1,5 +1,3 @@
-import { CurrencyCode } from "../../../utils/getFormatCurrency";
-
 export interface CategoriesType {
     name: string;
     icon: string;
@@ -30,7 +28,9 @@ export interface UserStorageDataType {
     id: string;
     uid: string;
     settings:{
-        currency: CurrencyCode,
+        currency: any,
+        name: string,
+        symbol: string
     }
 }
 
@@ -59,7 +59,7 @@ export interface StatisticalDataType {
 export interface RootState {
     storage: {
         storageData: UserStorageDataType | null;
-        currency: CurrencyCode | null;
+        currency: any | null;
         typesOfCategories: TypesOfCategoriesType | null;
         transactions: Array<Transaction> | null;
         statisticalData: StatisticalDataType | null;
