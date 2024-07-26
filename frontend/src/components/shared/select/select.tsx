@@ -5,10 +5,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { CategoriesType } from "../../../redux/reducers/userStorageReduser/types";
+import { CurrencyNameAndCode } from "../../../api/getCurrencyCodes/types";
 import { v4 as uuidv4 } from 'uuid';
 
 interface MultipleSelectPlaceholderType {
-  names: Array<CategoriesType> | Array<string> | null,
+  names: Array<CategoriesType> | Array<string> | Array<CurrencyNameAndCode> | null,
   categoryName: string | null,
   setCategoryName: (value: string) => void
 }
@@ -78,7 +79,7 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }} >
           {names && names.map((item) => {
-            const itemName = typeof item === 'string' ? item : item.name;
+            const itemName = typeof item === 'string' ? item : item.name.toString();
 
             return (
               <MenuItem

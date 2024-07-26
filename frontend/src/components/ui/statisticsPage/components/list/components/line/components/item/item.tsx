@@ -4,9 +4,11 @@ import { ItemType, RootState } from "../../../../../../../../../redux/reducers/u
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { hideScroll } from "../../../../../../../../../utils/toggleScroll";
+import { getFormatCurrency } from "../../../../../../../../../utils/getFormatCurrency";
 import { useAppDispatch, useAppSelector } from "../../../../../../../../../redux/store/store";
 import { setChosenCategoryStatistic } from "../../../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { Category, Container, Edit, IconInner, Settings, TimeEditBlock, Date } from "./styledItem";
+
 interface ItemProps {
     dataItem: ItemType;
     setIsEditCategoryModalActive?: (value: boolean) => void;
@@ -18,21 +20,25 @@ interface ItemProps {
 export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, setChoosedCategoryId, setIsDeleteCategoryModalActive, categoryStatistic }) => {
     const date = getCurrentDate(dataItem.date);
     const dispatch = useAppDispatch();
-    const { isEditingData, chosenFilter, statisticalData } = useAppSelector((state: RootState) => state.storage);
+    const { isEditingData, chosenFilter, statisticalData, currency } = useAppSelector((state: RootState) => state.storage);
 
-    const getEditModal = (event: any) => {
-        setChoosedCategoryId && setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id);
+    const getEditModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const target = event.currentTarget as HTMLButtonElement;
+        const grandparent = target.parentNode?.parentNode?.parentNode as HTMLElement | null;
+        setChoosedCategoryId && grandparent && setChoosedCategoryId(grandparent.id);
         setIsEditCategoryModalActive && setIsEditCategoryModalActive(true);
         hideScroll();
     }
 
-    const getDeleteModal = (event: any) => {
-        setChoosedCategoryId && setChoosedCategoryId(event.currentTarget.parentNode.parentNode.parentNode.id)
+    const getDeleteModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const target = event.currentTarget as HTMLButtonElement;
+        const grandparent = target.parentNode?.parentNode?.parentNode as HTMLElement | null;
+        setChoosedCategoryId && grandparent && setChoosedCategoryId(grandparent.id);
         setIsDeleteCategoryModalActive && setIsDeleteCategoryModalActive(true);
         hideScroll();
     }
 
-    const getData = (event: any) => {
+    const getData = (event: React.MouseEvent<HTMLDivElement>) => {
         const category = event.currentTarget.dataset["categorytype"];
 
         if (statisticalData && chosenFilter) {
@@ -49,7 +55,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
             iseditingdata={isEditingData.toString()}
             id={dataItem.uid} >
             <div>
-                <span>{dataItem.sum}$</span>
+                {currency && <span>{getFormatCurrency(dataItem.sum, currency)}</span>}
             </div>
             <TimeEditBlock>
                 <Date>
@@ -73,7 +79,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
                     <span>{dataItem.category}</span>
                 </Category>
                 <div>
-                    <span>{dataItem.sum}$</span>
+                    {currency && <span>{getFormatCurrency(dataItem.sum, currency)}</span>}
                 </div>
             </Container>)
             :
@@ -91,7 +97,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
                     <span>{dataItem.category}</span>
                 </Category>
                 <div>
-                    <span>{dataItem.sum}$</span>
+                    {currency && <span>{getFormatCurrency(dataItem.sum, currency)}</span>}
                 </div>
                 <TimeEditBlock>
                     <span>{date.split(" ")[1]}</span>

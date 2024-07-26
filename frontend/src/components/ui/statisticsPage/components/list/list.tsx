@@ -23,7 +23,7 @@ export const List: FC<ListProps> = ({ setIsAlertActive, statisticType }) => {
     const [isEditCategoryModalActive, setIsEditCategoryModalActive] = useState<boolean>(false);
     const [isDeleteCategoryModalActive, setIsDeleteCategoryModalActive] = useState<boolean>(false);
     const [choosedCategoryId, setChoosedCategoryId] = useState<string | null>(null);
-    const { statisticalData, chosenCategoryStatistic, chosenFilter } = useAppSelector((state: RootState) => state.storage);
+    const { statisticalData, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
 
     const currentSetIsModal = isEditCategoryModalActive
         ? setIsEditCategoryModalActive

@@ -6,11 +6,11 @@ import { Container, Sum, Title } from "./styledHeading";
 
 export const Heading: FC = () => {
     const [dayIncome, setDayIncome] = useState<string | null>(null);
-    const { storageData } = useAppSelector((state: RootState) => state.storage);
+    const { storageData, currency } = useAppSelector((state: RootState) => state.storage);
 
     useEffect(() => {
-        if (storageData) {
-            getDayAmount(storageData, 'income', setDayIncome)
+        if (storageData && currency) {
+            getDayAmount(storageData, 'income', setDayIncome, currency);
         }
     }, [storageData]);
 
@@ -20,7 +20,7 @@ export const Heading: FC = () => {
                 <h2>Day Income</h2>
             </Title>
             <Sum>
-                <span>{dayIncome ? dayIncome : "0"}$</span>
+                <span>{dayIncome ? dayIncome : "0"}</span>
             </Sum>
         </Container>
     )

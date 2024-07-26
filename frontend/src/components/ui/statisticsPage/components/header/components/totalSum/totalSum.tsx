@@ -1,16 +1,17 @@
 import { FC, useEffect, useState } from "react";
 import { useAppSelector } from "../../../../../../../redux/store/store";
 import { ItemType, RootState } from "../../../../../../../redux/reducers/userStorageReduser/types";
+import { getFormatCurrency } from "../../../../../../../utils/getFormatCurrency";
 import { Sum, TotalSumInner, TotalSumTitle } from "./styledTotalSum";
 
 export const TotalSum: FC = () => {
     const [totalSum, setTotalSum] = useState<string | null>(null);
-    const { chosenFilter, statisticalData, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
+    const { chosenFilter, statisticalData, chosenCategoryStatistic, currency } = useAppSelector((state: RootState) => state.storage);
 
     const getTotalSum = (items: Array<ItemType>) => {
-        if (items) {
+        if (items && currency) {
             const totalSum: number = items.reduce((acc, value) => acc += value.sum, 0);
-            setTotalSum(totalSum.toFixed(2));
+            setTotalSum(getFormatCurrency(totalSum, currency));
         }
     }
 
@@ -35,7 +36,7 @@ export const TotalSum: FC = () => {
                     <h5>Total:</h5>
                 </TotalSumTitle>
                 <Sum>
-                    <span>{totalSum}$</span>
+                    <span>{totalSum}</span>
                 </Sum>
             </TotalSumInner>
             : null

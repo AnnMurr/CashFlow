@@ -4,6 +4,7 @@ import { ICONS_EXPENSES_COLLECTION } from "../../../consts/images";
 
 const initialstate = {
     storageData: null,
+    currency: null,
     typesOfCategories: null,
     transactions: null,
     statisticalData: null,
@@ -18,6 +19,7 @@ export const storageSlice = createSlice({
     reducers: {
         setUserDataToReduxStore: (state, action) => {
             state.storageData = action.payload;
+            state.currency = action.payload.settings.currency;
         },
         setCategoriesTypes: (state, action) => {
             state.typesOfCategories = action.payload;
@@ -58,6 +60,9 @@ export const createUserStore = createAsyncThunk<UserStorageDataType, string>(
                         categoriesIncome: [{ name: "work", icon: ICONS_EXPENSES_COLLECTION[5] }],
                         expenses: [],
                         income: [],
+                        settings:{
+                            currency: "USD",
+                        }
                     }
                 })
             });
