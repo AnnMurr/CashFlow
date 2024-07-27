@@ -31,6 +31,7 @@ export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticTy
     };
 
     const buttonStyles = {
+        fontFamily: "Almarai",
         padding: "0px 8px",
         fontWeight: "600",
 

@@ -45,6 +45,7 @@ export const Input = styled.input`
 export const Label = styled.label`
     font-weight: 600;
     padding-bottom: 10px;
+    font-family: "Almarai";
 `
 
 export const List = styled.ul`

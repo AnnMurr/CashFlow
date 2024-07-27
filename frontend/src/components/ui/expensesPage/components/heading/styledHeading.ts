@@ -10,7 +10,9 @@ export const Title = styled.div`
     padding-bottom: 10px;
 
     h2 {
-        font-size: 25px;
+        font-size: 23px;
+        font-family: "Almarai";
+        font-weight: 600;
     }
 `
 
