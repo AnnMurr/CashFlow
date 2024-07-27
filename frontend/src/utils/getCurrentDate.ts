@@ -27,7 +27,6 @@ export const parseEuropeanDate = (dateString: string) => {
     const day = parseInt(dateString.substring(0, 2), 10);
     const month = parseInt(dateString.substring(3, 5), 10) - 1;
     const year = parseInt(dateString.substring(6, 10), 10);
-    console.log(`${day}.${month}.${year}`);
 
     return new Date(year, month, day);
 }

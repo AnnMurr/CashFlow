@@ -14,6 +14,7 @@ import { getDataForStatistic, getFilterStatisticsForWeek } from "../../../utils/
 import { setChosenCategoryStatistic, setChosenFilter, setIsEditingData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { DeleteFinancesModal } from "./components/deleteFinancesModal/deleteFinancesModal";
 import { Container, Wrapper } from "./styledStatistics";
+import { EmptyState } from "./components/emptyState/emptyState";
 
 export const Statistics: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
@@ -24,7 +25,7 @@ export const Statistics: FC = () => {
     const [isDateRangeModal, setIsDateRangeModal] = useState<boolean>(false);
     const [isDeleteFinancesModal, setIsDeleteFinancesModal] = useState<boolean>(false);
     const [statisticType, setStatisticType] = useState<"expenses" | "income">("expenses");
-    const { statisticalData } = useAppSelector((state: RootState) => state.storage);
+    const { statisticalData, storageData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
 
     const currentSetIsModal = isDatePickerModal
@@ -58,59 +59,69 @@ export const Statistics: FC = () => {
 
     return (
         <section>
-            <Container>
-                <Wrapper>
-                    <SubBar />
-                    <Header
-                        setIsDeleteFinancesModal={setIsDeleteFinancesModal}
-                        statisticType={statisticType}
-                        setStatisticType={setStatisticType}
-                        setChosenFilterType={setChosenFilterType}
-                        openDatePickerModal={setIsDatePickerModal}
-                        openMonthSelectModal={setIsMonthSelectModal}
-                        openYearSelectModal={setIsYearSelectModal}
-                        openDateRangeModal={setIsDateRangeModal} />
-                    <List
-                        statisticType={statisticType}
-                        setIsAlertActive={setIsAlertActive} />
-                    {isDatePickerModal ?
-                        <DatePickerModal
-                            chosenFilterType={chosenFilterType}
-                            setIsAlertActive={setIsAlertActive}
-                            setIsDatePickerModal={setIsDatePickerModal} />
-                        : null}
-                    {isMonthSelectModal ?
-                        <MonthSelectModal
-                            chosenFilterType={chosenFilterType}
-                            setIsAlertActive={setIsAlertActive}
-                            setIsMonthSelectModal={setIsMonthSelectModal} />
-                        : null}
-                    {isYearSelectModal ?
-                        <YearSelectModal
-                            chosenFilterType={chosenFilterType}
-                            setIsAlertActive={setIsAlertActive}
-                            setIsYearSelectModal={setIsYearSelectModal} />
-                        : null}
-                    {isDateRangeModal ?
-                        <DateRangeModal
-                            chosenFilterType={chosenFilterType}
-                            setIsAlertActive={setIsAlertActive}
-                            setIsDateRangeModal={setIsDateRangeModal} />
-                        : null}
-                    {isDeleteFinancesModal ?
-                        <DeleteFinancesModal
+            {storageData && 
+            (storageData?.data.expenses.length > 0 || storageData?.data.income.length > 0) ?
+                <Container>
+                    <Wrapper>
+                        <SubBar />
+
+
+                        <Header
+                            setIsDeleteFinancesModal={setIsDeleteFinancesModal}
                             statisticType={statisticType}
-                            setIsAlertActive={setIsAlertActive}
-                            setIsDeleteFinancesModal={setIsDeleteFinancesModal} />
-                        : null}
-                    {currentIsModal ?
-                        <DarkBackground
-                            setIsModalActive={currentSetIsModal}
-                            isModalActive={currentIsModal} />
-                        : null}
-                    {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
-                </Wrapper>
-            </Container>
+                            setStatisticType={setStatisticType}
+                            setChosenFilterType={setChosenFilterType}
+                            openDatePickerModal={setIsDatePickerModal}
+                            openMonthSelectModal={setIsMonthSelectModal}
+                            openYearSelectModal={setIsYearSelectModal}
+                            openDateRangeModal={setIsDateRangeModal} />
+                        <List
+                            statisticType={statisticType}
+                            setIsAlertActive={setIsAlertActive} />
+                        {isDatePickerModal ?
+                            <DatePickerModal
+                                chosenFilterType={chosenFilterType}
+                                setIsAlertActive={setIsAlertActive}
+                                setIsDatePickerModal={setIsDatePickerModal} />
+                            : null}
+                        {isMonthSelectModal ?
+                            <MonthSelectModal
+                                chosenFilterType={chosenFilterType}
+                                setIsAlertActive={setIsAlertActive}
+                                setIsMonthSelectModal={setIsMonthSelectModal} />
+                            : null}
+                        {isYearSelectModal ?
+                            <YearSelectModal
+                                chosenFilterType={chosenFilterType}
+                                setIsAlertActive={setIsAlertActive}
+                                setIsYearSelectModal={setIsYearSelectModal} />
+                            : null}
+                        {isDateRangeModal ?
+                            <DateRangeModal
+                                chosenFilterType={chosenFilterType}
+                                setIsAlertActive={setIsAlertActive}
+                                setIsDateRangeModal={setIsDateRangeModal} />
+                            : null}
+                        {isDeleteFinancesModal ?
+                            <DeleteFinancesModal
+                                statisticType={statisticType}
+                                setIsAlertActive={setIsAlertActive}
+                                setIsDeleteFinancesModal={setIsDeleteFinancesModal} />
+                            : null}
+                        {currentIsModal ?
+                            <DarkBackground
+                                setIsModalActive={currentSetIsModal}
+                                isModalActive={currentIsModal} />
+                            : null}
+
+                        {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
+                    </Wrapper>
+                </Container>
+                :
+                <Container>
+                    <SubBar />
+                    <EmptyState />
+                </Container>}
         </section >
     )
 }

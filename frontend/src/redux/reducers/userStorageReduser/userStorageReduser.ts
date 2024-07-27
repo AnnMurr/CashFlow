@@ -91,7 +91,6 @@ export const getDataFromUserStore = createAsyncThunk<UserStorageDataType, string
             const dataFiltered = data.find((item: UserStorageDataType) => item.uid === userToken);
 
             if (dataFiltered) {
-                console.log("dataFiltered", dataFiltered)
                 dispatch(setUserDataToReduxStore(dataFiltered));
                 dispatch(setCategoriesTypes({ expenses: [...dataFiltered.data.categoriesExpenses], income: [...dataFiltered.data.categoriesIncome] }));
                 dispatch(setTransactions([...dataFiltered.data.expenses, ...dataFiltered.data.income]));
