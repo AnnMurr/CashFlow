@@ -10,7 +10,7 @@ export const Heading: FC = () => {
 
     useEffect(() => {
         if (storageData && currency) {
-            getDayAmount(storageData, 'income', setDayIncome, currency);
+            getDayAmount(storageData, 'income', setDayIncome, currency.code);
         }
     }, [storageData]);
 

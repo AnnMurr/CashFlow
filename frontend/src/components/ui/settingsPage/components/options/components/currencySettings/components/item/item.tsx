@@ -19,12 +19,12 @@ export const Item: FC<ItemProps> = ({ data, category, setIsCurrencyChoosingModal
                 </div>
                 <div>
                     <Name>
-                        {data?.settings.name}
+                        {data?.settings.currency.name}
                     </Name>
                 </div>
                 <div>
                     <Symbol>
-                        {data?.settings.symbol}
+                        {data?.settings.currency.symbol}
                     </Symbol>
                 </div>
             </Wrapper>

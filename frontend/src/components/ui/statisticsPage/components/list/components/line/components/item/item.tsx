@@ -55,7 +55,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
             iseditingdata={isEditingData.toString()}
             id={dataItem.uid} >
             <div>
-                {currency && <span>{getFormatCurrency(dataItem.sum, currency)}</span>}
+                {currency && <span>{getFormatCurrency(dataItem.sum, currency.code)}</span>}
             </div>
             <TimeEditBlock>
                 <Date>
@@ -79,7 +79,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
                     <span>{dataItem.category}</span>
                 </Category>
                 <div>
-                    {currency && <span>{getFormatCurrency(dataItem.sum, currency)}</span>}
+                    {currency && <span>{getFormatCurrency(dataItem.sum, currency.code)}</span>}
                 </div>
             </Container>)
             :
@@ -97,7 +97,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
                     <span>{dataItem.category}</span>
                 </Category>
                 <div>
-                    {currency && <span>{getFormatCurrency(dataItem.sum, currency)}</span>}
+                    {currency && <span>{getFormatCurrency(dataItem.sum, currency.code)}</span>}
                 </div>
                 <TimeEditBlock>
                     <span>{date.split(" ")[1]}</span>

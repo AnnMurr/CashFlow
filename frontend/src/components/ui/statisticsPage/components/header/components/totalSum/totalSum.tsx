@@ -11,7 +11,7 @@ export const TotalSum: FC = () => {
     const getTotalSum = (items: Array<ItemType>) => {
         if (items && currency) {
             const totalSum: number = items.reduce((acc, value) => acc += value.sum, 0);
-            setTotalSum(getFormatCurrency(totalSum, currency));
+            setTotalSum(getFormatCurrency(totalSum, currency.code));
         }
     }
 

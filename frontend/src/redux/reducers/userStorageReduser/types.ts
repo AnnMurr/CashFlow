@@ -27,10 +27,8 @@ export interface UserStorageDataType {
     data: StorageDataType;
     id: string;
     uid: string;
-    settings:{
-        currency: any,
-        name: string,
-        symbol: string
+    settings: {
+        currency: Currency;
     }
 }
 
@@ -56,10 +54,16 @@ export interface StatisticalDataType {
     data: ItemsType;
 }
 
+interface Currency {
+    code: string;
+    name: string;
+    symbol: string;
+}
+
 export interface RootState {
     storage: {
         storageData: UserStorageDataType | null;
-        currency: any | null;
+        currency: Currency | null;
         typesOfCategories: TypesOfCategoriesType | null;
         transactions: Array<Transaction> | null;
         statisticalData: StatisticalDataType | null;

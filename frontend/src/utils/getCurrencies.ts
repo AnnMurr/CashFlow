@@ -6,7 +6,6 @@ import { getAlert } from "./getAlert";
 
 export const getCurrencies = async (
     setCurrencies: (value: Array<CurrencyNameAndCode> | null) => void,
-    setCurrencyName: (value: string | null) => void,
     setIsAlertActive: (value: AlertComponentProps | null) => void
 ) => {
     try {
@@ -26,7 +25,6 @@ export const getCurrencies = async (
                 .sort((a, b) => a.name.localeCompare(b.name));
 
             setCurrencies(currencyNamesAndSymbols);
-            setCurrencyName(currencyNamesAndSymbols[0].name);
         } else {
             getAlert({ type: "error", text: "Failed getting currencies" }, setIsAlertActive, 3000);
         }
