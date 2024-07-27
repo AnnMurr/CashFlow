@@ -10,7 +10,7 @@ export const Title = styled.div`
     padding-bottom: 20px;
 
     h5 {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
     }
 `

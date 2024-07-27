@@ -16,6 +16,7 @@ interface HeaderProps {
     openYearSelectModal: (value: boolean) => void,
     openDateRangeModal: (value: boolean) => void,
     setChosenFilterType: (value: string | null) => void,
+    setIsDeleteFinancesModal: (value: boolean) => void;
     setStatisticType: (value: "expenses" | "income") => void;
     statisticType: "expenses" | "income";
 }
@@ -27,6 +28,7 @@ export const Header: FC<HeaderProps> = ({
     openYearSelectModal,
     openDateRangeModal,
     setStatisticType,
+    setIsDeleteFinancesModal,
     statisticType }) => {
     const { chosenFilter, chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
@@ -56,7 +58,7 @@ export const Header: FC<HeaderProps> = ({
                             openMonthSelectModal={openMonthSelectModal}
                             openDateRangeModal={openDateRangeModal}
                             openYearSelectModal={openYearSelectModal} />
-                        <DeleteBtn />
+                        <DeleteBtn setIsDeleteFinancesModal={setIsDeleteFinancesModal} />
                     </>}
                 <TotalSum />
             </Wrapper>

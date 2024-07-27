@@ -12,6 +12,7 @@ import { YearSelectModal } from "./components/yearSelectModal/yearSelectModal";
 import { DateRangeModal } from "./components/dateRangeModal/dateRangeModal";
 import { getDataForStatistic, getFilterStatisticsForWeek } from "../../../utils/statisticalDataUtils";
 import { setChosenCategoryStatistic, setChosenFilter, setIsEditingData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { DeleteFinancesModal } from "./components/deleteFinancesModal/deleteFinancesModal";
 import { Container, Wrapper } from "./styledStatistics";
 
 export const Statistics: FC = () => {
@@ -21,6 +22,7 @@ export const Statistics: FC = () => {
     const [isMonthSelectModal, setIsMonthSelectModal] = useState<boolean>(false);
     const [isYearSelectModal, setIsYearSelectModal] = useState<boolean>(false);
     const [isDateRangeModal, setIsDateRangeModal] = useState<boolean>(false);
+    const [isDeleteFinancesModal, setIsDeleteFinancesModal] = useState<boolean>(false);
     const [statisticType, setStatisticType] = useState<"expenses" | "income">("expenses");
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
@@ -31,9 +33,11 @@ export const Statistics: FC = () => {
             ? setIsMonthSelectModal
             : isYearSelectModal
                 ? setIsYearSelectModal
-                : setIsDateRangeModal;
+                : isDateRangeModal
+                    ? setIsDateRangeModal
+                    : setIsDeleteFinancesModal;
 
-    const currentIsModal = isDatePickerModal || isMonthSelectModal || isYearSelectModal || isDateRangeModal;
+    const currentIsModal = isDatePickerModal || isMonthSelectModal || isYearSelectModal || isDateRangeModal || isDeleteFinancesModal;
 
     useEffect(() => {
         chosenFilterType === "Week" &&
@@ -58,6 +62,7 @@ export const Statistics: FC = () => {
                 <Wrapper>
                     <SubBar />
                     <Header
+                        setIsDeleteFinancesModal={setIsDeleteFinancesModal}
                         statisticType={statisticType}
                         setStatisticType={setStatisticType}
                         setChosenFilterType={setChosenFilterType}
@@ -68,7 +73,6 @@ export const Statistics: FC = () => {
                     <List
                         statisticType={statisticType}
                         setIsAlertActive={setIsAlertActive} />
-
                     {isDatePickerModal ?
                         <DatePickerModal
                             chosenFilterType={chosenFilterType}
@@ -93,7 +97,12 @@ export const Statistics: FC = () => {
                             setIsAlertActive={setIsAlertActive}
                             setIsDateRangeModal={setIsDateRangeModal} />
                         : null}
-
+                    {isDeleteFinancesModal ?
+                        <DeleteFinancesModal
+                            statisticType={statisticType}
+                            setIsAlertActive={setIsAlertActive}
+                            setIsDeleteFinancesModal={setIsDeleteFinancesModal} />
+                        : null}
                     {currentIsModal ?
                         <DarkBackground
                             setIsModalActive={currentSetIsModal}
