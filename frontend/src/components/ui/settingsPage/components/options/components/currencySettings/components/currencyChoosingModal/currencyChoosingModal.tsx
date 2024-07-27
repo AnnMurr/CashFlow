@@ -27,8 +27,8 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
     const handleChangeCurrency = async () => {
         if (currencies) {
             const code = (currencies.find((name) => name.name === currencyName) as CurrencyNameAndCode).code;
-            const name = currencyName?.split('(')[0];
-            const symbol = currencyName?.match(CURRENCY_SYMBOL_REGEX)?.[1];
+            const name = currencyName?.split('(')[0].trim();
+            const symbol = currencyName?.match(CURRENCY_SYMBOL_REGEX)?.[1].trim();
 
             try {
                 if (code && name && symbol) {

@@ -51,6 +51,11 @@ export const createUserStore = createAsyncThunk<UserStorageDataType, string>(
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     uid: userToken,
+                    settings: {
+                        currency: "USD",
+                        name: "United States dollar",
+                        symbol: "$"
+                    },
                     data: {
                         categoriesExpenses: [
                             { name: "food", icon: ICONS_EXPENSES_COLLECTION[0] },
@@ -60,9 +65,6 @@ export const createUserStore = createAsyncThunk<UserStorageDataType, string>(
                         categoriesIncome: [{ name: "work", icon: ICONS_EXPENSES_COLLECTION[5] }],
                         expenses: [],
                         income: [],
-                        settings:{
-                            currency: "USD",
-                        }
                     }
                 })
             });
@@ -87,6 +89,7 @@ export const getDataFromUserStore = createAsyncThunk<UserStorageDataType, string
             const dataFiltered = data.find((item: UserStorageDataType) => item.uid === userToken);
 
             if (dataFiltered) {
+                console.log("dataFiltered", dataFiltered)
                 dispatch(setUserDataToReduxStore(dataFiltered));
                 dispatch(setCategoriesTypes({ expenses: [...dataFiltered.data.categoriesExpenses], income: [...dataFiltered.data.categoriesIncome] }));
                 dispatch(setTransactions([...dataFiltered.data.expenses, ...dataFiltered.data.income]));
@@ -115,10 +118,10 @@ export const changeUserData = createAsyncThunk<UserStorageDataType, { userToken:
                 })
 
                 if (!response.ok) throw new Error("Failed to update user's data");
-      
-                    const dataUpdated = await response.json();
-                    dispatch(setUserDataToReduxStore(dataUpdated));
-                    return dataUpdated;
+
+                const dataUpdated = await response.json();
+                dispatch(setUserDataToReduxStore(dataUpdated));
+                return dataUpdated;
             }
         } catch (error) {
             error instanceof Error && rejectWithValue(error.message);
