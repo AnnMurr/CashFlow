@@ -13,7 +13,6 @@ import { AuthorizedContextProvider } from './contexts/authorizedContext/authoriz
 import { CheckAuthorization, CheckNotAuthorization } from './contexts/authorizedContext/checkAuthorization';
 import { ErrorPage } from './components/ui/errorPage/errorPage';
 import { Body } from './components/shared/body/body';
-import "./accets/styles/reset.css";
 import { SettingsPage } from './components/ui/settingsPage/settingsPage';
 import { ChangeNamePage } from './components/ui/profileChaningPages/changeNamePage/changeNamePage';
 import { ChangeEmailPage } from './components/ui/profileChaningPages/changeEmailPage/changeEmailPage';
@@ -25,6 +24,8 @@ import { DeletingAccountConfirmationPage } from './components/ui/profileChaningP
 import { DeletingAccountPage } from './components/ui/profileChaningPages/deletingAccountPage/deletingAccountPage';
 import { IcomePage } from './components/ui/icomePage/icomePage';
 import { Statistics } from './components/ui/statisticsPage/statistics';
+import "./accets/styles/fonts.css";
+import "./accets/styles/reset.css";
 
 function App() {
   return (

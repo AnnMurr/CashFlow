@@ -21,7 +21,7 @@ export const TotalSumTitle = styled.div`
 
 export const Sum = styled.div`
     span {
-        font-weight: 500;
+        font-weight: 600;
         font-size: 16px;
     }
 `

@@ -16,6 +16,7 @@ export const Item = styled.li<ItemProps>`
     padding-bottom: 15px;
   
     button {
+        font-family: "Almarai";
         font-size: 20px;
         font-weight: 600;
         color: ${({ active }) => active === "true" ? "#000" : "#898989"};
