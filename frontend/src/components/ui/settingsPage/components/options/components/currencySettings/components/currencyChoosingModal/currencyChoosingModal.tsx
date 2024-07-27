@@ -2,8 +2,8 @@ import { FC, useEffect, useState } from "react";
 import { MultipleSelectPlaceholder } from "../../../../../../../../shared/select/select";
 import { CURRENCY_SYMBOL_REGEX } from "../../../../../../../../../consts";
 import { ButtonComponent } from "../../../../../../../../shared/button/button";
-import { useAppDispatch } from "../../../../../../../../../redux/store/store";
-import { UserStorageDataType } from "../../../../../../../../../redux/reducers/userStorageReduser/types";
+import { useAppDispatch, useAppSelector } from "../../../../../../../../../redux/store/store";
+import { RootState, UserStorageDataType } from "../../../../../../../../../redux/reducers/userStorageReduser/types";
 import { changeUserData, getDataFromUserStore } from "../../../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { getDataFromLocalStorage } from "../../../../../../../../../storage/localStorage/localStorage";
 import { BtnClose } from "../../../../../../../../shared/btnClose/btnClose";
@@ -22,6 +22,7 @@ interface CurrencyChoosingModalProps {
 export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCurrencyChoosingModalActive, setIsAlertActive }) => {
     const [currencyName, setCurrencyName] = useState<string | null>(null);
     const [currencies, setCurrencies] = useState<Array<CurrencyNameAndCode> | null>(null);
+    const { currency } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
 
     const handleChangeCurrency = async () => {
@@ -38,9 +39,11 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
                     const updatedData = {
                         ...dataFromUserStore,
                         settings: {
-                            currency: code,
-                            name: name,
-                            symbol: symbol
+                            currency: {
+                                code: code,
+                                name: name,
+                                symbol: symbol
+                            }
                         }
                     };
 
@@ -57,7 +60,10 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
         }
     }
 
-    useEffect(() => { getCurrencies(setCurrencies, setCurrencyName, setIsAlertActive) }, []);
+    useEffect(() => { 
+        getCurrencies(setCurrencies, setIsAlertActive);
+        currency && setCurrencyName(`${currency?.name} (${currency.symbol})`);
+     }, []);
 
     return (
         currencies && currencyName ?

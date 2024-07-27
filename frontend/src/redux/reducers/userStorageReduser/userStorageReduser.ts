@@ -52,9 +52,11 @@ export const createUserStore = createAsyncThunk<UserStorageDataType, string>(
                 body: JSON.stringify({
                     uid: userToken,
                     settings: {
-                        currency: "USD",
-                        name: "United States dollar",
-                        symbol: "$"
+                        currency: {
+                            code: "USD",
+                            name: "United States dollar",
+                            symbol: "$"
+                        }
                     },
                     data: {
                         categoriesExpenses: [
