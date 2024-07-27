@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserStorageDataType } from "./types";
-import { ICONS_EXPENSES_COLLECTION } from "../../../consts/images";
+import { BUS_ICON_COLLECTION, GOODS_ICON_COLLECTION, HOUSE_ICON_COLLECTION, ICONS_EXPENSES_COLLECTION, INCOME_ICON_COLLECTION } from "../../../consts/images";
 
 const initialstate = {
     storageData: null,
@@ -60,11 +60,11 @@ export const createUserStore = createAsyncThunk<UserStorageDataType, string>(
                     },
                     data: {
                         categoriesExpenses: [
-                            { name: "food", icon: ICONS_EXPENSES_COLLECTION[0] },
-                            { name: "transport", icon: ICONS_EXPENSES_COLLECTION[1] },
-                            { name: "house", icon: ICONS_EXPENSES_COLLECTION[2] },
+                            { name: "food", icon: GOODS_ICON_COLLECTION },
+                            { name: "transport", icon: BUS_ICON_COLLECTION },
+                            { name: "house", icon: HOUSE_ICON_COLLECTION },
                         ],
-                        categoriesIncome: [{ name: "work", icon: ICONS_EXPENSES_COLLECTION[5] }],
+                        categoriesIncome: [{ name: "work", icon: INCOME_ICON_COLLECTION }],
                         expenses: [],
                         income: [],
                     }

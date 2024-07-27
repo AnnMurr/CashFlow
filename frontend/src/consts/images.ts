@@ -91,7 +91,7 @@ export const GRAY_BANK_ICON_COLLECTION = "https://i.imgur.com/NQtcQry.png";
 export const BRICKS_ICON_COLLECTION = "https://i.imgur.com/moUC35S.png";
 export const HOUSE_WORK_ICON_COLLECTION = "https://i.imgur.com/3s2ce8q.png";
 export const HOUSE_WORK_SECOND_ICON_COLLECTION = "https://i.imgur.com/466sU4F.png";
-export const PERSON_WORK_SECOND_ICON_COLLECTION = "https://i.imgur.com/ursnYNu.png";
+export const PERSON_WORK_ICON_COLLECTION = "https://i.imgur.com/ursnYNu.png";
 export const PERSON_WORKS_IN_HOUSE_ICON_COLLECTION = "https://i.imgur.com/eA0y5iu.png";
 export const REST_ICON_COLLECTION = "https://i.imgur.com/0mnfM5V.png";
 export const WALLET_ICON_COLLECTION = "https://i.imgur.com/62nmVHv.png";
@@ -182,7 +182,7 @@ export const ICONS_INCOME_COLLECTION = [
     BRICKS_ICON_COLLECTION,
     HOUSE_WORK_ICON_COLLECTION,
     HOUSE_WORK_SECOND_ICON_COLLECTION,
-    PERSON_WORK_SECOND_ICON_COLLECTION,
+    PERSON_WORK_ICON_COLLECTION,
     PERSON_WORKS_IN_HOUSE_ICON_COLLECTION,
     REST_ICON_COLLECTION,
     WALLET_ICON_COLLECTION,
