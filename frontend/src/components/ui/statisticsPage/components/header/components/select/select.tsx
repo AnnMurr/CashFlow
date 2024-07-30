@@ -1,9 +1,11 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { v4 as uuidV4 } from "uuid";
 import { STATISTICS_OPTIONS } from '../../../../../../../consts';
+import { ThemeContextType } from '../../../../../../../contexts/themeContext/types';
+import { ThemeContext } from '../../../../../../../contexts/themeContext/themeContext';
 import { Container } from './styledSelect';
 
 interface SelectLabelsProps {
@@ -21,8 +23,12 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
     openYearSelectModal,
     openDateRangeModal
 }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+
     const selectStyles = {
         width: "100%",
+        bacgroundColor: "#000",
+
         '& .MuiOutlinedInput-root': {
             padding: "10px 14px",
         },
@@ -35,6 +41,7 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
         '& .MuiSelect-select': {
             fontWeight: "600",
             fontSize: "18px",
+            color: themeContext.themeStyles.color
         },
         '& em': {
             fontStyle: 'normal',
@@ -42,7 +49,7 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
             fontSize: "18px"
         },
         '& .MuiInputBase-input': {
-            padding: "16.5px 14px"
+            padding: 0,
         },
         '&.MuiInputBase-root': {
             lineHeight: "1.4375em",
@@ -64,14 +71,19 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
     };
 
     const menuItemStyles = {
+        color: themeContext.themeStyles.color,
+
         '&.Mui-selected.Mui-focusVisible': {
-            backgroundColor: "#56776c21",
+            backgroundColor: themeContext.themeStyles.selectHover,
         },
         '&.Mui-selected': {
-            backgroundColor: "#56776c21",
+            backgroundColor: themeContext.themeStyles.selectHover,
         },
         '&.Mui-selected:hover': {
-            backgroundColor: "#56776c21",
+            backgroundColor: themeContext.themeStyles.selectHover,
+        },
+        '&.MuiButtonBase-root.MuiMenuItem-root:hover': {
+            backgroundColor: themeContext.themeStyles.selectHover,
         },
         '& em': {
             fontStyle: 'normal',
@@ -110,7 +122,14 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
                     value={"0"}
                     onChange={handleChange}
                     displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}>
+                    inputProps={{ 'aria-label': 'Without label' }}
+                    MenuProps={{
+                        PaperProps: {
+                            sx: {
+                                backgroundColor: themeContext.themeStyles.modalBackground,
+                            },
+                        },
+                    }}>
                     <MenuItem value={0} sx={menuItemStyles}>
                         <em>Filter</em>
                     </MenuItem>

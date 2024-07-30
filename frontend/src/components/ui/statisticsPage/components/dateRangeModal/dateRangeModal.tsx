@@ -34,13 +34,10 @@ export const DateRangeModal: FC<DatePickerModalProps> = ({ setIsAlertActive, cho
                     marginLeft: "auto",
                 }}
                 closeBlock={setIsDateRangeModal}
-                size="lg"
-                color="#000" />
+                size="lg" />
             <DateRangePicker onSelectDateRange={handleDateRangeSelect} />
             <BtnInner>
                 <ButtonComponent
-                    backgroundColor="#5B8A72"
-                    BackgroundColorHover="#0f4a34"
                     text="Apply"
                     color="#fff"
                     type="button"

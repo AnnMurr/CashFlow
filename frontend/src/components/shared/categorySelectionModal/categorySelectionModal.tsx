@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { ButtonComponent } from "../../shared/button/button";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
@@ -9,7 +9,10 @@ import { CategoriesType, StorageDataKeys, UserStorageDataType } from "../../../r
 import { useAppDispatch } from "../../../redux/store/store";
 import { getAlert } from "../../../utils/getAlert";
 import { ONLY_SPACES_REGEX } from "../../../consts";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 import { BtnInner, Container, Input, InputInner, Item, Label, List, Wrapper } from "./styledCategorySelectionModal";
+
 interface CategorySelectionModalProps {
     togleModal: (value: boolean) => void;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
@@ -24,6 +27,7 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
     const [selectedIcon, setSelectedIcon] = useState<string>("");
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
     const [category, setCategory] = useState<string>("");
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
 
     const selectCategoryIcon = (index: number) => {
@@ -71,18 +75,19 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
     }
 
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
-                    <BtnClose
-                        btnInnerstyles={{
-                            marginLeft: "auto",
-                            marginBottom: "10px"
-                        }}
-                        closeBlock={togleModal}
-                        size="lg" color="#000" />
+                <BtnClose
+                    btnInnerstyles={{
+                        marginLeft: "auto",
+                        marginBottom: "10px"
+                    }}
+                    closeBlock={togleModal}
+                    size="lg"  />
                 <InputInner>
-                    <Label>Category name</Label>
+                    <Label themestyles={themeContext.themeStyles}>Category name</Label>
                     <Input
+                        themestyles={themeContext.themeStyles}
                         value={category}
                         maxLength={20}
                         onChange={(event) => setCategory(event.target.value.trimStart())} type="text" />
@@ -98,8 +103,6 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                 </List>
                 <BtnInner>
                     <ButtonComponent
-                        backgroundColor="#5B8A72"
-                        BackgroundColorHover="#0f4a34"
                         text="Add"
                         color="#fff"
                         type="button"

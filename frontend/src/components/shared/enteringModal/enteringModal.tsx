@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useContext, useEffect, useRef } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,8 @@ import { BtnClose } from "../btnClose/btnClose";
 import { ButtonComponent } from "../button/button";
 import { getAlert } from "../../../utils/getAlert";
 import { AlertComponentProps } from "../alert/alert";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 import { Container, Wrapper, ButtonsInner, Input, BtnInner, SaveBtnInner, InputInner, DeleteBtnInner } from "./styledEnteringModal";
 
 interface EnteringModalProps {
@@ -20,6 +22,7 @@ interface EnteringModalProps {
 export const EnteringModal: FC<EnteringModalProps> = ({
     closeModal, addTransaction, inputValue, setInputValue, setIsAlertActive }) => {
     const sliceNumber = (value: string) => value.slice(0, 10).replace(/[$\s]/g, '');
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const checkForErrors = () => {
@@ -84,11 +87,11 @@ export const EnteringModal: FC<EnteringModalProps> = ({
     }, []);
 
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
                 <BtnClose
                     btnInnerstyles={{
-                        marginLeft: "auto", 
+                        marginLeft: "auto",
                         marginBottom: "10px"
                     }}
                     closeBlock={closeModal}
@@ -118,8 +121,6 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                 <SaveBtnInner>
                     <ButtonComponent
                         disabledValue={false}
-                        backgroundColor="#5B8A72"
-                        BackgroundColorHover="#0f4a34"
                         text="Save"
                         color="#fff"
                         type="button"

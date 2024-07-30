@@ -1,13 +1,13 @@
+import { ThemeStyledProps } from "../../../contexts/themeContext/types";
 import styled from "styled-components";
 
-export const Container = styled.div`
-    background-color: #5B8A72;
+export const Container = styled.div<ThemeStyledProps>`
+    background-color:${({ themestyles }) => themestyles.subBarBackground};
     position: fixed;
     inset: 0 auto 0 0;
 `
 
 export const Wrapper = styled.div`
-    background-color: #5B8A72;
     padding: 30px;
 `
 

@@ -1,16 +1,17 @@
+import { ThemeStyledProps } from "../../../contexts/themeContext/types";
 import styled from "styled-components";
 
 interface ItemProps {
     selected: boolean;
 }
 
-export const Container = styled.div`
+export const Container = styled.div<ThemeStyledProps>`
     width: 50%;
     left: 50%;
     margin-left: -25%;
     position: fixed;
     top: 20%;
-    background-color: #fff;
+    background-color:${({ themestyles }) => themestyles.modalBackground};
     z-index: 25;
 `
 
@@ -36,16 +37,18 @@ export const InputInner = styled.div`
     flex-direction: column;    
 `
 
-export const Input = styled.input`
+export const Input = styled.input<ThemeStyledProps>`
     border: none;
     padding: 5px;
     border-bottom: 1px solid #c6c6c6;   
+    background-color:${({ themestyles }) => themestyles.modalBackground};
 `
 
-export const Label = styled.label`
+export const Label = styled.label<ThemeStyledProps>`
     font-weight: 600;
     padding-bottom: 10px;
     font-family: "Almarai";
+    color:${({ themestyles }) => themestyles.color};
 `
 
 export const List = styled.ul`

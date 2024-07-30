@@ -29,13 +29,10 @@ export const YearSelectModal: FC<YearSelectModalProps> = ({
                     paddingBottom: "10px",
                 }}
                 closeBlock={setIsYearSelectModal}
-                size="lg"
-                color="#000" />
+                size="lg" />
             <YearPicker setChosenYear={setChosenYear} />
             <BtnInner>
                 <ButtonComponent
-                    backgroundColor="#5B8A72"
-                    BackgroundColorHover="#0f4a34"
                     text="Apply"
                     color="#fff"
                     type="button"

@@ -1,8 +1,9 @@
+import { ThemeStyledProps } from "../../../../../../../contexts/themeContext/types";
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<ThemeStyledProps>`
     padding: 10px 0;
-    background-color: #56776c99;
+    background-color:${({ themestyles }) => themestyles.statisticsLineDayBackground};
     text-align: center;
 
     span {

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { Theme, useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,6 +7,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { CategoriesType } from "../../../redux/reducers/userStorageReduser/types";
 import { CurrencyNameAndCode } from "../../../api/getCurrencyCodes/types";
 import { v4 as uuidv4 } from 'uuid';
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 
 interface MultipleSelectPlaceholderType {
   names: Array<CategoriesType> | Array<string> | Array<CurrencyNameAndCode> | null,
@@ -16,14 +18,7 @@ interface MultipleSelectPlaceholderType {
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+
 
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
   return {
@@ -37,6 +32,7 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
 export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ names, categoryName, setCategoryName }) => {
   const theme = useTheme();
   const [category, setCategory] = useState<Array<string>>([]);
+  const themeContext = useContext<ThemeContextType>(ThemeContext);
 
   const handleChange = (event: SelectChangeEvent<typeof category>) => {
     const { target: { value } } = event;
@@ -49,22 +45,45 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
     width: "100%",
     mt: 3,
     margin: "0 0 10px 0",
-    marginTop: "10px"
+    marginTop: "10px",
+
+    '& .MuiPaper-root.MuiPopover-paper.MuiMenu-paper': {
+      backgroundColor: themeContext.themeStyles.modalBackground,
+  },
   }
 
   const selectStyles = {
+    color: themeContext.themeStyles.color,
     '& .MuiSelect-select': {
-      padding: '10px',
+      padding: "8.5px 14px",
+      fontSize: "14px",
     },
     '& em': {
       fontStyle: 'normal'
-    }
-  }
+    },
+    "& .MuiSvgIcon-root": {
+      color: themeContext.themeStyles.dataPikerIcon,
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: themeContext.themeStyles.inputBorder,
+    },
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+      borderColor: themeContext.themeStyles.inputBorderHover,
+    },
+    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderColor: themeContext.themeStyles.inputBorderFocused,
+    },    
+    '& .MuiSelect-menu': {
+      backgroundColor: themeContext.themeStyles.modalBackground,
+    },
+   
+  };
 
   return (
     <div>
       <FormControl sx={formControlStyles}>
         <Select
+         
           sx={selectStyles}
           displayEmpty
           value={category}
@@ -76,7 +95,16 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
             }
             return selected.join(', ');
           }}
-          MenuProps={MenuProps}
+          MenuProps={{
+            PaperProps: {
+              sx: {
+                maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+                width: 250,
+                backgroundColor: themeContext.themeStyles.modalBackground,
+                color: themeContext.themeStyles.color,
+              },
+            },
+          }}
           inputProps={{ 'aria-label': 'Without label' }} >
           {names && names.map((item) => {
             const itemName = typeof item === 'string' ? item : item.name.toString();

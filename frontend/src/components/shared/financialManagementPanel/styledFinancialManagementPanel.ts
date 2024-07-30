@@ -1,26 +1,27 @@
-import styled from "styled-components";
+import { ThemeStyledProps } from "../../../contexts/themeContext/types";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
     padding: 90px 0;
 `
 
-const CrossStyled = `
+const CrossStyled = css<ThemeStyledProps>`
     content: "";
-    background-color: #fff;
+    background-color:${({ themestyles }) => themestyles.body};
     width: 25px;
     display: block;
     position: fixed;
-    height: 1px;
+    height: 2px;
 `
 
 export const AddCategoryBtnInner = styled.div`
     margin: 60px 0 0 15px;
 `
 
-export const AddCategoryBtn = styled.button`
+export const AddCategoryBtn = styled.button<ThemeStyledProps>`
     padding: 30px;
     border-radius: 5px;
-    background-color: #464F41;
+    background-color:${({ themestyles }) => themestyles.addCategoryBtnBackground};
     color: #fff;
     font-size: 50px;
     font-weight: 300;

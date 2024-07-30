@@ -1,9 +1,11 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { Button } from "@mui/material";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 
 interface ButtonComponentProps {
-    backgroundColor: string;
-    BackgroundColorHover: string;
+    backgroundColor?: string;
+    BackgroundColorHover?: string;
     text: string;
     color: string;
     disabledValue?: boolean;
@@ -19,20 +21,27 @@ export const ButtonComponent: FC<ButtonComponentProps> = ({
     disabledValue,
     type,
     func }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+    const ButtonStyles = {
+        backgroundColor: backgroundColor ? backgroundColor : themeContext.themeStyles.buttonBackground,
+        color: color,
+        width: "100%",
+        
+        '&:hover': {
+            backgroundColor: BackgroundColorHover ? BackgroundColorHover : themeContext.themeStyles.buttonBackgroundHover
+        },
+        '&.MuiButtonBase-root.MuiButton-root.Mui-disabled': {
+            backgroundColor: themeContext.themeStyles.buttonDisabledBackground,
+        }
+    };
+
     return (
         <Button
             onClick={func}
             variant="contained"
             type={type}
             disabled={disabledValue}
-            sx={{
-                backgroundColor: backgroundColor,
-                color: color,
-                width: "100%",
-                '&:hover': {
-                    backgroundColor: BackgroundColorHover
-                },
-            }} >
+            sx={ButtonStyles} >
             {text}
         </Button>
     )

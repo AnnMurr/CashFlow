@@ -85,8 +85,6 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
                 <div>
                     <ButtonComponent
                         disabledValue={userData === value ? true : false}
-                        backgroundColor="#5B8A72"
-                        BackgroundColorHover="#0f4a34"
                         text="Save"
                         color="#fff"
                         type="button"

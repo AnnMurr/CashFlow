@@ -24,53 +24,56 @@ import { DeletingAccountConfirmationPage } from './components/ui/profileChaningP
 import { DeletingAccountPage } from './components/ui/profileChaningPages/deletingAccountPage/deletingAccountPage';
 import { IcomePage } from './components/ui/icomePage/icomePage';
 import { Statistics } from './components/ui/statisticsPage/statistics';
+import { ThemeContextProvider } from './contexts/themeContext/themeContext';
 import "./accets/styles/fonts.css";
 import "./accets/styles/reset.css";
 
 function App() {
   return (
     <AuthorizedContextProvider>
-      <HashRouter>
-      <Body>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contacts" element={<ContactsPage />} />
-          <Route path="/contacts-us" element={<ContactUsPage />} />
-          <Route path="/sign-up" element={
-            <CheckAuthorization>
-              <SignUpPage />
-            </CheckAuthorization>
-          } />
-          <Route path="/sign-in" element={
-            <CheckAuthorization>
-              <SignInPage />
-            </CheckAuthorization>
-          } />
-          <Route path="/help-center" element={<HelpCenterPage />} />
+      <ThemeContextProvider>
+        <HashRouter>
+          <Body>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contacts" element={<ContactsPage />} />
+              <Route path="/contacts-us" element={<ContactUsPage />} />
+              <Route path="/sign-up" element={
+                <CheckAuthorization>
+                  <SignUpPage />
+                </CheckAuthorization>
+              } />
+              <Route path="/sign-in" element={
+                <CheckAuthorization>
+                  <SignInPage />
+                </CheckAuthorization>
+              } />
+              <Route path="/help-center" element={<HelpCenterPage />} />
 
-          <Route path="/profile" element={
-            <CheckNotAuthorization>
-              <ProfilePage />
-            </CheckNotAuthorization>
-          } />
-          <Route path="/expenses" element={<ExpensesPage />} />
-          <Route path="/income" element={<IcomePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/settings/change-name" element={<ChangeNamePage />} />
-          <Route path="/settings/change-email" element={<ChangeEmailPage />} />
-          <Route path="/settings/change-email-checking" element={<ChangeEmailCheckingPage />} />
-          <Route path="/settings/change-email-modification" element={<ChangeEmailModificationPage />} />
-          <Route path="/settings/change-password" element={<ChangePasswordPage />} />
-          <Route path="/settings/change-password-modification" element={<ChangePasswordModificationPage />} />
-          <Route path="/settings/deleting-account-confirmation" element={<DeletingAccountConfirmationPage />} />
-          <Route path="/settings/deleting-account" element={<DeletingAccountPage />} />
-          <Route path="/statistics" element={<Statistics />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-        </Body>
-      </HashRouter>
+              <Route path="/profile" element={
+                <CheckNotAuthorization>
+                  <ProfilePage />
+                </CheckNotAuthorization>
+              } />
+              <Route path="/expenses" element={<ExpensesPage />} />
+              <Route path="/income" element={<IcomePage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/settings/change-name" element={<ChangeNamePage />} />
+              <Route path="/settings/change-email" element={<ChangeEmailPage />} />
+              <Route path="/settings/change-email-checking" element={<ChangeEmailCheckingPage />} />
+              <Route path="/settings/change-email-modification" element={<ChangeEmailModificationPage />} />
+              <Route path="/settings/change-password" element={<ChangePasswordPage />} />
+              <Route path="/settings/change-password-modification" element={<ChangePasswordModificationPage />} />
+              <Route path="/settings/deleting-account-confirmation" element={<DeletingAccountConfirmationPage />} />
+              <Route path="/settings/deleting-account" element={<DeletingAccountPage />} />
+              <Route path="/statistics" element={<Statistics />} />
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+          </Body>
+        </HashRouter>
+      </ThemeContextProvider>
     </AuthorizedContextProvider>
   );
 }

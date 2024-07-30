@@ -5,7 +5,7 @@ interface StylesProps {
 }
 
 export const Wrapper = styled.div<StylesProps>`
-    padding: 20px;
+    padding: 20px 40px 20px 40px;
     align-items: center;
     display: grid;
     text-align: end;

@@ -39,6 +39,7 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
                     const updatedData = {
                         ...dataFromUserStore,
                         settings: {
+                            ...dataFromUserStore.settings,
                             currency: {
                                 code: code,
                                 name: name,
@@ -83,8 +84,6 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
                         names={currencies} />
                     <BtnInner>
                         <ButtonComponent
-                            backgroundColor="#5B8A72"
-                            BackgroundColorHover="#0f4a34"
                             text="Change currency"
                             color="#fff"
                             type="button"

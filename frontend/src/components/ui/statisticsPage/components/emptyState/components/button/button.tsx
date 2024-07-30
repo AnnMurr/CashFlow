@@ -14,8 +14,6 @@ export const Button: FC<BottonProps> = ({ text, link }) => {
     return (
         <BtnInner>
             <ButtonComponent
-                backgroundColor="#5B8A72"
-                BackgroundColorHover="#0f4a34"
                 text={text}
                 color="#fff"
                 type="button"

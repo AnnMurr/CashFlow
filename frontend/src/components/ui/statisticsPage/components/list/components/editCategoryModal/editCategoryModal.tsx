@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { OutlinedInput } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
 import { RootState, Transaction, UserStorageDataType } from "../../../../../../../redux/reducers/userStorageReduser/types";
@@ -12,13 +12,15 @@ import { changeUserData } from "../../../../../../../redux/reducers/userStorageR
 import { getAlert } from "../../../../../../../utils/getAlert";
 import { addScroll } from "../../../../../../../utils/toggleScroll";
 import { getDataForStatistic } from "../../../../../../../utils/statisticalDataUtils";
+import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 import { BtnInner, Container, Label, Wrapper } from "./styledEditCategoryModal";
 
 interface EditCategoryModalProps {
     choosedCategoryId: string | null;
     closeEditCategoryModal: (value: boolean) => void;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
-    statisticType:  "expenses" | "income";
+    statisticType: "expenses" | "income";
 }
 
 export const EditCategoryModal: FC<EditCategoryModalProps> = ({
@@ -28,6 +30,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
     const [categoryNameError, setCategoryNameError] = useState<boolean>(false);
     const [categorySum, setCategorySum] = useState<string>("");
     const [isDisabledBtn, setIsDisabledBtn] = useState<boolean>(true);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
 
     const { storageData, typesOfCategories, transactions } = useAppSelector((state: RootState) => state.storage);
@@ -104,15 +107,14 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
     }
 
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
                 <BtnClose
                     btnInnerstyles={{ marginLeft: "auto" }}
                     closeBlock={closeEditCategoryModal}
-                    size="lg"
-                    color="#000" />
+                    size="lg" />
                 <div>
-                    <Label>Category</Label>
+                    <Label themestyles={themeContext.themeStyles}>Category</Label>
                     {(typesOfCategories && categoryData) &&
                         <MultipleSelectPlaceholder
                             setCategoryName={setCategoryName}
@@ -120,13 +122,24 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                             names={typesOfCategories[categoryData?.type]} />}
                 </div>
                 <div>
-                    <Label>Sum</Label>
+                    <Label themestyles={themeContext.themeStyles}>Sum</Label>
                     <OutlinedInput
                         sx={{
                             marginBottom: "20px",
-                            marginTop: "10px",
+                            margin: "10px 0 10px 0",
                             width: "100%",
-                            fontSize: "14px"
+                            fontSize: "14px",
+                            color: themeContext.themeStyles.color,
+
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorder,
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorderHover,
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorderFocused,
+                            },
                         }}
                         inputProps={{ maxLength: 10 }}
                         error={categoryNameError}
@@ -138,8 +151,6 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                 <BtnInner>
                     <ButtonComponent
                         disabledValue={isDisabledBtn}
-                        backgroundColor="#5B8A72"
-                        BackgroundColorHover="#0f4a34"
                         text="Save"
                         color="#fff"
                         type="button"

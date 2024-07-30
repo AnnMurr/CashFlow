@@ -166,12 +166,9 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 </ErrorMessageContainer>
             </Label>
             <ButtonComponent
-                backgroundColor="#5B8A72"
-                BackgroundColorHover="#0f4a34"
                 text="Sign up"
                 color="#fff"
                 type="submit" />
-
             <SignUpWithGoogle getLogSuccess={getLogSuccess} setIsAlertActive={setIsAlertActive} />
             <LinkToSignInBlock />
         </FormContainer>

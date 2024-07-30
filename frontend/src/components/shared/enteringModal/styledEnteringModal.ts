@@ -1,9 +1,10 @@
+import { ThemeStyledProps } from "../../../contexts/themeContext/types";
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<ThemeStyledProps>`
     max-width: 310px;
     width: 100%;
-    background-color: #1c1b1b;
+    background-color:${({ themestyles }) => themestyles.enteringModalBackground};
     position: fixed;
     top: 20%;
     left: 50%;
