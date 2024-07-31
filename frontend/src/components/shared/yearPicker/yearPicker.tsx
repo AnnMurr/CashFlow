@@ -1,12 +1,12 @@
 import { FC, useContext, useEffect, useState } from "react";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Dayjs } from "dayjs";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
+import { Box } from "@mui/material";
+import { Dayjs } from "dayjs";
 
 interface YearPickerProps {
     setChosenYear: (value: string) => void;
@@ -15,12 +15,6 @@ interface YearPickerProps {
 export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
     const [value, setValue] = useState<Dayjs | null>(null);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
-
-    const ContainerStyles = {
-        '&.MuiStack-root': {
-            paddingTop: "10px",
-        },
-    };
 
     const DatePickerStyles = {
         '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused ': {
@@ -50,6 +44,17 @@ export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
         },
     };
 
+    const DatePickerStylesLayout = (themeContext: ThemeContextType) => ({
+        boxShadow: `0px 0px 4px ${themeContext.themeStyles.datePikerLayoutShadow}`,
+        color: themeContext.themeStyles.color,
+        backgroundColor: themeContext.themeStyles.datePikerLayout,
+
+        '& .MuiPickersYear-yearButton:hover': {
+            backgroundColor: themeContext.themeStyles.pickersDayHover,
+        },
+
+    });
+
     useEffect(() => {
         if (value) {
             const date = getCurrentDate(value?.toDate()).slice(6, -6);
@@ -59,12 +64,31 @@ export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer sx={ContainerStyles} components={['DatePicker', 'DatePicker', 'DatePicker']}>
+            <Box>
                 <DatePicker sx={DatePickerStyles}
+                    slotProps={{
+                        layout: {
+                            sx: DatePickerStylesLayout(themeContext)
+                        },
+                        yearButton: {
+                            sx: {
+                                '&.Mui-selected': {
+                                    backgroundColor: themeContext.themeStyles.pickersDaySelected,
+
+                                    '&:hover': {
+                                        backgroundColor: themeContext.themeStyles.pickersDayHover,
+                                    },
+                                    '&:focus': {
+                                        backgroundColor: themeContext.themeStyles.pickersDaySelected,
+                                    },
+                                },
+                            }
+                        },
+                    }}
                     onChange={(newValue) => setValue(newValue)}
                     label={'year'}
                     views={['year']} />
-            </DemoContainer>
+            </Box>
         </LocalizationProvider>
     );
 }

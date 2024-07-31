@@ -4,7 +4,7 @@ import { faBars, faClockRotateLeft, faGear, faSackDollar, faWallet } from "@fort
 import { Item } from "./components/item/item";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
-import { Container, List, Wrapper, BurgerInner } from "./styledSubBar";
+import { Container, List, Wrapper } from "./styledSubBar";
 
 export const SubBar: FC = () => {
     const [isAtiveBar, setIsAtiveBar] = useState<boolean>(false);
@@ -15,14 +15,14 @@ export const SubBar: FC = () => {
     return (
         <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
-                <BurgerInner>
+                <div>
                     <button type="button" onClick={changeAtiveBar}>
                         <FontAwesomeIcon
                             style={{ transform: `rotate(${isAtiveBar ? "0" : "90deg"})` }}
                             icon={faBars} size="xl"
                             color="#fff" />
                     </button>
-                </BurgerInner>
+                </div>
                 <List>
                     <Item
                         icon={faWallet}

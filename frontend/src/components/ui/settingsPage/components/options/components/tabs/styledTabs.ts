@@ -1,4 +1,7 @@
+import { ThemeStyledProps } from "../../../../../../../contexts/themeContext/types";
 import styled from "styled-components";
+
+type CombinatedProps = ThemeStyledProps & ItemProps
 
 interface ItemProps {
     active: string;
@@ -12,13 +15,13 @@ export const Container = styled.div`
     height: 100%;
 `
 
-export const Item = styled.li<ItemProps>`
+export const Item = styled.li<CombinatedProps>`
     padding-bottom: 15px;
   
     button {
         font-family: "Almarai";
         font-size: 20px;
         font-weight: 600;
-        color: ${({ active }) => active === "true" ? "#000" : "#898989"};
+        color: ${({ active, themestyles }) => active === "true" ? themestyles.settingsOptionsTabActive : "#898989"};
     }
 `

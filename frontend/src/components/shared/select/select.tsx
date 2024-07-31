@@ -20,15 +20,6 @@ const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
 
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
 export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ names, categoryName, setCategoryName }) => {
   const theme = useTheme();
   const [category, setCategory] = useState<Array<string>>([]);
@@ -49,11 +40,12 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
 
     '& .MuiPaper-root.MuiPopover-paper.MuiMenu-paper': {
       backgroundColor: themeContext.themeStyles.modalBackground,
-  },
+    },
   }
 
   const selectStyles = {
     color: themeContext.themeStyles.color,
+
     '& .MuiSelect-select': {
       padding: "8.5px 14px",
       fontSize: "14px",
@@ -61,7 +53,7 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
     '& em': {
       fontStyle: 'normal'
     },
-    "& .MuiSvgIcon-root": {
+    '& .MuiSvgIcon-root': {
       color: themeContext.themeStyles.dataPikerIcon,
     },
     '& .MuiOutlinedInput-notchedOutline': {
@@ -72,18 +64,16 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
     },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: themeContext.themeStyles.inputBorderFocused,
-    },    
-    '& .MuiSelect-menu': {
-      backgroundColor: themeContext.themeStyles.modalBackground,
     },
-   
+    '& .MuiSelect-menu': {
+      backgroundColor: "red",
+    },
   };
 
   return (
     <div>
       <FormControl sx={formControlStyles}>
         <Select
-         
           sx={selectStyles}
           displayEmpty
           value={category}
@@ -100,7 +90,7 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
               sx: {
                 maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
                 width: 250,
-                backgroundColor: themeContext.themeStyles.modalBackground,
+                backgroundColor: themeContext.themeStyles.datePikerLayout,
                 color: themeContext.themeStyles.color,
               },
             },
@@ -113,7 +103,15 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
               <MenuItem
                 key={uuidv4()}
                 value={itemName}
-                style={getStyles(itemName, category, theme)}>
+                sx={{
+                  '&.MuiButtonBase-root.MuiMenuItem-root.Mui-selected': {
+                    backgroundColor: themeContext.themeStyles.selectSelected,
+                  },
+                  '&:hover': {
+                    backgroundColor: themeContext.themeStyles.selectHover,
+                  }
+                }}
+              >
                 {itemName}
               </MenuItem>
             )

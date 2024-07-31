@@ -18,7 +18,7 @@ export interface Theme {
     buttonGroupColor: Colors,
     buttonActiveGroupColor: Colors,
     buttonGroupHover: Colors,
-    selectHover: Colors,
+    // selectHover: Colors,
     inputBorder: Colors,
     dataPikerIcon: Colors,
     inputBorderHover: Colors,
@@ -26,6 +26,13 @@ export interface Theme {
     labelFocused: Colors,
     categoryBackgroundHover: Colors,
     buttonDisabledBackground: Colors,
+    settingsOptionsTabActive: Colors,
+    datePikerLayout: Colors,
+    pickersDaySelected: Colors,
+    pickersDayHover: Colors,
+    datePikerLayoutShadow: Colors,
+     selectHover: Colors,
+        selectSelected: Colors,
 }
 
 export interface ThemeContextType {

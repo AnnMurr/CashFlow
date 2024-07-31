@@ -13,6 +13,11 @@ interface DateRangePickerProps {
 
 const useStyles = makeStyles((theme) => ({
   datePicker: (props: { themeStyles: Theme }) => ({
+    popover: {
+      '& .MuiPaper-root': {
+        backgroundColor: "black",
+      },
+    },
     '& .MuiInputBase-root': {
       color: props.themeStyles.color,
     },
@@ -27,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
     },
   }),
 }));
+
+
 
 export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRange }) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -49,6 +56,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <DatePicker
+          
             className={classes.datePicker}
             disableToolbar
             variant="inline"

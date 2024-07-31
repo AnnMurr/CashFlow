@@ -11,10 +11,6 @@ export const Wrapper = styled.div`
     padding: 30px;
 `
 
-export const BurgerInner = styled.div`
-    padding: 5px;
-`
-
 export const List = styled.ul`
     padding-top: 20px;
 `
