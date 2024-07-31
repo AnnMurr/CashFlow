@@ -1,6 +1,4 @@
-
 import { FC, useContext, useEffect, useState } from 'react';
-import { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -8,8 +6,13 @@ import { getCurrentDate } from '../../../utils/getCurrentDate';
 import { ThemeContextType } from '../../../contexts/themeContext/types';
 import { ThemeContext } from '../../../contexts/themeContext/themeContext';
 import { Box } from '@mui/material';
+import { Dayjs } from 'dayjs';
 
-export const DatePickerComponent: FC<any> = ({ setChosenDate }) => {
+interface DatePickerComponent {
+    setChosenDate: (value: string | null) => void;
+}
+
+export const DatePickerComponent: FC<DatePickerComponent> = ({ setChosenDate }) => {
     const [value, setValue] = useState<Dayjs | null>(null);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
@@ -39,18 +42,27 @@ export const DatePickerComponent: FC<any> = ({ setChosenDate }) => {
         color: themeContext.themeStyles.color,
         backgroundColor: themeContext.themeStyles.datePikerLayout,
 
-        '& .MuiTypography-root.MuiDayCalendar-weekDayLabel': {
+        '& .MuiDayCalendar-weekDayLabel': {
             color: themeContext.themeStyles.color,
         },
-        '& .MuiButtonBase-root.MuiPickersDay-root': {
+        '& .MuiPickersDay-root': {
             color: themeContext.themeStyles.color,
-            
+
+            '&.Mui-selected': {
+                backgroundColor: themeContext.themeStyles.pickersDaySelected,
+            },
             '&:hover': {
                 backgroundColor: themeContext.themeStyles.pickersDayHover,
             },
         },
-        '& .MuiButtonBase-root.MuiPickersDay-root.Mui-selected': {
-            backgroundColor: themeContext.themeStyles.pickersDaySelected,
+    });
+
+    const CalendarHeaderStyles = (themeContext: ThemeContextType) => ({
+        '& .MuiPickersCalendarHeader-switchViewButton': {
+            color: themeContext.themeStyles.color,
+        },
+        '& .MuiPickersArrowSwitcher-button': {
+            color: themeContext.themeStyles.color,
         },
     });
 
@@ -69,7 +81,10 @@ export const DatePickerComponent: FC<any> = ({ setChosenDate }) => {
                     slotProps={{
                         layout: {
                             sx: DatePickerStylesLayout(themeContext)
-                        }
+                        },
+                        calendarHeader: {
+                            sx: CalendarHeaderStyles(themeContext)
+                        },
                     }}
                     value={value}
                     onChange={(newValue) => setValue(newValue)}

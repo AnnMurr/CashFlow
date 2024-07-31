@@ -70,6 +70,15 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
     },
   };
 
+  const menuItemStyles = {
+    '&.MuiButtonBase-root.MuiMenuItem-root.Mui-selected': {
+      backgroundColor: themeContext.themeStyles.selectSelected,
+    },
+    '&:hover': {
+      backgroundColor: themeContext.themeStyles.selectHover,
+    }
+  };
+
   return (
     <div>
       <FormControl sx={formControlStyles}>
@@ -103,14 +112,7 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
               <MenuItem
                 key={uuidv4()}
                 value={itemName}
-                sx={{
-                  '&.MuiButtonBase-root.MuiMenuItem-root.Mui-selected': {
-                    backgroundColor: themeContext.themeStyles.selectSelected,
-                  },
-                  '&:hover': {
-                    backgroundColor: themeContext.themeStyles.selectHover,
-                  }
-                }}
+                sx={menuItemStyles}
               >
                 {itemName}
               </MenuItem>

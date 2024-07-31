@@ -17,7 +17,7 @@ export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const DatePickerStyles = {
-        '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused ': {
+        '& .MuiInputLabel-root.Mui-focused ': {
             color: themeContext.themeStyles.labelFocused,
         },
         '& .MuiInputBase-input': {
@@ -52,7 +52,19 @@ export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
         '& .MuiPickersYear-yearButton:hover': {
             backgroundColor: themeContext.themeStyles.pickersDayHover,
         },
+    });
 
+    const YearButtonStylesLayout = (themeContext: ThemeContextType) => ({
+        '&.Mui-selected': {
+            backgroundColor: themeContext.themeStyles.pickersDaySelected,
+
+            '&:hover': {
+                backgroundColor: themeContext.themeStyles.pickersDayHover,
+            },
+            '&:focus': {
+                backgroundColor: themeContext.themeStyles.pickersDaySelected,
+            },
+        },
     });
 
     useEffect(() => {
@@ -71,18 +83,7 @@ export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
                             sx: DatePickerStylesLayout(themeContext)
                         },
                         yearButton: {
-                            sx: {
-                                '&.Mui-selected': {
-                                    backgroundColor: themeContext.themeStyles.pickersDaySelected,
-
-                                    '&:hover': {
-                                        backgroundColor: themeContext.themeStyles.pickersDayHover,
-                                    },
-                                    '&:focus': {
-                                        backgroundColor: themeContext.themeStyles.pickersDaySelected,
-                                    },
-                                },
-                            }
+                            sx: YearButtonStylesLayout(themeContext)
                         },
                     }}
                     onChange={(newValue) => setValue(newValue)}

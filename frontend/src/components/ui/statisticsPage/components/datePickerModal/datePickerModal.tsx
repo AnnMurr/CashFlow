@@ -17,7 +17,7 @@ interface DatePickerModalProps {
 
 export const DatePickerModal: FC<DatePickerModalProps> = ({
     setIsAlertActive, chosenFilterType, setIsDatePickerModal }) => {
-    const [chosenDate, setChosenDate] = useState(null);
+    const [chosenDate, setChosenDate] = useState<string | null>(null);
     const { statisticalData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
 
