@@ -81,8 +81,6 @@ export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }
             </Description>
             <ButtonComponent
                 disabledValue={false}
-                backgroundColor="#5B8A72"
-                BackgroundColorHover="#0f4a34"
                 text="Change google account"
                 color="#fff"
                 type="button"

@@ -1,10 +1,12 @@
-import { FC, useEffect, useState } from "react";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { FC, useContext, useEffect, useState } from "react";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Dayjs } from "dayjs";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
+import { Box } from "@mui/material";
+import { Dayjs } from "dayjs";
 
 interface YearPickerProps {
     setChosenYear: (value: string) => void;
@@ -12,6 +14,58 @@ interface YearPickerProps {
 
 export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
     const [value, setValue] = useState<Dayjs | null>(null);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+
+    const DatePickerStyles = {
+        '& .MuiInputLabel-root.Mui-focused ': {
+            color: themeContext.themeStyles.labelFocused,
+        },
+        '& .MuiInputBase-input': {
+            padding: "10px",
+            color: themeContext.themeStyles.color,
+        },
+        '& .MuiSvgIcon-root': {
+            color: themeContext.themeStyles.dataPikerIcon,
+        },
+        '& .MuiInputLabel-root': {
+            color: themeContext.themeStyles.color,
+            top: "-6px",
+        },
+        '& .MuiOutlinedInput-root': {
+            '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: themeContext.themeStyles.inputBorder,
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: themeContext.themeStyles.inputBorderHover,
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: themeContext.themeStyles.inputBorderFocused,
+            },
+        },
+    };
+
+    const DatePickerStylesLayout = (themeContext: ThemeContextType) => ({
+        boxShadow: `0px 0px 4px ${themeContext.themeStyles.datePikerLayoutShadow}`,
+        color: themeContext.themeStyles.color,
+        backgroundColor: themeContext.themeStyles.datePikerLayout,
+
+        '& .MuiPickersYear-yearButton:hover': {
+            backgroundColor: themeContext.themeStyles.pickersDayHover,
+        },
+    });
+
+    const YearButtonStylesLayout = (themeContext: ThemeContextType) => ({
+        '&.Mui-selected': {
+            backgroundColor: themeContext.themeStyles.pickersDaySelected,
+
+            '&:hover': {
+                backgroundColor: themeContext.themeStyles.pickersDayHover,
+            },
+            '&:focus': {
+                backgroundColor: themeContext.themeStyles.pickersDaySelected,
+            },
+        },
+    });
 
     useEffect(() => {
         if (value) {
@@ -22,19 +76,20 @@ export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['DatePicker', 'DatePicker', 'DatePicker']}>
-                <DatePicker sx={{
-                    '& .MuiOutlinedInput-input': {
-                        padding: "10px",
-                    },
-                    '& label': {
-                        top: "-6px",
-                    }
-                }}
+            <Box>
+                <DatePicker sx={DatePickerStyles}
+                    slotProps={{
+                        layout: {
+                            sx: DatePickerStylesLayout(themeContext)
+                        },
+                        yearButton: {
+                            sx: YearButtonStylesLayout(themeContext)
+                        },
+                    }}
                     onChange={(newValue) => setValue(newValue)}
                     label={'year'}
                     views={['year']} />
-            </DemoContainer>
+            </Box>
         </LocalizationProvider>
     );
 }

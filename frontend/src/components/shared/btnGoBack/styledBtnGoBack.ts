@@ -12,8 +12,4 @@ export const Text = styled.div`
 
 export const Button = styled.button`
     transition: all 0.5s ease;
-
-    &:hover {
-        transform: scale(1.1, 1.1);
-    }
 `

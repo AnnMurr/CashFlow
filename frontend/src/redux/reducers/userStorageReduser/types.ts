@@ -1,3 +1,5 @@
+import { ThemeType } from "../../../contexts/themeContext/types";
+
 export interface CategoriesType {
     name: string;
     icon: string;
@@ -29,6 +31,7 @@ export interface UserStorageDataType {
     uid: string;
     settings: {
         currency: Currency;
+        theme: ThemeType;
     }
 }
 

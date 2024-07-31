@@ -1,5 +1,7 @@
+import { ThemeStyledProps } from "../../../../../../../../../contexts/themeContext/types";
 import styled from "styled-components";
 
+type CombinedProps = StylesProps & ThemeStyledProps;
 interface StylesProps {
     iseditingdata?: string;
     categorystatistic?: string;
@@ -16,7 +18,7 @@ export const Settings = styled.div`
     display: none;
 `
 
-export const Container = styled.div<StylesProps>`
+export const Container = styled.div<CombinedProps>`
     display: flex;
     justify-content: space-between;
     display: grid;
@@ -35,7 +37,7 @@ export const Container = styled.div<StylesProps>`
     cursor: pointer;
     cursor: ${({ iseditingdata, categorystatistic }) =>
         iseditingdata === "false" && categorystatistic === "false" ? "pointer" : "auto"};
-    padding: 5px 20px;
+    padding: 5px 40px;
     color: #000;
     align-items: center;
 
@@ -44,8 +46,8 @@ export const Container = styled.div<StylesProps>`
             display: flex;
             animation: showEdit 0.5s ease forwards;
         }
-        background-color: ${({ iseditingdata, categorystatistic }) =>
-        iseditingdata === "false" && categorystatistic === "false" ? "#dedede" : "none"};
+        background-color: ${({ iseditingdata, categorystatistic, themestyles }) =>
+        iseditingdata === "false" && categorystatistic === "false" ? themestyles.categoryBackgroundHover : "none"};
     }
 
     @keyframes showEdit {
@@ -62,8 +64,12 @@ export const Container = styled.div<StylesProps>`
       }
 `
 
-export const Category = styled.div<StylesProps>`
-text-align: ${({ chosenfilter }) => chosenfilter === "true" ? "start" : "uset"};
+export const Category = styled.div<CombinedProps>`
+    text-align: ${({ chosenfilter }) => chosenfilter === "true" ? "start" : "uset"};
+
+    span {
+        color:${({ themestyles }) => themestyles.color};
+    }
 `
 
 export const IconInner = styled.div`
@@ -76,9 +82,19 @@ export const TimeEditBlock = styled.div`
     justify-content: end;
 `
 
-export const Date = styled.div`
+export const Date = styled.div<ThemeStyledProps>`
     display: grid;
-    grid-template-columns: 85% 15%;
+    grid-template-columns: 75% 25%;
     text-align: end;
     width: 100%;
+
+    span {
+        color:${({ themestyles }) => themestyles.color};
+    }
+`
+
+export const Sum = styled.div<ThemeStyledProps>`
+    span {
+        color:${({ themestyles }) => themestyles.color};
+    }
 `

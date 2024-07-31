@@ -70,8 +70,6 @@ export const AccountConfirmationBlock: FC<AccountConfirmationBlockProps> = ({ se
                 </div>
                 <BtnInner>
                     <ButtonComponent
-                        backgroundColor="#5B8A72"
-                        BackgroundColorHover="#0f4a34"
                         text="Next"
                         color="#fff"
                         type="button"

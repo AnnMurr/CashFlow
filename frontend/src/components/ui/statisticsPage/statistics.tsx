@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { SubBar } from "../../shared/subBar/subBar";
 import { Header } from "./components/header/header";
 import { List } from "./components/list/list";
@@ -13,8 +13,10 @@ import { DateRangeModal } from "./components/dateRangeModal/dateRangeModal";
 import { getDataForStatistic, getFilterStatisticsForWeek } from "../../../utils/statisticalDataUtils";
 import { setChosenCategoryStatistic, setChosenFilter, setIsEditingData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { DeleteFinancesModal } from "./components/deleteFinancesModal/deleteFinancesModal";
-import { Container, Wrapper } from "./styledStatistics";
 import { EmptyState } from "./components/emptyState/emptyState";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
+import { Container, Wrapper } from "./styledStatistics";
 
 export const Statistics: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
@@ -26,6 +28,7 @@ export const Statistics: FC = () => {
     const [isDeleteFinancesModal, setIsDeleteFinancesModal] = useState<boolean>(false);
     const [statisticType, setStatisticType] = useState<"expenses" | "income">("expenses");
     const { statisticalData, storageData } = useAppSelector((state: RootState) => state.storage);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
 
     const currentSetIsModal = isDatePickerModal
@@ -59,13 +62,11 @@ export const Statistics: FC = () => {
 
     return (
         <section>
-            {storageData && 
-            (storageData?.data.expenses.length > 0 || storageData?.data.income.length > 0) ?
+            {storageData &&
+                (storageData?.data.expenses.length > 0 || storageData?.data.income.length > 0) ?
                 <Container>
-                    <Wrapper>
+                    <Wrapper themestyles={themeContext.themeStyles}>
                         <SubBar />
-
-
                         <Header
                             setIsDeleteFinancesModal={setIsDeleteFinancesModal}
                             statisticType={statisticType}

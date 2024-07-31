@@ -1,4 +1,6 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 import { Container, Wrapper } from "./styledFiltersModalContainer";
 
 interface FiltersModalContainerProps {
@@ -6,8 +8,10 @@ interface FiltersModalContainerProps {
 }
 
 export const FiltersModalContainer: FC<FiltersModalContainerProps> = ({ children }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+    
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
                 {children}
             </Wrapper>

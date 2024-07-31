@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { BtnClose } from "../../../../../../shared/btnClose/btnClose";
 import { ButtonComponent } from "../../../../../../shared/button/button";
 import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
@@ -9,13 +9,15 @@ import { AlertComponentProps } from "../../../../../../shared/alert/alert";
 import { getAlert } from "../../../../../../../utils/getAlert";
 import { addScroll } from "../../../../../../../utils/toggleScroll";
 import { getDataForStatistic } from "../../../../../../../utils/statisticalDataUtils";
+import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 import { BtnInner, Container, Title, Wrapper } from "./styledDeleteCategoryModal";
 
 interface DeleteCategoryModalProps {
     closeDeleteModal: (value: boolean) => void;
     choosedCategoryId: string | null;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
-    statisticType:  "expenses" | "income";
+    statisticType: "expenses" | "income";
 }
 
 type RemoveCategoryById = (categories: Array<Transaction>, categoryId: string | null) => Array<Transaction>
@@ -23,6 +25,7 @@ type RemoveCategoryById = (categories: Array<Transaction>, categoryId: string | 
 export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
     closeDeleteModal, choosedCategoryId, setIsAlertActive, statisticType }) => {
     const dispatch = useAppDispatch();
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const { storageData } = useAppSelector((state: RootState) => state.storage);
 
@@ -54,14 +57,16 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
     }
 
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
                 <BtnClose
-                    btnInnerstyles={{ marginLeft: "auto" }}
+                    btnInnerstyles={{
+                        marginLeft: "auto",
+                        paddingBottom: "5px"
+                    }}
                     closeBlock={closeDeleteModal}
-                    size="lg"
-                    color="#000" />
-                <Title>
+                    size="lg" />
+                <Title themestyles={themeContext.themeStyles}>
                     <h5>
                         Are you sure you want to delete this category?
                     </h5>

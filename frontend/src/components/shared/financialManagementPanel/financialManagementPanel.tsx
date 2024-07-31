@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { CategorySelectionModal } from "../../shared/categorySelectionModal/categorySelectionModal";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
@@ -12,7 +12,10 @@ import { useAppDispatch } from "../../../redux/store/store";
 import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { CategoryKeys, TransactionKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
 import { getAlert } from "../../../utils/getAlert";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledFinancialManagementPanel";
+
 interface FinancialManagementPanelProps {
     type: TransactionKeys;
     dataKey: CategoryKeys;
@@ -26,6 +29,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const [isEnteringModalActive, setIsEnteringModalActive] = useState<boolean>(false);
     const [choosedCategory, setChoosedCategory] = useState<{ category: string, icon: string } | null>(null);
     const [categorySum, setCategorySum] = useState<string>("0");
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
 
     const currentSetIsModal = isCategorySelectionModalActive
@@ -103,7 +107,9 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                         dataKey={dataKey}
                         setIsAlertActive={setIsAlertActive} />
                     <AddCategoryBtnInner>
-                        <AddCategoryBtn onClick={toggleCategorySelectionModal} type="button"></AddCategoryBtn>
+                        <AddCategoryBtn
+                            themestyles={themeContext.themeStyles}
+                            onClick={toggleCategorySelectionModal} type="button" />
                     </AddCategoryBtnInner>
                 </> :
                 <Loading size={40} height={3} />}

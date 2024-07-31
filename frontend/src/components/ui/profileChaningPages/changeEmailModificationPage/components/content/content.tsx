@@ -90,8 +90,6 @@ export const Content: FC = () => {
                 <BtnInner>
                     <ButtonComponent
                         disabledValue={userData && userData.email === emailValue ? true : false}
-                        backgroundColor="#5B8A72"
-                        BackgroundColorHover="#0f4a34"
                         text="Save"
                         color="#fff"
                         type="button"

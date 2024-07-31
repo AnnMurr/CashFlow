@@ -50,16 +50,13 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({
                     marginBottom: "10px",
                 }}
                 closeBlock={setIsMonthSelectModal}
-                size="lg"
-                color="#000" />
+                size="lg" />
             <MultipleSelectPlaceholder
                 setCategoryName={setMonth}
                 categoryName={month}
                 names={months} />
             <BtnInner>
                 <ButtonComponent
-                    backgroundColor="#5B8A72"
-                    BackgroundColorHover="#0f4a34"
                     text="Apply"
                     color="#fff"
                     type="button"

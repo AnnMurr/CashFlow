@@ -1,7 +1,9 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
+import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 
 interface VariantButtonGroupProps {
     setStatisticType: (value: "expenses" | "income") => void;
@@ -10,6 +12,7 @@ interface VariantButtonGroupProps {
 
 export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticType, statisticType }) => {
     const [type, setType] = useState(statisticType);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const containerStyles = {
         display: 'flex',
@@ -23,7 +26,7 @@ export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticTy
 
     const buttonGroupStyles = {
         '& .MuiButtonGroup-firstButton': {
-            borderRight: "2px solid #000",
+            borderRight: `2px solid ${themeContext.themeStyles.buttonGroupColor}`,
         },
         '&.MuiButtonGroup-root': {
             margin: '0 auto 0 0',
@@ -39,7 +42,7 @@ export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticTy
             paddingLeft: "0",
         },
         '&:hover': {
-            backgroundColor: "rgb(49 163 71 / 4%)",
+            backgroundColor: themeContext.themeStyles.buttonGroupHover,
         },
     };
 
@@ -58,11 +61,11 @@ export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticTy
             <ButtonGroup sx={buttonGroupStyles} variant="text" aria-label="Basic button group">
                 <Button onClick={handleChangeStatisticType} sx={{
                     ...buttonStyles,
-                    color: type === "expenses" ? "#56776C" : "#000",
+                    color: type === "expenses" ? themeContext.themeStyles.buttonActiveGroupColor : themeContext.themeStyles.buttonGroupColor,
                 }}>Expenses</Button>
                 <Button onClick={handleChangeStatisticType} sx={{
                     ...buttonStyles,
-                    color: type === "income" ? "#56776C" : "#000",
+                    color: type === "income" ? themeContext.themeStyles.buttonActiveGroupColor : themeContext.themeStyles.buttonGroupColor,
                 }}>Income</Button>
             </ButtonGroup>
         </Box>

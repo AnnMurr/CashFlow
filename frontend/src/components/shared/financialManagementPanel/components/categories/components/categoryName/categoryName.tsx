@@ -1,4 +1,6 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
+import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 import { Container } from "./styledCategoryName";
 
 interface CategoryNameProps {
@@ -6,8 +8,10 @@ interface CategoryNameProps {
 }
 
 export const CategoryName: FC<CategoryNameProps> = ({ name }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+    
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <span>{name}</span>
         </Container>
     )

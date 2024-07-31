@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { BtnClose } from "../../../../shared/btnClose/btnClose";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { useAppDispatch } from "../../../../../redux/store/store";
@@ -8,6 +8,8 @@ import { changeUserData, getDataFromUserStore } from "../../../../../redux/reduc
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { getAlert } from "../../../../../utils/getAlert";
 import { getDataForStatistic } from "../../../../../utils/statisticalDataUtils";
+import { ThemeContextType } from "../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 import { BtnInner, Container, Title, Wrapper } from "./styledDeleteFinancesModal";
 
 interface DeleteFinancesModalProps {
@@ -18,6 +20,7 @@ interface DeleteFinancesModalProps {
 
 export const DeleteFinancesModal: FC<DeleteFinancesModalProps> = ({ setIsDeleteFinancesModal, setIsAlertActive, statisticType }) => {
     const dispatch = useAppDispatch();
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const deleteFinances = async () => {
         try {
@@ -46,7 +49,7 @@ export const DeleteFinancesModal: FC<DeleteFinancesModalProps> = ({ setIsDeleteF
         }
     }
     return (
-        <Container >
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
                 <BtnClose
                     btnInnerstyles={{
@@ -54,9 +57,8 @@ export const DeleteFinancesModal: FC<DeleteFinancesModalProps> = ({ setIsDeleteF
                         paddingBottom: "5px",
                     }}
                     closeBlock={setIsDeleteFinancesModal}
-                    size="lg"
-                    color="#000" />
-                <Title >
+                    size="lg" />
+                <Title themestyles={themeContext.themeStyles}>
                     <h5>
                         Are you sure you want to delete all financial statistics? This action
                         is irreversible, and all income and expense data will be permanently removed.

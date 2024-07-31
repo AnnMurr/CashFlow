@@ -109,8 +109,6 @@ export const Content: FC = () => {
                 </Label>
                 <BtnInner>
                     <ButtonComponent
-                        backgroundColor="#5B8A72"
-                        BackgroundColorHover="#0f4a34"
                         text="Save"
                         color="#fff"
                         type="button"

@@ -1,53 +1,165 @@
-import React, { useState } from 'react';
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+import React, { useContext, useState } from 'react';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { Grid } from '@material-ui/core';
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+import { ThemeContextType } from '../../../contexts/themeContext/types';
+import { ThemeContext } from '../../../contexts/themeContext/themeContext';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import Box from '@mui/material/Box';
+import { Dayjs } from 'dayjs';
+
 interface DateRangePickerProps {
   onSelectDateRange: (startDate: Date | null, endDate: Date | null) => void;
 }
 
 export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRange }) => {
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Dayjs | null>(null);
+  const [endDate, setEndDate] = useState<Dayjs | null>(null);
+  const [openStartDateCalendar, setOpenStartDateCalendar] = useState<boolean>(false);
+  const [openEndDateCalendar, setOpenEndDateCalendar] = useState<boolean>(false);
+  const { themeStyles } = useContext<ThemeContextType>(ThemeContext);
+  const themeContext = useContext<ThemeContextType>(ThemeContext);
 
-  const handleStartDateChange = (date: MaterialUiPickersDate) => {
-    setStartDate(date);
-    onSelectDateRange(date, endDate);
+  const handleStartDateChange = (date: Dayjs | null) => {
+
+    if (date) {
+      setStartDate(date);
+      onSelectDateRange(date?.toDate(), endDate ? endDate.toDate() : null);
+      setOpenStartDateCalendar(false);
+    }
   };
 
-  const handleEndDateChange = (date: MaterialUiPickersDate) => {
-    setEndDate(date);
-    onSelectDateRange(startDate, date);
+  const handleEndDateChange = (date: Dayjs | null) => {
+    if (date && startDate) {
+      setEndDate(date);
+      onSelectDateRange(startDate ? startDate.toDate() : null, date?.toDate());
+      setOpenEndDateCalendar(false);
+    }
   };
+
+  const DataPickerStyles = {
+    '& .MuiIconButton-root': {
+      display: 'none',
+    },
+    '& .MuiInputLabel-root': {
+      color: themeStyles.color,
+
+      '&.Mui-focused': {
+        color: themeStyles.labelFocused,
+      },
+    },
+    '& .MuiOutlinedInput-root': {
+      color: themeStyles.color,
+      fontSize: "13px",
+
+      '& .MuiOutlinedInput-notchedOutline': {
+        border: "none",
+        borderBottom: `1px solid ${themeStyles.inputBorder}`,
+        borderRadius: 0,
+      },
+      '&:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: themeStyles.inputBorderHover,
+      },
+      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderColor: themeStyles.inputBorderFocused,
+      },
+    },
+  };
+
+  const CalendarHeaderStyles = (themeContext: ThemeContextType) => ({
+    '& .MuiPickersCalendarHeader-switchViewButton': {
+      color: themeContext.themeStyles.color,
+    },
+    '& .MuiPickersArrowSwitcher-button': {
+      color: themeContext.themeStyles.color,
+    },
+  });
+
+  const CalendarDayStyles = (themeContext: ThemeContextType) => ({
+    color: themeContext.themeStyles.color,
+
+    '&.Mui-selected': {
+      backgroundColor: themeContext.themeStyles.pickersDaySelected,
+      '&:focus': {
+        backgroundColor: themeContext.themeStyles.pickersDaySelected,
+      },
+    },
+    '&:hover': {
+      backgroundColor: themeContext.themeStyles.pickersDayHover,
+    },
+  });
+
+  const DatePickerStylesLayout = (themeContext: ThemeContextType) => ({
+    boxShadow: `0px 0px 4px ${themeContext.themeStyles.datePikerLayoutShadow}`,
+    color: themeContext.themeStyles.color,
+    backgroundColor: themeContext.themeStyles.datePikerLayout,
+
+    '& .MuiDayCalendar-weekDayLabel': {
+      color: themeContext.themeStyles.color,
+    },
+  });
 
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <DatePicker
-            disableToolbar
-            variant="inline"
-            format="MM/dd/yyyy"
-            margin="normal"
-            id="start-date-picker"
-            label="Start Date"
-            value={startDate}
-            onChange={handleStartDateChange} />
+          <Box onClick={() => {
+            if (!openStartDateCalendar)
+              setOpenStartDateCalendar(true)
+          }} >
+            <DatePicker
+              closeOnSelect={true}
+              open={openStartDateCalendar}
+              onClose={() => setOpenStartDateCalendar(false)}
+              autoFocus={true}
+              sx={DataPickerStyles}
+              label="Start Date"
+              value={startDate}
+              onChange={handleStartDateChange}
+              slotProps={{
+                calendarHeader: {
+                  sx: CalendarHeaderStyles(themeContext)
+                },
+                layout: {
+                  sx: DatePickerStylesLayout(themeContext)
+                },
+                day: {
+                  sx: CalendarDayStyles(themeContext)
+                }
+              }}
+            />
+          </Box>
         </Grid>
         <Grid item xs={6}>
-          <DatePicker
-            disableToolbar
-            variant="inline"
-            format="MM/dd/yyyy"
-            margin="normal"
-            id="end-date-picker"
-            label="End Date"
-            value={endDate}
-            onChange={handleEndDateChange} />
+          <Box onClick={() => {
+            if (!openEndDateCalendar)
+              setOpenEndDateCalendar(true)
+          }} >
+            <DatePicker
+              closeOnSelect={true}
+              open={openEndDateCalendar}
+              onOpen={() => setOpenEndDateCalendar(true)}
+              onClose={() => setOpenEndDateCalendar(false)}
+              autoFocus={true}
+              sx={DataPickerStyles}
+              label="End Date"
+              value={endDate}
+              onChange={handleEndDateChange}
+              slotProps={{
+                calendarHeader: {
+                  sx: CalendarHeaderStyles(themeContext)
+                },
+                layout: {
+                  sx: DatePickerStylesLayout(themeContext)
+                },
+                day: {
+                  sx: CalendarDayStyles(themeContext)
+                }
+              }}
+            />
+          </Box>
         </Grid>
       </Grid>
-    </MuiPickersUtilsProvider>
+    </LocalizationProvider>
   );
 };
 

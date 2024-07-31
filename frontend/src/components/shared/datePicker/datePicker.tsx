@@ -1,14 +1,70 @@
-
-import { FC, useEffect, useState } from 'react';
-import { Dayjs } from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { FC, useContext, useEffect, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { getCurrentDate } from '../../../utils/getCurrentDate';
+import { ThemeContextType } from '../../../contexts/themeContext/types';
+import { ThemeContext } from '../../../contexts/themeContext/themeContext';
+import { Box } from '@mui/material';
+import { Dayjs } from 'dayjs';
 
-export const DatePickerComponent: FC<any> = ({ setChosenDate }) => {
+interface DatePickerComponent {
+    setChosenDate: (value: string | null) => void;
+}
+
+export const DatePickerComponent: FC<DatePickerComponent> = ({ setChosenDate }) => {
     const [value, setValue] = useState<Dayjs | null>(null);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+
+    const DatePickerStyles = {
+        "& .MuiOutlinedInput-input": {
+            padding: "10px",
+            color: themeContext.themeStyles.color,
+        },
+        "& .MuiSvgIcon-root": {
+            color: themeContext.themeStyles.dataPikerIcon,
+        },
+        '& .MuiOutlinedInput-root': {
+            '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: themeContext.themeStyles.inputBorder,
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: themeContext.themeStyles.inputBorderHover,
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: themeContext.themeStyles.inputBorderFocused,
+            },
+        },
+    };
+
+    const DatePickerStylesLayout = (themeContext: ThemeContextType) => ({
+        boxShadow: `0px 0px 4px ${themeContext.themeStyles.datePikerLayoutShadow}`,
+        color: themeContext.themeStyles.color,
+        backgroundColor: themeContext.themeStyles.datePikerLayout,
+
+        '& .MuiDayCalendar-weekDayLabel': {
+            color: themeContext.themeStyles.color,
+        },
+        '& .MuiPickersDay-root': {
+            color: themeContext.themeStyles.color,
+
+            '&.Mui-selected': {
+                backgroundColor: themeContext.themeStyles.pickersDaySelected,
+            },
+            '&:hover': {
+                backgroundColor: themeContext.themeStyles.pickersDayHover,
+            },
+        },
+    });
+
+    const CalendarHeaderStyles = (themeContext: ThemeContextType) => ({
+        '& .MuiPickersCalendarHeader-switchViewButton': {
+            color: themeContext.themeStyles.color,
+        },
+        '& .MuiPickersArrowSwitcher-button': {
+            color: themeContext.themeStyles.color,
+        },
+    });
 
     useEffect(() => {
         if (value) {
@@ -19,15 +75,21 @@ export const DatePickerComponent: FC<any> = ({ setChosenDate }) => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['DatePicker']}>
-                <DatePicker sx={{
-                    "& .MuiOutlinedInput-input": {
-                        padding: "10px"
-                    }
-                }}
+            <Box>
+                <DatePicker
+                    sx={DatePickerStyles}
+                    slotProps={{
+                        layout: {
+                            sx: DatePickerStylesLayout(themeContext)
+                        },
+                        calendarHeader: {
+                            sx: CalendarHeaderStyles(themeContext)
+                        },
+                    }}
                     value={value}
-                    onChange={(newValue) => setValue(newValue)} />
-            </DemoContainer>
+                    onChange={(newValue) => setValue(newValue)}
+                />
+            </Box>
         </LocalizationProvider>
     );
 }

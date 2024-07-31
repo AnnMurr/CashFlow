@@ -8,9 +8,10 @@ import { AuthorizedContext } from "../../../../../contexts/authorizedContext/aut
 import { checkUserData } from "../../../../../redux/reducers/userReducer/userReducer";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { Input } from "./components/input";
-import { BtnShowPasswordInner, FormContainer, Label, Title } from "./styledForm";
 import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle/signUpWithGoogle";
 import { getAlert } from "../../../../../utils/getAlert";
+import { BtnShowPasswordInner, FormContainer, Label, Title } from "./styledForm";
+
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
 }
@@ -72,13 +73,10 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     </BtnShowPasswordInner>
                 </Label>
                 <ButtonComponent
-                    backgroundColor="#5B8A72"
-                    BackgroundColorHover="#0f4a34"
                     text="Sign in"
                     color="#fff"
                     type="submit"
                     func={logIn} />
-
                 <SignUpWithGoogle getLogSuccess={getLogSuccess} setIsAlertActive={setIsAlertActive} />
             </form>
         </FormContainer>

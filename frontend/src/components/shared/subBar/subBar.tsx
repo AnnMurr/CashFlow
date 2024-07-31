@@ -1,25 +1,28 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faClockRotateLeft, faGear, faSackDollar, faWallet } from "@fortawesome/free-solid-svg-icons";
 import { Item } from "./components/item/item";
-import { Container, List, Wrapper, BurgerInner } from "./styledSubBar";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
+import { Container, List, Wrapper } from "./styledSubBar";
 
 export const SubBar: FC = () => {
     const [isAtiveBar, setIsAtiveBar] = useState<boolean>(false);
-
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+    
     const changeAtiveBar = () => setIsAtiveBar((prev) => !prev);
 
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
-                <BurgerInner>
+                <div>
                     <button type="button" onClick={changeAtiveBar}>
                         <FontAwesomeIcon
                             style={{ transform: `rotate(${isAtiveBar ? "0" : "90deg"})` }}
                             icon={faBars} size="xl"
                             color="#fff" />
                     </button>
-                </BurgerInner>
+                </div>
                 <List>
                     <Item
                         icon={faWallet}
