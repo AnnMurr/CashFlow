@@ -57,8 +57,8 @@ export const Themes: ThemesType = {
         pickersDaySelected: Colors.SPRING_LEAVES,
         pickersDayHover: Colors.SPRING_LEAVES_TRANSPARENT,
         datePikerLayoutShadow: Colors.TRANSPARENT,
-        selectHover: Colors.GREEN_TRANSPARENT,
-        selectSelected: Colors.MASALA,
+        selectHover: Colors.PALE_GRAY_OPACITY,
+        selectSelected: Colors.TRANSPARENT_BLACK,
     },
     dark: {
         body: Colors.COD_GRAY,

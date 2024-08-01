@@ -4,6 +4,7 @@ import { RootState } from "../../../../../../../redux/reducers/userStorageReduse
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 import { Container, IconInner } from "./styledItemDay";
+
 interface ItemDayProps {
     title: string;
 }

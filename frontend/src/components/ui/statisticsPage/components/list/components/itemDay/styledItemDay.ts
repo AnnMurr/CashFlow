@@ -5,6 +5,10 @@ export const Container = styled.div<ThemeStyledProps>`
     padding: 10px 0;
     background-color:${({ themestyles }) => themestyles.statisticsLineDayBackground};
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 40px;
 
     span {
         font-weight: 600;

@@ -84,7 +84,10 @@ export const getFilterStatisticsForDay = (
     chosenFilterType: string | null,
     dispatch: AppDispatch,
     setIsDatePickerModal: (value: boolean) => void) => {
-    if (!statisticalData || !chosenDate) return;
+    if (!statisticalData || !chosenDate) {
+        getAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
+        return;
+    };
 
     const filteredStatisticalData = statisticalData.data[chosenDate];
     if (!filteredStatisticalData) {
@@ -129,7 +132,10 @@ export const getFilterStatisticsForMonth = (
     chosenFilterType: string | null,
     dispatch: AppDispatch,
     setIsMonthSelectModal: (value: boolean) => void) => {
-    if (!statisticalData || !chosenDate) return;
+    if (!statisticalData || !chosenDate) {
+        getAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
+        return;
+    }
 
     const monthNumber = `0${MONTH.indexOf(chosenDate.split(" ")[0]) + 1}`;
     const dateRange = statisticalData.days.filter((date) => date.split(".")[1] === monthNumber);
@@ -157,7 +163,10 @@ export const getFilterStatisticsForYear = (
     chosenFilterType: string | null,
     dispatch: AppDispatch,
     setIsYearSelectModal: (value: boolean) => void) => {
-    if (!statisticalData || !chosenYear) return;
+    if (!statisticalData || !chosenYear) {
+        getAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
+        return;
+    }
 
     const dateRange = statisticalData.days.filter((date) => date.split(".")[2] === chosenYear);
 
@@ -184,8 +193,12 @@ export const getFilterStatisticsForRange = (
     chosenFilterType: string | null,
     dispatch: AppDispatch,
     setIsDateRangeModal: (value: boolean) => void) => {
-    if (!statisticalData || !chosenDate.startDate || !chosenDate.endDate) return;
-    if(chosenDate.endDate < chosenDate.startDate) {
+    if (!statisticalData || !chosenDate.startDate || !chosenDate.endDate) {
+        getAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
+        return;
+    }
+    
+    if (chosenDate.endDate < chosenDate.startDate) {
         getAlert({ type: "error", text: "End date must be greater than start date" }, setIsAlertActive, 3000);
         return;
     }

@@ -58,7 +58,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
     }, []);
 
     const saveChanges = async () => {
-        const sum = categorySum.toString().replace(/[^\d.,]/g, '').replace(',', '.');
+        const sum = categorySum.toString().replace(',', '.'); 
 
         if (!VALID_SUM_REGEX.test(sum)) {
             getAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
@@ -102,6 +102,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
     }
 
     const handleSum = (event: ChangeEvent<HTMLInputElement>) => {
+        setCategoryNameError(false);
         const target = event.target;
         setCategorySum(target.value.trimStart());
     }

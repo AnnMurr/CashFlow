@@ -47,13 +47,6 @@ export const DatePickerComponent: FC<DatePickerComponent> = ({ setChosenDate }) 
         },
         '& .MuiPickersDay-root': {
             color: themeContext.themeStyles.color,
-
-            '&.Mui-selected': {
-                backgroundColor: themeContext.themeStyles.pickersDaySelected,
-            },
-            '&:hover': {
-                backgroundColor: themeContext.themeStyles.pickersDayHover,
-            },
         },
     });
 
@@ -63,6 +56,30 @@ export const DatePickerComponent: FC<DatePickerComponent> = ({ setChosenDate }) 
         },
         '& .MuiPickersArrowSwitcher-button': {
             color: themeContext.themeStyles.color,
+        },
+    });
+
+    const CalendarDayStyles = (themeContext: ThemeContextType) => ({
+        '&.MuiPickersDay-root': {
+            '&:focus': {
+                backgroundColor: "transparent",
+            },
+            '&:not(.Mui-selected)': {
+                borderColor: themeContext.themeStyles.color,
+            },
+        },
+        '&.Mui-selected': {
+            backgroundColor: themeContext.themeStyles.pickersDaySelected,
+
+            '&:focus': {
+                backgroundColor: themeContext.themeStyles.pickersDaySelected,
+            },
+            '&:hover': {
+                backgroundColor: themeContext.themeStyles.pickersDayHover,
+            },
+        },
+        '&:hover': {
+            backgroundColor: themeContext.themeStyles.pickersDayHover,
         },
     });
 
@@ -84,6 +101,9 @@ export const DatePickerComponent: FC<DatePickerComponent> = ({ setChosenDate }) 
                         },
                         calendarHeader: {
                             sx: CalendarHeaderStyles(themeContext)
+                        },
+                        day: {
+                            sx: CalendarDayStyles(themeContext)
                         },
                     }}
                     value={value}
