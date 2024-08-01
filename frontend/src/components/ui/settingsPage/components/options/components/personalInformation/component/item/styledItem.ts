@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
+import { ThemeStyledProps } from "../../../../../../../../../contexts/themeContext/types";
 import styled from "styled-components";
 
-export const Container = styled.li`
+export const Container = styled.li<ThemeStyledProps>`
     border-bottom: 1px solid #e2e2e2;
     transition: all 0.5s ease-in-out;
 
     &:hover {
-        background-color: #dedede;
+        background-color:${({ themestyles }) => themestyles.lineBackgroundHover};
     }
 
     &:first-child {
@@ -25,19 +26,18 @@ export const Wrapper = styled(Link)`
     display: grid;
     grid-template-columns: 30% 60% 10%;
     cursor: pointer;
-
     padding: 15px;
 `
 
-export const Category = styled.span`
+export const Category = styled.span<ThemeStyledProps>`
     font-size: 13px;
-    color: #000;
+    color:${({ themestyles }) => themestyles.color};
 `
 
-export const Value = styled.span`
+export const Value = styled.span<ThemeStyledProps>`
     font-size: 16px;
     font-weight: 500;
-    color: #000;
+    color:${({ themestyles }) => themestyles.color};
 `
 
 export const Arrow = styled.div`

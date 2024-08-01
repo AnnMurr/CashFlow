@@ -13,7 +13,11 @@ export const SettingsPage: FC = () => {
             <Container>
                 <div>
                     <SubBar />
-                    {!loading ? <Options /> : <LoaderInner> <Loading size={80} height={3} /> </LoaderInner>}
+                    {!loading ?
+                        <Options /> :
+                        <LoaderInner>
+                            <Loading size={80} height={3} />
+                        </LoaderInner>}
                 </div>
             </Container>
         </section>

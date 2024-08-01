@@ -1,11 +1,15 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { Item } from "./component/item/item";
 import { faClock, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 import { List } from "./styledPrivacy";
 
 export const Privacy: FC = () => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+    
     return (
-        <List>
+        <List themestyles={themeContext.themeStyles}>
             <Item
                 link={"/settings/change-name"}
                 icon={faClock}

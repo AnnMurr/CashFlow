@@ -1,5 +1,7 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { UserStorageDataType } from "../../../../../../../../../redux/reducers/userStorageReduser/types";
+import { ThemeContextType } from "../../../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../../../contexts/themeContext/themeContext";
 import { Category, Container, Name, Symbol, Wrapper } from "./styledItem";
 
 interface ItemProps {
@@ -8,22 +10,26 @@ interface ItemProps {
     setIsCurrencyChoosingModalActive: (value: boolean) => void;
 }
 
-export const Item: FC<ItemProps> = ({ data, category, setIsCurrencyChoosingModalActive}) => {
+export const Item: FC<ItemProps> = ({ data, category, setIsCurrencyChoosingModalActive }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+
     return (
-        <Container onClick={() => setIsCurrencyChoosingModalActive(true)}>
+        <Container
+            themestyles={themeContext.themeStyles}
+            onClick={() => setIsCurrencyChoosingModalActive(true)}>
             <Wrapper >
                 <div>
-                    <Category>
+                    <Category themestyles={themeContext.themeStyles}>
                         {category}
                     </Category>
                 </div>
                 <div>
-                    <Name>
+                    <Name themestyles={themeContext.themeStyles}>
                         {data?.settings.currency.name}
                     </Name>
                 </div>
                 <div>
-                    <Symbol>
+                    <Symbol themestyles={themeContext.themeStyles}>
                         {data?.settings.currency.symbol}
                     </Symbol>
                 </div>

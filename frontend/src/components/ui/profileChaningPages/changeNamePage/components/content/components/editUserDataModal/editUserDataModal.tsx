@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { updateUserData } from "../../../../../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch, useAppSelector } from "../../../../../../../../redux/store/store";
@@ -8,7 +8,10 @@ import { OutlinedInput } from "@mui/material";
 import { AlertComponentProps } from "../../../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../../../shared/button/button";
 import { BtnClose } from "../../../../../../../shared/btnClose/btnClose";
-import { Container, Wrapper } from "./styledEditUserDataModal";
+import { ThemeContextType } from "../../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../../contexts/themeContext/themeContext";
+import { BtnInner, Container, Wrapper } from "./styledEditUserDataModal";
+
 interface EditUserDataModalProps {
     setIsModalActive: (value: boolean) => void;
     userData: string | undefined | null;
@@ -25,6 +28,7 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
     const [value, setValue] = useState<string | undefined | null>(userData);
     const [error, setError] = useState<boolean>(false);
     const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
 
     const changeData = async () => {
@@ -58,7 +62,7 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
     }
 
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
                 <BtnClose
                     btnInnerstyles={{
@@ -66,14 +70,24 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
                         paddingBottom: "15px"
                     }}
                     closeBlock={setIsModalActive}
-                    size="lg"
-                    color="#000" />
+                    size="lg" />
                 <div>
                     <OutlinedInput
                         sx={{
                             marginBottom: "20px",
                             width: "100%",
-                            fontSize: "14px"
+                            fontSize: "14px",
+                            color: themeContext.themeStyles.color,
+
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorder,
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorderHover,
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorderFocused,
+                            }
                         }}
                         error={error}
                         maxRows={1}
@@ -82,14 +96,14 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
                         size="small"
                         placeholder="Name" />
                 </div>
-                <div>
+                <BtnInner>
                     <ButtonComponent
                         disabledValue={userData === value ? true : false}
                         text="Save"
                         color="#fff"
                         type="button"
                         func={changeData} />
-                </div>
+                </BtnInner>
             </Wrapper>
         </Container>
     )

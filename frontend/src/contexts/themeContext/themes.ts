@@ -41,6 +41,7 @@ export const Themes: ThemesType = {
         buttonBackgroundHover: Colors.BOTTLE_GREEN,
         enteringModalBackground: Colors.COD_GRAY_LIGHT,
         statisticsBackground: Colors.ATHENS_GRAY,
+        settingsBackground: Colors.ATHENS_GRAY,
         statisticsLineDayBackground: Colors.SPRING_LEAVES_TRANSPARENT,
         buttonGroupColor: Colors.BLACK,
         buttonActiveGroupColor: Colors.SPRING_LEAVES,
@@ -50,7 +51,7 @@ export const Themes: ThemesType = {
         inputBorderHover: Colors.BLACK,
         inputBorderFocused: Colors.SPRING_LEAVES,
         labelFocused: Colors.SPRING_LEAVES,
-        categoryBackgroundHover: Colors.PALE_GRAY_OPACITY,
+        lineBackgroundHover: Colors.PALE_GRAY_OPACITY,
         buttonDisabledBackground: Colors.TRANSPARENT_BLACK,
         settingsOptionsTabActive: Colors.BLACK,
         datePikerLayout: Colors.WHITE,
@@ -59,6 +60,7 @@ export const Themes: ThemesType = {
         datePikerLayoutShadow: Colors.TRANSPARENT,
         selectHover: Colors.PALE_GRAY_OPACITY,
         selectSelected: Colors.TRANSPARENT_BLACK,
+        showPasswordIconColor: Colors.BOULDER
     },
     dark: {
         body: Colors.COD_GRAY,
@@ -70,7 +72,8 @@ export const Themes: ThemesType = {
         buttonBackgroundHover: Colors.SAPPHIRE,
         enteringModalBackground: Colors.COD_GRAY,
         statisticsBackground: Colors.COD_GRAY_DARK,
-        statisticsLineDayBackground: Colors.SOFT_PEACH,//SOFT_PEACH
+        settingsBackground: Colors.COD_GRAY_DARK,
+        statisticsLineDayBackground: Colors.SOFT_PEACH,
         buttonGroupColor: Colors.WHITE,
         buttonActiveGroupColor: Colors.DUSTY_GRAY,
         buttonGroupHover: Colors.GRAY_TRANSPARENT,
@@ -79,7 +82,7 @@ export const Themes: ThemesType = {
         inputBorderHover: Colors.DUSTY_GRAY,
         inputBorderFocused: Colors.SAN_MARINO,
         labelFocused: Colors.SAN_MARINO,
-        categoryBackgroundHover: Colors.COD_GRAY_LIGHT,
+        lineBackgroundHover: Colors.COD_GRAY_LIGHT,
         buttonDisabledBackground: Colors.DUSTY_GRAY,
         settingsOptionsTabActive: Colors.SOFT_PEACH,
         datePikerLayout: Colors.COD_GRAY_DARK,
@@ -88,5 +91,6 @@ export const Themes: ThemesType = {
         datePikerLayoutShadow: Colors.TRANSPARENT_WHITE,
         selectHover: Colors.COD_GRAY_LIGHT,
         selectSelected: Colors.COD_GRAY_MEDIUM,
+        showPasswordIconColor: Colors.DUSTY_GRAY
     }
 }

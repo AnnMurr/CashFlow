@@ -7,11 +7,14 @@ import { AuthorizedContext, AuthorizedContextType } from "../../../../../../../c
 import { useAppSelector } from "../../../../../../../redux/store/store";
 import { UserDataType } from "../../../../../../../redux/reducers/userReducer/types";
 import { BtnLogOutInner, Container, List } from "./styledPersonalInformation";
+import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 
 export const PersonalInformation = () => {
     const [userData, setUserData] = useState<null | UserDataType>(null);
     const authorizedContext = useContext<AuthorizedContextType>(AuthorizedContext);
     const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const navigate = useNavigate();
 
     const getLogOut = () => {
@@ -26,7 +29,7 @@ export const PersonalInformation = () => {
 
     return (
         <Container>
-            <List>
+            <List themestyles={themeContext.themeStyles}>
                 {userData ?
                     <>
                         <Item

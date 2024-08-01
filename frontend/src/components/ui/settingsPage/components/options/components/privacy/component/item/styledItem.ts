@@ -1,13 +1,14 @@
+import { ThemeStyledProps } from '../../../../../../../../../contexts/themeContext/types';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const Container = styled.li`
+export const Container = styled.li<ThemeStyledProps>`
     border-bottom: 1px solid #e2e2e2;
     transition: all 0.5s ease-in-out;
     position: relative;
 
     &:hover {
-        background-color: #e2e2e2;
+        background-color: ${({ themestyles }) => themestyles.lineBackgroundHover};
     }
 
     &:first-child {
@@ -31,33 +32,34 @@ export const Wrapper = styled(Link)`
     padding: 15px;
 `
 
-export const Title = styled.div`
+export const Title = styled.div<ThemeStyledProps>`
     h4 {
         font-size: 14px;
-        color: #000;
+        color:${({ themestyles }) => themestyles.color};
     }
 `
 
-export const SubTitle = styled.div`
+export const SubTitle = styled.div<ThemeStyledProps>`
     display: none;
     position: absolute;
     width: 100%;
     max-width: 200px;
     padding: 10px;
+    top: 2rem;
     right: -5rem;
-    background-color: #ffffff;
+    background-color: ${({ themestyles }) => themestyles.modalBackground};
     box-shadow: 0px 0px 7px #898181;
     border-radius: 5px;
 
     h5 {
         font-size: 12px;
-        color: #000;
+        color:${({ themestyles }) => themestyles.color};
         font-weight: 400;
     }
 `
 
-export const QuestionMark = styled.div`
-    border: 1px solid;
+export const QuestionMark = styled.div<ThemeStyledProps>`
+    border: ${({ themestyles }) => `1px solid ${themestyles.color}`};
     border-radius: 50px;
     padding: 1px;
     height: 13px;
@@ -68,6 +70,6 @@ export const QuestionMark = styled.div`
     cursor: pointer;
 
     &:hover ~ ${SubTitle} {
-            display: block;
+        display: block;
     }
 `

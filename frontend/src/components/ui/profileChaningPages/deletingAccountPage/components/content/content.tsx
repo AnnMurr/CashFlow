@@ -7,11 +7,14 @@ import { AuthorizedContext, AuthorizedContextType } from "../../../../../../cont
 import { deleteUserStore } from "../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { deleteUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
 import { useAppDispatch } from "../../../../../../redux/store/store";
+import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
 import { BtnInner, TextInner, Title, Wrapper } from "./styledContent";
 
 export const Content: FC = () => {
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
     const authorizedContext = useContext<AuthorizedContextType>(AuthorizedContext);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -40,13 +43,13 @@ export const Content: FC = () => {
 
     return (
         <div>
-            <Wrapper>
-                <Title>
+            <Wrapper themestyles={themeContext.themeStyles}>
+                <Title themestyles={themeContext.themeStyles}>
                     <h5>
                         Are you sure you want to delete your account?
                     </h5>
                 </Title>
-                <TextInner>
+                <TextInner themestyles={themeContext.themeStyles}>
                     <span>
                         Your account will be permanently deleted. All your information, including data, settings, and activity history, will be lost. Please ensure that you want to delete your account, as this action is irreversible. If you have any doubts, you can cancel this action now.
                     </span>

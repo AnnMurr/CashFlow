@@ -1,3 +1,4 @@
+import { ThemeStyledProps } from "../../../contexts/themeContext/types";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -12,11 +13,12 @@ export const Wrapper = styled.div`
     align-items: center;
 `
 
-export const Title = styled.div`
+export const Title = styled.div<ThemeStyledProps>`
     padding-left: 10px;
 
     h2 {
         font-size: 25px;
         font-weight: 500;
+        color:${({ themestyles }) => themestyles.color};
     }
 `

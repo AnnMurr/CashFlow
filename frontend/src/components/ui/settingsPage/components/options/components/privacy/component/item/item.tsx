@@ -1,6 +1,8 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContextType } from "../../../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../../../contexts/themeContext/themeContext";
 import { Container, QuestionMark, SubTitle, Title, Wrapper } from "./styledItem";
 
 interface ItemProps {
@@ -11,27 +13,29 @@ interface ItemProps {
 }
 
 export const Item: FC<ItemProps> = ({ link, icon, title, subTitle }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper to={link}>
                 <div>
-                    <FontAwesomeIcon icon={icon} color="#000" />
+                    <FontAwesomeIcon icon={icon} color={themeContext.themeStyles.color} />
                 </div>
-                <Title>
+                <Title themestyles={themeContext.themeStyles}>
                     <h4>
                         {title}
                     </h4>
                 </Title>
-                <QuestionMark>
-                    <FontAwesomeIcon icon={faQuestion} size="2xs" color="black" />
+                <QuestionMark themestyles={themeContext.themeStyles}>
+                    <FontAwesomeIcon icon={faQuestion} size="2xs" color={themeContext.themeStyles.color} />
                 </QuestionMark>
-                <SubTitle >
-                     <h5>
+                <SubTitle themestyles={themeContext.themeStyles}>
+                    <h5>
                         {subTitle}
                     </h5>
                 </SubTitle>
                 <div>
-                    <FontAwesomeIcon color="#000" icon={faArrowRight} />
+                    <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faArrowRight} />
                 </div>
             </Wrapper>
         </Container>

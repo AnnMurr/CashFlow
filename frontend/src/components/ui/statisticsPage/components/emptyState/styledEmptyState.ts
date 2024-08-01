@@ -1,11 +1,12 @@
+import { ThemeStyledProps } from "../../../../../contexts/themeContext/types";
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<ThemeStyledProps>`
     max-width: 25rem;
     padding: 40px;
     margin: 15rem auto 0 auto;
     border-radius: 15px;
-    background-color: rgb(243, 244, 246);
+    background-color:${({ themestyles }) => themestyles.statisticsBackground};
 `
 
 export const Buttons = styled.div`

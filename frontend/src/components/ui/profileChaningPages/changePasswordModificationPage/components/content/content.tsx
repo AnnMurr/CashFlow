@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { OutlinedInput } from "@mui/material";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
@@ -10,6 +10,8 @@ import { UserDataType } from "../../../../../../redux/reducers/userReducer/types
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { getAlert } from "../../../../../../utils/getAlert";
+import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
 import { BtnInner, Wrapper, BtnShowPasswordInner, Label, SubTitle, Title } from "./styledContent";
 
 export const Content: FC = () => {
@@ -20,6 +22,7 @@ export const Content: FC = () => {
     const [isInputConfirmTypePassword, setIsInputConfirmTypePassword] = useState<boolean>(true);
     const [isError, setIsError] = useState<boolean>(false);
     const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -58,15 +61,15 @@ export const Content: FC = () => {
 
     return (
         <div>
-            <Wrapper>
-                <Title>
+            <Wrapper themestyles={themeContext.themeStyles}>
+                <Title themestyles={themeContext.themeStyles}>
                     <h5>
-                        Enter new password.
+                        Enter new password
                     </h5>
                 </Title>
-                <SubTitle>
+                <SubTitle themestyles={themeContext.themeStyles}>
                     <span>
-                        Choose a strong password and do not use it for other accounts.
+                        Choose a strong password and do not use it for other accounts
                     </span>
                 </SubTitle>
                 <Label>
@@ -74,7 +77,18 @@ export const Content: FC = () => {
                         sx={{
                             marginBottom: "20px",
                             width: "100%",
-                            fontSize: "14px"
+                            fontSize: "14px",
+                            color: themeContext.themeStyles.color,
+
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorder,
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorderHover,
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorderFocused,
+                            },
                         }}
                         onChange={(event) => setPasswordValue(event.target.value)}
                         value={passwordValue}
@@ -93,7 +107,18 @@ export const Content: FC = () => {
                         sx={{
                             marginBottom: "20px",
                             width: "100%",
-                            fontSize: "14px"
+                            fontSize: "14px",
+                            color: themeContext.themeStyles.color,
+
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorder,
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorderHover,
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorderFocused,
+                            },
                         }}
                         onChange={(event) => setConfirmPasswordValue(event.target.value)}
                         value={confirmPasswordValue}

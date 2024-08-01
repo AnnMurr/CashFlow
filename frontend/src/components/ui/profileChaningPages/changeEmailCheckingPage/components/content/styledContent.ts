@@ -1,7 +1,8 @@
+import { ThemeStyledProps } from "../../../../../../contexts/themeContext/types";
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<ThemeStyledProps>`
     padding: 30px;
-    border: 1px solid #000;
+    border:${({ themestyles }) => `1px solid ${themestyles.color}`};
     border-radius: 10px;
 `
