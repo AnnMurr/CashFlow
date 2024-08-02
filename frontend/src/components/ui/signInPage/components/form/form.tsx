@@ -72,11 +72,17 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                             isTypePassword={isInputTypePassword} />
                     </BtnShowPasswordInner>
                 </Label>
-                <ButtonComponent
-                    text="Sign in"
-                    color="#fff"
-                    type="submit"
-                    func={logIn} />
+                <div>
+                    <ButtonComponent
+                        backgroundColor="#171717"
+                        BackgroundColorHover="transparent"
+                        borberColorHover="#171717"
+                        disabledValue={false}
+                        text="Sign in"
+                        color="#fff"
+                        type="submit"
+                        func={logIn} />
+                </div>
                 <SignUpWithGoogle getLogSuccess={getLogSuccess} setIsAlertActive={setIsAlertActive} />
             </form>
         </FormContainer>

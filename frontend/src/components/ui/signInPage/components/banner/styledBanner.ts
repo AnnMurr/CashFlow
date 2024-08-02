@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
-    background-color: #5B8A72;
+    background-color: #171717;
     width: 100%;
     height: 100%;
     padding: 40px;
@@ -20,7 +20,7 @@ export const IconInner = styled.div`
     margin: 0 auto;
 
     img {
-        width: 80px;
+        width: 50px;
     }
 `
 

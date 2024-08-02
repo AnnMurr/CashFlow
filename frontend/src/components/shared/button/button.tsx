@@ -6,6 +6,7 @@ import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 interface ButtonComponentProps {
     backgroundColor?: string;
     BackgroundColorHover?: string;
+    borberColorHover?: string;
     text: string;
     color: string;
     disabledValue?: boolean;
@@ -16,6 +17,7 @@ interface ButtonComponentProps {
 export const ButtonComponent: FC<ButtonComponentProps> = ({
     backgroundColor,
     BackgroundColorHover,
+    borberColorHover,
     text,
     color,
     disabledValue,
@@ -24,11 +26,14 @@ export const ButtonComponent: FC<ButtonComponentProps> = ({
     const themeContext = useContext<ThemeContextType>(ThemeContext);
     const ButtonStyles = {
         backgroundColor: backgroundColor ? backgroundColor : themeContext.themeStyles.buttonBackground,
+        border: "1px solid transparent",
         color: color,
         width: "100%",
-        
+
         '&:hover': {
-            backgroundColor: BackgroundColorHover ? BackgroundColorHover : themeContext.themeStyles.buttonBackgroundHover
+            backgroundColor: BackgroundColorHover ? BackgroundColorHover : themeContext.themeStyles.buttonBackgroundHover,
+            border: borberColorHover && `1px solid ${borberColorHover}`,
+            color: borberColorHover && borberColorHover,
         },
         '&.MuiButtonBase-root.MuiButton-root.Mui-disabled': {
             backgroundColor: themeContext.themeStyles.buttonDisabledBackground,

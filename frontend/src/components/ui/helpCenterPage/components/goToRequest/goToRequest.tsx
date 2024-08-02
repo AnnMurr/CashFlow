@@ -1,7 +1,11 @@
 import { FC } from "react";
-import { Btn, BtnInner, Container, SubTitle, Title, Wrapper } from "./styledGoToRequest";
+import { useNavigate } from "react-router-dom";
+import { ButtonComponent } from "../../../../shared/button/button";
+import { BtnInner, Container, SubTitle, Title, Wrapper } from "./styledGoToRequest";
 
 export const GoToRequest: FC = () => {
+    const navigate = useNavigate();
+
     return (
         <section>
             <Container>
@@ -17,9 +21,15 @@ export const GoToRequest: FC = () => {
                         </h5>
                     </SubTitle>
                     <BtnInner>
-                        <Btn to={"/contacts-us"}>
-                            Submit a request
-                        </Btn>
+                        <ButtonComponent
+                            backgroundColor="#171717"
+                            BackgroundColorHover="transparent"
+                            borberColorHover="#171717"
+                            disabledValue={false}
+                            text="Submit a request"
+                            color="#fff"
+                            type="button"
+                            func={() => navigate("/contacts-us")} />
                     </BtnInner>
                 </Wrapper>
             </Container>

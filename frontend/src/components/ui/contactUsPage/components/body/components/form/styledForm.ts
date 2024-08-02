@@ -35,12 +35,9 @@ export const Textarea = styled.textarea<inputProps>`
     }
 `
 
-export const Btn = styled.button`
-    padding: 10px 20px;
-    background-color: #c33c21;
-    color: #fff;
+export const BtnInner = styled.div`
     margin-top: 40px;
     max-width: 200px;
+    margin-left: auto;
     width: 100%;
-    border-radius: 5px;
 `

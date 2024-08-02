@@ -6,7 +6,7 @@ interface isActiveHeaderProps {
 }
 
 export const Section = styled.header<isActiveHeaderProps>`
-    background-color: ${({ active_prop }) => active_prop === "true" ? "#fff" : "#5B8A72"};
+    background-color: ${({ active_prop }) => active_prop === "true" ? "#fff" : "#000"};
     position: sticky;
     z-index: 20;
     inset: 0 0 auto 0;
@@ -20,7 +20,7 @@ export const Container = styled.div`
 `
 
 export const Wrapper = styled.div`
-    padding: 5px 0;
+    padding: 26px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,7 +28,6 @@ export const Wrapper = styled.div`
 
 export const Logo = styled(Link)`
     padding: 5px;
-  
     border-radius: 10px;
 `
 

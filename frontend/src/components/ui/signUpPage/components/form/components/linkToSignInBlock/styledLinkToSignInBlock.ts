@@ -13,7 +13,7 @@ export const Container = styled.button`
 export const LinkToSignIn = styled(Link)`
     font-size: 13px;
     margin: 0 5px;
-    color: #5a8a72;
+    color: black;
     font-weight: 600;
 
     &:hover {
