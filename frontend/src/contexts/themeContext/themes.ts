@@ -27,7 +27,7 @@ export enum Colors {
     SAN_MARINO = '#3f51b5',
     SAPPHIRE = '#27399b',
     SAPHIRE_TRANSPARENT = '#27399b59',
-    PALE_GRAY_OPACITY= '#e5e5e58a'
+    PALE_GRAY_OPACITY = '#e5e5e58a'
 }
 
 export const Themes: ThemesType = {

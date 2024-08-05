@@ -10,6 +10,7 @@ import { useAppDispatch } from "../../../../../redux/store/store";
 import { Input } from "./components/input";
 import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle/signUpWithGoogle";
 import { getAlert } from "../../../../../utils/getAlert";
+import { getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { BtnShowPasswordInner, FormContainer, Label, Title } from "./styledForm";
 
 interface FormProps {
@@ -25,11 +26,12 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
     const { login } = useContext(AuthorizedContext);
 
     const getLogSuccess = (token: string) => {
+        dispatch(getDataFromUserStore(token));
         getAlert({ type: "success", text: "User account creation successful" }, setIsAlertActive, 3000);
         setTimeout(() => {
-            navigate('/profile');
             setDataToLocalStorage("token", token);
             login();
+            navigate('/profile');
         }, 1000);
     }
 

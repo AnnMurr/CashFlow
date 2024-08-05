@@ -4,6 +4,7 @@ import { PersonalInformation } from "./components/personalInformation/personalIn
 import { Privacy } from "./components/privacy/privacy";
 import { CurrencySettings } from "./components/currencySettings/currencySettings";
 import { Container, Wrapper } from "./styledOptions";
+import { Appearance } from "./components/appearance/appearance";
 
 export interface TabsType {
     label: string;
@@ -23,6 +24,10 @@ export const Options: FC = () => {
         {
             label: 'Currency Settings',
             content: <CurrencySettings />
+        },
+        {
+            label: 'Appearance',
+            content: <Appearance />
         },
     ];
 

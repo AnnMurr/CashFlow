@@ -38,7 +38,7 @@ export interface Theme {
 
 export interface ThemeContextType {
     currentTheme: ThemeType,
-    changeTheme: () => void,
+    changeTheme: (value: 'green' | 'dark') => void;
     themeStyles: Theme
 }
 

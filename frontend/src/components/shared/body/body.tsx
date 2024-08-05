@@ -14,7 +14,7 @@ export const Body: FC<BodyProps> = ({ children }) => {
     const location = useLocation();
 
     useEffect(() => {
-        urlCleanup()
+        urlCleanup();
     }, [location]);
 
     return (
