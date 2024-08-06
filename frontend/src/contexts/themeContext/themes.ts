@@ -27,7 +27,14 @@ export enum Colors {
     SAN_MARINO = '#3f51b5',
     SAPPHIRE = '#27399b',
     SAPHIRE_TRANSPARENT = '#27399b59',
-    PALE_GRAY_OPACITY = '#e5e5e58a'
+    PALE_GRAY_OPACITY = '#e5e5e58a',
+
+    SANDSTONE ='#776B5D',
+    NAPA ='#dcd0bb',
+    NAPA_TRANSPARENT ='#b0a6952e',
+    WHITE_ROCK ='#EBE3D5',
+    PAMPAS ='#F3EEEA',
+    ARMADILLO ='#494137',
 }
 
 export const Themes: ThemesType = {
@@ -92,5 +99,36 @@ export const Themes: ThemesType = {
         selectHover: Colors.COD_GRAY_LIGHT,
         selectSelected: Colors.COD_GRAY_MEDIUM,
         showPasswordIconColor: Colors.DUSTY_GRAY
-    }
+    },
+    sandstone: {
+        body: Colors.NAPA,
+        color: Colors.BLACK,
+        subBarBackground: Colors.SANDSTONE,
+        addCategoryBtnBackground: Colors.SOFT_PEACH,
+        modalBackground: Colors.WHITE_ROCK,
+        buttonBackground: Colors.SANDSTONE,
+        buttonBackgroundHover: Colors.ARMADILLO,
+        enteringModalBackground: Colors.COD_GRAY,
+        statisticsBackground: Colors.WHITE_ROCK,
+        settingsBackground: Colors.WHITE_ROCK,
+        statisticsLineDayBackground: Colors.PAMPAS,
+        buttonGroupColor: Colors.BLACK,
+        buttonActiveGroupColor: Colors.TRANSPARENT_BLACK,
+        buttonGroupHover: Colors.GRAY_TRANSPARENT,
+        dataPikerIcon: Colors.BLACK,
+        inputBorder: Colors.BOULDER,
+        inputBorderHover: Colors.DUSTY_GRAY,
+        inputBorderFocused: Colors.SANDSTONE,
+        labelFocused: Colors.SANDSTONE,
+        lineBackgroundHover: Colors.NAPA_TRANSPARENT,
+        buttonDisabledBackground: Colors.TRANSPARENT_BLACK,
+        settingsOptionsTabActive: Colors.BLACK,
+        datePikerLayout: Colors.SOFT_PEACH,
+        pickersDaySelected: Colors.NAPA,
+        pickersDayHover: Colors.NAPA_TRANSPARENT,
+        datePikerLayoutShadow: Colors.TRANSPARENT,
+        selectHover: Colors.NAPA_TRANSPARENT,
+        selectSelected: Colors.NAPA,
+        showPasswordIconColor: Colors.DUSTY_GRAY
+    },
 }

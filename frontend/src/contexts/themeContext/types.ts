@@ -1,6 +1,6 @@
 import { Colors } from "./themes";
 
-export type ThemeType = 'green' | 'dark'
+export type ThemeType = 'green' | 'dark' | 'sandstone'
 
 export type ThemesType = Record<ThemeType, Theme>
 

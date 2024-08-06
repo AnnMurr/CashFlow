@@ -17,11 +17,12 @@ export const RadioComponent: FC<RadioComponentProps> = ({ children, value, check
 
     const sheetStyles = {
         borderRadius: "5px",
-        backgroundColor: themeContext.themeStyles.body,
+        backgroundColor: themeContext.themeStyles.settingsBackground,
+        border: `1px solid ${themeContext.themeStyles.color}`,
 
         '.Mui-checked': {
             borderRadius: "5px",
-            border: "2px solid"
+            border: `3px solid ${themeContext.themeStyles.color}`,
         },
     };
 

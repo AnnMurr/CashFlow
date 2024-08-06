@@ -55,6 +55,17 @@ export const ThemeSelection: FC = () => {
                         darkColor={Themes.dark.buttonBackgroundHover}
                         bodyColor={Themes.dark.body} />
                 </RadioComponent>
+                <RadioComponent
+                    checked={storageData?.settings.theme === "sandstone"}
+                    value={"Sandstone"}>
+                    <CommentSkeleton
+                        subBarColor={Themes.sandstone.subBarBackground}
+                        boxColor={Themes.sandstone.settingsBackground}
+                        color={Themes.sandstone.color}
+                        lineColor={Themes.sandstone.statisticsLineDayBackground}
+                        darkColor={Themes.sandstone.buttonBackgroundHover}
+                        bodyColor={Themes.sandstone.body} />
+                </RadioComponent>
             </RadioGroup>
         </Wrapper>
     )

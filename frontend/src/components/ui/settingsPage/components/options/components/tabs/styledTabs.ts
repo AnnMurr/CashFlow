@@ -22,6 +22,7 @@ export const Item = styled.li<CombinatedProps>`
         font-family: "Almarai";
         font-size: 20px;
         font-weight: 600;
-        color: ${({ active, themestyles }) => active === "true" ? themestyles.settingsOptionsTabActive : "#898989"};
+        color:${({ themestyles }) => themestyles.settingsOptionsTabActive};
+        opacity:${({ active }) => active === "true" ? "1" : "0.4"};
     }
 `
