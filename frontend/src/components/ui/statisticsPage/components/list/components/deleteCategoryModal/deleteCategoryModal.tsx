@@ -62,7 +62,7 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
                 <BtnClose
                     btnInnerstyles={{
                         marginLeft: "auto",
-                        paddingBottom: "5px"
+                        paddingBottom: "15px",
                     }}
                     closeBlock={closeDeleteModal}
                     size="lg" />

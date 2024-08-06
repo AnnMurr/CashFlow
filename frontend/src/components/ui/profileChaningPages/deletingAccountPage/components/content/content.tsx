@@ -22,7 +22,7 @@ export const Content: FC = () => {
         const token = getDataFromLocalStorage("token");
         try {
             await dispatch(deleteUserStore(token));
-            
+
             const responseFromDb = await dispatch(deleteUserData());
             const { status, message } = responseFromDb.payload as { status: number; message: string };
 
@@ -42,31 +42,29 @@ export const Content: FC = () => {
     }
 
     return (
-        <div>
-            <Wrapper themestyles={themeContext.themeStyles}>
-                <Title themestyles={themeContext.themeStyles}>
-                    <h5>
-                        Are you sure you want to delete your account?
-                    </h5>
-                </Title>
-                <TextInner themestyles={themeContext.themeStyles}>
-                    <span>
-                        Your account will be permanently deleted. All your information, including data, settings, and activity history, will be lost. Please ensure that you want to delete your account, as this action is irreversible. If you have any doubts, you can cancel this action now.
-                    </span>
-                </TextInner>
-                <BtnInner>
-                    <ButtonComponent
-                        backgroundColor="#a71616"
-                        BackgroundColorHover="#820e0e"
-                        text="Confirm"
-                        color="#fff"
-                        type="button"
-                        func={deleteAccount} />
-                </BtnInner>
-                {isAlertActive ?
-                    <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
-                    : null}
-            </Wrapper>
-        </div>
+        <Wrapper themestyles={themeContext.themeStyles}>
+            <Title themestyles={themeContext.themeStyles}>
+                <h5>
+                    Are you sure you want to delete your account?
+                </h5>
+            </Title>
+            <TextInner themestyles={themeContext.themeStyles}>
+                <span>
+                    Your account will be permanently deleted. All your information, including data, settings, and activity history, will be lost. Please ensure that you want to delete your account, as this action is irreversible. If you have any doubts, you can cancel this action now.
+                </span>
+            </TextInner>
+            <BtnInner>
+                <ButtonComponent
+                    backgroundColor="#a71616"
+                    BackgroundColorHover="#820e0e"
+                    text="Confirm"
+                    color="#fff"
+                    type="button"
+                    func={deleteAccount} />
+            </BtnInner>
+            {isAlertActive ?
+                <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
+                : null}
+        </Wrapper>
     )
 }

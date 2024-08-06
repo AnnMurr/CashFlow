@@ -35,8 +35,8 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
     m: 1,
     width: "100%",
     mt: 3,
-    margin: "0 0 10px 0",
-    marginTop: "10px",
+    margin: 0,
+    marginTop: 0,
 
     '& .MuiPaper-root.MuiPopover-paper.MuiMenu-paper': {
       backgroundColor: themeContext.themeStyles.modalBackground,

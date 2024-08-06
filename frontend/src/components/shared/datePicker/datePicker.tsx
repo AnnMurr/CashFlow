@@ -17,6 +17,8 @@ export const DatePickerComponent: FC<DatePickerComponent> = ({ setChosenDate }) 
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const DatePickerStyles = {
+        width: '100%',
+        
         "& .MuiOutlinedInput-input": {
             padding: "10px",
             color: themeContext.themeStyles.color,

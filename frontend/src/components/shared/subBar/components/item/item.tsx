@@ -21,16 +21,13 @@ export const Item: FC<ItemProps> = ({ icon, isAtiveBar, linkTo, text }) => {
                 {({ isActive }) => (
                     <NavLinkStyled
                         themestyles={themeContext.themeStyles}
-                        to={linkTo} isActive={isActive}>
+                        isactive={isActive.toString()} >
                         <FontAwesomeIcon
                             size="lg"
                             color={themeContext.themeStyles.subBarLinkColor}
-                            icon={icon} />
-                        {isAtiveBar ?
-                            <span>
-                                {text}
-                            </span>
-                            : null}
+                            icon={icon}
+                        />
+                        {isAtiveBar ? <span>{text}</span> : null}
                     </NavLinkStyled>
                 )}
             </NavLink>

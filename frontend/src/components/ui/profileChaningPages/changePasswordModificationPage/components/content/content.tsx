@@ -60,89 +60,87 @@ export const Content: FC = () => {
     }
 
     return (
-        <div>
-            <Wrapper themestyles={themeContext.themeStyles}>
-                <Title themestyles={themeContext.themeStyles}>
-                    <h5>
-                        Enter new password
-                    </h5>
-                </Title>
-                <SubTitle themestyles={themeContext.themeStyles}>
-                    <span>
-                        Choose a strong password and do not use it for other accounts
-                    </span>
-                </SubTitle>
-                <Label>
-                    <OutlinedInput
-                        sx={{
-                            marginBottom: "20px",
-                            width: "100%",
-                            fontSize: "14px",
-                            color: themeContext.themeStyles.color,
+        <Wrapper themestyles={themeContext.themeStyles}>
+            <Title themestyles={themeContext.themeStyles}>
+                <h5>
+                    Enter new password
+                </h5>
+            </Title>
+            <SubTitle themestyles={themeContext.themeStyles}>
+                <span>
+                    Choose a strong password and do not use it for other accounts
+                </span>
+            </SubTitle>
+            <Label>
+                <OutlinedInput
+                    sx={{
+                        marginBottom: "20px",
+                        width: "100%",
+                        fontSize: "14px",
+                        color: themeContext.themeStyles.color,
 
-                            '& .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorder,
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorderHover,
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorderFocused,
-                            },
-                        }}
-                        onChange={(event) => setPasswordValue(event.target.value)}
-                        value={passwordValue}
-                        type={isInputTypePassword ? "password" : "text"}
-                        size="small"
-                        placeholder="Enter your password"
-                        error={isError} />
-                    <BtnShowPasswordInner>
-                        <BtnShowPassword
-                            func={() => setIsInputTypePassword(prev => !prev)}
-                            isTypePassword={isInputTypePassword} />
-                    </BtnShowPasswordInner>
-                </Label>
-                <Label>
-                    <OutlinedInput
-                        sx={{
-                            marginBottom: "20px",
-                            width: "100%",
-                            fontSize: "14px",
-                            color: themeContext.themeStyles.color,
+                        '& .MuiOutlinedInput-notchedOutline': {
+                            borderColor: themeContext.themeStyles.inputBorder,
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: themeContext.themeStyles.inputBorderHover,
+                        },
+                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: themeContext.themeStyles.inputBorderFocused,
+                        },
+                    }}
+                    onChange={(event) => setPasswordValue(event.target.value)}
+                    value={passwordValue}
+                    type={isInputTypePassword ? "password" : "text"}
+                    size="small"
+                    placeholder="Enter your password"
+                    error={isError} />
+                <BtnShowPasswordInner>
+                    <BtnShowPassword
+                        func={() => setIsInputTypePassword(prev => !prev)}
+                        isTypePassword={isInputTypePassword} />
+                </BtnShowPasswordInner>
+            </Label>
+            <Label>
+                <OutlinedInput
+                    sx={{
+                        marginBottom: "20px",
+                        width: "100%",
+                        fontSize: "14px",
+                        color: themeContext.themeStyles.color,
 
-                            '& .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorder,
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorderHover,
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorderFocused,
-                            },
-                        }}
-                        onChange={(event) => setConfirmPasswordValue(event.target.value)}
-                        value={confirmPasswordValue}
-                        type={isInputConfirmTypePassword ? "password" : "text"}
-                        size="small"
-                        placeholder="Confirm password"
-                        error={isError} />
-                    <BtnShowPasswordInner>
-                        <BtnShowPassword
-                            func={() => setIsInputConfirmTypePassword(prev => !prev)}
-                            isTypePassword={isInputConfirmTypePassword} />
-                    </BtnShowPasswordInner>
-                </Label>
-                <BtnInner>
-                    <ButtonComponent
-                        text="Save"
-                        color="#fff"
-                        type="button"
-                        func={changePassword} />
-                </BtnInner>
-                {isAlertActive ?
-                    <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
-                    : null}
-            </Wrapper>
-        </div>
+                        '& .MuiOutlinedInput-notchedOutline': {
+                            borderColor: themeContext.themeStyles.inputBorder,
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: themeContext.themeStyles.inputBorderHover,
+                        },
+                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: themeContext.themeStyles.inputBorderFocused,
+                        },
+                    }}
+                    onChange={(event) => setConfirmPasswordValue(event.target.value)}
+                    value={confirmPasswordValue}
+                    type={isInputConfirmTypePassword ? "password" : "text"}
+                    size="small"
+                    placeholder="Confirm password"
+                    error={isError} />
+                <BtnShowPasswordInner>
+                    <BtnShowPassword
+                        func={() => setIsInputConfirmTypePassword(prev => !prev)}
+                        isTypePassword={isInputConfirmTypePassword} />
+                </BtnShowPasswordInner>
+            </Label>
+            <BtnInner>
+                <ButtonComponent
+                    text="Save"
+                    color="#fff"
+                    type="button"
+                    func={changePassword} />
+            </BtnInner>
+            {isAlertActive ?
+                <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
+                : null}
+        </Wrapper>
     )
 }

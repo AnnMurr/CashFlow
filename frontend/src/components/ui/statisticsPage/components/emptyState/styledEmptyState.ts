@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div<ThemeStyledProps>`
     max-width: 25rem;
-    padding: 40px;
+    padding: 30px;
     margin: 15rem auto 0 auto;
-    border-radius: 15px;
+    border-radius: 5px;
     background-color:${({ themestyles }) => themestyles.statisticsBackground};
 `
 

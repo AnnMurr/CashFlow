@@ -17,6 +17,8 @@ export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const DatePickerStyles = {
+        width: "100%",
+        
         '& .MuiInputLabel-root.Mui-focused ': {
             color: themeContext.themeStyles.labelFocused,
         },

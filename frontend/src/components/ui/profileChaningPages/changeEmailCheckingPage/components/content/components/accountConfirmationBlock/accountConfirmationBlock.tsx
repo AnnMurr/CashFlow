@@ -46,7 +46,9 @@ export const AccountConfirmationBlock: FC<AccountConfirmationBlockProps> = ({ se
         <div>
             <div>
                 <Title themestyles={themeContext.themeStyles}>
-                    <h5>Confirm your account.</h5>
+                    <h5>
+                        Confirm your account
+                    </h5>
                 </Title>
                 <div>
                     <Label>

@@ -54,14 +54,14 @@ export const DeleteFinancesModal: FC<DeleteFinancesModalProps> = ({ setIsDeleteF
                 <BtnClose
                     btnInnerstyles={{
                         marginLeft: "auto",
-                        paddingBottom: "5px",
+                        paddingBottom: "15px",
                     }}
                     closeBlock={setIsDeleteFinancesModal}
                     size="lg" />
                 <Title themestyles={themeContext.themeStyles}>
                     <h5>
                         Are you sure you want to delete all financial statistics? This action
-                        is irreversible, and all income and expense data will be permanently removed.
+                        is irreversible, and all income and expense data will be permanently removed
                     </h5>
                 </Title>
                 <BtnInner>

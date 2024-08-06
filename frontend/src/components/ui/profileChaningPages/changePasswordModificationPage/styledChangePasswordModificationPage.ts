@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 
 export const Block = styled.div`
     padding: 0 15px;
-    max-width: 35rem;
+    max-width: 30rem;
     margin: 0 auto;
     margin-top: 10%;
 `

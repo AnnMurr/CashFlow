@@ -10,7 +10,7 @@ export const Title: FC = () => {
         <Inner themestyles={themeContext.themeStyles}>
             <h3>
                 You currently have no data.
-                Start by adding your financial information to see statistics here.
+                Start by adding your financial information to see statistics here
             </h3>
         </Inner>
     )

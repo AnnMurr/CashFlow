@@ -56,7 +56,8 @@ export const createUserStore = createAsyncThunk<UserStorageDataType, string>(
                             code: "USD",
                             name: "United States dollar",
                             symbol: "$"
-                        }
+                        },
+                        theme: "light"
                     },
                     data: {
                         categoriesExpenses: [
