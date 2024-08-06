@@ -55,8 +55,13 @@ export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
     });
 
     const YearButtonStylesLayout = (themeContext: ThemeContextType) => ({
+        '&:focus': {
+            backgroundColor: themeContext.themeStyles.pickersDaySelected,
+            color: "white",
+        },
         '&.Mui-selected': {
             backgroundColor: themeContext.themeStyles.pickersDaySelected,
+            color: "white",
 
             '&:hover': {
                 backgroundColor: themeContext.themeStyles.pickersDayHover,

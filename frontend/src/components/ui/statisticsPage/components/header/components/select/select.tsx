@@ -78,9 +78,10 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
         },
         '&.Mui-selected': {
             backgroundColor: themeContext.themeStyles.selectSelected,
-        },
-        '&.Mui-selected:hover': {
-            backgroundColor: themeContext.themeStyles.selectHover,
+
+            '&.MuiButtonBase-root.MuiMenuItem-root:hover': {
+                backgroundColor: themeContext.themeStyles.selectSelected,
+            },
         },
         '&.MuiButtonBase-root.MuiMenuItem-root:hover': {
             backgroundColor: themeContext.themeStyles.selectHover,

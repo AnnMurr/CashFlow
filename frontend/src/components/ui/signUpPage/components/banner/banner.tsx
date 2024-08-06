@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { GREEN_LOGO } from "../../../../../consts/images";
+import { ICON_LOGO_WHITE } from "../../../../../consts/images";
 import { Container, Text, Btn, BtnInner, IconInner, Wrapper } from "./styledBanner";
 
 export const Banner: FC = () => {
@@ -7,7 +7,7 @@ export const Banner: FC = () => {
         <Container>
             <Wrapper>
                 <IconInner>
-                    <img src={GREEN_LOGO.default} alt="logo" />
+                    <img src={ICON_LOGO_WHITE.default} alt="logo" />
                 </IconInner>
                 <div>
                     <Text>Already have an account?</Text>

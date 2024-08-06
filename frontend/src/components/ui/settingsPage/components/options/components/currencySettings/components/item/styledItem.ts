@@ -1,11 +1,12 @@
+import { ThemeStyledProps } from "../../../../../../../../../contexts/themeContext/types";
 import styled from "styled-components";
 
-export const Container = styled.li`
-    border-bottom: 1px solid #e2e2e2;
+export const Container = styled.li<ThemeStyledProps>`
+    border-bottom:${({ themestyles }) => `1px soled ${themestyles.color}`};
     transition: all 0.5s ease-in-out;
 
     &:hover {
-        background-color: #dedede;
+        background-color:${({ themestyles }) => themestyles.lineBackgroundHover};
     }
 
     &:first-child {
@@ -27,30 +28,19 @@ export const Wrapper = styled.div`
     padding: 15px;
 `
 
-export const Category = styled.span`
+export const Category = styled.span<ThemeStyledProps>`
     font-size: 13px;
-    color: #000;
+    color:${({ themestyles }) => themestyles.color};
 `
 
-export const Name = styled.span`
+export const Name = styled.span<ThemeStyledProps>`
     font-size: 14px;
     font-weight: 500;
-    color: #000;
+    color:${({ themestyles }) => themestyles.color};
 `
 
-export const Symbol = styled.span`
+export const Symbol = styled.span<ThemeStyledProps>`
     font-size: 13px;
     font-weight: 600;
-    color: #000;
-`
-
-export const Value = styled.span`
-    font-size: 16px;
-    font-weight: 500;
-    color: #000;
-`
-
-export const Arrow = styled.div`
-    width: fit-content;
-    margin-left: auto;
+    color:${({ themestyles }) => themestyles.color};
 `

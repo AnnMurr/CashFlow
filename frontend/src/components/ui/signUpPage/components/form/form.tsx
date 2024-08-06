@@ -9,7 +9,7 @@ import { EMAIL_PATTERN, PASSWORD_PATTERN } from "../../../../../consts/index";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
 import { checkUserDataByEmail, setUserData } from "../../../../../redux/reducers/userReducer/userReducer";
-import { createUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { createUserStore, getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { UserDataType } from "../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle/signUpWithGoogle";
@@ -33,6 +33,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
     const dispatch = useAppDispatch();
 
     const getLogSuccess = (token: string) => {
+        dispatch(getDataFromUserStore(token));
         getAlert({ type: "success", text: "User account creation successful" }, setIsAlertActive, 3000);
         setTimeout(() => {
             navigate('/profile');
@@ -165,10 +166,16 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     <ErrorMessage text={errors.confirmPassword?.message as string} />
                 </ErrorMessageContainer>
             </Label>
-            <ButtonComponent
-                text="Sign up"
-                color="#fff"
-                type="submit" />
+            <div>
+                <ButtonComponent
+                    backgroundColor="#171717"
+                    BackgroundColorHover="transparent"
+                    borberColorHover="#171717"
+                    disabledValue={false}
+                    text="Sign up"
+                    color="#fff"
+                    type="submit" />
+            </div>
             <SignUpWithGoogle getLogSuccess={getLogSuccess} setIsAlertActive={setIsAlertActive} />
             <LinkToSignInBlock />
         </FormContainer>

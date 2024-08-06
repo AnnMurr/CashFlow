@@ -11,5 +11,5 @@ export const IconInner = styled.div`
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-left: -25px;
+    margin-left: -65px;
 `

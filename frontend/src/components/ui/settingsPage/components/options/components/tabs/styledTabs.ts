@@ -9,7 +9,7 @@ interface ItemProps {
 
 export const Container = styled.div`
     display: grid;
-    grid-template-columns: 30% 65%;
+    grid-template-columns: 25% 70%;
     justify-content: space-between;
     gap: 20px;
     height: 100%;
@@ -22,6 +22,7 @@ export const Item = styled.li<CombinatedProps>`
         font-family: "Almarai";
         font-size: 20px;
         font-weight: 600;
-        color: ${({ active, themestyles }) => active === "true" ? themestyles.settingsOptionsTabActive : "#898989"};
+        color:${({ themestyles }) => themestyles.settingsOptionsTabActive};
+        opacity:${({ active }) => active === "true" ? "1" : "0.4"};
     }
 `

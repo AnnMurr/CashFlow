@@ -1,8 +1,9 @@
+import { ThemeStyledProps } from "../../../../../../contexts/themeContext/types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-    border: 1px solid #000;
+export const Wrapper = styled.div<ThemeStyledProps>`
+    border:${({ themestyles }) => `1px solid ${themestyles.color}`};
     border-radius: 10px;
 `
 
@@ -10,25 +11,30 @@ export const Description = styled.div`
     padding: 30px;
 `
 
-export const Title = styled.div`
+export const Title = styled.div<ThemeStyledProps>`
     padding-bottom: 10px;
+   
+    h3 {
+        color:${({ themestyles }) => themestyles.color};
+    }
 `
 
-export const SubTitle = styled.div`
+export const SubTitle = styled.div<ThemeStyledProps>`
     h5 {
+        color:${({ themestyles }) => themestyles.color};
         font-size: 16px;
         font-weight: 400;
     }
 `
-export const Email = styled.div`
+export const Email = styled.div<ThemeStyledProps>`
     span {
         font-size: 16px;
         font-weight: 600;
-        color: #000;
+        color:${({ themestyles }) => themestyles.color};
     }
 `
 
-export const EmailAdressInner = styled(Link)`
+export const EmailAdressInner = styled(Link)<ThemeStyledProps>`
     display: flex;
     justify-content: space-between;
     padding: 25px 30px;
@@ -38,6 +44,6 @@ export const EmailAdressInner = styled(Link)`
     border-bottom-right-radius: 10px;
 
     &:hover {
-        background-color: rgb(246 246 246);
+        background-color:${({ themestyles }) => themestyles.lineBackgroundHover};
     }
 `

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { EditUserDataModal } from "./components/editUserDataModal/editUserDataModal";
@@ -6,13 +6,16 @@ import { DarkBackground } from "../../../../../shared/darkBackground/darkBackgro
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { useAppSelector } from "../../../../../../redux/store/store";
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
-import { Wrapper, UserName } from "./styledContent";
+import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
+import { Wrapper, UserName, Category } from "./styledContent";
 
 export const Content: FC = () => {
     const [isModalActive, setIsModalActive] = useState<boolean>(false);
     const [isAlertActive, setIsAlertActive] = useState<null | AlertComponentProps>(null);
     const [userName, setUserName] = useState<string | null | undefined>(null);
     const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     useEffect(() => {
         userDataFromRedux && setUserName(userDataFromRedux?.name)
@@ -20,20 +23,22 @@ export const Content: FC = () => {
 
     return (
         <div>
-            <Wrapper>
+            <Wrapper themestyles={themeContext.themeStyles}>
                 <div>
-                    <div>
+                    <Category themestyles={themeContext.themeStyles}>
                         <h3>
                             Name
                         </h3>
-                    </div>
-                    <UserName>
+                    </Category>
+                    <UserName themestyles={themeContext.themeStyles}>
                         <span>{userName}</span>
                     </UserName>
                 </div>
-                <button onClick={() => setIsModalActive(true)} type="button">
-                    <FontAwesomeIcon icon={faPen} />
-                </button>
+                <div>
+                    <button onClick={() => setIsModalActive(true)} type="button">
+                        <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faPen} />
+                    </button>
+                </div>
                 {isModalActive ?
                     <>
                         <EditUserDataModal

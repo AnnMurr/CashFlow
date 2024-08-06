@@ -47,7 +47,7 @@ export const Container = styled.div<CombinedProps>`
             animation: showEdit 0.5s ease forwards;
         }
         background-color: ${({ iseditingdata, categorystatistic, themestyles }) =>
-        iseditingdata === "false" && categorystatistic === "false" ? themestyles.categoryBackgroundHover : "none"};
+        iseditingdata === "false" && categorystatistic === "false" ? themestyles.lineBackgroundHover : "none"};
     }
 
     @keyframes showEdit {

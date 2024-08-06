@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { MultipleSelectPlaceholder } from "../../../../../../../../shared/select/select";
 import { CURRENCY_SYMBOL_REGEX } from "../../../../../../../../../consts";
 import { ButtonComponent } from "../../../../../../../../shared/button/button";
@@ -12,6 +12,8 @@ import { AlertComponentProps } from "../../../../../../../../shared/alert/alert"
 import { getAlert } from "../../../../../../../../../utils/getAlert";
 import { getCurrencies } from "../../../../../../../../../utils/getCurrencies";
 import { CurrencyNameAndCode } from "../../../../../../../../../api/getCurrencyCodes/types";
+import { ThemeContextType } from "../../../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../../../contexts/themeContext/themeContext";
 import { Wrapper, Container, LoadingInner, BtnInner } from "./styledCurrencyChoosingModal";
 
 interface CurrencyChoosingModalProps {
@@ -23,6 +25,7 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
     const [currencyName, setCurrencyName] = useState<string | null>(null);
     const [currencies, setCurrencies] = useState<Array<CurrencyNameAndCode> | null>(null);
     const { currency } = useAppSelector((state: RootState) => state.storage);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
 
     const handleChangeCurrency = async () => {
@@ -61,14 +64,14 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
         }
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         getCurrencies(setCurrencies, setIsAlertActive);
         currency && setCurrencyName(`${currency?.name} (${currency.symbol})`);
-     }, []);
+    }, []);
 
     return (
         currencies && currencyName ?
-            <Container >
+            <Container themestyles={themeContext.themeStyles}>
                 <Wrapper>
                     <BtnClose
                         btnInnerstyles={{
@@ -76,8 +79,7 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
                             paddingBottom: "5px",
                         }}
                         closeBlock={setIsCurrencyChoosingModalActive}
-                        size="lg"
-                        color="#000" />
+                        size="lg" />
                     <MultipleSelectPlaceholder
                         setCategoryName={setCurrencyName}
                         categoryName={currencyName}

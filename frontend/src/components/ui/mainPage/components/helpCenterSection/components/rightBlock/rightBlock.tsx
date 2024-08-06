@@ -1,7 +1,11 @@
 import { FC } from "react";
-import { SubTitle, Title, Btn, BtnInner } from "./styledRightBlock";
+import { useNavigate } from "react-router-dom";
+import { ButtonComponent } from "../../../../../../shared/button/button";
+import { SubTitle, Title, BtnInner } from "./styledRightBlock";
 
 export const RightBlock: FC = () => {
+    const navigate = useNavigate();
+
     return (
         <div>
             <Title>
@@ -16,9 +20,15 @@ export const RightBlock: FC = () => {
                 </h5>
             </SubTitle>
             <BtnInner>
-                <Btn to={"/help-center"}>
-                    Help Center
-                </Btn>
+                <ButtonComponent
+                    backgroundColor="#171717"
+                    BackgroundColorHover="transparent"
+                    borberColorHover="#171717"
+                    disabledValue={false}
+                    text="Help Center"
+                    color="#fff"
+                    type="button"
+                    func={() => navigate("help-center")} />
             </BtnInner>
         </div>
     )

@@ -1,11 +1,13 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { ButtonComponent } from "../../../shared/button/button";
 import { signInWithGooglePopup } from "../../../../utils/firebase/firebase";
 import { useAppDispatch, useAppSelector } from "../../../../redux/store/store";
 import { checkUserDataByEmail, updateUserData } from "../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../redux/reducers/userReducer/types";
 import { AlertComponentProps } from "../../../shared/alert/alert";
-import { SubTitle, Title, Description } from "./styledChangeUserAccount";
+import { ThemeContextType } from "../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../contexts/themeContext/themeContext";
+import { SubTitle, Title, Description, BtnInner } from "./styledChangeUserAccount";
 
 interface ChangeUserAccountProps {
     setAlertActive: (value: null | AlertComponentProps) => void;
@@ -13,6 +15,7 @@ interface ChangeUserAccountProps {
 
 export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }) => {
     const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
 
     const getAllert = (data: AlertComponentProps) => {
@@ -30,7 +33,7 @@ export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }
             const name: string | null = signInWithGoogleResponse.user.displayName || '';
             const isUser = (await dispatch(checkUserDataByEmail({ link: "users/check-email", email: email }))).payload;
             const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: email }))).payload;
-           
+
             if (signInWithGoogleResponse && email && name) {
                 if (isUser || isUserGoogle) {
                     getAllert({ type: "error", text: "User already exists" });
@@ -68,23 +71,25 @@ export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }
     return (
         <>
             <Description>
-                <Title>
+                <Title themestyles={themeContext.themeStyles}>
                     <h3>
                         Change Your Account
                     </h3>
                 </Title>
-                <SubTitle>
+                <SubTitle themestyles={themeContext.themeStyles}>
                     <h5>
                         Switch to a different account to access personalized settings.
                     </h5>
                 </SubTitle>
             </Description>
-            <ButtonComponent
-                disabledValue={false}
-                text="Change google account"
-                color="#fff"
-                type="button"
-                func={getChangeAccount} />
+            <BtnInner>
+                <ButtonComponent
+                    disabledValue={false}
+                    text="Change google account"
+                    color="#fff"
+                    type="button"
+                    func={getChangeAccount} />
+            </BtnInner>
         </>
     );
 }

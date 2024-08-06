@@ -33,7 +33,7 @@ function App() {
     <AuthorizedContextProvider>
       <ThemeContextProvider>
         <HashRouter>
-          <Body>
+    
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
@@ -71,7 +71,7 @@ function App() {
               <Route path="/statistics" element={<Statistics />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
-          </Body>
+ 
         </HashRouter>
       </ThemeContextProvider>
     </AuthorizedContextProvider>

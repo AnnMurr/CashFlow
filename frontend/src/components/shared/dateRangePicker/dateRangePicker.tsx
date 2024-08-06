@@ -40,6 +40,12 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
     '& .MuiIconButton-root': {
       display: 'none',
     },
+    '& .MuiInputBase-root.MuiOutlinedInput-root': {
+      paddingRight: 0,
+    },
+    '& .MuiInputBase-input.MuiOutlinedInput-input': {
+      padding: "15px 5px 10px 10px",
+    },
     '& .MuiInputLabel-root': {
       color: themeStyles.color,
 
@@ -77,10 +83,22 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
   const CalendarDayStyles = (themeContext: ThemeContextType) => ({
     color: themeContext.themeStyles.color,
 
+    '&.MuiPickersDay-root': {
+      '&:focus': {
+        backgroundColor: "transparent",
+      },
+      '&:not(.Mui-selected)': {
+        borderColor: themeContext.themeStyles.color,
+      },
+    },
     '&.Mui-selected': {
       backgroundColor: themeContext.themeStyles.pickersDaySelected,
+
       '&:focus': {
         backgroundColor: themeContext.themeStyles.pickersDaySelected,
+      },
+      '&:hover': {
+        backgroundColor: themeContext.themeStyles.pickersDayHover,
       },
     },
     '&:hover': {

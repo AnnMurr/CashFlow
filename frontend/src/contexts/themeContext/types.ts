@@ -1,6 +1,6 @@
 import { Colors } from "./themes";
 
-export type ThemeType = 'green' | 'dark'
+export type ThemeType = 'green' | 'dark' | 'sandstone' | 'gray' | 'light'
 
 export type ThemesType = Record<ThemeType, Theme>
 
@@ -18,26 +18,31 @@ export interface Theme {
     buttonGroupColor: Colors,
     buttonActiveGroupColor: Colors,
     buttonGroupHover: Colors,
-    // selectHover: Colors,
     inputBorder: Colors,
     dataPikerIcon: Colors,
     inputBorderHover: Colors,
     inputBorderFocused: Colors,
     labelFocused: Colors,
-    categoryBackgroundHover: Colors,
+    lineBackgroundHover: Colors,
     buttonDisabledBackground: Colors,
     settingsOptionsTabActive: Colors,
     datePikerLayout: Colors,
     pickersDaySelected: Colors,
     pickersDayHover: Colors,
     datePikerLayoutShadow: Colors,
-     selectHover: Colors,
-        selectSelected: Colors,
+    selectHover: Colors,
+    selectSelected: Colors,
+    settingsBackground: Colors,
+    showPasswordIconColor: Colors,
+    themeSelectionBlockBackground: Colors,
+    subBarLinkColor: Colors,
+    enteringModalColor: Colors,
+    enteringModalBtnBackground: Colors,
 }
 
 export interface ThemeContextType {
     currentTheme: ThemeType,
-    changeTheme: () => void,
+    changeTheme: (value: 'green' | 'dark') => void;
     themeStyles: Theme
 }
 

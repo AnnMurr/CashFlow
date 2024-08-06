@@ -58,15 +58,26 @@ export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticTy
 
     return (
         <Box sx={containerStyles}>
-            <ButtonGroup sx={buttonGroupStyles} variant="text" aria-label="Basic button group">
+            <ButtonGroup
+                sx={buttonGroupStyles}
+                variant="text"
+                aria-label="Basic button group">
                 <Button onClick={handleChangeStatisticType} sx={{
                     ...buttonStyles,
-                    color: type === "expenses" ? themeContext.themeStyles.buttonActiveGroupColor : themeContext.themeStyles.buttonGroupColor,
-                }}>Expenses</Button>
+                    color: type === "expenses" ?
+                        themeContext.themeStyles.buttonActiveGroupColor :
+                        themeContext.themeStyles.buttonGroupColor
+                }}>
+                    Expenses
+                </Button>
                 <Button onClick={handleChangeStatisticType} sx={{
                     ...buttonStyles,
-                    color: type === "income" ? themeContext.themeStyles.buttonActiveGroupColor : themeContext.themeStyles.buttonGroupColor,
-                }}>Income</Button>
+                    color: type === "income" ?
+                        themeContext.themeStyles.buttonActiveGroupColor :
+                        themeContext.themeStyles.buttonGroupColor
+                }}>
+                    Income
+                </Button>
             </ButtonGroup>
         </Box>
     );

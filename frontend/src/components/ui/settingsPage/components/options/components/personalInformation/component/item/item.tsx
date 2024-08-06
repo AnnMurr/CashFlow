@@ -1,6 +1,8 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContextType } from "../../../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../../../contexts/themeContext/themeContext";
 import { Arrow, Category, Container, Value, Wrapper } from "./styledItem";
 
 interface ItemProps {
@@ -10,21 +12,23 @@ interface ItemProps {
 }
 
 export const Item: FC<ItemProps> = ({ value, category, link }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper to={link} >
                 <div>
-                    <Category>
+                    <Category themestyles={themeContext.themeStyles}>
                         {category}
                     </Category>
                 </div>
                 <div>
-                    <Value>
+                    <Value themestyles={themeContext.themeStyles}>
                         {value && category === "Password" ? value.replaceAll(/\S/gi, "*") : value}
                     </Value>
                 </div>
                 <Arrow>
-                    <FontAwesomeIcon color="#000" icon={faArrowRight} />
+                    <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faArrowRight} />
                 </Arrow>
             </Wrapper>
         </Container>

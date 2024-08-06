@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { EMAIL_PATTERN } from "../../../../../../../consts/index";
-import { FormWrap, Label, Input, Textarea, Btn } from "./styledForm";
+import { ButtonComponent } from "../../../../../../../components/shared/button/button";
+import { FormWrap, Label, Input, Textarea, BtnInner } from "./styledForm";
 
 interface FormProps {
     setIsModalActive: (isActive: boolean) => void;
@@ -90,11 +91,17 @@ export const Form: FC<FormProps> = ({ setIsModalActive }) => {
                 value={descriptiontValue}
                 rows={5}>
             </Textarea>
-            <div>
-                <Btn onClick={submitForm} type="submit">
-                    Submit
-                </Btn>
-            </div>
+            <BtnInner>
+                <ButtonComponent
+                    backgroundColor="#171717"
+                    BackgroundColorHover="transparent"
+                    borberColorHover="#171717"
+                    disabledValue={false}
+                    text="Submit"
+                    color="#fff"
+                    type="submit"
+                    func={submitForm} />
+            </BtnInner>
         </FormWrap>
     )
 }

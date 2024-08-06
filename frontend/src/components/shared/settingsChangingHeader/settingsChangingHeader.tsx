@@ -1,8 +1,16 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { BtnGoBack } from "../btnGoBack/btnGoBack";
 import { Wrapper, Container, Title } from "./styledSettingsChangingHeader";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 
-export const SettingsChangingHeader: FC<any> = ({ category }) => {
+interface SettingsChangingHeaderProps {
+    category: string;
+}
+
+export const SettingsChangingHeader: FC<SettingsChangingHeaderProps> = ({ category }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+    
     return (
         <Container>
             <Wrapper>
@@ -10,7 +18,7 @@ export const SettingsChangingHeader: FC<any> = ({ category }) => {
                     <BtnGoBack />
                 </div>
                 <div>
-                    <Title>
+                    <Title themestyles={themeContext.themeStyles}>
                         <h2>
                             {category}
                         </h2>

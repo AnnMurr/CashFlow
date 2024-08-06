@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { OutlinedInput } from "@mui/material";
 import { ButtonComponent } from "../../../../../shared/button/button";
@@ -6,6 +6,8 @@ import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert
 import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { useAppSelector } from "../../../../../../redux/store/store";
+import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
 import { BtnInner, BtnShowPasswordInner, Label, Title, Wrapper } from "./styledContent";
 
 export const Content: FC = () => {
@@ -14,6 +16,7 @@ export const Content: FC = () => {
     const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
     const [isError, setIsError] = useState<boolean>(false);
     const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const navigate = useNavigate();
 
     const checkPassword = async () => {
@@ -38,8 +41,8 @@ export const Content: FC = () => {
 
     return (
         <div>
-            <Wrapper>
-                <Title>
+            <Wrapper themestyles={themeContext.themeStyles}>
+                <Title themestyles={themeContext.themeStyles}>
                     <h5>
                         Confirm your account.
                     </h5>
@@ -49,7 +52,18 @@ export const Content: FC = () => {
                         sx={{
                             marginBottom: "20px",
                             width: "100%",
-                            fontSize: "14px"
+                            fontSize: "14px",
+                            color: themeContext.themeStyles.color,
+
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorder,
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorderHover,
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: themeContext.themeStyles.inputBorderFocused,
+                            },
                         }}
                         onChange={(event) => setPasswordValue(event.target.value)}
                         value={passwordValue}

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -28,16 +27,6 @@ export const SubTitle = styled.div`
 `
 
 export const BtnInner = styled.div`
-    padding: 10px 20px;
-    margin-top: 30px;
-`
-
-export const Btn = styled(Link)`
-    padding: 10px 20px;
-    background-color: #c33c21;
-    color: #fff;
-    margin-top: 40px;
+    margin: 30px auto 0 auto;
     max-width: 200px;
-    width: 100%;
-    border-radius: 5px;
 `
