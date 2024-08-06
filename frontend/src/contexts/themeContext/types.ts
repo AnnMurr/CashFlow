@@ -1,6 +1,6 @@
 import { Colors } from "./themes";
 
-export type ThemeType = 'green' | 'dark' | 'sandstone' | 'gray'
+export type ThemeType = 'green' | 'dark' | 'sandstone' | 'gray' | 'light'
 
 export type ThemesType = Record<ThemeType, Theme>
 
@@ -35,6 +35,9 @@ export interface Theme {
     settingsBackground: Colors,
     showPasswordIconColor: Colors,
     themeSelectionBlockBackground: Colors,
+    subBarLinkColor: Colors,
+    enteringModalColor: Colors,
+    enteringModalBtnBackground: Colors,
 }
 
 export interface ThemeContextType {

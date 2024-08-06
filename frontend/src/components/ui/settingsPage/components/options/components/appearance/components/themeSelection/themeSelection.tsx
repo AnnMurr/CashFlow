@@ -36,15 +36,15 @@ export const ThemeSelection: FC = () => {
                     },
                 }} >
                 <RadioComponent
-                    checked={storageData?.settings.theme === "green"}
-                    value={"Green"}>
+                    checked={storageData?.settings.theme === "light"}
+                    value={"Light"}>
                     <CommentSkeleton
-                        subBarColor={Themes.green.subBarBackground}
-                        boxColor={Themes.green.settingsBackground}
-                        color={Themes.green.color}
-                        lineColor={Themes.green.statisticsLineDayBackground}
-                        darkColor={Themes.green.buttonBackgroundHover}
-                        bodyColor={Themes.green.body} />
+                        subBarColor={Themes.light.subBarBackground}
+                        boxColor={Themes.light.settingsBackground}
+                        color={Themes.light.color}
+                        lineColor={Themes.light.statisticsLineDayBackground}
+                        darkColor={Themes.light.buttonBackgroundHover}
+                        bodyColor={Themes.light.body} />
                 </RadioComponent>
                 <RadioComponent
                     checked={storageData?.settings.theme === "dark"}
@@ -56,6 +56,17 @@ export const ThemeSelection: FC = () => {
                         lineColor={Themes.dark.statisticsLineDayBackground}
                         darkColor={Themes.dark.buttonBackgroundHover}
                         bodyColor={Themes.dark.body} />
+                </RadioComponent>
+                <RadioComponent
+                    checked={storageData?.settings.theme === "green"}
+                    value={"Green"}>
+                    <CommentSkeleton
+                        subBarColor={Themes.green.subBarBackground}
+                        boxColor={Themes.green.settingsBackground}
+                        color={Themes.green.color}
+                        lineColor={Themes.green.statisticsLineDayBackground}
+                        darkColor={Themes.green.buttonBackgroundHover}
+                        bodyColor={Themes.green.body} />
                 </RadioComponent>
                 <RadioComponent
                     checked={storageData?.settings.theme === "sandstone"}

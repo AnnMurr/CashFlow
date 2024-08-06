@@ -96,20 +96,20 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                     }}
                     closeBlock={closeModal}
                     size="lg"
-                    color="#fff" />
+                    color={themeContext.themeStyles.enteringModalColor} />
                 <InputInner>
-                    <Input ref={inputRef} onKeyDown={enterValue} value={inputValue} readOnly type="text" />
+                    <Input themestyles={themeContext.themeStyles} ref={inputRef} onKeyDown={enterValue} value={inputValue} readOnly type="text" />
                     <DeleteBtnInner>
                         <button
                             className={"btn_delete"}
                             onClick={enterValue}>
-                            <FontAwesomeIcon color="#fff" icon={faDeleteLeft} />
+                            <FontAwesomeIcon color={themeContext.themeStyles.enteringModalColor} icon={faDeleteLeft} />
                         </button>
                     </DeleteBtnInner>
                 </InputInner>
                 <ButtonsInner>
                     {BUTTONS_VALUE.slice(0, -2).map(value => (
-                        <BtnInner key={uuidV4()}>
+                        <BtnInner themestyles={themeContext.themeStyles} key={uuidV4()}>
                             <button
                                 className={value === "delete" ? "btn_delete" : ""}
                                 onClick={enterValue}>

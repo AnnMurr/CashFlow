@@ -27,7 +27,7 @@ export const RadioComponent: FC<RadioComponentProps> = ({ children, value, check
         },
         '.Mui-checked': {
             borderRadius: "5px",
-            border: `3px solid ${themeContext.themeStyles.color}`,
+            border: `2px solid ${themeContext.themeStyles.color}`,
         },
     };
 

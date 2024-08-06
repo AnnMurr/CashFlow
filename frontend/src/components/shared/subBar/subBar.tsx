@@ -20,7 +20,7 @@ export const SubBar: FC = () => {
                         <FontAwesomeIcon
                             style={{ transform: `rotate(${isAtiveBar ? "0" : "90deg"})` }}
                             icon={faBars} size="xl"
-                            color="#fff" />
+                            color={themeContext.themeStyles.subBarLinkColor} />
                     </button>
                 </div>
                 <List>

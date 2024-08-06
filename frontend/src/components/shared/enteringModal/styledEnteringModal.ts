@@ -29,8 +29,8 @@ export const InputInner = styled.div`
     position: relative;
 `
 
-export const Input = styled.input`
-    color: #fff;
+export const Input = styled.input<ThemeStyledProps>`
+    background-color:${({ themestyles }) => themestyles.enteringModalColor};
     text-align: end;
     background-color: #0000;
     border: #ffdead;
@@ -45,13 +45,13 @@ export const DeleteBtnInner = styled.div`
     right: 0;
 `
 
-export const BtnInner = styled.div`
+export const BtnInner = styled.div<ThemeStyledProps>`
     grid-column: span 1;
     width: 100%;
     transition: all .6s;
 
     & button {
-        background-color: #fff;
+        background-color:${({ themestyles }) => themestyles.enteringModalBtnBackground};
         cursor: pointer;
         text-align: center;
         border: none;
