@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { Loading } from "../../../../../../shared/loading/loading";
+import { Spinner } from "../../../../../../shared/spinner/spinner";
 import { TabsType } from "../../options";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
@@ -33,7 +33,7 @@ export const Tabs: FC<TabsProps> = ({ tabs }) => {
                 </ul>
             </div>
             <div>
-                {tabs[activeTab] ? tabs[activeTab].content : <Loading size={40} height={3} />}
+                {tabs[activeTab] ? tabs[activeTab].content : <Spinner size={40} height={3} />}
             </div>
         </Container>
     )

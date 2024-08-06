@@ -24,7 +24,9 @@ export const BtnInner = styled.div`
 `
 
 export const Label = styled.label<ThemeStyledProps>`
+    display: inline-block;
     font-size: 14px;
+    padding: 10px 0;
     font-weight: 600;
     color:${({ themestyles }) => themestyles.color};
 `

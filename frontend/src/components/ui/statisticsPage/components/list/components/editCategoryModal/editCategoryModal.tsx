@@ -126,8 +126,6 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                     <Label themestyles={themeContext.themeStyles}>Sum</Label>
                     <OutlinedInput
                         sx={{
-                            marginBottom: "20px",
-                            margin: "10px 0 10px 0",
                             width: "100%",
                             fontSize: "14px",
                             color: themeContext.themeStyles.color,

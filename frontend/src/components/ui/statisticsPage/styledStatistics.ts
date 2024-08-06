@@ -12,3 +12,9 @@ export const Wrapper = styled.div<ThemeStyledProps>`
     border-radius: 15px;
     background-color:${({ themestyles }) => themestyles.statisticsBackground};
 `
+
+export const LoadingInner = styled.div` 
+    display: flex;
+    align-items: center;
+    min-height: 80vh;
+`

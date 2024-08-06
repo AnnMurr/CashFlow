@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { CategorySelectionModal } from "../../shared/categorySelectionModal/categorySelectionModal";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { EnteringModal } from "../../shared/enteringModal/enteringModal";
-import { Loading } from "../../shared/loading/loading";
+import { Spinner } from "../spinner/spinner";
 import { AlertComponent, AlertComponentProps } from "../alert/alert";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
 import { Categories } from "./components/categories/categories";
@@ -112,7 +112,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                             onClick={toggleCategorySelectionModal} type="button" />
                     </AddCategoryBtnInner>
                 </> :
-                <Loading size={40} height={3} />}
+                <Spinner size={40} height={3} />}
 
             {isCategorySelectionModalActive ?
                 <CategorySelectionModal

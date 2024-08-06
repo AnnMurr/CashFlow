@@ -7,7 +7,7 @@ import { RootState, UserStorageDataType } from "../../../../../../../../../redux
 import { changeUserData, getDataFromUserStore } from "../../../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { getDataFromLocalStorage } from "../../../../../../../../../storage/localStorage/localStorage";
 import { BtnClose } from "../../../../../../../../shared/btnClose/btnClose";
-import { Loading } from "../../../../../../../../shared/loading/loading";
+import { Spinner } from "../../../../../../../../shared/spinner/spinner";
 import { AlertComponentProps } from "../../../../../../../../shared/alert/alert";
 import { getAlert } from "../../../../../../../../../utils/getAlert";
 import { getCurrencies } from "../../../../../../../../../utils/getCurrencies";
@@ -94,7 +94,7 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
                 </Wrapper>
             </Container> :
             <LoadingInner >
-                <Loading size={40} height={3} color="#fff" />
+                <Spinner size={40} height={3} />
             </LoadingInner>
     )
 }

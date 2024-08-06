@@ -87,7 +87,7 @@ export const Themes: ThemesType = {
         selectSelected: Colors.TRANSPARENT_BLACK,
         showPasswordIconColor: Colors.BOULDER,
         themeSelectionBlockBackground: Colors.ATHENS_GRAY,
-        
+        loaderColor: Colors.BLACK,
     },
     dark: {
         body: Colors.COD_GRAY,
@@ -122,7 +122,8 @@ export const Themes: ThemesType = {
         selectHover: Colors.COD_GRAY_LIGHT,
         selectSelected: Colors.COD_GRAY_MEDIUM,
         showPasswordIconColor: Colors.DUSTY_GRAY,
-        themeSelectionBlockBackground: Colors.COD_GRAY_MEDIUM
+        themeSelectionBlockBackground: Colors.COD_GRAY_MEDIUM,
+        loaderColor: Colors.WHITE,
     },
     sandstone: {
         body: Colors.NAPA,
@@ -157,7 +158,8 @@ export const Themes: ThemesType = {
         selectHover: Colors.NAPA_TRANSPARENT,
         selectSelected: Colors.NAPA,
         showPasswordIconColor: Colors.DUSTY_GRAY,
-        themeSelectionBlockBackground: Colors.ATHENS_GRAY
+        themeSelectionBlockBackground: Colors.ATHENS_GRAY,
+        loaderColor: Colors.BLACK,
     },
     gray: {
         body: Colors.EMPERORAPPROX,
@@ -192,7 +194,8 @@ export const Themes: ThemesType = {
         selectHover: Colors.DOVE_GRAY_TRANSPARENT,
         selectSelected: Colors.DOVE_GRAY,
         showPasswordIconColor: Colors.DUSTY_GRAY,
-        themeSelectionBlockBackground: Colors.COD_GRAY_MEDIUM
+        themeSelectionBlockBackground: Colors.COD_GRAY_MEDIUM,
+        loaderColor: Colors.WHITE,
     },
     light: {
         body: Colors.WHITE,
@@ -227,6 +230,7 @@ export const Themes: ThemesType = {
         selectHover: Colors.PALE_GRAY_OPACITY,
         selectSelected: Colors.TRANSPARENT_BLACK,
         showPasswordIconColor: Colors.BOULDER,
-        themeSelectionBlockBackground: Colors.ATHENS_GRAY
+        themeSelectionBlockBackground: Colors.ATHENS_GRAY,
+        loaderColor: Colors.BLACK,
     },
 }
