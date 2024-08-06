@@ -1,5 +1,4 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
-import { OutlinedInput } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
 import { RootState, Transaction, UserStorageDataType } from "../../../../../../../redux/reducers/userStorageReduser/types";
 import { BtnClose } from "../../../../../../shared/btnClose/btnClose";
@@ -14,6 +13,7 @@ import { addScroll } from "../../../../../../../utils/toggleScroll";
 import { getDataForStatistic } from "../../../../../../../utils/statisticalDataUtils";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
+import { OutlinedInputComponent } from "../../../../../../../components/shared/outlinedInput/outlinedInput";
 import { BtnInner, Container, Label, Wrapper } from "./styledEditCategoryModal";
 
 interface EditCategoryModalProps {
@@ -58,7 +58,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
     }, []);
 
     const saveChanges = async () => {
-        const sum = categorySum.toString().replace(',', '.'); 
+        const sum = categorySum.toString().replace(',', '.');
 
         if (!VALID_SUM_REGEX.test(sum)) {
             getAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
@@ -124,28 +124,13 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                 </div>
                 <div>
                     <Label themestyles={themeContext.themeStyles}>Sum</Label>
-                    <OutlinedInput
-                        sx={{
-                            width: "100%",
-                            fontSize: "14px",
-                            color: themeContext.themeStyles.color,
-
-                            '& .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorder,
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorderHover,
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorderFocused,
-                            },
-                        }}
-                        inputProps={{ maxLength: 10 }}
-                        error={categoryNameError}
+                    <OutlinedInputComponent
+                        maxLengthNumber={10}
+                        isError={categoryNameError}
                         value={categorySum}
-                        onChange={handleSum}
-                        size="small"
-                        placeholder="Sum" />
+                        handleChange={handleSum}
+                        placeholderValue={"Sum"}
+                        type="text" />
                 </div>
                 <BtnInner>
                     <ButtonComponent

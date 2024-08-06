@@ -16,6 +16,7 @@ export const Title = styled.div`
 `
 
 export const BtnInner = styled.div`
-    max-width: 35rem;
+    max-width: 30%;
     margin-left: auto;
+    padding-top: 20px;
 `

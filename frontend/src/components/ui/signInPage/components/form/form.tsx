@@ -7,10 +7,10 @@ import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
 import { checkUserData } from "../../../../../redux/reducers/userReducer/userReducer";
 import { useAppDispatch } from "../../../../../redux/store/store";
-import { Input } from "./components/input";
 import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle/signUpWithGoogle";
 import { getAlert } from "../../../../../utils/getAlert";
 import { getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
+import { OutlinedInputComponent } from "../../../../../components/shared/outlinedInput/outlinedInput";
 import { BtnShowPasswordInner, FormContainer, Label, Title } from "./styledForm";
 
 interface FormProps {
@@ -57,17 +57,19 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 </h2>
             </Title>
             <form>
-                <Input
-                    placeholderValue="Email"
-                    inputValue={emailValue}
-                    setValueFunc={setEmailValue}
-                    type="email" />
+                <OutlinedInputComponent
+                    value={emailValue}
+                    placeholderValue={"Email"}
+                    type={"email"}
+                    maxLengthNumber={30}
+                    handleChange={(event) => setEmailValue(event.target.value)} />
                 <Label>
-                    <Input
-                        placeholderValue="Password"
-                        inputValue={passwordValue}
-                        setValueFunc={setPasswordValue}
-                        type={isInputTypePassword ? "password" : "text"} />
+                    <OutlinedInputComponent
+                        value={passwordValue}
+                        placeholderValue={"Password"}
+                        type={isInputTypePassword ? "password" : "text"}
+                        maxLengthNumber={30}
+                        handleChange={(event) => setPasswordValue(event.target.value)} />
                     <BtnShowPasswordInner>
                         <BtnShowPassword
                             func={() => setIsInputTypePassword(prev => !prev)}

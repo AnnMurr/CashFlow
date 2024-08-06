@@ -8,7 +8,7 @@ export const Wrapper = styled.div<ThemeStyledProps>`
 `
 
 export const Description = styled.div`
-    padding: 30px;
+    padding: 30px 30px 20px 30px;
 `
 
 export const Title = styled.div<ThemeStyledProps>`
@@ -37,7 +37,7 @@ export const Email = styled.div<ThemeStyledProps>`
 export const EmailAdressInner = styled(Link)<ThemeStyledProps>`
     display: flex;
     justify-content: space-between;
-    padding: 25px 30px;
+    padding: 20px 30px;
     transition: all 0.5s ease-in-out;
     cursor: pointer;
     border-bottom-left-radius: 10px;

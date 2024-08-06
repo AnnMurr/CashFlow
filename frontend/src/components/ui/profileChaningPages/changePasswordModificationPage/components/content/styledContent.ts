@@ -28,6 +28,7 @@ export const SubTitle = styled.div<ThemeStyledProps>`
 export const BtnInner = styled.div`
     max-width: 30%;
     margin-left: auto;
+    padding-top: 5px;
 `
 
 export const BtnShowPasswordInner = styled.div`
@@ -40,4 +41,5 @@ export const BtnShowPasswordInner = styled.div`
 export const Label = styled.label`
     position: relative;
     display: block;
+    margin-bottom: 15px;
 `

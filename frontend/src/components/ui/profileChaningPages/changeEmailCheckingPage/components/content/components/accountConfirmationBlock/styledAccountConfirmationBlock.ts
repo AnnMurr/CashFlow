@@ -14,6 +14,7 @@ export const Title = styled.div<ThemeStyledProps>`
 export const BtnInner = styled.div`
     max-width: 30%;
     margin-left: auto;
+    padding-top: 20px;
 `
 
 export const BtnShowPasswordInner = styled.div`
