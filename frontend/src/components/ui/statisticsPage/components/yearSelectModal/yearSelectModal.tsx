@@ -26,7 +26,7 @@ export const YearSelectModal: FC<YearSelectModalProps> = ({
             <BtnClose
                 btnInnerstyles={{
                     marginLeft: "auto",
-                    paddingBottom: "10px",
+                    paddingBottom: "20px",
                 }}
                 closeBlock={setIsYearSelectModal}
                 size="lg" />

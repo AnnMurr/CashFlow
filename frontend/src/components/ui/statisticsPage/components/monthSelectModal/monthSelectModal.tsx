@@ -47,7 +47,7 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({
             <BtnClose
                 btnInnerstyles={{
                     marginLeft: "auto",
-                    marginBottom: "10px",
+                    marginBottom: "20px",
                 }}
                 closeBlock={setIsMonthSelectModal}
                 size="lg" />

@@ -22,38 +22,36 @@ export const Content: FC = () => {
     }, [userDataFromRedux]);
 
     return (
-        <div>
-            <Wrapper themestyles={themeContext.themeStyles}>
-                <div>
-                    <Category themestyles={themeContext.themeStyles}>
-                        <h3>
-                            Name
-                        </h3>
-                    </Category>
-                    <UserName themestyles={themeContext.themeStyles}>
-                        <span>{userName}</span>
-                    </UserName>
-                </div>
-                <div>
-                    <button onClick={() => setIsModalActive(true)} type="button">
-                        <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faPen} />
-                    </button>
-                </div>
-                {isModalActive ?
-                    <>
-                        <EditUserDataModal
-                            userData={userName}
-                            changeUserData={setUserName}
-                            setIsModalActive={setIsModalActive}
-                            setIsAlertActive={setIsAlertActive} />
-                        <DarkBackground
-                            setIsModalActive={setIsModalActive}
-                            isModalActive={isModalActive} />
-                    </> : null}
-                {isAlertActive ?
-                    <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
-                    : null}
-            </Wrapper>
-        </div>
+        <Wrapper themestyles={themeContext.themeStyles}>
+            <div>
+                <Category themestyles={themeContext.themeStyles}>
+                    <h3>
+                        Name
+                    </h3>
+                </Category>
+                <UserName themestyles={themeContext.themeStyles}>
+                    <span>{userName}</span>
+                </UserName>
+            </div>
+            <div>
+                <button onClick={() => setIsModalActive(true)} type="button">
+                    <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faPen} />
+                </button>
+            </div>
+            {isModalActive ?
+                <>
+                    <EditUserDataModal
+                        userData={userName}
+                        changeUserData={setUserName}
+                        setIsModalActive={setIsModalActive}
+                        setIsAlertActive={setIsAlertActive} />
+                    <DarkBackground
+                        setIsModalActive={setIsModalActive}
+                        isModalActive={isModalActive} />
+                </> : null}
+            {isAlertActive ?
+                <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
+                : null}
+        </Wrapper>
     )
 }

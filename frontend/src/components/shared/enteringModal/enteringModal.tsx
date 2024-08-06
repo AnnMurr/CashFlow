@@ -34,15 +34,16 @@ export const EnteringModal: FC<EnteringModalProps> = ({
         return false;
     }
 
-    const enterValue = (event: any) => {
+    const enterValue = (event: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>) => {
         inputRef.current && inputRef.current.focus()
+        const keyboardEvent = event.type === 'keydown' ? event as React.KeyboardEvent<HTMLInputElement> : null;
         const currentTarget = event.currentTarget as HTMLButtonElement;
-        const keyValue = BUTTONS_VALUE.includes(event.key) ? event.key : null;
+        const keyValue = keyboardEvent && BUTTONS_VALUE.includes(keyboardEvent.key) ? keyboardEvent.key : null;
         const value = keyValue || currentTarget.textContent;
         const isDeleteButton = currentTarget.classList.contains("btn_delete");
         const isError = checkForErrors();
 
-        if (event.key === "Enter") {
+        if (keyboardEvent && keyboardEvent.key === "Enter") {
             addTransaction();
             return;
         }

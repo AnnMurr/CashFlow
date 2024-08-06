@@ -32,6 +32,7 @@ export const DateRangeModal: FC<DatePickerModalProps> = ({ setIsAlertActive, cho
             <BtnClose
                 btnInnerstyles={{
                     marginLeft: "auto",
+                    marginBottom: "20px",
                 }}
                 closeBlock={setIsDateRangeModal}
                 size="lg" />

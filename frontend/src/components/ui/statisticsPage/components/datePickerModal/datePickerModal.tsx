@@ -26,7 +26,7 @@ export const DatePickerModal: FC<DatePickerModalProps> = ({
             <BtnClose
                 btnInnerstyles={{
                     marginLeft: "auto",
-                    marginBottom: "10px",
+                    marginBottom: "20px",
                 }}
                 closeBlock={setIsDatePickerModal}
                 size="lg" />

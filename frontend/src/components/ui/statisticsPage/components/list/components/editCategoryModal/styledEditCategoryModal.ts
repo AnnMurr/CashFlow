@@ -5,11 +5,12 @@ export const Container = styled.div<ThemeStyledProps>`
     width: 100%;
     max-width: 25rem;
     left: 50%;
-    margin-left: -10rem;
+    margin-left: -13rem;
     position: fixed;
     top: 20%;
     background-color:${({ themestyles }) => themestyles.modalBackground};
     z-index: 25;
+    border-radius: 5px;
 `
 
 export const Wrapper = styled.div`
