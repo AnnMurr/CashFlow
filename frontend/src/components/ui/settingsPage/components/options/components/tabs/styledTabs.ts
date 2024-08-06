@@ -9,7 +9,7 @@ interface ItemProps {
 
 export const Container = styled.div`
     display: grid;
-    grid-template-columns: 30% 65%;
+    grid-template-columns: 25% 70%;
     justify-content: space-between;
     gap: 20px;
     height: 100%;

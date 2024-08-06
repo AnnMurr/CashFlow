@@ -24,7 +24,7 @@ export const CommentSkeleton: FC<CommentSkeletonProps> = ({
         borderRadius: "5px",
         borderBottomRightRadius: "0",
         borderBottomLeftRadius: "0",
-        border: "none"
+        border: "none",
     };
 
     const SkeletonStyles = (color: string) => ({

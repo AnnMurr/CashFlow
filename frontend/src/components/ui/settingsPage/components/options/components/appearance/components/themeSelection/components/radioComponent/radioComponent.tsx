@@ -16,10 +16,15 @@ export const RadioComponent: FC<RadioComponentProps> = ({ children, value, check
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const sheetStyles = {
+        maxWidth: "20rem",
         borderRadius: "5px",
-        backgroundColor: themeContext.themeStyles.settingsBackground,
+        backgroundColor: themeContext.themeStyles.themeSelectionBlockBackground,
         border: `1px solid ${themeContext.themeStyles.color}`,
+        transition: "all 0.3s ease-in-out",
 
+        '&:hover': {
+            opacity: 0.6,
+        },
         '.Mui-checked': {
             borderRadius: "5px",
             border: `3px solid ${themeContext.themeStyles.color}`,

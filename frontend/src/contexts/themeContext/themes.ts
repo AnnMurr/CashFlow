@@ -22,6 +22,7 @@ export enum Colors {
     BOTTLE_GREEN = '#0f4a34',
     ATHENS_GRAY = '#f3f4f6',
     DUSTY_GRAY = '#9e9d9d',
+    DUSTY_GRAY_TRANSPARENT = '#9e9d9d59',
     TRANSPARENT = '#fff0',
     BOULDER = '#797979',
     SAN_MARINO = '#3f51b5',
@@ -29,13 +30,25 @@ export enum Colors {
     SAPHIRE_TRANSPARENT = '#27399b59',
     PALE_GRAY_OPACITY = '#e5e5e58a',
 
-    SANDSTONE ='#776B5D',
-    NAPA ='#dcd0bb',
-    NAPA_TRANSPARENT ='#b0a6952e',
-    WHITE_ROCK ='#EBE3D5',
-    PAMPAS ='#F3EEEA',
-    ARMADILLO ='#494137',
+    SANDSTONE = '#776B5D',
+    NAPA = '#dcd0bb',
+    NAPA_TRANSPARENT = '#b0a6952e',
+    WHITE_ROCK = '#EBE3D5',
+    PAMPAS = '#F3EEEA',
+    ARMADILLO = '#494137',
+
+    EMPERORAPPROX = '#525252',
+    EMPERORAPPROX_TRANSPARENT = '#525252c4',
+    TUNDORA = '#414141',
+    MINE_SHAFT = '#333333',
+    FLUSH_MAHOGANY = '#313131',
+    GREEN_HAZE = '#009D67',
+    TROPICAL_RAIN_FOREST = '#007b51',
+    DOVE_GRAY = '#6f6f6fc4',
+    DOVE_GRAY_TRANSPARENT = '#6c6c6c52',
 }
+//light #f3f4f6
+//131313
 
 export const Themes: ThemesType = {
     green: {
@@ -67,7 +80,8 @@ export const Themes: ThemesType = {
         datePikerLayoutShadow: Colors.TRANSPARENT,
         selectHover: Colors.PALE_GRAY_OPACITY,
         selectSelected: Colors.TRANSPARENT_BLACK,
-        showPasswordIconColor: Colors.BOULDER
+        showPasswordIconColor: Colors.BOULDER,
+        themeSelectionBlockBackground: Colors.ATHENS_GRAY
     },
     dark: {
         body: Colors.COD_GRAY,
@@ -98,7 +112,8 @@ export const Themes: ThemesType = {
         datePikerLayoutShadow: Colors.TRANSPARENT_WHITE,
         selectHover: Colors.COD_GRAY_LIGHT,
         selectSelected: Colors.COD_GRAY_MEDIUM,
-        showPasswordIconColor: Colors.DUSTY_GRAY
+        showPasswordIconColor: Colors.DUSTY_GRAY,
+        themeSelectionBlockBackground: Colors.COD_GRAY_MEDIUM
     },
     sandstone: {
         body: Colors.NAPA,
@@ -129,6 +144,39 @@ export const Themes: ThemesType = {
         datePikerLayoutShadow: Colors.TRANSPARENT,
         selectHover: Colors.NAPA_TRANSPARENT,
         selectSelected: Colors.NAPA,
-        showPasswordIconColor: Colors.DUSTY_GRAY
+        showPasswordIconColor: Colors.DUSTY_GRAY,
+        themeSelectionBlockBackground: Colors.ATHENS_GRAY
+    },
+    gray: {
+        body: Colors.EMPERORAPPROX,
+        color: Colors.WHITE,
+        subBarBackground: Colors.MINE_SHAFT,
+        addCategoryBtnBackground: Colors.SOFT_PEACH,
+        modalBackground: Colors.MINE_SHAFT,
+        buttonBackground: Colors.GREEN_HAZE,
+        buttonBackgroundHover: Colors.TROPICAL_RAIN_FOREST,
+        enteringModalBackground: Colors.COD_GRAY,
+        statisticsBackground: Colors.TUNDORA,
+        settingsBackground: Colors.TUNDORA,
+        statisticsLineDayBackground: Colors.PAMPAS,
+        buttonGroupColor: Colors.WHITE,
+        buttonActiveGroupColor: Colors.TRANSPARENT_WHITE,
+        buttonGroupHover: Colors.GRAY_TRANSPARENT,
+        dataPikerIcon: Colors.WHITE,
+        inputBorder: Colors.BOULDER,
+        inputBorderHover: Colors.DUSTY_GRAY,
+        inputBorderFocused: Colors.COD_GRAY_LIGHT,
+        labelFocused: Colors.WHITE,
+        lineBackgroundHover: Colors.EMPERORAPPROX_TRANSPARENT,
+        buttonDisabledBackground: Colors.DUSTY_GRAY,
+        settingsOptionsTabActive: Colors.WHITE,
+        datePikerLayout: Colors.EMPERORAPPROX,
+        pickersDaySelected: Colors.DUSTY_GRAY,
+        pickersDayHover: Colors.DUSTY_GRAY_TRANSPARENT,
+        datePikerLayoutShadow: Colors.TRANSPARENT_BLACK,
+        selectHover: Colors.DOVE_GRAY_TRANSPARENT,
+        selectSelected: Colors.DOVE_GRAY,
+        showPasswordIconColor: Colors.DUSTY_GRAY,
+        themeSelectionBlockBackground: Colors.COD_GRAY_MEDIUM
     },
 }

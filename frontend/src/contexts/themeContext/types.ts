@@ -1,6 +1,6 @@
 import { Colors } from "./themes";
 
-export type ThemeType = 'green' | 'dark' | 'sandstone'
+export type ThemeType = 'green' | 'dark' | 'sandstone' | 'gray'
 
 export type ThemesType = Record<ThemeType, Theme>
 
@@ -34,6 +34,7 @@ export interface Theme {
     selectSelected: Colors,
     settingsBackground: Colors,
     showPasswordIconColor: Colors,
+    themeSelectionBlockBackground: Colors,
 }
 
 export interface ThemeContextType {

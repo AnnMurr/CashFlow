@@ -16,6 +16,8 @@ export const ThemeSelection: FC = () => {
                 defaultValue="medium"
                 name="radio-buttons-group"
                 sx={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
                     gap: 2,
                     '& .Mui-checked': {
                         border: '3px solid',
@@ -65,6 +67,17 @@ export const ThemeSelection: FC = () => {
                         lineColor={Themes.sandstone.statisticsLineDayBackground}
                         darkColor={Themes.sandstone.buttonBackgroundHover}
                         bodyColor={Themes.sandstone.body} />
+                </RadioComponent>
+                <RadioComponent
+                    checked={storageData?.settings.theme === "gray"}
+                    value={"Gray"}>
+                    <CommentSkeleton
+                        subBarColor={Themes.gray.subBarBackground}
+                        boxColor={Themes.gray.settingsBackground}
+                        color={Themes.gray.color}
+                        lineColor={Themes.gray.statisticsLineDayBackground}
+                        darkColor={Themes.gray.buttonBackgroundHover}
+                        bodyColor={Themes.gray.body} />
                 </RadioComponent>
             </RadioGroup>
         </Wrapper>
