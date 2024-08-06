@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../../../../../redux/store/store";
 import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
 import { checkGoogleAccount } from "../../../../../../redux/reducers/userReducer/userReducer";
 import { DeletingGoogleAccount } from "./components/deletingGoogleAccount/deletingGoogleAccount";
-import { Loading } from "../../../../../shared/loading/loading";
+import { Spinner } from "../../../../../shared/spinner/spinner";
 import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
 import { Wrapper } from "./styledContent";
@@ -32,7 +32,7 @@ export const Content: FC = () => {
     return (
         <Wrapper themestyles={themeContext.themeStyles}>
             {isGoogleAccount === null ?
-                <Loading size={40} height={3} /> :
+                <Spinner size={40} height={3} /> :
                 isGoogleAccount ?
                     <DeletingGoogleAccount /> :
                     <AccountConfirmationBlock setAlertActive={setAlertActive} />}

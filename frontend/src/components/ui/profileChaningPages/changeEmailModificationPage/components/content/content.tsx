@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OutlinedInput } from "@mui/material";
 import { EMAIL_PATTERN } from "../../../../../../consts/index";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../shared/button/button";
@@ -9,6 +8,7 @@ import { checkUserDataByEmail, updateUserData } from "../../../../../../redux/re
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { getAlert } from "../../../../../../utils/getAlert";
+import { OutlinedInputComponent } from "../../../../../../components/shared/outlinedInput/outlinedInput";
 import { BtnInner, Title, Wrapper } from "./styledContent";
 
 export const Content: FC = () => {
@@ -71,21 +71,17 @@ export const Content: FC = () => {
             <Wrapper>
                 <Title>
                     <h5>
-                        Enter new email address.
+                        Enter new email address
                     </h5>
                 </Title>
                 <div>
-                    <OutlinedInput
-                        sx={{
-                            marginBottom: "20px",
-                            width: "100%",
-                            fontSize: "14px"
-                        }}
-                        onChange={(event) => setEmailValue(event.target.value)}
+                    <OutlinedInputComponent
+                        isError={!!isError}
                         value={emailValue}
-                        size="small"
-                        error={!!isError}
-                        placeholder="Enter your password" />
+                        placeholderValue={"Enter your password"}
+                        maxLengthNumber={30}
+                        type="text"
+                        handleChange={(event) => setEmailValue(event.target.value)} />
                 </div>
                 <BtnInner>
                     <ButtonComponent

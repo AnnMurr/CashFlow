@@ -1,6 +1,5 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OutlinedInput } from "@mui/material";
 import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../shared/button/button";
 import { BtnShowPassword } from "../../../../../shared/btnShowPassword/btnShowPassword";
@@ -12,6 +11,7 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { getAlert } from "../../../../../../utils/getAlert";
 import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
+import { OutlinedInputComponent } from "../../../../../../components/shared/outlinedInput/outlinedInput";
 import { BtnInner, Wrapper, BtnShowPasswordInner, Label, SubTitle, Title } from "./styledContent";
 
 export const Content: FC = () => {
@@ -72,29 +72,13 @@ export const Content: FC = () => {
                 </span>
             </SubTitle>
             <Label>
-                <OutlinedInput
-                    sx={{
-                        marginBottom: "20px",
-                        width: "100%",
-                        fontSize: "14px",
-                        color: themeContext.themeStyles.color,
-
-                        '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: themeContext.themeStyles.inputBorder,
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: themeContext.themeStyles.inputBorderHover,
-                        },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: themeContext.themeStyles.inputBorderFocused,
-                        },
-                    }}
-                    onChange={(event) => setPasswordValue(event.target.value)}
+                <OutlinedInputComponent
+                    isError={isError}
                     value={passwordValue}
+                    placeholderValue={"Enter your password"}
                     type={isInputTypePassword ? "password" : "text"}
-                    size="small"
-                    placeholder="Enter your password"
-                    error={isError} />
+                    maxLengthNumber={30}
+                    handleChange={(event) => setPasswordValue(event.target.value)} />
                 <BtnShowPasswordInner>
                     <BtnShowPassword
                         func={() => setIsInputTypePassword(prev => !prev)}
@@ -102,29 +86,13 @@ export const Content: FC = () => {
                 </BtnShowPasswordInner>
             </Label>
             <Label>
-                <OutlinedInput
-                    sx={{
-                        marginBottom: "20px",
-                        width: "100%",
-                        fontSize: "14px",
-                        color: themeContext.themeStyles.color,
-
-                        '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: themeContext.themeStyles.inputBorder,
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: themeContext.themeStyles.inputBorderHover,
-                        },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: themeContext.themeStyles.inputBorderFocused,
-                        },
-                    }}
-                    onChange={(event) => setConfirmPasswordValue(event.target.value)}
+                <OutlinedInputComponent
+                    isError={isError}
                     value={confirmPasswordValue}
+                    placeholderValue={"Confirm password"}
                     type={isInputConfirmTypePassword ? "password" : "text"}
-                    size="small"
-                    placeholder="Confirm password"
-                    error={isError} />
+                    maxLengthNumber={30}
+                    handleChange={(event) => setConfirmPasswordValue(event.target.value)} />
                 <BtnShowPasswordInner>
                     <BtnShowPassword
                         func={() => setIsInputConfirmTypePassword(prev => !prev)}

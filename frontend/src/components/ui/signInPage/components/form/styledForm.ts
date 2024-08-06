@@ -22,6 +22,7 @@ export const BtnShowPasswordInner = styled.div`
 `
 
 export const Label = styled.label`
+    margin: 20px 0;
     position: relative;
     display: block;
 `

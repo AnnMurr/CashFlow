@@ -8,7 +8,7 @@ import { EditCategoryModal } from "./components/editCategoryModal/editCategoryMo
 import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
-import { Loading } from "../../../../shared/loading/loading";
+import { Spinner } from "../../../../shared/spinner/spinner";
 import { Line } from "./components/line/line";
 import { LoadingInner } from "./styledList";
 
@@ -63,7 +63,7 @@ export const List: FC<ListProps> = ({ setIsAlertActive, statisticType }) => {
                         </React.Fragment>
                     )) :
                     <LoadingInner>
-                        <Loading size={40} height={3} />
+                        <Spinner size={40} height={3} />
                     </LoadingInner>}
                 {isEditCategoryModalActive ?
                     <EditCategoryModal

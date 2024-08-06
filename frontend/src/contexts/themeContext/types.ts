@@ -38,6 +38,7 @@ export interface Theme {
     subBarLinkColor: Colors,
     enteringModalColor: Colors,
     enteringModalBtnBackground: Colors,
+    loaderColor: Colors,
 }
 
 export interface ThemeContextType {

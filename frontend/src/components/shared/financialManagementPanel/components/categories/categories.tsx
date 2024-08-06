@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
-import { Loading } from "../../../../shared/loading/loading";
+import { Spinner } from "../../../spinner/spinner";
 import { Cross } from "./components/cross/cross";
 import { CategoryName } from "./components/categoryName/categoryName";
 import { Icon } from "./components/icon/icon";
@@ -137,9 +137,9 @@ export const Categories: FC<CategoriesProps> = ({
                                 </CrossBtnInner>}
                         </Item>
                     ))
-                        : <Loading size={40} height={3} />}
+                        : <Spinner size={40} height={3} />}
                 </List>
-                : <Loading size={40} height={3} />}
+                : <Spinner size={40} height={3} />}
         </>
     )
 }

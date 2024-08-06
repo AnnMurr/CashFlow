@@ -1,6 +1,5 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OutlinedInput } from "@mui/material";
 import { BtnShowPassword } from "../../../../../../../shared/btnShowPassword/btnShowPassword";
 import { ButtonComponent } from "../../../../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../../../../shared/alert/alert";
@@ -8,6 +7,7 @@ import { useAppSelector } from "../../../../../../../../redux/store/store";
 import { UserDataType } from "../../../../../../../../redux/reducers/userReducer/types";
 import { ThemeContextType } from "../../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../../contexts/themeContext/themeContext";
+import { OutlinedInputComponent } from "../../../../../../../../components/shared/outlinedInput/outlinedInput";
 import { BtnInner, BtnShowPasswordInner, Label, Title } from "./styledAccountConfirmationBlock";
 
 interface AccountConfirmationBlockProps {
@@ -52,30 +52,13 @@ export const AccountConfirmationBlock: FC<AccountConfirmationBlockProps> = ({ se
                 </Title>
                 <div>
                     <Label>
-                        <OutlinedInput
-                            sx={{
-                                marginBottom: "20px",
-                                width: "100%",
-                                fontSize: "14px",
-                                color: themeContext.themeStyles.color,
-
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: themeContext.themeStyles.inputBorder,
-                                },
-                                '&:hover .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: themeContext.themeStyles.inputBorderHover,
-                                },
-                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: themeContext.themeStyles.inputBorderFocused,
-                                },
-                            }}
-                            onChange={(event) => setPasswordValue(event.target.value)}
+                        <OutlinedInputComponent
+                            maxLengthNumber={30}
+                            isError={isError}
                             value={passwordValue}
-                            size="small"
-                            placeholder="Enter your password"
-                            error={isError}
-                            type={isInputTypePassword ? "password" : "text"}
-                        />
+                            handleChange={(event) => setPasswordValue(event.target.value)}
+                            placeholderValue={"Enter your password"}
+                            type={isInputTypePassword ? "password" : "text"} />
                         <BtnShowPasswordInner>
                             <BtnShowPassword
                                 func={() => setIsInputTypePassword((prev) => !prev)}

@@ -4,12 +4,12 @@ import { UserDataType } from "../../../../../../../../redux/reducers/userReducer
 import { useAppDispatch, useAppSelector } from "../../../../../../../../redux/store/store";
 import { getAlert } from "../../../../../../../../utils/getAlert";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { OutlinedInput } from "@mui/material";
 import { AlertComponentProps } from "../../../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../../../shared/button/button";
 import { BtnClose } from "../../../../../../../shared/btnClose/btnClose";
 import { ThemeContextType } from "../../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../../contexts/themeContext/themeContext";
+import { OutlinedInputComponent } from "../../../../../../../../components/shared/outlinedInput/outlinedInput";
 import { BtnInner, Container, Wrapper } from "./styledEditUserDataModal";
 
 interface EditUserDataModalProps {
@@ -72,29 +72,13 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
                     closeBlock={setIsModalActive}
                     size="lg" />
                 <div>
-                    <OutlinedInput
-                        sx={{
-                            marginBottom: "20px",
-                            width: "100%",
-                            fontSize: "14px",
-                            color: themeContext.themeStyles.color,
-
-                            '& .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorder,
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorderHover,
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                borderColor: themeContext.themeStyles.inputBorderFocused,
-                            }
-                        }}
-                        error={error}
-                        maxRows={1}
+                    <OutlinedInputComponent
+                        isError={error}
                         value={value}
-                        onChange={(event) => setValue((event.target.value.trimStart()))}
-                        size="small"
-                        placeholder="Name" />
+                        placeholderValue={"Name"}
+                        type={"text"}
+                        maxLengthNumber={30}
+                        handleChange={(event) => setValue((event.target.value.trimStart()))} />
                 </div>
                 <BtnInner>
                     <ButtonComponent
