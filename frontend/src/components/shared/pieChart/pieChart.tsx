@@ -16,8 +16,10 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data }) => {
                     cy: 150,
                     innerRadius: 40,
                     outerRadius: 80,
+                    
                 },
             ]}
+            colors={['#FF1700', '#FF8E00', '#FFE400', '#06FF00', '#24d7ae', '#007ed7', '#9c46d0']}
             height={300}
             width={300}
         /> : null
