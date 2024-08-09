@@ -48,7 +48,7 @@ export const getDataForStatistic = async (type: "expenses" | "income", dispatch:
 const processStatisticalData = (
     data: ItemsType,
     dateRange: string[],
-    setIsAlertActive: (value: AlertComponentProps | null) => void) => {
+    setIsAlertActive?: (value: AlertComponentProps | null) => void) => {
 
     const sortedStatisticalData: Array<ItemType> = [];
     const chosenDateStatisticalData: Array<ItemType> = [];
@@ -72,7 +72,7 @@ const processStatisticalData = (
     if (sortedStatisticalData.length > 0) {
         return { sortedStatisticalData, chosenDateStatisticalData };
     } else {
-        getAlert({ type: "error", text: "No data for this period" }, setIsAlertActive, 3000);
+        setIsAlertActive && getAlert({ type: "error", text: "No data for this period" }, setIsAlertActive, 3000);
         return null;
     }
 };

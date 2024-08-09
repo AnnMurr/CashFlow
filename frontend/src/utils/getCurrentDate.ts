@@ -1,6 +1,6 @@
 export const getMonth = () => {
     const newDate = new Date();
-    const month = (newDate.getMonth() + 1).toString().padStart(2);
+    const month = +(newDate.getMonth() + 1).toString().padStart(2);
 
     return month;
 }
@@ -31,8 +31,9 @@ export const parseEuropeanDate = (dateString: string) => {
     return new Date(year, month, day);
 }
 
-export const areDatesEqual = (date1: Date, date2: Date): boolean =>
-    new Date(date1).setHours(0, 0, 0, 0) === new Date(date2).setHours(0, 0, 0, 0);
+export const areDatesEqual = (date1: Date, date2: Date): boolean => {
+    return new Date(date1).setHours(0, 0, 0, 0) === new Date(date2).setHours(0, 0, 0, 0);
+}
 
 export const formatDate = (date: any) => {
     const day = String(date.getDate()).padStart(2, '0');
@@ -59,4 +60,18 @@ export const getWeek = () => {
     }
 
     return dates;
+}
+
+export const areMonthEqual = (month: number, dateToCompare: Date) => {
+    const date = new Date(dateToCompare);
+    const monthFromDate = date.getMonth() + 1;
+
+    return monthFromDate === month;
+}
+
+export const areYearEqual = (year: number, dateToCompare: Date) => {
+    const date = new Date(dateToCompare);
+    const yearFromDate = date.getFullYear();
+
+    return yearFromDate === year;
 }
