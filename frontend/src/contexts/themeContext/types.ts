@@ -29,7 +29,7 @@ export interface Theme {
     datePikerLayout: Colors,
     pickersDaySelected: Colors,
     pickersDayHover: Colors,
-    datePikerLayoutShadow: Colors,
+    modalLayoutShadow: Colors,
     selectHover: Colors,
     selectSelected: Colors,
     settingsBackground: Colors,

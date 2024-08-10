@@ -47,7 +47,7 @@ export const YearPicker: FC<YearPickerProps> = ({ setChosenYear }) => {
     };
 
     const DatePickerStylesLayout = (themeContext: ThemeContextType) => ({
-        boxShadow: `0px 0px 4px ${themeContext.themeStyles.datePikerLayoutShadow}`,
+        boxShadow: `0px 0px 4px ${themeContext.themeStyles.modalLayoutShadow}`,
         color: themeContext.themeStyles.color,
         backgroundColor: themeContext.themeStyles.datePikerLayout,
 

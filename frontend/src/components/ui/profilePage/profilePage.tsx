@@ -17,7 +17,7 @@ export const ProfilePage: FC = () => {
     const { storageData } = useAppSelector((state: RootState) => state.storage);
 
     useEffect(() => {
-        storageData && setChartDataByPeriod("expenses", storageData, setChartData)
+        storageData && setChartDataByPeriod("expenses", storageData, setChartData);
     }, [storageData]);
 
     return (

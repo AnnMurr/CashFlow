@@ -1,7 +1,8 @@
+import { ThemeStyledProps } from "../../../../../contexts/themeContext/types";
 import styled from "styled-components";
 
-export const Container = styled.div`
-    border-bottom: 1px solid black;
+export const Container = styled.div<ThemeStyledProps>`
+    border-bottom:${({ themestyles }) => `1px solid ${themestyles.color}`};
 `
 
 export const Wrapper = styled.div`
