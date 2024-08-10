@@ -19,7 +19,7 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data }) => {
                     
                 },
             ]}
-            colors={['#FF1700', '#FF8E00', '#FFE400', '#06FF00', '#24d7ae', '#007ed7', '#9c46d0']}
+            colors={['#1aab2e', '#24d7ae', '#5fb7d4', '#007ed7', '#8e6cef', '#ff0000', '#ff7300','#53d726', '#ffec01']}
             height={300}
             width={300}
         /> : null

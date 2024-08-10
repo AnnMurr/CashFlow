@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
 
 export const BtnInner = styled.div`
     margin-top: 10px;
-    max-width: 210px;
+    max-width: 50%;
     margin-left: auto;
 `
 

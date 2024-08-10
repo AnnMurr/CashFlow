@@ -7,9 +7,13 @@ import { RootState } from "../../../redux/reducers/userStorageReduser/types";
 import { ChartDataObjectType } from "./types";
 import { setChartDataByPeriod } from "../../../utils/chartUtils";
 import { Container, Wrapper } from "./profilePageStyled";
+import { Header } from "./components/header/header";
+import { DarkBackground } from "../../shared/darkBackground/darkBackground";
+import { LogOutConfirmationModal } from "./components/logOutConfirmationModal/logOutConfirmationModal";
 
 export const ProfilePage: FC = () => {
     const [chartData, setChartData] = useState<ChartDataObjectType | null>(null);
+    const [isLogOutConfirmationModal, setIsLogOutConfirmationModal] = useState<boolean>(false);
     const { storageData } = useAppSelector((state: RootState) => state.storage);
 
     useEffect(() => {
@@ -23,7 +27,18 @@ export const ProfilePage: FC = () => {
                     <Container>
                         <Wrapper>
                             <SubBar />
+                            <Header setIsLogOutConfirmationModal={setIsLogOutConfirmationModal} />
                             {chartData && <Content chartData={chartData} />}
+
+                            {isLogOutConfirmationModal ?
+                                <>
+                                    <DarkBackground
+                                        setIsModalActive={setIsLogOutConfirmationModal}
+                                        isModalActive={isLogOutConfirmationModal} />
+                                    <LogOutConfirmationModal
+                                        setIsModalActive={setIsLogOutConfirmationModal} />
+                                </>
+                                : null}
                         </Wrapper>
                     </Container>
                 </section>

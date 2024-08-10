@@ -1,5 +1,5 @@
-import { ThemeStyledProps } from "../../../../../../../../../contexts/themeContext/types";
-import styled from "styled-components";
+import { ThemeStyledProps } from "../../../../../contexts/themeContext/types"
+import styled from "styled-components"
 
 export const Container = styled.div<ThemeStyledProps>`
     width: 100%;
@@ -19,16 +19,16 @@ export const Wrapper = styled.div`
 
 export const BtnInner = styled.div`
     margin-top: 10px;
-    max-width: 60%;
+    max-width: 30%;
     margin-left: auto;
 `
 
-export const LoadingInner = styled.div`
-    z-index: 30;
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    inset: 0;
+export const Title = styled.div<ThemeStyledProps>`
+    padding-bottom: 10px;
+
+    h5 {
+        color:${({ themestyles }) => themestyles.color};
+        font-size: 16px;
+        font-weight: 600;
+    }
 `

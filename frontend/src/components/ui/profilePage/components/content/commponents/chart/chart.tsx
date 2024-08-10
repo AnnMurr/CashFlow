@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { PieChartComponent } from "../../../../../../shared/pieChart/pieChart";
 import { ChartDataType } from "../../../../../../ui/profilePage/types";
-import { Container, Wrapper } from "./chartStyled";
+import { Container, Wrapper } from "./styledChart";
 
 interface ChartProps {
     data: [string, ChartDataType[]];

@@ -13,9 +13,3 @@ export const List = styled.ul<ThemeStyledProps>`
     border-radius: 5px;
     background-color:${({ themestyles }) => themestyles.settingsBackground};
 `
-
-export const BtnLogOutInner = styled.div`
-    max-width: 8rem;
-    width: 100%;
-    margin: 0 auto;
-`
