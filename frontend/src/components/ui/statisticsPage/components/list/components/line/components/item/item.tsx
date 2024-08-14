@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect } from "react";
-import { getCurrentDate } from "../../../../../../../../../utils/getCurrentDate";
+import { getCurrentDate } from "../../../../../../../../../utils/dateUtils";
 import { ItemType, RootState } from "../../../../../../../../../redux/reducers/userStorageReduser/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";

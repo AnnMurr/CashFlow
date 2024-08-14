@@ -8,5 +8,4 @@ export const Container = styled.div`
     min-width: 18rem;
     width: fit-content;
     max-width: 20rem;
-    width: fit-content;
 `

@@ -12,7 +12,6 @@ import { ExpensesPage } from './components/ui/expensesPage/expensesPage';
 import { AuthorizedContextProvider } from './contexts/authorizedContext/authorizedContext';
 import { CheckAuthorization, CheckNotAuthorization } from './contexts/authorizedContext/checkAuthorization';
 import { ErrorPage } from './components/ui/errorPage/errorPage';
-import { Body } from './components/shared/body/body';
 import { SettingsPage } from './components/ui/settingsPage/settingsPage';
 import { ChangeNamePage } from './components/ui/profileChaningPages/changeNamePage/changeNamePage';
 import { ChangeEmailPage } from './components/ui/profileChaningPages/changeEmailPage/changeEmailPage';
@@ -25,6 +24,7 @@ import { DeletingAccountPage } from './components/ui/profileChaningPages/deletin
 import { IcomePage } from './components/ui/icomePage/icomePage';
 import { Statistics } from './components/ui/statisticsPage/statistics';
 import { ThemeContextProvider } from './contexts/themeContext/themeContext';
+import { ChartPage } from './components/ui/chartPage/chartPage';
 import "./accets/styles/fonts.css";
 import "./accets/styles/reset.css";
 
@@ -57,6 +57,7 @@ function App() {
                   <ProfilePage />
                 </CheckNotAuthorization>
               } />
+              <Route path="/pie-chart" element={<ChartPage />} />
               <Route path="/expenses" element={<ExpensesPage />} />
               <Route path="/income" element={<IcomePage />} />
               <Route path="/settings" element={<SettingsPage />} />

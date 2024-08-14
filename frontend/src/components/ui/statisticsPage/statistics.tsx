@@ -11,7 +11,7 @@ import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
 import { MonthSelectModal } from "./components/monthSelectModal/monthSelectModal";
 import { YearSelectModal } from "./components/yearSelectModal/yearSelectModal";
 import { DateRangeModal } from "./components/dateRangeModal/dateRangeModal";
-import { getDataForStatistic, getFilterStatisticsForWeek } from "../../../utils/statisticalDataUtils";
+import { getDataForStatistic, getFilterStatisticsForDay, getFilterStatisticsForMonth, getFilterStatisticsForRange, getFilterStatisticsForWeek, getFilterStatisticsForYear } from "../../../utils/statisticalDataUtils";
 import { setChosenCategoryStatistic, setChosenFilter, setIsEditingData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { DeleteFinancesModal } from "./components/deleteFinancesModal/deleteFinancesModal";
 import { EmptyState } from "./components/emptyState/emptyState";
@@ -29,6 +29,12 @@ export const Statistics: FC = () => {
     const [isDateRangeModal, setIsDateRangeModal] = useState<boolean>(false);
     const [isDeleteFinancesModal, setIsDeleteFinancesModal] = useState<boolean>(false);
     const [statisticType, setStatisticType] = useState<"expenses" | "income">("expenses");
+    const [chosenDate, setChosenDate] = useState<string | null>(null);
+    const [month, setMonth] = useState<string | null>(null);
+    const [chosenYear, setChosenYear] = useState<string | null>(null);
+
+    const [selectedStartDate, setSelectedStartDate] = useState<string | null>(null);
+    const [selectedEndDate, setSelectedEndDate] = useState<string | null>(null);
     const { statisticalData, storageData } = useAppSelector((state: RootState) => state.storage);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
@@ -87,26 +93,52 @@ export const Statistics: FC = () => {
                                     setIsAlertActive={setIsAlertActive} />
                                 {isDatePickerModal ?
                                     <DatePickerModal
-                                        chosenFilterType={chosenFilterType}
-                                        setIsAlertActive={setIsAlertActive}
+                                        applyDate={() => getFilterStatisticsForDay(
+                                            chosenDate,
+                                            statisticalData,
+                                            setIsAlertActive,
+                                            chosenFilterType,
+                                            dispatch,
+                                            setIsDatePickerModal)}
+                                        setChosenDate={setChosenDate}
                                         setIsDatePickerModal={setIsDatePickerModal} />
                                     : null}
                                 {isMonthSelectModal ?
                                     <MonthSelectModal
-                                        chosenFilterType={chosenFilterType}
-                                        setIsAlertActive={setIsAlertActive}
+                                        setMonth={setMonth}
+                                        month={month}
+                                        applyMonth={() => getFilterStatisticsForMonth(
+                                            month,
+                                            statisticalData,
+                                            setIsAlertActive,
+                                            chosenFilterType,
+                                            dispatch,
+                                            setIsMonthSelectModal)}
                                         setIsMonthSelectModal={setIsMonthSelectModal} />
                                     : null}
                                 {isYearSelectModal ?
                                     <YearSelectModal
-                                        chosenFilterType={chosenFilterType}
-                                        setIsAlertActive={setIsAlertActive}
+                                        applyYear={() => getFilterStatisticsForYear(
+                                            chosenYear,
+                                            statisticalData,
+                                            setIsAlertActive,
+                                            chosenFilterType,
+                                            dispatch,
+                                            setIsYearSelectModal)}
+                                        setChosenYear={setChosenYear}
                                         setIsYearSelectModal={setIsYearSelectModal} />
                                     : null}
                                 {isDateRangeModal ?
                                     <DateRangeModal
-                                        chosenFilterType={chosenFilterType}
-                                        setIsAlertActive={setIsAlertActive}
+                                        applyDateRange={() => getFilterStatisticsForRange(
+                                            { startDate: selectedStartDate, endDate: selectedEndDate },
+                                            statisticalData,
+                                            setIsAlertActive,
+                                            chosenFilterType,
+                                            dispatch,
+                                            setIsDateRangeModal)}
+                                        setSelectedStartDate={setSelectedStartDate}
+                                        setSelectedEndDate={setSelectedEndDate}
                                         setIsDateRangeModal={setIsDateRangeModal} />
                                     : null}
                                 {isDeleteFinancesModal ?

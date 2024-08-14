@@ -1,7 +1,7 @@
 import { AlertComponentProps } from "../components/shared/alert/alert";
 import { ItemType, ItemsType, StatisticalDataType, UserStorageDataType } from "../redux/reducers/userStorageReduser/types";
 import { getAlert } from "./getAlert";
-import { getCurrentDate, getWeek, parseEuropeanDate } from "./getCurrentDate";
+import { getCurrentDate, getWeek, parseEuropeanDate } from "./dateUtils";
 import { MONTH } from "../consts/index";
 import { AppDispatch } from "../redux/store/store";
 import { getDataFromUserStore, setChosenFilter, setIsEditingData, setStatisticalData } from "../redux/reducers/userStorageReduser/userStorageReduser";

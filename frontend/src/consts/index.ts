@@ -1,3 +1,5 @@
+import { getCurrentMonthAndYear, getWeek, getYear, parseEuropeanDate } from "../utils/dateUtils";
+
 export const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const PASSWORD_PATTERN = /^(?=\S*?[0-9])(?=\S*?[?!@#$%^&*])(?=\S*?[a-z-а-я])(?=\S*?[A-Zа-яА-Я])\S+$/;
 export const VALID_SUM_REGEX = /^\d+(\.\d{1,2})?$/;
@@ -8,6 +10,13 @@ export  const CURRENCY_SYMBOL_REGEX = /\(([^)]+)\)$/;
 export const BUTTONS_VALUE = ['1', '2', '3', '+', '4', '5', '6', '-', '7', '8', '9', '*', '.', '0', '=', '/', 'Backspace', 'Enter'];
 export const STATISTICS_OPTIONS = ["Day", "Week", "Month", "Year", "Range"];
 export const MONTH = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+export const CHART_TIME_PERIODS = ['day', 'week', 'month', 'year'];
+export const CURRENT_DATES = {
+    dateDay: [new Date()],
+    datesWeek: getWeek().map(parseEuropeanDate),
+    currentYear: getYear(),
+    currentMonth: getCurrentMonthAndYear(),
+}
 
 export const CURRENCY_TO_LOCALE: Record<string, string> = {
     'AED': 'ar-AE',
