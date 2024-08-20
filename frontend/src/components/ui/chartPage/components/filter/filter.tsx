@@ -1,4 +1,6 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
+import { ThemeContextType } from "../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 import { FilterBtn } from "./styledFilter";
 
 interface FilterProps {
@@ -13,7 +15,8 @@ interface FilterProps {
 
 export const Filter: FC<FilterProps> = ({
     diapason, displayDate, openDatePickerModal, openMonthSelectModal, openYearSelectModal, openDateRangeModal }) => {
-
+        const themeContext = useContext<ThemeContextType>(ThemeContext);
+        
     const openModal = () => {
         switch (diapason) {
             case 'day':
@@ -33,7 +36,7 @@ export const Filter: FC<FilterProps> = ({
 
     return (
         <>
-            <FilterBtn onClick={openModal}>
+            <FilterBtn themestyles={themeContext.themeStyles} onClick={openModal}>
                 {displayDate}
             </FilterBtn>
         </>

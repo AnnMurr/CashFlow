@@ -21,6 +21,7 @@ export enum Colors {
     MASALA = '#3E3636',
     BOTTLE_GREEN = '#0f4a34',
     ATHENS_GRAY = '#f3f4f6',
+    ATHENS_GRAY_TRANSPARENT = '#f3f4f654',
     DUSTY_GRAY = '#9e9d9d',
     DUSTY_GRAY_TRANSPARENT = '#9e9d9d59',
     TRANSPARENT = '#fff0',
@@ -41,6 +42,7 @@ export enum Colors {
     EMPERORAPPROX_TRANSPARENT = '#525252c4',
     TUNDORA = '#414141',
     MINE_SHAFT = '#333333',
+    MINE_SHAFT_TRANSPARENT = '#33333375',
     FLUSH_MAHOGANY = '#313131',
     GREEN_HAZE = '#009D67',
     TROPICAL_RAIN_FOREST = '#007b51',
@@ -88,6 +90,8 @@ export const Themes: ThemesType = {
         showPasswordIconColor: Colors.BOULDER,
         themeSelectionBlockBackground: Colors.ATHENS_GRAY,
         loaderColor: Colors.BLACK,
+        chartBlockBackground: Colors.ATHENS_GRAY,
+        chartBlockBackgroundHover: Colors.ATHENS_GRAY_TRANSPARENT,
     },
     dark: {
         body: Colors.COD_GRAY,
@@ -124,6 +128,8 @@ export const Themes: ThemesType = {
         showPasswordIconColor: Colors.DUSTY_GRAY,
         themeSelectionBlockBackground: Colors.COD_GRAY_MEDIUM,
         loaderColor: Colors.WHITE,
+        chartBlockBackground: Colors.COD_GRAY_DARK,
+        chartBlockBackgroundHover: Colors.TRANSPARENT,
     },
     sandstone: {
         body: Colors.NAPA,
@@ -160,6 +166,8 @@ export const Themes: ThemesType = {
         showPasswordIconColor: Colors.DUSTY_GRAY,
         themeSelectionBlockBackground: Colors.ATHENS_GRAY,
         loaderColor: Colors.BLACK,
+        chartBlockBackground: Colors.WHITE_ROCK,
+        chartBlockBackgroundHover: Colors.PAMPAS,
     },
     gray: {
         body: Colors.EMPERORAPPROX,
@@ -196,6 +204,8 @@ export const Themes: ThemesType = {
         showPasswordIconColor: Colors.DUSTY_GRAY,
         themeSelectionBlockBackground: Colors.COD_GRAY_MEDIUM,
         loaderColor: Colors.WHITE,
+        chartBlockBackground: Colors.MINE_SHAFT,
+        chartBlockBackgroundHover: Colors.MINE_SHAFT_TRANSPARENT,
     },
     light: {
         body: Colors.WHITE,
@@ -232,5 +242,7 @@ export const Themes: ThemesType = {
         showPasswordIconColor: Colors.BOULDER,
         themeSelectionBlockBackground: Colors.ATHENS_GRAY,
         loaderColor: Colors.BLACK,
+        chartBlockBackground: Colors.AQUA_HAZE,
+        chartBlockBackgroundHover: Colors.TRANSPARENT,
     },
 }

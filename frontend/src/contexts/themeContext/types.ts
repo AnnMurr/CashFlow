@@ -39,6 +39,8 @@ export interface Theme {
     enteringModalColor: Colors,
     enteringModalBtnBackground: Colors,
     loaderColor: Colors,
+    chartBlockBackground: Colors,
+    chartBlockBackgroundHover: Colors,
 }
 
 export interface ThemeContextType {

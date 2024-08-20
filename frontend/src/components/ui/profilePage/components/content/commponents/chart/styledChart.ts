@@ -5,12 +5,13 @@ export const Container = styled.div<ThemeStyledProps>`
     max-width: 30rem;
     cursor: pointer;
     border-radius: 5px;
-    background-color:${({ themestyles }) => themestyles.subBarBackground}; 
+    background-color:${({ themestyles }) => themestyles.chartBlockBackground}; 
     box-shadow:${({ themestyles }) => `0px 0px 5px ${themestyles.modalLayoutShadow}`};
     min-height: 362.5px;
+    transition: all 0.5s ease;
 
     &:hover {
-        background-color: transparent;
+        background-color: ${({ themestyles }) => themestyles.chartBlockBackgroundHover};
     }
  `
 
