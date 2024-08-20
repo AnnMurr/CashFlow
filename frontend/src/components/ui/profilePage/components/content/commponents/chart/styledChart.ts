@@ -7,6 +7,7 @@ export const Container = styled.div<ThemeStyledProps>`
     border-radius: 5px;
     background-color:${({ themestyles }) => themestyles.subBarBackground}; 
     box-shadow:${({ themestyles }) => `0px 0px 5px ${themestyles.modalLayoutShadow}`};
+    min-height: 362.5px;
 
     &:hover {
         background-color: transparent;

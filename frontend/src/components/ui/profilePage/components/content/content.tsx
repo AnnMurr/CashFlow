@@ -6,14 +6,15 @@ import { Container } from './styledContent';
 
 interface ContentProps {
     chartData: ChartDataObjectType;
+    statisticType: "expenses" | "income";
 }
 
-export const Content: FC<ContentProps> = ({ chartData }) => {
+export const Content: FC<ContentProps> = ({ chartData, statisticType }) => {
     return (
         <Container>
             {chartData ? (
                 Object.entries(chartData).map((chart) => (
-                    <Chart key={uuidV4()} data={chart} />
+                    <Chart statisticType={statisticType} key={uuidV4()} data={chart} />
                 ))
             ) : null}
         </Container>

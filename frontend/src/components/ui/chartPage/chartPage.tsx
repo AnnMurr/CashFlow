@@ -33,6 +33,7 @@ export const ChartPage: FC = () => {
     const [displayDate, setDisplayDate] = useState<string | null>(null);
     const [selectedStartDate, setSelectedStartDate] = useState<string | null>(null);
     const [selectedEndDate, setSelectedEndDate] = useState<string | null>(null);
+    const [statisticType, setStatisticType] = useState<"expenses" | "income">("expenses");
     const { storageData } = useAppSelector((state: RootState) => state.storage);
 
     const diapasonToDateKeyMap: Record<Period, CurrentDateKeys> = {
@@ -43,7 +44,8 @@ export const ChartPage: FC = () => {
     };
 
     useEffect(() => {
-        setDiapason(location.state.key);
+        setDiapason(location.state.diapason);
+        setStatisticType(location.state.type);
     }, [location]);
 
     useEffect(() => {
@@ -55,12 +57,13 @@ export const ChartPage: FC = () => {
 
             currentRange &&
                 setChartDataForCustomPeriod(
-                    "expenses",
+                    statisticType,
                     currentRange,
                     diapason,
                     storageData,
                     setChartData,
-                    setIsDatePickerModal);
+                    setIsDatePickerModal,
+                    setIsAlertActive);
         };
 
         setDataForChart();
@@ -68,7 +71,7 @@ export const ChartPage: FC = () => {
 
     useEffect(() => {
         if (!chosenDate) {
-            const key = location.state.key;
+            const key = location.state.diapason;
 
             const dateMap: Record<typeof key, string> = {
                 day: formatToDDMMYYYY(new Date()),
@@ -83,7 +86,7 @@ export const ChartPage: FC = () => {
                 setDisplayDate(date);
             }
         }
-    }, [location.state.key, chosenDate]);
+    }, [location.state.diapason, chosenDate]);
 
     return (
         <Body>
@@ -99,22 +102,23 @@ export const ChartPage: FC = () => {
                             diapason={diapason}
                             displayDate={displayDate} />
                         <div>
-                            {chartData && <PieChartComponent data={chartData} />}
+                            {chartData &&
+                                <PieChartComponent isLegendHidden={false} data={chartData} />}
                         </div>
                         {isDatePickerModal ?
                             <>
                                 {chosenDate && storageData &&
                                     <DatePickerModal
-                                        applyDate={() => {
-                                            setDisplayDate(chosenDate);
-                                            setChartDataForCustomPeriod(
-                                                "expenses",
-                                                [new Date(parseEuropeanDate(chosenDate))],
-                                                "day",
-                                                storageData,
-                                                setChartData,
-                                                setIsDatePickerModal)
-                                        }}
+                                        applyDate={() => setChartDataForCustomPeriod(
+                                            statisticType,
+                                            [new Date(parseEuropeanDate(chosenDate))],
+                                            "day",
+                                            storageData,
+                                            setChartData,
+                                            setIsDatePickerModal,
+                                            setIsAlertActive,
+                                            () => setDisplayDate(chosenDate))
+                                        }
                                         setIsDatePickerModal={setIsDatePickerModal}
                                         setChosenDate={setChosenDate} />}
                                 <DarkBackground
@@ -126,16 +130,16 @@ export const ChartPage: FC = () => {
                             <>
                                 {chosenDate && storageData &&
                                     <MonthSelectModal
-                                        applyMonth={() => {
-                                            setDisplayDate(chosenDate);
-                                            setChartDataForCustomPeriod(
-                                                "expenses",
-                                                +chosenDate,
-                                                "month",
-                                                storageData,
-                                                setChartData,
-                                                setIsMonthSelectModal)
-                                        }}
+                                        applyMonth={() => setChartDataForCustomPeriod(
+                                            statisticType,
+                                            chosenDate,
+                                            "month",
+                                            storageData,
+                                            setChartData,
+                                            setIsMonthSelectModal,
+                                            setIsAlertActive,
+                                            () => setDisplayDate(chosenDate))
+                                        }
                                         setIsMonthSelectModal={setIsMonthSelectModal}
                                         setMonth={setChosenDate}
                                         month={chosenDate}
@@ -148,16 +152,16 @@ export const ChartPage: FC = () => {
                         {isYearSelectModal ?
                             <>
                                 {chosenDate && storageData && <YearSelectModal
-                                    applyYear={() => {
-                                        setDisplayDate(chosenDate);
-                                        setChartDataForCustomPeriod(
-                                            "expenses",
-                                            +chosenDate,
-                                            "year",
-                                            storageData,
-                                            setChartData,
-                                            setIsYearSelectModal)
-                                    }}
+                                    applyYear={() => setChartDataForCustomPeriod(
+                                        statisticType,
+                                        +chosenDate,
+                                        "year",
+                                        storageData,
+                                        setChartData,
+                                        setIsYearSelectModal,
+                                        setIsAlertActive,
+                                        () => setDisplayDate(chosenDate))
+                                    }
                                     setChosenYear={setChosenDate}
                                     setIsYearSelectModal={setIsYearSelectModal} />}
                                 <DarkBackground
@@ -169,16 +173,16 @@ export const ChartPage: FC = () => {
                             <>
                                 {chosenDate && storageData &&
                                     <DateRangeModal
-                                        applyDateRange={() => {
-                                            setDisplayDate(`${selectedStartDate} - ${selectedEndDate}`);
-                                            setChartDataForCustomPeriod(
-                                                "expenses",
-                                                getDatesInRange({ startDate: selectedStartDate, endDate: selectedEndDate }),
-                                                "week",
-                                                storageData,
-                                                setChartData,
-                                                setIsDateRangeModal)
-                                        }}
+                                        applyDateRange={() => setChartDataForCustomPeriod(
+                                            statisticType,
+                                            getDatesInRange({ startDate: selectedStartDate, endDate: selectedEndDate }),
+                                            "week",
+                                            storageData,
+                                            setChartData,
+                                            setIsDateRangeModal,
+                                            setIsAlertActive,
+                                            () => setDisplayDate(`${selectedStartDate} - ${selectedEndDate}`))
+                                        }
                                         setSelectedStartDate={setSelectedStartDate}
                                         setSelectedEndDate={setSelectedEndDate}
                                         setIsDateRangeModal={setIsDateRangeModal} />}

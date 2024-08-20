@@ -1,7 +1,9 @@
 import { ChartDataObjectType, ChartDataType } from "../components/ui/profilePage/types";
 import { areDatesEqual, areMonthAndYearEqual, areYearEqual } from "./dateUtils";
 import { Transaction, UserStorageDataType } from "../redux/reducers/userStorageReduser/types";
+import { AlertComponentProps } from "../components/shared/alert/alert";
 import { CHART_TIME_PERIODS, CURRENT_DATES } from "../consts";
+import { getAlert } from "./getAlert";
 
 export type Period = 'day' | 'week' | 'month' | 'year';
 type DateRange = Date | Date[] | string | number;
@@ -31,7 +33,9 @@ type CustomPeriodChartDataSetter = (
     period: Period,
     storageData: UserStorageDataType,
     setChartData: (value: Array<ChartDataType>) => void,
-    setIsDatePickerModal: (value: boolean) => void) => void;
+    setIsDatePickerModal: (value: boolean) => void,
+    setIsAlertActive: (value: AlertComponentProps | null) => void,
+    setDisplayDate?: () => void) => void;
 
 type CategoryDataAggregation = (filteredData: Transaction[] | undefined) => false | ChartDataType[];
 
@@ -118,7 +122,15 @@ export const setChartDataBySpecificDates: ChartDataSetterByDate = (
 
 
 export const setChartDataForCustomPeriod: CustomPeriodChartDataSetter = (
-    financeType, dateRange, period, storageData, setChartData, setIsDatePickerModal) => {
+    financeType,
+    dateRange,
+    period,
+    storageData,
+    setChartData,
+    setIsDatePickerModal,
+    setIsAlertActive,
+    setDisplayDate) => {
+
     const filteredData = getFilteredDataForPeriod(
         period,
         storageData,
@@ -131,6 +143,11 @@ export const setChartDataForCustomPeriod: CustomPeriodChartDataSetter = (
 
     const rangeData = aggregateCategoryData(filteredData);
 
-    rangeData && setChartData(rangeData);
-    setIsDatePickerModal(false);
+    if (rangeData && rangeData.length) {
+        setChartData(rangeData);
+        setIsDatePickerModal(false);
+        setDisplayDate && setDisplayDate()
+    } else {
+        getAlert({ text: "No data for this period", type: "error" }, setIsAlertActive, 3000);
+    }
 }

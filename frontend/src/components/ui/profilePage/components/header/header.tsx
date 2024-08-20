@@ -1,27 +1,25 @@
 import { FC, useContext } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
-import { Container, ExitBtnInner, Wrapper } from "./styledHeader";
+import { VariantButtonGroup } from "../../../../shared/variantButtonGroup/variantButtonGroup";
+import { LogOutBtn } from "./components/logOutBtn/logOutBtn";
+import { Container, Wrapper } from "./styledHeader";
 interface HeaderProps {
     setIsLogOutConfirmationModal: (value: boolean) => void;
+    statisticType: "expenses" | "income";
+    setStatisticType: (value: "expenses" | "income") => void;
 }
 
-export const Header: FC<HeaderProps> = ({ setIsLogOutConfirmationModal }) => {
+export const Header: FC<HeaderProps> = ({ setIsLogOutConfirmationModal, statisticType, setStatisticType }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     return (
         <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
-                <ExitBtnInner>
-                    <button type="button" onClick={() => setIsLogOutConfirmationModal(true)}>
-                        <FontAwesomeIcon
-                            color={themeContext.themeStyles.color}
-                            size="lg"
-                            icon={faArrowRightFromBracket} />
-                    </button>
-                </ExitBtnInner>
+                <VariantButtonGroup
+                    statisticType={statisticType}
+                    setStatisticType={setStatisticType} />
+                <LogOutBtn setIsLogOutConfirmationModal={setIsLogOutConfirmationModal} />
             </Wrapper>
         </Container>
     )

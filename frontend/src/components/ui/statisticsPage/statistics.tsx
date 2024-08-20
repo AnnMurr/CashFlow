@@ -32,7 +32,6 @@ export const Statistics: FC = () => {
     const [chosenDate, setChosenDate] = useState<string | null>(null);
     const [month, setMonth] = useState<string | null>(null);
     const [chosenYear, setChosenYear] = useState<string | null>(null);
-
     const [selectedStartDate, setSelectedStartDate] = useState<string | null>(null);
     const [selectedEndDate, setSelectedEndDate] = useState<string | null>(null);
     const { statisticalData, storageData } = useAppSelector((state: RootState) => state.storage);
