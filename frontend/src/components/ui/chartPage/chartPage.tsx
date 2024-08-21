@@ -102,8 +102,7 @@ export const ChartPage: FC = () => {
                             diapason={diapason}
                             displayDate={displayDate} />
                         <div>
-                            {chartData &&
-                                <PieChartComponent isLegendHidden={false} data={chartData} />}
+                            {chartData && <PieChartComponent isLegendHidden={false} data={chartData} />}
                         </div>
                         {isDatePickerModal ?
                             <>
@@ -151,19 +150,20 @@ export const ChartPage: FC = () => {
                             : null}
                         {isYearSelectModal ?
                             <>
-                                {chosenDate && storageData && <YearSelectModal
-                                    applyYear={() => setChartDataForCustomPeriod(
-                                        statisticType,
-                                        +chosenDate,
-                                        "year",
-                                        storageData,
-                                        setChartData,
-                                        setIsYearSelectModal,
-                                        setIsAlertActive,
-                                        () => setDisplayDate(chosenDate))
-                                    }
-                                    setChosenYear={setChosenDate}
-                                    setIsYearSelectModal={setIsYearSelectModal} />}
+                                {chosenDate && storageData &&
+                                    <YearSelectModal
+                                        applyYear={() => setChartDataForCustomPeriod(
+                                            statisticType,
+                                            +chosenDate,
+                                            "year",
+                                            storageData,
+                                            setChartData,
+                                            setIsYearSelectModal,
+                                            setIsAlertActive,
+                                            () => setDisplayDate(chosenDate))
+                                        }
+                                        setChosenYear={setChosenDate}
+                                        setIsYearSelectModal={setIsYearSelectModal} />}
                                 <DarkBackground
                                     setIsModalActive={setIsYearSelectModal}
                                     isModalActive={isYearSelectModal} />
