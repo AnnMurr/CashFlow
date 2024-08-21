@@ -2,8 +2,8 @@ import { FC, useContext, useState } from "react";
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
-import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 
 interface VariantButtonGroupProps {
     setStatisticType: (value: "expenses" | "income") => void;

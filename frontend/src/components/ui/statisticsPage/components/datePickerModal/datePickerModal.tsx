@@ -1,26 +1,17 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { DatePickerComponent } from "../../../../shared/datePicker/datePicker";
 import { ButtonComponent } from "../../../../shared/button/button";
-import { AlertComponentProps } from "../../../../shared/alert/alert";
-import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
-import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
 import { BtnClose } from "../../../../shared/btnClose/btnClose";
-import { getFilterStatisticsForDay } from "../../../../../utils/statisticalDataUtils";
 import { BtnInner } from "./styledDatePickerModal";
 
 interface DatePickerModalProps {
-    setIsAlertActive: (value: AlertComponentProps | null) => void;
     setIsDatePickerModal: (value: boolean) => void;
-    chosenFilterType: string | null;
+    applyDate: () => void;
+    setChosenDate: (value: string | null) => void;
 }
 
-export const DatePickerModal: FC<DatePickerModalProps> = ({
-    setIsAlertActive, chosenFilterType, setIsDatePickerModal }) => {
-    const [chosenDate, setChosenDate] = useState<string | null>(null);
-    const { statisticalData } = useAppSelector((state: RootState) => state.storage);
-    const dispatch = useAppDispatch();
-
+export const DatePickerModal: FC<DatePickerModalProps> = ({ setIsDatePickerModal, applyDate, setChosenDate }) => {
     return (
         <FiltersModalContainer>
             <BtnClose
@@ -36,14 +27,7 @@ export const DatePickerModal: FC<DatePickerModalProps> = ({
                     text="Apply"
                     color="#fff"
                     type="button"
-                    func={() =>
-                        getFilterStatisticsForDay(
-                            chosenDate,
-                            statisticalData,
-                            setIsAlertActive,
-                            chosenFilterType,
-                            dispatch,
-                            setIsDatePickerModal)} />
+                    func={applyDate} />
             </BtnInner>
         </FiltersModalContainer>
     )

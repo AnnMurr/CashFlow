@@ -2,33 +2,28 @@ import { FC, useEffect, useState } from "react";
 import { MultipleSelectPlaceholder } from "../../../../shared/select/select";
 import { MONTH } from "../../../../../consts";
 import { ButtonComponent } from "../../../../shared/button/button";
-import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { BtnClose } from "../../../../shared/btnClose/btnClose";
-import { getMonth, getYear } from "../../../../../utils/getCurrentDate";
-import { getFilterStatisticsForMonth } from "../../../../../utils/statisticalDataUtils";
-import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
-import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
+import { getMonth, getYear } from "../../../../../utils/dateUtils";
 import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
 import { BtnInner } from "./styledMonthSelectModal";
 
 interface MonthSelectModalProps {
-    setIsAlertActive: (value: AlertComponentProps | null) => void;
-    chosenFilterType: string | null;
+    setMonth: (value: string | null) => void;
+    month: string | null;
+    applyMonth: () => void;
     setIsMonthSelectModal: (value: boolean) => void;
 }
 
 export const MonthSelectModal: FC<MonthSelectModalProps> = ({
-    setIsAlertActive, chosenFilterType, setIsMonthSelectModal }) => {
+    setMonth, month, applyMonth, setIsMonthSelectModal }) => {
     const [months, setMonths] = useState<Array<string> | null>(null);
-    const [month, setMonth] = useState<string | null>(null);
-    const { statisticalData } = useAppSelector((state: RootState) => state.storage);
-    const dispatch = useAppDispatch();
-
+ 
     useEffect(() => {
-        const currentMonthIndex = +getMonth();
+        const currentMonthIndex = getMonth();
         const currentYear = getYear().toString();
         const previousYear = +currentYear - 1;
         const monthsList = [];
+      
 
         for (let i = currentMonthIndex - 1; i >= 0; i--) {
             monthsList.push(`${MONTH[i]} ${currentYear}`);
@@ -37,7 +32,7 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({
         for (let i = MONTH.length - 1; i > currentMonthIndex - 1; i--) {
             monthsList.push(`${MONTH[i]} ${previousYear}`);
         }
-
+        
         setMonths(monthsList);
         setMonth(monthsList[0]);
     }, []);
@@ -60,14 +55,7 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({
                     text="Apply"
                     color="#fff"
                     type="button"
-                    func={() =>
-                        getFilterStatisticsForMonth(
-                            month,
-                            statisticalData,
-                            setIsAlertActive,
-                            chosenFilterType,
-                            dispatch,
-                            setIsMonthSelectModal)} />
+                    func={applyMonth} />
             </BtnInner>
         </FiltersModalContainer>
     )

@@ -29,7 +29,7 @@ export interface Theme {
     datePikerLayout: Colors,
     pickersDaySelected: Colors,
     pickersDayHover: Colors,
-    datePikerLayoutShadow: Colors,
+    modalLayoutShadow: Colors,
     selectHover: Colors,
     selectSelected: Colors,
     settingsBackground: Colors,
@@ -39,6 +39,8 @@ export interface Theme {
     enteringModalColor: Colors,
     enteringModalBtnBackground: Colors,
     loaderColor: Colors,
+    chartBlockBackground: Colors,
+    chartBlockBackgroundHover: Colors,
 }
 
 export interface ThemeContextType {

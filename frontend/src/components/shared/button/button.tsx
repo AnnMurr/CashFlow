@@ -24,7 +24,7 @@ export const ButtonComponent: FC<ButtonComponentProps> = ({
     type,
     func }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
-    const ButtonStyles = {
+    const buttonStyles = {
         backgroundColor: backgroundColor ? backgroundColor : themeContext.themeStyles.buttonBackground,
         border: "1px solid transparent",
         color: color,
@@ -46,7 +46,7 @@ export const ButtonComponent: FC<ButtonComponentProps> = ({
             variant="contained"
             type={type}
             disabled={disabledValue}
-            sx={ButtonStyles} >
+            sx={buttonStyles} >
             {text}
         </Button>
     )

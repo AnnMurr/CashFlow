@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faClockRotateLeft, faGear, faSackDollar, faWallet } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faClockRotateLeft, faGear, faSackDollar, faUser, faWallet } from "@fortawesome/free-solid-svg-icons";
 import { Item } from "./components/item/item";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
@@ -24,6 +24,11 @@ export const SubBar: FC = () => {
                     </button>
                 </div>
                 <List>
+                    <Item
+                        icon={faUser}
+                        isAtiveBar={isAtiveBar}
+                        text="Profile"
+                        linkTo="/profile" />
                     <Item
                         icon={faWallet}
                         isAtiveBar={isAtiveBar}
