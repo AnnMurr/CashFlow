@@ -5,6 +5,7 @@ import { Privacy } from "./components/privacy/privacy";
 import { CurrencySettings } from "./components/currencySettings/currencySettings";
 import { Container, Wrapper } from "./styledOptions";
 import { Appearance } from "./components/appearance/appearance";
+import { ChartSettings } from "./components/chart/chart";
 
 export interface TabsType {
     label: string;
@@ -22,12 +23,16 @@ export const Options: FC = () => {
             content: <Privacy />
         },
         {
-            label: 'Currency Settings',
+            label: 'Currency settings',
             content: <CurrencySettings />
         },
         {
             label: 'Appearance',
             content: <Appearance />
+        },
+        {
+            label: 'Chart settings',
+            content: <ChartSettings />
         },
     ];
 
