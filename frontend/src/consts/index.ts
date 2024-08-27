@@ -11,6 +11,7 @@ export const BUTTONS_VALUE = ['1', '2', '3', '+', '4', '5', '6', '-', '7', '8', 
 export const STATISTICS_OPTIONS = ["Day", "Week", "Month", "Year", "Range"];
 export const MONTH = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 export const CHART_TIME_PERIODS = ['day', 'week', 'month', 'year'];
+export const INITIAL_CHARTS_COLORS = ['#1aab2e', '#24d7ae', '#5fb7d4', '#007ed7', '#8e6cef', '#ff0000', '#ff7300', '#53d726', '#ffec01'];
 export const CURRENT_DATES = {
     dateDay: [new Date()],
     datesWeek: getWeek().map(parseEuropeanDate),

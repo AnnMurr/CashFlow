@@ -6,6 +6,7 @@ import { ThemeContextType } from "../../../../../../../contexts/themeContext/typ
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 import { EmptyState } from "./components/emptyState/emptyState";
 import { Container, Title, Wrapper } from "./styledChart";
+
 interface ChartProps {
     data: [string, ChartDataType[]];
     statisticType: "expenses" | "income";
