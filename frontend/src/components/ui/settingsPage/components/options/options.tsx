@@ -3,9 +3,9 @@ import { Tabs } from "./components/tabs/tabs";
 import { PersonalInformation } from "./components/personalInformation/personalInformation";
 import { Privacy } from "./components/privacy/privacy";
 import { CurrencySettings } from "./components/currencySettings/currencySettings";
-import { Container, Wrapper } from "./styledOptions";
 import { Appearance } from "./components/appearance/appearance";
 import { ChartSettings } from "./components/chart/chart";
+import { Container, Wrapper } from "./styledOptions";
 
 export interface TabsType {
     label: string;

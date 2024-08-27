@@ -1,9 +1,10 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useAppSelector } from "../../../redux/store/store";
 import { RootState } from "../../../redux/reducers/userStorageReduser/types";
 import { format } from 'date-fns';
 import { v4 as uuidV4 } from "uuid";
+import { INITIAL_CHARTS_COLORS } from "../../../consts";
 
 interface BarChartComponentProps {
     statisticType: "expenses" | "income";
@@ -11,7 +12,7 @@ interface BarChartComponentProps {
 
 export const BarChartComponent: FC<BarChartComponentProps> = ({ statisticType }) => {
     const { storageData } = useAppSelector((state: RootState) => state.storage);
-    const colors = ['#1aab2e', '#24d7ae', '#5fb7d4', '#007ed7', '#8e6cef', '#ff0000', '#ff7300', '#53d726', '#ffec01'];
+    const [colors, setColors] = useState<Array<string>>(INITIAL_CHARTS_COLORS);
 
     const monthlyCategoryData = storageData?.data[statisticType]?.reduce((acc, item) => {
         const month = format(new Date(item.date), 'MMMM');
@@ -51,6 +52,10 @@ export const BarChartComponent: FC<BarChartComponentProps> = ({ statisticType })
         backgroundColor: colors[index % colors.length],
         marginRight: '5px'
     });
+
+    useEffect(() => {
+        storageData && setColors(storageData.settings.charts.barChartColor);
+    }, [storageData])
 
     return (
         <div style={containerStyles}>

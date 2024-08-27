@@ -18,7 +18,7 @@ export const Content: FC<ContentProps> = ({ chartData, statisticType }) => {
     return (
         <div>
             <Wrapper>
-               {storageData?.data[statisticType] && <BarChartComponent statisticType={statisticType}  />}
+                {storageData?.data[statisticType] && <BarChartComponent statisticType={statisticType} />}
                 <GridInner>
                     {chartData ? (
                         Object.entries(chartData).map((chart) => (

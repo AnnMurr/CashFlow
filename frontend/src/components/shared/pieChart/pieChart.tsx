@@ -1,8 +1,11 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { PieChart } from '@mui/x-charts/PieChart';
 import { ChartDataType } from "../../ui/profilePage/types";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
+import { useAppSelector } from "../../../redux/store/store";
+import { RootState } from "../../../redux/reducers/userStorageReduser/types";
+import { INITIAL_CHARTS_COLORS } from "../../../consts";
 
 interface PieChartComponentProps {
     data: Array<ChartDataType>;
@@ -10,8 +13,9 @@ interface PieChartComponentProps {
 }
 
 export const PieChartComponent: FC<PieChartComponentProps> = ({ data, isLegendHidden }) => {
+    const [colors, setColors] = useState<Array<string>>(INITIAL_CHARTS_COLORS);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
-    const colors = ['#1aab2e', '#24d7ae', '#5fb7d4', '#007ed7', '#8e6cef', '#ff0000', '#ff7300', '#53d726', '#ffec01'];
+    const { storageData } = useAppSelector((state: RootState) => state.storage);
 
     const pieChartStyles = {
         [`& .MuiChartsLegend-series tspan`]: {
@@ -23,6 +27,10 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data, isLegendHi
         },
         overflow: "visible",
     };
+
+    useEffect(() => {
+        storageData && setColors(storageData.settings.charts.pieChartColor);
+    }, [storageData]);
 
     return (
         data ?

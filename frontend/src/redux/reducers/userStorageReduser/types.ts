@@ -32,6 +32,10 @@ export interface UserStorageDataType {
     settings: {
         currency: Currency;
         theme: ThemeType;
+        charts: {
+            barChartColor: Array<string>,
+            pieChartColor: Array<string>,
+        }
     }
 }
 
