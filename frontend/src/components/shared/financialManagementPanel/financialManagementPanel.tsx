@@ -10,8 +10,8 @@ import { Categories } from "./components/categories/categories";
 import { VALID_SUM_REGEX } from "../../../consts/index";
 import { useAppDispatch } from "../../../redux/store/store";
 import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { CategoryKeys, TransactionKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
-import { getAlert } from "../../../utils/getAlert";
+import { CategoriesType, CategoryKeys, TransactionKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
+import { showAlert } from "../../../utils/showAlert";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledFinancialManagementPanel";
@@ -24,7 +24,7 @@ interface FinancialManagementPanelProps {
 
 export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ type, dataKey, iconsCollection }) => {
     const [isCategorySelectionModalActive, setIsCategorySelectionModalActive] = useState<boolean>(false);
-    const [categoriesList, setCategoriesList] = useState<Array<any> | null>(null);
+    const [categoriesList, setCategoriesList] = useState<Array<CategoriesType> | null | null>(null);
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
     const [isEnteringModalActive, setIsEnteringModalActive] = useState<boolean>(false);
     const [choosedCategory, setChoosedCategory] = useState<{ category: string, icon: string } | null>(null);
@@ -55,7 +55,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
         const token = getDataFromLocalStorage("token");
 
         if (!VALID_SUM_REGEX.test(categorySum)) {
-            getAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
+            showAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
             console.error("Invalid input: only digits, '+', '-', '*', '/' are allowed");
         } else {
             try {
@@ -83,7 +83,7 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                     const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
                     if (userDataAfterUpdate) {
-                        getAlert({ type: "success", text: "Transaction added successfully" }, setIsAlertActive, 3000);
+                        showAlert({ type: "success", text: "Transaction added successfully" }, setIsAlertActive, 3000);
                         setIsEnteringModalActive(false);
                     }
                 }

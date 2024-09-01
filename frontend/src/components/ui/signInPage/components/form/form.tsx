@@ -8,7 +8,7 @@ import { AuthorizedContext } from "../../../../../contexts/authorizedContext/aut
 import { checkUserData } from "../../../../../redux/reducers/userReducer/userReducer";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle/signUpWithGoogle";
-import { getAlert } from "../../../../../utils/getAlert";
+import { showAlert } from "../../../../../utils/showAlert";
 import { getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { OutlinedInputComponent } from "../../../../../components/shared/outlinedInput/outlinedInput";
 import { BtnShowPasswordInner, FormContainer, Label, Title } from "./styledForm";
@@ -27,7 +27,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
 
     const getLogSuccess = (token: string) => {
         dispatch(getDataFromUserStore(token));
-        getAlert({ type: "success", text: "User account creation successful" }, setIsAlertActive, 3000);
+        showAlert({ type: "success", text: "User account creation successful" }, setIsAlertActive, 3000);
         setTimeout(() => {
             setDataToLocalStorage("token", token);
             login();
@@ -43,7 +43,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
 
             token && typeof token === "string" ?
                 getLogSuccess(token) :
-                getAlert({ type: "error", text: "wrong data" }, setIsAlertActive, 3000);
+                showAlert({ type: "error", text: "wrong data" }, setIsAlertActive, 3000);
         } catch (error) {
             console.error(error);
         }

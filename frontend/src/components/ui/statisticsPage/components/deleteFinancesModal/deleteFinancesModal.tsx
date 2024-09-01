@@ -6,7 +6,7 @@ import { getDataFromLocalStorage } from "../../../../../storage/localStorage/loc
 import { UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { changeUserData, getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
-import { getAlert } from "../../../../../utils/getAlert";
+import { showAlert } from "../../../../../utils/showAlert";
 import { getDataForStatistic } from "../../../../../utils/statisticalDataUtils";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
@@ -39,12 +39,12 @@ export const DeleteFinancesModal: FC<DeleteFinancesModalProps> = ({ setIsDeleteF
             const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
             if (userDataAfterUpdate) {
-                getAlert({ type: "success", text: "Category deleted successfully" }, setIsAlertActive, 3000);
+                showAlert({ type: "success", text: "Category deleted successfully" }, setIsAlertActive, 3000);
                 setIsDeleteFinancesModal(false);
                 getDataForStatistic(statisticType, dispatch);
             }
         } catch (error) {
-            getAlert({ type: "warning", text: "Please try again later." }, setIsAlertActive, 3000);
+            showAlert({ type: "warning", text: "Please try again later." }, setIsAlertActive, 3000);
             console.error(error);
         }
     }

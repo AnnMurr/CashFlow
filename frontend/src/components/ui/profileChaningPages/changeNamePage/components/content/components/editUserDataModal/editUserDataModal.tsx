@@ -2,7 +2,7 @@ import { FC, useContext, useState } from "react";
 import { updateUserData } from "../../../../../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch, useAppSelector } from "../../../../../../../../redux/store/store";
-import { getAlert } from "../../../../../../../../utils/getAlert";
+import { showAlert } from "../../../../../../../../utils/showAlert";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { AlertComponentProps } from "../../../../../../../shared/alert/alert";
 import { ButtonComponent } from "../../../../../../../shared/button/button";
@@ -49,11 +49,11 @@ export const EditUserDataModal: FC<EditUserDataModalProps> = ({
                     if (response) {
                         changeUserData(value);
                         setIsModalActive(false);
-                        getAlert({ text: response, type: "success" }, setIsAlertActive, 3000);
+                        showAlert({ text: response, type: "success" }, setIsAlertActive, 3000);
                     }
                 }
             } catch (error) {
-                getAlert({ text: "failed to update", type: "error" }, setIsAlertActive, 3000);
+                showAlert({ text: "failed to update", type: "error" }, setIsAlertActive, 3000);
                 console.error(error);
             }
         } else {

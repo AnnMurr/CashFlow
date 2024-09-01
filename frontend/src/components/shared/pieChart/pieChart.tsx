@@ -25,6 +25,13 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data, isLegendHi
         [`& .MuiChartsLegend-root`]: {
             transform: 'translateY(290px)',
         },
+        [`& .MuiPieArc-root`]: {
+            stroke: themeContext.themeStyles.pieChartStroke
+        },
+        ['& .MuiChartsLegend-mark']: {
+            boxShadow: '10px 10px 10px #fff',
+            fill: "green",
+        },
         overflow: "visible",
     };
 
@@ -51,7 +58,7 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data, isLegendHi
                         hidden: isLegendHidden,
                         position: { vertical: 'top', horizontal: 'middle' },
                         direction: 'row',
-                        itemGap: 15
+                        itemGap: 15,
                     }
                 }}
                 colors={colors}

@@ -9,8 +9,8 @@ import { getDataFromLocalStorage } from "../../../../../../../../../storage/loca
 import { BtnClose } from "../../../../../../../../shared/btnClose/btnClose";
 import { Spinner } from "../../../../../../../../shared/spinner/spinner";
 import { AlertComponentProps } from "../../../../../../../../shared/alert/alert";
-import { getAlert } from "../../../../../../../../../utils/getAlert";
-import { getCurrencies } from "../../../../../../../../../utils/getCurrencies";
+import { showAlert } from "../../../../../../../../../utils/showAlert";
+import { fetchAndSetCurrencies } from "../../../../../../../../../utils/setCurrencies";
 import { CurrencyNameAndCode } from "../../../../../../../../../api/getCurrencyCodes/types";
 import { ThemeContextType } from "../../../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../../../contexts/themeContext/themeContext";
@@ -54,7 +54,7 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
                     const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
                     if (userDataAfterUpdate) {
-                        getAlert({ type: "success", text: "Currency changed successfully" }, setIsAlertActive, 3000);
+                        showAlert({ type: "success", text: "Currency changed successfully" }, setIsAlertActive, 3000);
                         setIsCurrencyChoosingModalActive(false);
                     }
                 }
@@ -65,7 +65,7 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
     }
 
     useEffect(() => {
-        getCurrencies(setCurrencies, setIsAlertActive);
+        fetchAndSetCurrencies(setCurrencies, setIsAlertActive);
         currency && setCurrencyName(`${currency?.name} (${currency.symbol})`);
     }, []);
 

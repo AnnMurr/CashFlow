@@ -16,7 +16,7 @@ import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle
 import { LinkToSignInBlock } from "./components/linkToSignInBlock/linkToSignInBlock";
 import { Input } from "./components/input/input";
 import { Title } from "./components/title/title";
-import { getAlert } from "../../../../../utils/getAlert";
+import { showAlert } from "../../../../../utils/showAlert";
 import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label } from "./styledForm";
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
@@ -34,7 +34,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
 
     const getLogSuccess = (token: string) => {
         dispatch(getDataFromUserStore(token));
-        getAlert({ type: "success", text: "User account creation successful" }, setIsAlertActive, 3000);
+        showAlert({ type: "success", text: "User account creation successful" }, setIsAlertActive, 3000);
         setTimeout(() => {
             navigate('/profile');
             setDataToLocalStorage("token", token);
@@ -48,7 +48,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
             const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: data.email }))).payload;
 
             if (isUser || isUserGoogle) {
-                getAlert({ type: "error", text: "User has already registered" }, setIsAlertActive, 3000);
+                showAlert({ type: "error", text: "User has already registered" }, setIsAlertActive, 3000);
             } else {
                 delete data.confirmPassword;
                 data.name = data.name.trim();

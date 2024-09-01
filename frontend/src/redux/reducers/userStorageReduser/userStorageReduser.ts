@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserStorageDataType } from "./types";
 import { BUS_ICON_COLLECTION, GOODS_ICON_COLLECTION, HOUSE_ICON_COLLECTION, ICONS_EXPENSES_COLLECTION, INCOME_ICON_COLLECTION } from "../../../consts/images";
+import { INITIAL_CHARTS_COLORS } from "../../../consts/index";
 
 const initialstate = {
     storageData: null,
@@ -59,8 +60,8 @@ export const createUserStore = createAsyncThunk<UserStorageDataType, string>(
                         },
                         theme: "light",
                         charts: {
-                            pieChartColor: ['#1aab2e', '#24d7ae', '#5fb7d4', '#007ed7', '#8e6cef', '#ff0000', '#ff7300', '#53d726', '#ffec01'],
-                            barChartColor: ['#1aab2e', '#24d7ae', '#5fb7d4', '#007ed7', '#8e6cef', '#ff0000', '#ff7300', '#53d726', '#ffec01'],
+                            pieChartColor: INITIAL_CHARTS_COLORS,
+                            barChartColor: INITIAL_CHARTS_COLORS,
                         }
                     },
                     data: {

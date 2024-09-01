@@ -8,7 +8,7 @@ import { MultipleSelectPlaceholder } from "../../../../../../shared/select/selec
 import { VALID_SUM_REGEX } from "../../../../../../../consts/index";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { getAlert } from "../../../../../../../utils/getAlert";
+import { showAlert } from "../../../../../../../utils/showAlert";
 import { addScroll } from "../../../../../../../utils/toggleScroll";
 import { getDataForStatistic } from "../../../../../../../utils/statisticalDataUtils";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
@@ -61,7 +61,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
         const sum = categorySum.toString().replace(',', '.');
 
         if (!VALID_SUM_REGEX.test(sum)) {
-            getAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
+            showAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
             setCategoryNameError(true);
         } else {
             try {
@@ -89,7 +89,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                     const changeUserDataResponse = (await dispatch(changeUserData({ userToken: token, updatedData: storageDataCopy }))).payload
 
                     if (changeUserDataResponse) {
-                        getAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
+                        showAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
                         closeEditCategoryModal(false);
                         addScroll();
                         getDataForStatistic(statisticType, dispatch);

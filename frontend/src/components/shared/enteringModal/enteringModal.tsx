@@ -5,7 +5,7 @@ import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import { BUTTONS_VALUE, OPERATOR_REGEX } from "../../../consts/index";
 import { BtnClose } from "../btnClose/btnClose";
 import { ButtonComponent } from "../button/button";
-import { getAlert } from "../../../utils/getAlert";
+import { showAlert } from "../../../utils/showAlert";
 import { AlertComponentProps } from "../alert/alert";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
@@ -74,7 +74,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                 const result = eval(inputValue).toString();
                 setInputValue(sliceNumber(result));
             } catch (error) {
-                getAlert({ text: "Invalid input", type: "error" }, setIsAlertActive, 3000);
+                showAlert({ text: "Invalid input", type: "error" }, setIsAlertActive, 3000);
             }
         } else {
             setInputValue((prev) => sliceNumber(prev + value));

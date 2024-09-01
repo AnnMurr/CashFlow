@@ -9,7 +9,7 @@ import { Icon } from "./components/icon/icon";
 import { changeUserData, getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { CategoriesType, CategoryKeys, UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
-import { getAlert } from "../../../../../utils/getAlert";
+import { showAlert } from "../../../../../utils/showAlert";
 import { CrossBtnInner, Item, List } from "./styledCategories";
 interface CategoriesProps {
     categoriesList: Array<CategoriesType> | null;
@@ -59,7 +59,7 @@ export const Categories: FC<CategoriesProps> = ({
         }
     }
 
-    const deleteCategory = async (event: MouseEvent) => {
+    const deleteCategory = async (event: React.MouseEvent<HTMLButtonElement>) => {
         setIsLoading(true);
         const target = event.target as HTMLElement;
         const token = getDataFromLocalStorage("token");
@@ -68,7 +68,7 @@ export const Categories: FC<CategoriesProps> = ({
 
         target.parentNode && target.parentNode.previousSibling ?
             categoryName = target.parentNode.previousSibling.childNodes[0]?.textContent :
-            getAlert({ type: "success", text: "Somthing was wrong" }, setIsAlertActive, 3000);
+            showAlert({ type: "success", text: "Somthing was wrong" }, setIsAlertActive, 3000);
 
         if (categoryName && categoryName !== undefined) {
             const categoriesExpensesUpdating = [...userDataFromStorage.data[dataKey]].filter((item) => item.name !== categoryName);
@@ -83,11 +83,11 @@ export const Categories: FC<CategoriesProps> = ({
                 };
 
                 await dispatch(changeUserData({ userToken: token, updatedData: updatedData }));
-                getAlert({ type: "success", text: "Category deleted successfully" }, setIsAlertActive, 3000);
+                showAlert({ type: "success", text: "Category deleted successfully" }, setIsAlertActive, 3000);
                 getUserDataFromStorage();
                 setShowDeleteIcons([]);
             } catch (error) {
-                getAlert({ type: "warning", text: "Please try again later." }, setIsAlertActive, 3000);
+                showAlert({ type: "warning", text: "Please try again later." }, setIsAlertActive, 3000);
                 console.error(error);
             }
 
@@ -118,7 +118,7 @@ export const Categories: FC<CategoriesProps> = ({
         <>
             {!isLoading ?
                 <List>
-                    {categoriesList ? categoriesList.map((category: any, index: number) => (
+                    {categoriesList ? categoriesList.map((category, index) => (
                         <Item
                             onContextMenu={(event) => event.preventDefault()}
                             key={uuidV4()}
@@ -129,11 +129,11 @@ export const Categories: FC<CategoriesProps> = ({
                             <CategoryName name={category.name} />
                             {showDeleteIcons[index] && windowWidth <= 1024 ? (
                                 <div className="item-btn-inner">
-                                    <Cross func={deleteCategory} />
+                                    <Cross deleteCategory={deleteCategory} />
                                 </div>
                             ) :
                                 <CrossBtnInner className="item-btn-inner">
-                                    <Cross func={deleteCategory} />
+                                    <Cross deleteCategory={deleteCategory} />
                                 </CrossBtnInner>}
                         </Item>
                     ))

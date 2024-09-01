@@ -6,7 +6,7 @@ import { getDataFromLocalStorage } from "../../../../../../../storage/localStora
 import { RootState, Transaction, UserStorageDataType } from "../../../../../../../redux/reducers/userStorageReduser/types";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
-import { getAlert } from "../../../../../../../utils/getAlert";
+import { showAlert } from "../../../../../../../utils/showAlert";
 import { addScroll } from "../../../../../../../utils/toggleScroll";
 import { getDataForStatistic } from "../../../../../../../utils/statisticalDataUtils";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
@@ -45,7 +45,7 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
                 const changeUserDataResponse = (await dispatch(changeUserData({ userToken: token, updatedData: storageDataCopy }))).payload
 
                 if (changeUserDataResponse) {
-                    getAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
+                    showAlert({ type: "success", text: "Data updated successfully" }, setIsAlertActive, 3000);
                     closeDeleteModal(false);
                     getDataForStatistic(statisticType, dispatch);
                     addScroll();

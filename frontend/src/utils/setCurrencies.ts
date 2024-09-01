@@ -2,9 +2,9 @@ import { AlertComponentProps } from "../components/shared/alert/alert";
 import { getCurrency } from "../api/getCurrencyCodes/getCurrencyCodes";
 import { CurrencyCodesType, CurrencyNameAndCode } from "../api/getCurrencyCodes/types";
 import { CURRENCY_TO_LOCALE } from "../consts/index";
-import { getAlert } from "./getAlert";
+import { showAlert } from "./showAlert";
 
-export const getCurrencies = async (
+export const fetchAndSetCurrencies = async (
     setCurrencies: (value: Array<CurrencyNameAndCode> | null) => void,
     setIsAlertActive: (value: AlertComponentProps | null) => void
 ) => {
@@ -26,7 +26,7 @@ export const getCurrencies = async (
 
             setCurrencies(currencyNamesAndSymbols);
         } else {
-            getAlert({ type: "error", text: "Failed getting currencies" }, setIsAlertActive, 3000);
+            showAlert({ type: "error", text: "Failed getting currencies" }, setIsAlertActive, 3000);
         }
     } catch (err) {
         console.error(err);

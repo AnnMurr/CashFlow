@@ -5,13 +5,13 @@ export const PASSWORD_PATTERN = /^(?=\S*?[0-9])(?=\S*?[?!@#$%^&*])(?=\S*?[a-z-а
 export const VALID_SUM_REGEX = /^\d+(\.\d{1,2})?$/;
 export const OPERATOR_REGEX = /[+\-\/\*]/;
 export const ONLY_SPACES_REGEX = /^\s+$/;
-export  const CURRENCY_SYMBOL_REGEX = /\(([^)]+)\)$/;
+export const CURRENCY_SYMBOL_REGEX = /\(([^)]+)\)$/;
 
 export const BUTTONS_VALUE = ['1', '2', '3', '+', '4', '5', '6', '-', '7', '8', '9', '*', '.', '0', '=', '/', 'Backspace', 'Enter'];
 export const STATISTICS_OPTIONS = ["Day", "Week", "Month", "Year", "Range"];
 export const MONTH = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 export const CHART_TIME_PERIODS = ['day', 'week', 'month', 'year'];
-export const INITIAL_CHARTS_COLORS = ['#1aab2e', '#24d7ae', '#5fb7d4', '#007ed7', '#8e6cef', '#ff0000', '#ff7300', '#53d726', '#ffec01'];
+export const INITIAL_CHARTS_COLORS = ['rgba(26, 171, 46, 1)', 'rgba(36, 215, 174, 1)', 'rgba(95, 183, 212, 1)', 'rgba(0, 126, 215, 1)', 'rgba(142, 108, 239, 1)', 'rgba(255, 0, 0, 1)', 'rgba(255, 115, 0, 1)', 'rgba(83, 215, 38, 1)', 'rgba(255, 236, 1, 1)'];
 export const CURRENT_DATES = {
     dateDay: [new Date()],
     datesWeek: getWeek().map(parseEuropeanDate),

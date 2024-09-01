@@ -41,6 +41,9 @@ export interface Theme {
     loaderColor: Colors,
     chartBlockBackground: Colors,
     chartBlockBackgroundHover: Colors,
+    settingsTabBtnSelected: Colors,
+    settingsTabBtnHover: Colors,
+    pieChartStroke: Colors,
 }
 
 export interface ThemeContextType {

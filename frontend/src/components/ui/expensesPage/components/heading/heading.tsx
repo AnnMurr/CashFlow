@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { useAppSelector } from "../../../../../redux/store/store";
 import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
-import { getDayAmount } from "../../../../../utils/getDayAmount";
+import { setDayAmount } from "../../../../../utils/setDayAmount";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 import { Container, Sum, Title } from "./styledHeading";
@@ -13,7 +13,7 @@ export const Heading: FC = () => {
 
     useEffect(() => {
         if (storageData && currency) {
-            getDayAmount(storageData, 'expenses', setDayExpenses, currency.code);
+            setDayAmount(storageData, 'expenses', setDayExpenses, currency.code);
         }
     }, [storageData]);
 

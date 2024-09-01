@@ -1,8 +1,10 @@
+import { MouseEvent, useContext, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { INITIAL_CHARTS_COLORS } from "../../../../../../../../../consts";
-import { MouseEvent, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ThemeContextType } from '../../../../../../../../../contexts/themeContext/types';
+import { ThemeContext } from '../../../../../../../../../contexts/themeContext/themeContext';
 import { BtnAddInner, EditBlock, ItemInner } from './styledColorList';
 
 interface ColorListProps {
@@ -15,6 +17,7 @@ interface ColorListProps {
 export const ColorList: React.FC<ColorListProps> = ({
     openColorModal, list, btnAddClassName, chartType }) => {
     const [currentColors, setCurrentColors] = useState<Array<string>>(INITIAL_CHARTS_COLORS);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     useEffect(() => {
         list && setCurrentColors(list);
@@ -40,9 +43,9 @@ export const ColorList: React.FC<ColorListProps> = ({
                     </EditBlock>
                 </ItemInner>
             ))}
-            <BtnAddInner>
+            <BtnAddInner themestyles={themeContext.themeStyles}>
                 <button className={btnAddClassName} type='button' onClick={(event) => openColorModal(event, true, false)}>
-                    <FontAwesomeIcon icon={faPlus} />
+                    <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faPlus} />
                 </button>
             </BtnAddInner>
         </Box>
