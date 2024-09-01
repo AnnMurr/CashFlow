@@ -5,7 +5,12 @@ import { BtnClose } from "../../../../../../../../shared/btnClose/btnClose";
 import { ButtonComponent } from "../../../../../../../../shared/button/button";
 import { BtnInner, Container, Title, Wrapper } from "./styledDeleteColorModal";
 
-export const DeleteColorModal:FC<any> = ({ closeModal, handleDeleteColor }) => {
+interface DeleteColorModalProps {
+    closeModal: (value: boolean) => void; 
+    handleDeleteColor: () => void;
+}
+
+export const DeleteColorModal:FC<DeleteColorModalProps> = ({ closeModal, handleDeleteColor }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     return (
@@ -16,7 +21,7 @@ export const DeleteColorModal:FC<any> = ({ closeModal, handleDeleteColor }) => {
                     marginLeft: "auto",
                     paddingBottom: "15px",
                 }}
-                closeBlock={closeModal}
+                closeBlock={() => closeModal(false)}
                 size="lg" />
             <Title themestyles={themeContext.themeStyles}>
                 <h5>

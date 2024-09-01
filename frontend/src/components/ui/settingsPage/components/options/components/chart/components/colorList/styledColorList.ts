@@ -1,3 +1,4 @@
+import { ThemeStyledProps } from './../../../../../../../../../contexts/themeContext/types';
 import { Box } from "@mui/material";
 import styled from "styled-components";
 
@@ -5,14 +6,19 @@ interface ItemInnerProps {
     color: string;
 }
 
-export const BtnAddInner = styled.div`
+export const BtnAddInner = styled.div<ThemeStyledProps>`
     width: 30px;
     height: 30px;
-    border: 1px solid black;
+    border:${({ themestyles }) => `1px solid ${themestyles.color}`};
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.5s ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
 `
 
 export const EditBlock = styled.div`

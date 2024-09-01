@@ -4,7 +4,7 @@ import { getFormatCurrency } from "./getFormatCurrency";
 
 type getDayAmountType = (storageData: UserStorageDataType, type: "expenses" | "income", setDayAmout: (value: string) => void, currency: string) => void;
 
-export const getDayAmount: getDayAmountType = (storageData, type, setDayAmout, currency) => {
+export const setDayAmount: getDayAmountType = (storageData, type, setDayAmout, currency) => {
     const currentDate = new Date();
 
     const amount: number = storageData.data[type]

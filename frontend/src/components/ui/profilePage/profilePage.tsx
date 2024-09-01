@@ -9,7 +9,7 @@ import { setChartDataBySpecificDates } from "../../../utils/chartUtils";
 import { Header } from "./components/header/header";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { LogOutConfirmationModal } from "./components/logOutConfirmationModal/logOutConfirmationModal";
-import { Container, Wrapper } from "./profilePageStyled";
+import { Container, Wrapper } from "./styledProfilePage";
 
 export const ProfilePage: FC = () => {
     const [chartData, setChartData] = useState<ChartDataObjectType | null>(null);

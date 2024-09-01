@@ -7,7 +7,7 @@ import { BtnClose } from "../../shared/btnClose/btnClose";
 import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { CategoriesType, StorageDataKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
 import { useAppDispatch } from "../../../redux/store/store";
-import { getAlert } from "../../../utils/getAlert";
+import { showAlert } from "../../../utils/showAlert";
 import { ONLY_SPACES_REGEX } from "../../../consts";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
@@ -58,19 +58,19 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                     const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
                     if (userDataAfterUpdate) {
-                        getAlert({ type: "success", text: "Category added successfully" }, setIsAlertActive, 3000);
+                        showAlert({ type: "success", text: "Category added successfully" }, setIsAlertActive, 3000);
                         getUserDataFromStorage();
                         togleModal(false);
                     }
                 } catch (error) {
-                    getAlert({ type: "warning", text: "Please try again later." }, setIsAlertActive, 3000);
+                    showAlert({ type: "warning", text: "Please try again later." }, setIsAlertActive, 3000);
                     console.error(error);
                 }
             } else {
-                getAlert({ type: "error", text: "Enter category and choose an icon" }, setIsAlertActive, 3000);
+                showAlert({ type: "error", text: "Enter category and choose an icon" }, setIsAlertActive, 3000);
             }
         } else {
-            getAlert({ type: "error", text: "This category already exists" }, setIsAlertActive, 3000);
+            showAlert({ type: "error", text: "This category already exists" }, setIsAlertActive, 3000);
         }
     }
 

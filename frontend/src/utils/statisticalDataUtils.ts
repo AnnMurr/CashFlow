@@ -1,6 +1,6 @@
 import { AlertComponentProps } from "../components/shared/alert/alert";
 import { ItemType, ItemsType, StatisticalDataType, UserStorageDataType } from "../redux/reducers/userStorageReduser/types";
-import { getAlert } from "./getAlert";
+import { showAlert } from "./showAlert";
 import { getCurrentDate, getWeek, parseEuropeanDate } from "./dateUtils";
 import { MONTH } from "../consts/index";
 import { AppDispatch } from "../redux/store/store";
@@ -72,7 +72,7 @@ const processStatisticalData = (
     if (sortedStatisticalData.length > 0) {
         return { sortedStatisticalData, chosenDateStatisticalData };
     } else {
-        setIsAlertActive && getAlert({ type: "error", text: "No data for this period" }, setIsAlertActive, 3000);
+        setIsAlertActive && showAlert({ type: "error", text: "No data for this period" }, setIsAlertActive, 3000);
         return null;
     }
 };
@@ -85,13 +85,13 @@ export const getFilterStatisticsForDay = (
     dispatch: AppDispatch,
     setIsDatePickerModal: (value: boolean) => void) => {
     if (!statisticalData || !chosenDate) {
-        getAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
+        showAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
         return;
     };
 
     const filteredStatisticalData = statisticalData.data[chosenDate];
     if (!filteredStatisticalData) {
-        getAlert({ type: "error", text: "No data for this day" }, setIsAlertActive, 3000);
+        showAlert({ type: "error", text: "No data for this day" }, setIsAlertActive, 3000);
         return;
     }
 
@@ -133,7 +133,7 @@ export const getFilterStatisticsForMonth = (
     dispatch: AppDispatch,
     setIsMonthSelectModal: (value: boolean) => void) => {
     if (!statisticalData || !chosenDate) {
-        getAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
+        showAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
         return;
     }
 
@@ -141,7 +141,7 @@ export const getFilterStatisticsForMonth = (
     const dateRange = statisticalData.days.filter((date) => date.split(".")[1] === monthNumber);
 
     if (dateRange.length === 0) {
-        getAlert({ type: "error", text: "No data for this month" }, setIsAlertActive, 3000);
+        showAlert({ type: "error", text: "No data for this month" }, setIsAlertActive, 3000);
         return;
     }
 
@@ -164,14 +164,14 @@ export const getFilterStatisticsForYear = (
     dispatch: AppDispatch,
     setIsYearSelectModal: (value: boolean) => void) => {
     if (!statisticalData || !chosenYear) {
-        getAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
+        showAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
         return;
     }
 
     const dateRange = statisticalData.days.filter((date) => date.split(".")[2] === chosenYear);
 
     if (dateRange.length === 0) {
-        getAlert({ type: "error", text: "No data for this year" }, setIsAlertActive, 3000);
+        showAlert({ type: "error", text: "No data for this year" }, setIsAlertActive, 3000);
         return;
     }
 
@@ -194,12 +194,12 @@ export const getFilterStatisticsForRange = (
     dispatch: AppDispatch,
     setIsDateRangeModal: (value: boolean) => void) => {
     if (!statisticalData || !chosenDate.startDate || !chosenDate.endDate) {
-        getAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
+        showAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
         return;
     }
     
     if (chosenDate.endDate < chosenDate.startDate) {
-        getAlert({ type: "error", text: "End date must be greater than start date" }, setIsAlertActive, 3000);
+        showAlert({ type: "error", text: "End date must be greater than start date" }, setIsAlertActive, 3000);
         return;
     }
 
@@ -211,7 +211,7 @@ export const getFilterStatisticsForRange = (
     });
 
     if (dateRange.length === 0) {
-        getAlert({ type: "error", text: "No data for this range" }, setIsAlertActive, 3000);
+        showAlert({ type: "error", text: "No data for this range" }, setIsAlertActive, 3000);
         return;
     }
 

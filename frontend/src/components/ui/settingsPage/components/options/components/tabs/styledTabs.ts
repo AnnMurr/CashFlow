@@ -9,20 +9,31 @@ interface ItemProps {
 
 export const Container = styled.div`
     display: grid;
-    grid-template-columns: 25% 70%;
+    grid-template-columns: 30% 70%;
     justify-content: space-between;
     gap: 20px;
     height: 100%;
 `
 
 export const Item = styled.li<CombinatedProps>`
-    padding-bottom: 15px;
-  
     button {
         font-family: "Almarai";
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 600;
         color:${({ themestyles }) => themestyles.settingsOptionsTabActive};
-        opacity:${({ active }) => active === "true" ? "1" : "0.4"};
+        background-color:${({ active, themestyles }) => active === "true" ? themestyles.settingsTabBtnSelected : "none"};
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        span {
+            gap: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        &:hover {
+            background-color:${({ themestyles }) => themestyles.settingsTabBtnHover};
+        }
     }
 `

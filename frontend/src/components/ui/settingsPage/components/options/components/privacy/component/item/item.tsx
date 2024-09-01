@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition, faArrowRight, faQuestion } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContextType } from "../../../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../../../contexts/themeContext/themeContext";
 import { Container, QuestionMark, SubTitle, Title, Wrapper } from "./styledItem";
@@ -8,7 +8,7 @@ import { Container, QuestionMark, SubTitle, Title, Wrapper } from "./styledItem"
 interface ItemProps {
     title: string;
     subTitle: string;
-    icon: any;
+    icon: IconDefinition;
     link: string;
 }
 

@@ -8,7 +8,7 @@ import { updateUserData } from "../../../../../../redux/reducers/userReducer/use
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { getAlert } from "../../../../../../utils/getAlert";
+import { showAlert } from "../../../../../../utils/showAlert";
 import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
 import { OutlinedInputComponent } from "../../../../../../components/shared/outlinedInput/outlinedInput";
@@ -41,7 +41,7 @@ export const Content: FC = () => {
                         const response = unwrapResult(resultAction);
 
                         if (response) {
-                            getAlert({ type: "success", text: response }, setIsAlertActive, 3000);
+                            showAlert({ type: "success", text: response }, setIsAlertActive, 3000);
                             setIsError(false);
                             setTimeout(() => navigate("/settings"), 1000);
                         }
@@ -50,11 +50,11 @@ export const Content: FC = () => {
                     console.error(error);
                 }
             } else {
-                getAlert({ type: "error", text: "Passwords must match." }, setIsAlertActive, 3000);
+                showAlert({ type: "error", text: "Passwords must match." }, setIsAlertActive, 3000);
                 setIsError(true);
             }
         } else {
-            getAlert({ type: "error", text: "Password must contain at least one digit, one special character '!@#$%^&*', one lowercase letter, one uppercase letter, and should not contain any spaces." }, setIsAlertActive, 3000);
+            showAlert({ type: "error", text: "Password must contain at least one digit, one special character '!@#$%^&*', one lowercase letter, one uppercase letter, and should not contain any spaces." }, setIsAlertActive, 3000);
             setIsError(true);
         }
     }

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Chart } from "./commponents/chart/chart";
 import { v4 as uuidV4 } from "uuid";
 import { ChartDataObjectType } from "../../types";
@@ -13,12 +13,18 @@ interface ContentProps {
 }
 
 export const Content: FC<ContentProps> = ({ chartData, statisticType }) => {
+    const [isBarChart, setIsBarChart] = useState<boolean>(false);
     const { storageData } = useAppSelector((state: RootState) => state.storage);
+
+    useEffect(() => {
+        storageData?.data[statisticType].length ?
+            setIsBarChart(true) : setIsBarChart(false);
+    }, [storageData, statisticType]);
 
     return (
         <div>
             <Wrapper>
-                {storageData?.data[statisticType] && <BarChartComponent statisticType={statisticType} />}
+                {isBarChart ? <BarChartComponent statisticType={statisticType} /> : null}
                 <GridInner>
                     {chartData ? (
                         Object.entries(chartData).map((chart) => (

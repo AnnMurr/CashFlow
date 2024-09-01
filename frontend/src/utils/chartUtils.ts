@@ -3,7 +3,7 @@ import { areDatesEqual, areMonthAndYearEqual, areYearEqual } from "./dateUtils";
 import { Transaction, UserStorageDataType } from "../redux/reducers/userStorageReduser/types";
 import { AlertComponentProps } from "../components/shared/alert/alert";
 import { CHART_TIME_PERIODS, CURRENT_DATES } from "../consts";
-import { getAlert } from "./getAlert";
+import { showAlert } from "./showAlert";
 
 export type Period = 'day' | 'week' | 'month' | 'year';
 type DateRange = Date | Date[] | string | number;
@@ -148,6 +148,6 @@ export const setChartDataForCustomPeriod: CustomPeriodChartDataSetter = (
         setIsDatePickerModal(false);
         setDisplayDate && setDisplayDate()
     } else {
-        getAlert({ text: "No data for this period", type: "error" }, setIsAlertActive, 3000);
+        showAlert({ text: "No data for this period", type: "error" }, setIsAlertActive, 3000);
     }
 }

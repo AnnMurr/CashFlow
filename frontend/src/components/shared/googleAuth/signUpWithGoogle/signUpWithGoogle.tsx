@@ -8,7 +8,7 @@ import { AlertComponentProps } from "../../alert/alert";
 import { createUserStore } from "../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { GoogleLinkPrompt } from "../googleLinkPrompt/googleLinkPrompt";
 import { SignUpWithGoogleBtn, SignUpWithGoogleBtnInner, SignUpWithGoogleTitle } from "./styledSignUpWithGoogle";
-import { getAlert } from "../../../../utils/getAlert";
+import { showAlert } from "../../../../utils/showAlert";
 interface SignUpWithGoogleProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
     getLogSuccess: (value: string) => void;
@@ -50,7 +50,7 @@ export const SignUpWithGoogle: FC<SignUpWithGoogleProps> = ({ setIsAlertActive, 
                     }
                 }
             } else {
-                getAlert({ type: "error", text: "Something was wrong" }, setIsAlertActive, 3000);
+                showAlert({ type: "error", text: "Something was wrong" }, setIsAlertActive, 3000);
             }
         } catch (error) {
             console.error(error);

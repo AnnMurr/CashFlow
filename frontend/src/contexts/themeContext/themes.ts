@@ -52,6 +52,14 @@ export enum Colors {
     AQUA_HAZE = '#f6f8fa',
     DANUBE = '#6886C5',
     DANUBE_TRANSPARENT = '#6886c559',
+
+    MERCURY = '#e2e2e2',
+    MERCURY_TRANSPARENT = '#e2e2e29e',
+    DUSTY_MOCHA_MIST = '#776b5d78',
+    DUSTY_MOCHA_MIST_TRANSPARENT = '#776b5d4d',
+    URBAN_SLATE = '#ffffff4d',
+    URBAN_SLATE_TRANSPARENT = '#868686a8',
+    // URBAN_SLATE_TRANSPARENT = '#2e2e2e',
 }
 
 export const Themes: ThemesType = {
@@ -84,7 +92,7 @@ export const Themes: ThemesType = {
         datePikerLayout: Colors.WHITE,
         pickersDaySelected: Colors.SPRING_LEAVES,
         pickersDayHover: Colors.SPRING_LEAVES_TRANSPARENT,
-        modalLayoutShadow: Colors.TRANSPARENT,
+        modalLayoutShadow: Colors.BLACK,
         selectHover: Colors.PALE_GRAY_OPACITY,
         selectSelected: Colors.TRANSPARENT_BLACK,
         showPasswordIconColor: Colors.BOULDER,
@@ -92,6 +100,9 @@ export const Themes: ThemesType = {
         loaderColor: Colors.BLACK,
         chartBlockBackground: Colors.ATHENS_GRAY,
         chartBlockBackgroundHover: Colors.ATHENS_GRAY_TRANSPARENT,
+        settingsTabBtnSelected: Colors.MERCURY,
+        settingsTabBtnHover: Colors.MERCURY_TRANSPARENT,
+        pieChartStroke: Colors.DOVE_GRAY,
     },
     dark: {
         body: Colors.COD_GRAY,
@@ -130,6 +141,9 @@ export const Themes: ThemesType = {
         loaderColor: Colors.WHITE,
         chartBlockBackground: Colors.COD_GRAY_DARK,
         chartBlockBackgroundHover: Colors.TRANSPARENT,
+        settingsTabBtnSelected: Colors.MINE_SHAFT,
+        settingsTabBtnHover: Colors.MINE_SHAFT_TRANSPARENT,
+        pieChartStroke: Colors.MINE_SHAFT,
     },
     sandstone: {
         body: Colors.NAPA,
@@ -147,7 +161,7 @@ export const Themes: ThemesType = {
         settingsBackground: Colors.WHITE_ROCK,
         statisticsLineDayBackground: Colors.PAMPAS,
         buttonGroupColor: Colors.BLACK,
-        buttonActiveGroupColor: Colors.TRANSPARENT_BLACK,
+        buttonActiveGroupColor: Colors.URBAN_SLATE_TRANSPARENT,
         buttonGroupHover: Colors.GRAY_TRANSPARENT,
         dataPikerIcon: Colors.BLACK,
         inputBorder: Colors.BOULDER,
@@ -168,6 +182,9 @@ export const Themes: ThemesType = {
         loaderColor: Colors.BLACK,
         chartBlockBackground: Colors.WHITE_ROCK,
         chartBlockBackgroundHover: Colors.PAMPAS,
+        settingsTabBtnSelected: Colors.DUSTY_MOCHA_MIST,
+        settingsTabBtnHover: Colors.DUSTY_MOCHA_MIST_TRANSPARENT,
+        pieChartStroke: Colors.DOVE_GRAY,
     },
     gray: {
         body: Colors.EMPERORAPPROX,
@@ -206,6 +223,9 @@ export const Themes: ThemesType = {
         loaderColor: Colors.WHITE,
         chartBlockBackground: Colors.MINE_SHAFT,
         chartBlockBackgroundHover: Colors.MINE_SHAFT_TRANSPARENT,
+        settingsTabBtnSelected: Colors.URBAN_SLATE,
+        settingsTabBtnHover: Colors.URBAN_SLATE_TRANSPARENT,
+        pieChartStroke: Colors.WHITE,
     },
     light: {
         body: Colors.WHITE,
@@ -223,7 +243,7 @@ export const Themes: ThemesType = {
         settingsBackground: Colors.AQUA_HAZE,
         statisticsLineDayBackground: Colors.PALE_GRAY_OPACITY,
         buttonGroupColor: Colors.BLACK,
-        buttonActiveGroupColor: Colors.TRANSPARENT_BLACK,
+        buttonActiveGroupColor: Colors.DOVE_GRAY_TRANSPARENT,
         buttonGroupHover: Colors.GRAY_TRANSPARENT,
         dataPikerIcon: Colors.BLACK,
         inputBorder: Colors.BOULDER,
@@ -244,5 +264,8 @@ export const Themes: ThemesType = {
         loaderColor: Colors.BLACK,
         chartBlockBackground: Colors.AQUA_HAZE,
         chartBlockBackgroundHover: Colors.TRANSPARENT,
+        settingsTabBtnSelected: Colors.MERCURY,
+        settingsTabBtnHover: Colors.MERCURY_TRANSPARENT,
+        pieChartStroke: Colors.DOVE_GRAY,
     },
 }

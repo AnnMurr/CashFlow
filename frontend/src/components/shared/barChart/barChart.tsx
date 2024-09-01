@@ -1,10 +1,14 @@
-import { FC, useEffect, useState } from "react";
-import { BarChart } from '@mui/x-charts/BarChart';
+import { FC, useContext, useEffect, useState } from "react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import { useAppSelector } from "../../../redux/store/store";
 import { RootState } from "../../../redux/reducers/userStorageReduser/types";
 import { format } from 'date-fns';
 import { v4 as uuidV4 } from "uuid";
 import { INITIAL_CHARTS_COLORS } from "../../../consts";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
+import { CustomTooltip } from "./components/tooltip/tooltip";
+import { Category } from "./styledBarChart";
 
 interface BarChartComponentProps {
     statisticType: "expenses" | "income";
@@ -13,6 +17,7 @@ interface BarChartComponentProps {
 export const BarChartComponent: FC<BarChartComponentProps> = ({ statisticType }) => {
     const { storageData } = useAppSelector((state: RootState) => state.storage);
     const [colors, setColors] = useState<Array<string>>(INITIAL_CHARTS_COLORS);
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const monthlyCategoryData = storageData?.data[statisticType]?.reduce((acc, item) => {
         const month = format(new Date(item.date), 'MMMM');
@@ -27,12 +32,6 @@ export const BarChartComponent: FC<BarChartComponentProps> = ({ statisticType })
     }));
 
     const categories = Array.from(new Set(storageData?.data[statisticType]?.map(item => item.category) || []));
-
-    const containerStyles: React.CSSProperties = {
-        position: 'relative',
-        width: '100%',
-        height: '400px'
-    };
 
     const legendContainerStyles: React.CSSProperties = {
         position: 'absolute',
@@ -55,29 +54,36 @@ export const BarChartComponent: FC<BarChartComponentProps> = ({ statisticType })
 
     useEffect(() => {
         storageData && setColors(storageData.settings.charts.barChartColor);
-    }, [storageData])
+    }, [storageData]);
 
     return (
-        <div style={containerStyles}>
+        <div style={{ position: 'relative', width: '100%', height: '400px' }}>
             <BarChart
                 width={600}
                 height={300}
-                dataset={transformedData}
-                xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
-                series={categories.map((category, index) => ({
-                    type: 'bar',
-                    dataKey: category,
-                    color: colors[index % colors.length],
-                }))}
-                colors={colors} />
+                data={transformedData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }} >
+                <XAxis
+                    dataKey="month"
+                    stroke={themeContext.themeStyles.color} />
+                <YAxis
+                    stroke={themeContext.themeStyles.color} />
+                <Tooltip content={<CustomTooltip />} />
+                {categories.map((category, index) => (
+                    <Bar
+                        key={category}
+                        dataKey={category}
+                        fill={colors[index % colors.length]} />
+                ))}
+            </BarChart>
             <div style={legendContainerStyles}>
                 {categories.map((category, index) => (
                     <div key={uuidV4()} style={legendItemStyles}>
                         <div style={legendInlineStyles(index)}></div>
-                        <span>{category}</span>
+                        <Category themestyles={themeContext.themeStyles}>{category}</Category>
                     </div>
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};

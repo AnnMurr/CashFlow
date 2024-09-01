@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/st
 import { checkUserDataByEmail, updateUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { getAlert } from "../../../../../../utils/getAlert";
+import { showAlert } from "../../../../../../utils/showAlert";
 import { OutlinedInputComponent } from "../../../../../../components/shared/outlinedInput/outlinedInput";
 import { BtnInner, Title, Wrapper } from "./styledContent";
 
@@ -36,15 +36,15 @@ export const Content: FC = () => {
                     const response = unwrapResult(resultAction);
 
                     if (response) {
-                        getAlert({ text: response, type: "success" }, setIsAlertActive, 3000);
+                        showAlert({ text: response, type: "success" }, setIsAlertActive, 3000);
                         setEmailValue(changedData.email);
                         setTimeout(() => navigate("/settings"), 1000);
                     }
                 } else {
-                    getAlert({ type: "error", text: "User already exists" }, setIsAlertActive, 3000);
+                    showAlert({ type: "error", text: "User already exists" }, setIsAlertActive, 3000);
                 }
             } else {
-                getAlert({ type: "error", text: "E-mail is incorrect" }, setIsAlertActive, 3000);
+                showAlert({ type: "error", text: "E-mail is incorrect" }, setIsAlertActive, 3000);
             }
         } catch (error) {
             console.error(error);
