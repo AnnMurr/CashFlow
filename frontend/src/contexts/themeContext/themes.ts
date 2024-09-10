@@ -6,6 +6,7 @@ export enum Colors {
     TRANSPARENT_BLACK = 'rgba(0, 0, 0, 0.12)',
     TRANSPARENT_WHITE = 'rgba(255, 255, 255, 0.3)',
     CORIANDER = '#1c1919',
+    DARK_GRAY = '#1e1e1e',
     COD_GRAY = '#131313',
     COD_GRAY_DARK = '#0c0b0b',
     COD_GRAY_MEDIUM = '#171717',
@@ -59,7 +60,8 @@ export enum Colors {
     DUSTY_MOCHA_MIST_TRANSPARENT = '#776b5d4d',
     URBAN_SLATE = '#ffffff4d',
     URBAN_SLATE_TRANSPARENT = '#868686a8',
-    // URBAN_SLATE_TRANSPARENT = '#2e2e2e',
+    EMPEROR = '#515151',
+    SILVER = '#C6C6C6',
 }
 
 export const Themes: ThemesType = {
@@ -103,6 +105,8 @@ export const Themes: ThemesType = {
         settingsTabBtnSelected: Colors.MERCURY,
         settingsTabBtnHover: Colors.MERCURY_TRANSPARENT,
         pieChartStroke: Colors.DOVE_GRAY,
+        budgetPlannerBackground: Colors.ATHENS_GRAY,
+        budgetPlannerRowBorder: Colors.MERCURY
     },
     dark: {
         body: Colors.COD_GRAY,
@@ -144,6 +148,8 @@ export const Themes: ThemesType = {
         settingsTabBtnSelected: Colors.MINE_SHAFT,
         settingsTabBtnHover: Colors.MINE_SHAFT_TRANSPARENT,
         pieChartStroke: Colors.MINE_SHAFT,
+        budgetPlannerBackground: Colors.DARK_GRAY,
+        budgetPlannerRowBorder: Colors.EMPEROR
     },
     sandstone: {
         body: Colors.NAPA,
@@ -185,6 +191,8 @@ export const Themes: ThemesType = {
         settingsTabBtnSelected: Colors.DUSTY_MOCHA_MIST,
         settingsTabBtnHover: Colors.DUSTY_MOCHA_MIST_TRANSPARENT,
         pieChartStroke: Colors.DOVE_GRAY,
+        budgetPlannerBackground: Colors.WHITE_ROCK,
+        budgetPlannerRowBorder: Colors.EMPEROR
     },
     gray: {
         body: Colors.EMPERORAPPROX,
@@ -207,7 +215,7 @@ export const Themes: ThemesType = {
         dataPikerIcon: Colors.WHITE,
         inputBorder: Colors.BOULDER,
         inputBorderHover: Colors.DUSTY_GRAY,
-        inputBorderFocused: Colors.COD_GRAY_LIGHT,
+        inputBorderFocused: Colors.GREEN_HAZE,
         labelFocused: Colors.WHITE,
         lineBackgroundHover: Colors.EMPERORAPPROX_TRANSPARENT,
         buttonDisabledBackground: Colors.DUSTY_GRAY,
@@ -226,6 +234,8 @@ export const Themes: ThemesType = {
         settingsTabBtnSelected: Colors.URBAN_SLATE,
         settingsTabBtnHover: Colors.URBAN_SLATE_TRANSPARENT,
         pieChartStroke: Colors.WHITE,
+        budgetPlannerBackground: Colors.TUNDORA,
+        budgetPlannerRowBorder: Colors.SILVER
     },
     light: {
         body: Colors.WHITE,
@@ -267,5 +277,7 @@ export const Themes: ThemesType = {
         settingsTabBtnSelected: Colors.MERCURY,
         settingsTabBtnHover: Colors.MERCURY_TRANSPARENT,
         pieChartStroke: Colors.DOVE_GRAY,
+        budgetPlannerBackground: Colors.AQUA_HAZE,
+        budgetPlannerRowBorder: Colors.MERCURY
     },
 }

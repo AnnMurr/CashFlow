@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
@@ -12,6 +12,8 @@ import { CategoryInputAddBtn } from "./components/categoryInputAddBtn/categoryIn
 import { CompletedCategoryRow } from "./components/completedCategoryRow/completedCategoryRow";
 import { SaveBtn } from "./components/saveBtn/saveBtn";
 import { Heading } from "./components/heading/heading";
+import { ThemeContextType } from "../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 
 interface BudgetTableManagerProps {
   dateRange: string;
@@ -22,10 +24,16 @@ export const BudgetTableManager: FC<BudgetTableManagerProps> = ({ dateRange, set
   const [isCategoryInputRow, setIsCategoryInputRow] = useState<boolean>(false);
   const [completedCategories, setCompletedCategories] = useState<Array<{ name: string; sum: string }>>([]);
   const { storageData } = useAppSelector((state: RootState) => state.storage);
+  const themeContext = useContext<ThemeContextType>(ThemeContext);
+
+  const tableContainerStyles = {
+    backgroundColor: themeContext.themeStyles.budgetPlannerBackground,
+    padding: "30px 40px 40px 40px"
+  }
 
   return (
-    <TableContainer component={Paper}>
-      <Table  aria-label="simple table">
+    <TableContainer sx={tableContainerStyles} component={Paper}>
+      <Table aria-label="simple table">
         <Heading />
         <TableBody>
           {completedCategories.length > 0 && completedCategories.map(data => (
@@ -39,7 +47,10 @@ export const BudgetTableManager: FC<BudgetTableManagerProps> = ({ dateRange, set
               storageData={storageData}
               completedCategories={completedCategories} />)}
           <CategoryInputAddBtn setIsCategoryInputRow={setIsCategoryInputRow} />
-          <SaveBtn setIsAlertActive={setIsAlertActive} dateRange={dateRange} completedCategories={completedCategories} />
+          <SaveBtn
+            setIsAlertActive={setIsAlertActive}
+            dateRange={dateRange}
+            completedCategories={completedCategories} />
         </TableBody>
       </Table>
     </TableContainer>

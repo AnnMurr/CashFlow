@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { TableCell, TableRow } from "@mui/material";
 import { ButtonComponent } from "../../../../../../shared/button/button";
 import { OutlinedInputComponent } from "../../../../../../shared/outlinedInput/outlinedInput";
@@ -9,6 +9,8 @@ import { AlertComponentProps } from "../../../../../../shared/alert/alert";
 import { UserStorageDataType } from "../../../../../../../redux/reducers/userStorageReduser/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 
 interface CategoryInputRowProps {
     setIsAlertActive: (value: AlertComponentProps | null) => void;
@@ -23,6 +25,7 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
     const [error, setError] = useState<boolean>(false);
     const [category, setCategory] = useState<string | null>(null);
     const [sum, setSum] = useState<string>("");
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const handleSaveCategory = () => {
         const sum2 = sum.toString().replace(',', '.');
@@ -45,16 +48,20 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
         }
     }
 
+    const tableCellStyles = {
+        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
+    };
+
     return (
         <TableRow>
-            <TableCell align="left" colSpan={1} sx={{ width: '25rem' }}>
+            <TableCell align="left" colSpan={1} sx={{ ...tableCellStyles, width: '25rem' }}>
                 <MultipleSelectPlaceholder
                     setCategoryName={setCategory}
                     categoryName={category}
                     names={storageData?.data.categoriesExpenses}
                 />
             </TableCell>
-            <TableCell align="left" colSpan={1} sx={{ width: '30%' }} >
+            <TableCell align="left" colSpan={1} sx={{ ...tableCellStyles, width: '30%' }} >
                 <OutlinedInputComponent
                     isError={error}
                     value={sum}
@@ -64,7 +71,7 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
                     handleChange={(event) => setSum(event.target.value.trimStart())}
                 />
             </TableCell>
-            <TableCell colSpan={1} >
+            <TableCell sx={tableCellStyles} colSpan={1} >
                 <ButtonComponent
                     disabledValue={false}
                     text="Save"
@@ -73,9 +80,9 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
                     func={handleSaveCategory}
                 />
             </TableCell>
-            <TableCell colSpan={1}  >
+            <TableCell sx={tableCellStyles} colSpan={1}  >
                 <button onClick={() => setIsCategoryInputRow(false)}>
-                    <FontAwesomeIcon icon={faTrash} />
+                    <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faTrash} />
                 </button>
             </TableCell>
         </TableRow>

@@ -44,6 +44,8 @@ export interface Theme {
     settingsTabBtnSelected: Colors,
     settingsTabBtnHover: Colors,
     pieChartStroke: Colors,
+    budgetPlannerBackground: Colors,
+    budgetPlannerRowBorder: Colors,
 }
 
 export interface ThemeContextType {

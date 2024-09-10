@@ -83,7 +83,7 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                         marginBottom: "10px"
                     }}
                     closeBlock={togleModal}
-                    size="lg"  />
+                    size="lg" />
                 <InputInner>
                     <Label themestyles={themeContext.themeStyles}>Category name</Label>
                     <Input
