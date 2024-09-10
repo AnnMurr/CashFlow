@@ -12,7 +12,7 @@ import { ThemeContext } from "../../../../../../../contexts/themeContext/themeCo
 import { BtnInner } from "./styledSaveBtn";
 
 interface SaveBtnProps {
-    completedCategories: Array<{ name: string; sum: string }>;
+    completedCategories: Array<{ name: string; sum: number }>;
     dateRange: string;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
 }
@@ -31,10 +31,12 @@ export const SaveBtn: FC<SaveBtnProps> = ({ completedCategories, dateRange, setI
                     ...storageData,
                     data: {
                         ...storageData.data,
-                        planing: [...storageData.data.planning, {
-                            period: dateRange,
-                            categories: completedCategories
-                        }]
+                        planning: [
+                            ...storageData.data.planning,
+                            {
+                                period: dateRange,
+                                categories: completedCategories
+                            }]
                     }
                 }
 

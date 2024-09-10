@@ -8,7 +8,7 @@ import { ThemeContext } from "../../../../../../../contexts/themeContext/themeCo
 import { Span } from "./styledCompletedCategoryRow";
 
 interface CompletedCategoryRowProps {
-    data: { name: string; sum: string };
+    data: { name: string; sum: number };
 }
 
 export const CompletedCategoryRow: FC<CompletedCategoryRowProps> = ({ data }) => {

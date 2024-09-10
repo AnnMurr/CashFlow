@@ -22,7 +22,7 @@ interface BudgetTableManagerProps {
 
 export const BudgetTableManager: FC<BudgetTableManagerProps> = ({ dateRange, setIsAlertActive }) => {
   const [isCategoryInputRow, setIsCategoryInputRow] = useState<boolean>(false);
-  const [completedCategories, setCompletedCategories] = useState<Array<{ name: string; sum: string }>>([]);
+  const [completedCategories, setCompletedCategories] = useState<Array<{ name: string; sum: number }>>([]);
   const { storageData } = useAppSelector((state: RootState) => state.storage);
   const themeContext = useContext<ThemeContextType>(ThemeContext);
 

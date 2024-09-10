@@ -14,10 +14,10 @@ import { ThemeContext } from "../../../../../../../contexts/themeContext/themeCo
 
 interface CategoryInputRowProps {
     setIsAlertActive: (value: AlertComponentProps | null) => void;
-    setCompletedCategories: (value: Array<{ name: string; sum: string }>) => void;
+    setCompletedCategories: (value: Array<{ name: string; sum: number }>) => void;
     setIsCategoryInputRow: (value: boolean) => void;
     storageData: UserStorageDataType;
-    completedCategories: Array<{ name: string; sum: string }>;
+    completedCategories: Array<{ name: string; sum: number }>;
 }
 
 export const CategoryInputRow: FC<CategoryInputRowProps> = ({
@@ -37,7 +37,7 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
             } else if (completedCategories.find(item => item.name === category)) {
                 showAlert({ type: "error", text: "This category already exists" }, setIsAlertActive, 3000);
             } else {
-                setCompletedCategories([...completedCategories, { name: category, sum: parseFloat(sum).toString() }]);
+                setCompletedCategories([...completedCategories, { name: category, sum: parseFloat(sum) }]);
                 setIsCategoryInputRow(false);
                 setError(false);
                 setSum("");

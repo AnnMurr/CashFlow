@@ -13,6 +13,11 @@ export const Wrapper = styled.div`
     padding: 90px 0 90px 0;
 `
 
+export const Links = styled.div`
+    display: flex;
+    gap: 20px;
+`
+
 export const Block = styled(Link) <ThemeStyledProps>`
     max-width: 30rem;
     width: 100%;
@@ -30,5 +35,13 @@ export const Block = styled(Link) <ThemeStyledProps>`
 
     &:hover {
         background-color: ${({ themestyles }) => themestyles.chartBlockBackgroundHover};
+    }
+`
+
+export const Title = styled.div`
+    padding-top: 10px;
+    
+    h3 {
+        font-family: Almarai;
     }
 `

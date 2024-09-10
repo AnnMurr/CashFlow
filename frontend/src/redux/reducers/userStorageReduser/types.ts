@@ -18,14 +18,14 @@ export interface Transaction {
     uid: string;
 }
 
-interface CategoryPlanning {
+export interface CategoryPlanning {
     name: string;
-    amount: number;
+    sum: number;
 }
 
-interface BudgetPlanning {
+export interface BudgetPlanning {
     period: string;
-    categories: CategoryPlanning[];
+    categories: Array<CategoryPlanning>;
 }
 
 export interface StorageDataType {
