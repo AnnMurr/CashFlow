@@ -18,11 +18,22 @@ export interface Transaction {
     uid: string;
 }
 
+interface CategoryPlanning {
+    name: string;
+    amount: number;
+}
+
+interface BudgetPlanning {
+    period: string;
+    categories: CategoryPlanning[];
+}
+
 export interface StorageDataType {
     categoriesExpenses: Array<CategoriesType>;
     categoriesIncome: Array<CategoriesType>;
     expenses: Array<Transaction>;
     income: Array<Transaction>;
+    planning: Array<BudgetPlanning>;
 }
 
 export interface UserStorageDataType {
@@ -75,7 +86,7 @@ export interface RootState {
         transactions: Array<Transaction> | null;
         statisticalData: StatisticalDataType | null;
         isEditingData: boolean;
-        chosenFilter: {isFilter: boolean, type: string, date: string, data: Array<ItemType>} | null;
+        chosenFilter: { isFilter: boolean, type: string, date: string, data: Array<ItemType> } | null;
         chosenCategoryStatistic: Array<ItemType> | null;
     };
 }

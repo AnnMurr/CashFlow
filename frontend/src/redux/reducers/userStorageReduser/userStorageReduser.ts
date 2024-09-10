@@ -73,6 +73,7 @@ export const createUserStore = createAsyncThunk<UserStorageDataType, string>(
                         categoriesIncome: [{ name: "work", icon: INCOME_ICON_COLLECTION }],
                         expenses: [],
                         income: [],
+                        planning: []
                     }
                 })
             });

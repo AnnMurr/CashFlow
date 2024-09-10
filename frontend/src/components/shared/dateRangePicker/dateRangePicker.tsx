@@ -20,7 +20,6 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
   const themeContext = useContext<ThemeContextType>(ThemeContext);
 
   const handleStartDateChange = (date: Dayjs | null) => {
-
     if (date) {
       setStartDate(date);
       onSelectDateRange(date?.toDate(), endDate ? endDate.toDate() : null);
@@ -29,7 +28,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
   };
 
   const handleEndDateChange = (date: Dayjs | null) => {
-    if (date && startDate) {
+    if (date) {
       setEndDate(date);
       onSelectDateRange(startDate ? startDate.toDate() : null, date?.toDate());
       setOpenEndDateCalendar(false);

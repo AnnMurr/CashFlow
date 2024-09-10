@@ -1,5 +1,4 @@
 import { FC, useContext, useState } from "react";
-import { Theme, useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -21,7 +20,6 @@ const ITEM_PADDING_TOP = 8;
 
 
 export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ names, categoryName, setCategoryName }) => {
-  const theme = useTheme();
   const [category, setCategory] = useState<Array<string>>([]);
   const themeContext = useContext<ThemeContextType>(ThemeContext);
 
