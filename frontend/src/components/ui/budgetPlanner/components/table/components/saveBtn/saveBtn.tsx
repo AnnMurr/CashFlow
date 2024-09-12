@@ -15,17 +15,24 @@ interface SaveBtnProps {
     completedCategories: Array<{ name: string; sum: number }>;
     dateRange: string;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
+    setCompletedCategories: (value: Array<{ name: string; sum: number }>) => void;
 }
 
-export const SaveBtn: FC<SaveBtnProps> = ({ completedCategories, dateRange, setIsAlertActive }) => {
+export const SaveBtn: FC<SaveBtnProps> = ({ setCompletedCategories, completedCategories, dateRange, setIsAlertActive }) => {
     const { storageData } = useAppSelector((state: RootState) => state.storage);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
 
     const saveTemplate = async () => {
         const token = getDataFromLocalStorage("token");
+        const isPeriodExist = storageData?.data.planning.find(data => data.period === dateRange);
 
-        if (storageData) {
+        if (isPeriodExist) {
+            showAlert({ type: "warning", text: "This period already exists" }, setIsAlertActive, 3000);
+            return;
+        }
+
+        if (storageData && completedCategories.length) {
             try {
                 const updatedData = {
                     ...storageData,
@@ -38,16 +45,19 @@ export const SaveBtn: FC<SaveBtnProps> = ({ completedCategories, dateRange, setI
                                 categories: completedCategories
                             }]
                     }
-                }
+                };
 
                 const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
                 if (userDataAfterUpdate) {
                     showAlert({ type: "success", text: "Budget plan added successfully" }, setIsAlertActive, 3000);
+                    setCompletedCategories([]);
                 }
             } catch (error) {
                 console.error(error);
             }
+        } else {
+            showAlert({ type: "warning", text: "Enter planning" }, setIsAlertActive, 3000);
         }
     }
 

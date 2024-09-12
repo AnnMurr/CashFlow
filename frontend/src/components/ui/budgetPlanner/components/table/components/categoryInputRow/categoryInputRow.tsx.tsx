@@ -71,7 +71,7 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
                     handleChange={(event) => setSum(event.target.value.trimStart())}
                 />
             </TableCell>
-            <TableCell sx={tableCellStyles} colSpan={1} >
+            <TableCell sx={{...tableCellStyles, paddingRight: "0", paddingLeft: "0"}} colSpan={1} >
                 <ButtonComponent
                     disabledValue={false}
                     text="Save"
@@ -80,7 +80,7 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
                     func={handleSaveCategory}
                 />
             </TableCell>
-            <TableCell sx={tableCellStyles} colSpan={1}  >
+            <TableCell align="right" sx={tableCellStyles} colSpan={1}  >
                 <button onClick={() => setIsCategoryInputRow(false)}>
                     <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faTrash} />
                 </button>

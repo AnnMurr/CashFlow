@@ -21,7 +21,7 @@ export const BudgetManager: FC = () => {
                             <Block themestyles={themeContext.themeStyles} to={"/financial-plans"}>
                                 <FontAwesomeIcon size="3x" color={themeContext.themeStyles.color} icon={faRectangleList} />
                                 <Title>
-                                    <h3>Compleated plans</h3>
+                                    <h3>plans</h3>
                                 </Title>
                             </Block>
                             <Block themestyles={themeContext.themeStyles} to={"/budget-planner"}>

@@ -5,7 +5,7 @@ import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import { v4 as uuidV4 } from "uuid";
 import { useAppSelector } from "../../../../../redux/store/store";
-import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
+import { CategoryPlanning, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { CategoryInputRow } from "./components/categoryInputRow/categoryInputRow.tsx";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { CategoryInputAddBtn } from "./components/categoryInputAddBtn/categoryInputAddBtn";
@@ -18,11 +18,16 @@ import { ThemeContext } from "../../../../../contexts/themeContext/themeContext"
 interface BudgetTableManagerProps {
   dateRange: string;
   setIsAlertActive: (value: AlertComponentProps | null) => void;
+  setIsEditModalActive: (value: boolean) => void;
+  setIsDeleteCategoryModal: (value: boolean) => void;
+  setChoosenEditCategory: (value: CategoryPlanning | null) => void;
+  completedCategories: Array<CategoryPlanning>;
+  setCompletedCategories: (value: Array<CategoryPlanning>) => void;
 }
 
-export const BudgetTableManager: FC<BudgetTableManagerProps> = ({ dateRange, setIsAlertActive }) => {
+export const BudgetTableManager: FC<BudgetTableManagerProps> = ({
+  dateRange, setIsAlertActive, setIsEditModalActive, setIsDeleteCategoryModal, setChoosenEditCategory, completedCategories, setCompletedCategories }) => {
   const [isCategoryInputRow, setIsCategoryInputRow] = useState<boolean>(false);
-  const [completedCategories, setCompletedCategories] = useState<Array<{ name: string; sum: number }>>([]);
   const { storageData } = useAppSelector((state: RootState) => state.storage);
   const themeContext = useContext<ThemeContextType>(ThemeContext);
 
@@ -37,7 +42,12 @@ export const BudgetTableManager: FC<BudgetTableManagerProps> = ({ dateRange, set
         <Heading />
         <TableBody>
           {completedCategories.length > 0 && completedCategories.map(data => (
-            <CompletedCategoryRow key={uuidV4()} data={data} />
+            <CompletedCategoryRow
+              setChoosenEditCategory={setChoosenEditCategory}
+              setIsEditModalActive={setIsEditModalActive}
+              setIsDeleteCategoryModal={setIsDeleteCategoryModal}
+              key={uuidV4()}
+              data={data} />
           ))}
           {isCategoryInputRow && storageData && (
             <CategoryInputRow
@@ -48,6 +58,7 @@ export const BudgetTableManager: FC<BudgetTableManagerProps> = ({ dateRange, set
               completedCategories={completedCategories} />)}
           <CategoryInputAddBtn setIsCategoryInputRow={setIsCategoryInputRow} />
           <SaveBtn
+            setCompletedCategories={setCompletedCategories}
             setIsAlertActive={setIsAlertActive}
             dateRange={dateRange}
             completedCategories={completedCategories} />

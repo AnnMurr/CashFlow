@@ -17,8 +17,8 @@ export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({ data }) => {
 
     useEffect(() => {
         const count = data.categories.reduce((acc, category) => acc + category.sum, 0);
-        setTotalAmount(count)
-    }, [])
+        setTotalAmount(count);
+    }, []);
 
     return (
         <TableContainer component={Paper}>

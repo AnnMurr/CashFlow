@@ -37,9 +37,9 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
 
     useEffect(() => {
         if (+categorySum !== categoryData?.sum || categoryName !== categoryData.category) {
-            setIsDisabledBtn(false)
+            setIsDisabledBtn(false);
         } else {
-            setIsDisabledBtn(true)
+            setIsDisabledBtn(true);
         }
     }, [categorySum, categoryName]);
 

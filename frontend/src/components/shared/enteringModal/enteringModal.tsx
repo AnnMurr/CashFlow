@@ -99,7 +99,13 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                     size="lg"
                     color={themeContext.themeStyles.enteringModalColor} />
                 <InputInner>
-                    <Input themestyles={themeContext.themeStyles} ref={inputRef} onKeyDown={enterValue} value={inputValue} readOnly type="text" />
+                    <Input
+                        themestyles={themeContext.themeStyles}
+                        ref={inputRef}
+                        onKeyDown={enterValue}
+                        value={inputValue}
+                        readOnly
+                        type="text" />
                     <DeleteBtnInner>
                         <button
                             className={"btn_delete"}

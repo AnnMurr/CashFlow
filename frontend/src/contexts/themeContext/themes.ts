@@ -192,7 +192,7 @@ export const Themes: ThemesType = {
         settingsTabBtnHover: Colors.DUSTY_MOCHA_MIST_TRANSPARENT,
         pieChartStroke: Colors.DOVE_GRAY,
         budgetPlannerBackground: Colors.WHITE_ROCK,
-        budgetPlannerRowBorder: Colors.EMPEROR
+        budgetPlannerRowBorder: Colors.URBAN_SLATE_TRANSPARENT
     },
     gray: {
         body: Colors.EMPERORAPPROX,

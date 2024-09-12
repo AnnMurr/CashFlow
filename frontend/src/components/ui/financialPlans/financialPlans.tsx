@@ -3,9 +3,9 @@ import { v4 as uuidV4 } from "uuid";
 import { Body } from "../../shared/body/body";
 import { SubBar } from "../../shared/subBar/subBar";
 import { FinancialPlansTable } from "./components/table/table";
-import { Container, Tables, Wrapper } from "./styledFinancialPlans";
 import { BudgetPlanning, RootState } from "../../../redux/reducers/userStorageReduser/types";
 import { useAppSelector } from "../../../redux/store/store";
+import { Container, Tables, Wrapper } from "./styledFinancialPlans";
 
 export const FinancialPlans: FC = () => {
     const [budgetPlans, setBudgetPlans] = useState<Array<BudgetPlanning> | null>(null);
