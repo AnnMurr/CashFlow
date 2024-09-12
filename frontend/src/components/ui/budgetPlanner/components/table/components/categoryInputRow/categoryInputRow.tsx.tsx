@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { TableCell, TableRow } from "@mui/material";
 import { ButtonComponent } from "../../../../../../shared/button/button";
 import { OutlinedInputComponent } from "../../../../../../shared/outlinedInput/outlinedInput";
@@ -16,15 +16,16 @@ interface CategoryInputRowProps {
     setIsAlertActive: (value: AlertComponentProps | null) => void;
     setCompletedCategories: (value: Array<{ name: string; sum: number }>) => void;
     setIsCategoryInputRow: (value: boolean) => void;
-    storageData: UserStorageDataType;
     completedCategories: Array<{ name: string; sum: number }>;
+    availableCategories: any;
 }
 
 export const CategoryInputRow: FC<CategoryInputRowProps> = ({
-    setIsAlertActive, setCompletedCategories, setIsCategoryInputRow, storageData, completedCategories }) => {
+    setIsAlertActive, setCompletedCategories, setIsCategoryInputRow, completedCategories, availableCategories }) => {
     const [error, setError] = useState<boolean>(false);
     const [category, setCategory] = useState<string | null>(null);
     const [sum, setSum] = useState<string>("");
+
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const handleSaveCategory = () => {
@@ -34,8 +35,6 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
             if (!VALID_SUM_REGEX.test(sum2)) {
                 setError(true);
                 showAlert({ type: "error", text: "Invalid sum" }, setIsAlertActive, 3000);
-            } else if (completedCategories.find(item => item.name === category)) {
-                showAlert({ type: "error", text: "This category already exists" }, setIsAlertActive, 3000);
             } else {
                 setCompletedCategories([...completedCategories, { name: category, sum: parseFloat(sum) }]);
                 setIsCategoryInputRow(false);
@@ -52,13 +51,16 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
         borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
     };
 
+
+
     return (
         <TableRow>
             <TableCell align="left" colSpan={1} sx={{ ...tableCellStyles, width: '25rem' }}>
                 <MultipleSelectPlaceholder
+                    isDisabled={false}
                     setCategoryName={setCategory}
                     categoryName={category}
-                    names={storageData?.data.categoriesExpenses}
+                    names={availableCategories}
                 />
             </TableCell>
             <TableCell align="left" colSpan={1} sx={{ ...tableCellStyles, width: '30%' }} >
@@ -71,7 +73,7 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
                     handleChange={(event) => setSum(event.target.value.trimStart())}
                 />
             </TableCell>
-            <TableCell sx={{...tableCellStyles, paddingRight: "0", paddingLeft: "0"}} colSpan={1} >
+            <TableCell sx={{ ...tableCellStyles, paddingRight: "0", paddingLeft: "0" }} colSpan={1} >
                 <ButtonComponent
                     disabledValue={false}
                     text="Save"

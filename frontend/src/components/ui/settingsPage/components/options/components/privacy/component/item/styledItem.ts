@@ -42,8 +42,7 @@ export const Title = styled.div<ThemeStyledProps>`
 export const SubTitle = styled.div<ThemeStyledProps>`
     display: none;
     position: absolute;
-    width: 100%;
-    max-width: 200px;
+    width: fit-content;
     padding: 10px;
     top: 2rem;
     right: -5rem;
@@ -51,7 +50,7 @@ export const SubTitle = styled.div<ThemeStyledProps>`
     box-shadow: 0px 0px 7px #898181;
     border-radius: 5px;
 
-    h5 {
+    span {
         font-size: 12px;
         color:${({ themestyles }) => themestyles.color};
         font-weight: 400;

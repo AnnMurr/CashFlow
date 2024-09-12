@@ -8,14 +8,16 @@ import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 interface BtnAddProps {
     size?: string;
     func: () => void;
+    isDisabled: boolean; 
 }
 
-export const BtnAdd: FC<BtnAddProps> = ({ size, func }) => {
+export const BtnAdd: FC<BtnAddProps> = ({ size, func, isDisabled }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     return (
         <Box>
             <Fab
+                disabled={isDisabled}
                 aria-label="add"
                 onClick={func}
                 sx={{

@@ -36,11 +36,9 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
     const { storageData, typesOfCategories, transactions } = useAppSelector((state: RootState) => state.storage);
 
     useEffect(() => {
-        if (+categorySum !== categoryData?.sum || categoryName !== categoryData.category) {
-            setIsDisabledBtn(false);
-        } else {
+        +categorySum !== categoryData?.sum || categoryName !== categoryData.category ?
+            setIsDisabledBtn(false) :
             setIsDisabledBtn(true);
-        }
     }, [categorySum, categoryName]);
 
     useEffect(() => {
@@ -83,7 +81,8 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                         }
                     });
 
-                    storageDataCopy.data[categoryData?.type] = storageDataCopy.data[categoryData?.type].filter(element => element.uid !== categoryData?.uid)
+                    storageDataCopy.data[categoryData?.type] = storageDataCopy.data[categoryData?.type]
+                        .filter(element => element.uid !== categoryData?.uid)
                     newData && storageDataCopy.data[categoryData?.type].push(newData);
 
                     const changeUserDataResponse = (await dispatch(changeUserData({ userToken: token, updatedData: storageDataCopy }))).payload
@@ -118,6 +117,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
                     <Label themestyles={themeContext.themeStyles}>Category</Label>
                     {(typesOfCategories && categoryData) &&
                         <MultipleSelectPlaceholder
+                            isDisabled={false}
                             setCategoryName={setCategoryName}
                             categoryName={categoryName}
                             names={typesOfCategories[categoryData?.type]} />}

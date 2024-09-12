@@ -9,7 +9,7 @@ import { DateSelectorModal } from "./components/dateSelectorModal/dateSelectorMo
 import { MONTH } from "../../../consts";
 import { getMonth } from "../../../utils/dateUtils";
 import { EditModal } from "./components/editModal/editModal";
-import { CategoryPlanning } from "../../../redux/reducers/userStorageReduser/types";
+import { CategoriesType, CategoryPlanning } from "../../../redux/reducers/userStorageReduser/types";
 import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
 import { Container, Wrapper } from "./styledBudgetPlanner";
 
@@ -21,6 +21,7 @@ export const BudgetPlanner: FC = () => {
     const [isDeleteCategoryModal, setIsDeleteCategoryModal] = useState<boolean>(false);
     const [completedCategories, setCompletedCategories] = useState<Array<CategoryPlanning>>([]);
     const [choosenEditCategory, setChoosenEditCategory] = useState<CategoryPlanning | null>(null);
+    const [availableCategories, setAvailableCategories] = useState<Array<CategoriesType>>([]);
 
     const currentSetIsModal = isDateSelectorModal
         ? setIsDateSelectorModal
@@ -48,7 +49,9 @@ export const BudgetPlanner: FC = () => {
                             dateRange={dateRange}
                             setIsAlertActive={setIsAlertActive}
                             completedCategories={completedCategories}
-                            setCompletedCategories={setCompletedCategories} />
+                            setCompletedCategories={setCompletedCategories}
+                            availableCategories={availableCategories}
+                            setAvailableCategories={setAvailableCategories} />
                         {isDateSelectorModal &&
                             <DateSelectorModal
                                 setDateRange={setDateRange}
@@ -60,7 +63,8 @@ export const BudgetPlanner: FC = () => {
                                 setIsEditModalActive={setIsEditModalActive}
                                 setIsAlertActive={setIsAlertActive}
                                 completedCategories={completedCategories}
-                                setCompletedCategories={setCompletedCategories} />}
+                                setCompletedCategories={setCompletedCategories}
+                                availableCategories={availableCategories} />}
                         {isDeleteCategoryModal &&
                             <DeleteCategoryModal
                                 closeModal={setIsDeleteCategoryModal}

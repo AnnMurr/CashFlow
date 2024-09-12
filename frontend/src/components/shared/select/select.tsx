@@ -10,16 +10,17 @@ import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 
 interface MultipleSelectPlaceholderType {
-  names: Array<CategoriesType> | Array<string> | Array<CurrencyNameAndCode> | null,
-  categoryName: string | null,
-  setCategoryName: (value: string) => void
+  names: Array<CategoriesType> | Array<string> | Array<CurrencyNameAndCode> | null;
+  categoryName: string | null;
+  setCategoryName: (value: string) => void;
+  isDisabled: boolean;
 }
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
 
-export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ names, categoryName, setCategoryName }) => {
+export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ names, categoryName, setCategoryName, isDisabled }) => {
   const [category, setCategory] = useState<Array<string>>([]);
   const themeContext = useContext<ThemeContextType>(ThemeContext);
 
@@ -81,6 +82,7 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
     <div>
       <FormControl sx={formControlStyles}>
         <Select
+          disabled={isDisabled}
           sx={selectStyles}
           displayEmpty
           value={category}

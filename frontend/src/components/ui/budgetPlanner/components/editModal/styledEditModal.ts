@@ -1,6 +1,10 @@
 import { ThemeStyledProps } from "../../../../../contexts/themeContext/types";
 import styled from "styled-components";
 
+interface SelectWrapperProps {
+    isdisabled: string;
+}
+
 export const Container = styled.div<ThemeStyledProps>`
     width: 100%;
     max-width: 25rem;
@@ -29,4 +33,30 @@ export const Label = styled.label<ThemeStyledProps>`
     padding: 10px 0;
     font-weight: 600;
     color:${({ themestyles }) => themestyles.color};
+`
+
+export const Tooltip = styled.div<ThemeStyledProps>`
+    position: absolute;
+    width: fit-content;
+    padding: 10px;
+    top: 1rem;
+    left: 0;
+    background-color: ${({ themestyles }) => themestyles.modalBackground};
+    box-shadow: 0px 0px 7px #898181;
+    border-radius: 5px;
+    display: none;
+
+    span {
+        font-size: 12px;
+        color:${({ themestyles }) => themestyles.color};
+        font-weight: 400;
+    }
+`
+
+export const SelectWrapper = styled.div<SelectWrapperProps>`
+    position: relative;
+
+    &:hover > ${Tooltip} {
+        display: ${({ isdisabled }) => isdisabled === "true" ? "block" : "none"};
+    }
 `

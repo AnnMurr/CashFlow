@@ -2,7 +2,7 @@ import { FC, useContext } from "react";
 import { TableCell, TableRow } from "@mui/material";
 import { ButtonComponent } from "../../../../../../shared/button/button";
 import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
-import { RootState } from "../../../../../../../redux/reducers/userStorageReduser/types";
+import { CategoryPlanning, RootState } from "../../../../../../../redux/reducers/userStorageReduser/types";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { showAlert } from "../../../../../../../utils/showAlert";
@@ -12,10 +12,10 @@ import { ThemeContext } from "../../../../../../../contexts/themeContext/themeCo
 import { BtnInner } from "./styledSaveBtn";
 
 interface SaveBtnProps {
-    completedCategories: Array<{ name: string; sum: number }>;
+    completedCategories: Array<CategoryPlanning>;
     dateRange: string;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
-    setCompletedCategories: (value: Array<{ name: string; sum: number }>) => void;
+    setCompletedCategories: (value: Array<CategoryPlanning>) => void;
 }
 
 export const SaveBtn: FC<SaveBtnProps> = ({ setCompletedCategories, completedCategories, dateRange, setIsAlertActive }) => {

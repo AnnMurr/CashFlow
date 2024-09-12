@@ -17,13 +17,13 @@ interface MonthSelectModalProps {
 export const MonthSelectModal: FC<MonthSelectModalProps> = ({
     setMonth, month, applyMonth, setIsMonthSelectModal }) => {
     const [months, setMonths] = useState<Array<string> | null>(null);
- 
+
     useEffect(() => {
         const currentMonthIndex = getMonth();
         const currentYear = getYear().toString();
         const previousYear = +currentYear - 1;
         const monthsList = [];
-      
+
 
         for (let i = currentMonthIndex - 1; i >= 0; i--) {
             monthsList.push(`${MONTH[i]} ${currentYear}`);
@@ -32,7 +32,7 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({
         for (let i = MONTH.length - 1; i > currentMonthIndex - 1; i--) {
             monthsList.push(`${MONTH[i]} ${previousYear}`);
         }
-        
+
         setMonths(monthsList);
         setMonth(monthsList[0]);
     }, []);
@@ -47,6 +47,7 @@ export const MonthSelectModal: FC<MonthSelectModalProps> = ({
                 closeBlock={setIsMonthSelectModal}
                 size="lg" />
             <MultipleSelectPlaceholder
+                isDisabled={false}
                 setCategoryName={setMonth}
                 categoryName={month}
                 names={months} />

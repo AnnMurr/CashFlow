@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useAppSelector } from "../../../../../redux/store/store";
-import { CategoryPlanning, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
+import { CategoriesType, CategoryPlanning, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { BtnClose } from "../../../../shared/btnClose/btnClose";
 import { ButtonComponent } from "../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
@@ -10,7 +10,7 @@ import { ThemeContext } from "../../../../../contexts/themeContext/themeContext"
 import { OutlinedInputComponent } from "../../../../../components/shared/outlinedInput/outlinedInput";
 import { showAlert } from "../../../../../utils/showAlert";
 import { VALID_SUM_REGEX } from "../../../../../consts";
-import { BtnInner, Container, Label, Wrapper } from "./styledEditModal";
+import { BtnInner, Container, Label, SelectWrapper, Tooltip, Wrapper } from "./styledEditModal";
 
 interface EditCategoryModalProps {
     setIsEditModalActive: (value: boolean) => void;
@@ -18,14 +18,22 @@ interface EditCategoryModalProps {
     choosenEditCategory: CategoryPlanning | null;
     completedCategories: Array<CategoryPlanning>;
     setCompletedCategories: (value: Array<CategoryPlanning>) => void;
+    availableCategories: Array<CategoriesType>;
 }
 
 export const EditModal: FC<EditCategoryModalProps> = ({
-    setIsEditModalActive, setIsAlertActive, choosenEditCategory, completedCategories, setCompletedCategories }) => {
+    setIsEditModalActive,
+    setIsAlertActive,
+    choosenEditCategory,
+    completedCategories,
+    setCompletedCategories,
+    availableCategories
+}) => {
     const [categoryName, setCategoryName] = useState<string>("");
     const [categorySum, setCategorySum] = useState<string>("");
     const [categoryNameError, setCategoryNameError] = useState<boolean>(false);
     const [isDisabledBtn, setIsDisabledBtn] = useState<boolean>(true);
+    const [isSelectDisabled, setIsSelectDisabled] = useState<boolean>(true);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
     const { storageData } = useAppSelector((state: RootState) => state.storage);
 
@@ -36,13 +44,7 @@ export const EditModal: FC<EditCategoryModalProps> = ({
     }
 
     const saveChanges = () => {
-        const isCategoryExist = completedCategories.find(item => item.name === categoryName && choosenEditCategory?.name !== categoryName);
         const sum = categorySum.toString().replace(',', '.');
-
-        if (isCategoryExist) {
-            showAlert({ type: "error", text: "This category already exists" }, setIsAlertActive, 3000);
-            return;
-        }
 
         if (!VALID_SUM_REGEX.test(sum)) {
             showAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
@@ -71,12 +73,14 @@ export const EditModal: FC<EditCategoryModalProps> = ({
     }, []);
 
     useEffect(() => {
-        if (+categorySum !== choosenEditCategory?.sum || categoryName !== choosenEditCategory.name) {
-            setIsDisabledBtn(false);
-        } else {
+        +categorySum !== choosenEditCategory?.sum || categoryName !== choosenEditCategory.name ?
+            setIsDisabledBtn(false) :
             setIsDisabledBtn(true);
-        }
     }, [categorySum, categoryName]);
+
+    useEffect(() => {
+        setIsSelectDisabled(!availableCategories.length);
+    }, [availableCategories]);
 
     return (
         <Container themestyles={themeContext.themeStyles}>
@@ -88,10 +92,18 @@ export const EditModal: FC<EditCategoryModalProps> = ({
                 <div>
                     <Label themestyles={themeContext.themeStyles}>Category</Label>
                     {categoryName && storageData &&
-                        <MultipleSelectPlaceholder
-                            setCategoryName={setCategoryName}
-                            categoryName={categoryName}
-                            names={storageData.data.categoriesExpenses} />}
+                        <SelectWrapper isdisabled={isSelectDisabled.toString()}>
+                            <MultipleSelectPlaceholder
+                                isDisabled={isSelectDisabled}
+                                setCategoryName={setCategoryName}
+                                categoryName={categoryName}
+                                names={availableCategories} />
+                            <Tooltip themestyles={themeContext.themeStyles}>
+                                <span>
+                                    There are no available categories
+                                </span>
+                            </Tooltip>
+                        </SelectWrapper>}
                 </div>
                 <div>
                     <Label themestyles={themeContext.themeStyles}>Sum</Label>

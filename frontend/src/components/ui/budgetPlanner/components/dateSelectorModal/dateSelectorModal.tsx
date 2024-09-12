@@ -78,6 +78,7 @@ export const DateSelectorModal: FC<DateSelectorModalProps> = ({
                 </span>
             ),
             content: <MultipleSelectPlaceholder
+                isDisabled={false}
                 setCategoryName={setSelectedMonth}
                 categoryName={selectedMonth}
                 names={months} />

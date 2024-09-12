@@ -1,11 +1,11 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import { v4 as uuidV4 } from "uuid";
 import { useAppSelector } from "../../../../../redux/store/store";
-import { CategoryPlanning, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
+import { CategoriesType, CategoryPlanning, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { CategoryInputRow } from "./components/categoryInputRow/categoryInputRow.tsx";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { CategoryInputAddBtn } from "./components/categoryInputAddBtn/categoryInputAddBtn";
@@ -23,11 +23,23 @@ interface BudgetTableManagerProps {
   setChoosenEditCategory: (value: CategoryPlanning | null) => void;
   completedCategories: Array<CategoryPlanning>;
   setCompletedCategories: (value: Array<CategoryPlanning>) => void;
+  availableCategories: Array<CategoriesType>;
+  setAvailableCategories: (value: Array<CategoriesType>) => void;
 }
 
 export const BudgetTableManager: FC<BudgetTableManagerProps> = ({
-  dateRange, setIsAlertActive, setIsEditModalActive, setIsDeleteCategoryModal, setChoosenEditCategory, completedCategories, setCompletedCategories }) => {
+  dateRange,
+  setIsAlertActive,
+  setIsEditModalActive,
+  setIsDeleteCategoryModal,
+  setChoosenEditCategory,
+  completedCategories,
+  setCompletedCategories,
+  availableCategories,
+  setAvailableCategories
+}) => {
   const [isCategoryInputRow, setIsCategoryInputRow] = useState<boolean>(false);
+  const [isAddBtnDisabled, setIsAddBtnDisabled] = useState<boolean>(false);
   const { storageData } = useAppSelector((state: RootState) => state.storage);
   const themeContext = useContext<ThemeContextType>(ThemeContext);
 
@@ -35,6 +47,20 @@ export const BudgetTableManager: FC<BudgetTableManagerProps> = ({
     backgroundColor: themeContext.themeStyles.budgetPlannerBackground,
     padding: "30px 40px 40px 40px"
   }
+
+  useEffect(() => {
+    if (storageData) {
+      const filteredAvailableCategories = storageData?.data.categoriesExpenses.filter(item =>
+        !completedCategories.find(c => c.name === item.name));
+      console.log(filteredAvailableCategories)
+      setAvailableCategories(filteredAvailableCategories || []);
+    }
+
+  }, [completedCategories, storageData]);
+
+  useEffect(() => {
+    setIsAddBtnDisabled(!availableCategories.length);
+  }, [availableCategories]);
 
   return (
     <TableContainer sx={tableContainerStyles} component={Paper}>
@@ -54,9 +80,11 @@ export const BudgetTableManager: FC<BudgetTableManagerProps> = ({
               setIsAlertActive={setIsAlertActive}
               setCompletedCategories={setCompletedCategories}
               setIsCategoryInputRow={setIsCategoryInputRow}
-              storageData={storageData}
-              completedCategories={completedCategories} />)}
-          <CategoryInputAddBtn setIsCategoryInputRow={setIsCategoryInputRow} />
+              completedCategories={completedCategories}
+              availableCategories={availableCategories} />)}
+          <CategoryInputAddBtn
+            isDisabled={isAddBtnDisabled}
+            setIsCategoryInputRow={setIsCategoryInputRow} />
           <SaveBtn
             setCompletedCategories={setCompletedCategories}
             setIsAlertActive={setIsAlertActive}
