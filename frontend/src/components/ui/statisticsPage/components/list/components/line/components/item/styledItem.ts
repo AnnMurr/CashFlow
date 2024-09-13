@@ -44,7 +44,7 @@ export const Container = styled.div<CombinedProps>`
     &:hover {
         ${Settings} {
             display: flex;
-            animation: showEdit 0.5s ease forwards;
+            animation: showEdit 0.3s ease forwards;
         }
         background-color: ${({ iseditingdata, categorystatistic, themestyles }) =>
         iseditingdata === "false" && categorystatistic === "false" ? themestyles.lineBackgroundHover : "none"};
@@ -54,12 +54,12 @@ export const Container = styled.div<CombinedProps>`
         0% {
             width: 0;
             margin-left: 0;
-            opaacity: 0;
+            opacity: 0;
         }
         100% {
             width: 30px;
             margin-left: 20px;
-            opaacity: 1;
+            opacity: 1;
         }
       }
 `
@@ -85,9 +85,8 @@ export const TimeEditBlock = styled.div`
 export const Date = styled.div<ThemeStyledProps>`
     display: grid;
     grid-template-columns: 75% 25%;
-    text-align: end;
-    width: 100%;
-
+    margin-right: auto;
+    
     span {
         color:${({ themestyles }) => themestyles.color};
     }

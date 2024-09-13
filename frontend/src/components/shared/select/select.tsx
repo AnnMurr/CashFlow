@@ -1,5 +1,4 @@
 import { FC, useContext, useState } from "react";
-import { Theme, useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -11,17 +10,16 @@ import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 
 interface MultipleSelectPlaceholderType {
-  names: Array<CategoriesType> | Array<string> | Array<CurrencyNameAndCode> | null,
-  categoryName: string | null,
-  setCategoryName: (value: string) => void
+  names: Array<CategoriesType> | Array<string> | Array<CurrencyNameAndCode> | null;
+  categoryName: string | null;
+  setCategoryName: (value: string) => void;
+  isDisabled: boolean;
 }
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
-
-export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ names, categoryName, setCategoryName }) => {
-  const theme = useTheme();
+export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ names, categoryName, setCategoryName, isDisabled }) => {
   const [category, setCategory] = useState<Array<string>>([]);
   const themeContext = useContext<ThemeContextType>(ThemeContext);
 
@@ -60,13 +58,20 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
       borderColor: themeContext.themeStyles.inputBorder,
     },
     '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: themeContext.themeStyles.inputBorderHover,
+      borderColor: isDisabled ? "none" : themeContext.themeStyles.inputBorderHover,
     },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: themeContext.themeStyles.inputBorderFocused,
     },
     '& .MuiSelect-menu': {
       backgroundColor: "red",
+    },
+    '& .MuiOutlinedInput-input.Mui-disabled': {
+      color: themeContext.themeStyles.multipleSelectPlaceholderDisabledColor,
+      '-webkit-text-fill-color': themeContext.themeStyles.multipleSelectPlaceholderDisabledColor
+    },
+    '&.MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
+      borderColor: themeContext.themeStyles.multipleSelectPlaceholderDisabledBorder,
     },
   };
 
@@ -83,6 +88,7 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
     <div>
       <FormControl sx={formControlStyles}>
         <Select
+          disabled={isDisabled}
           sx={selectStyles}
           displayEmpty
           value={category}

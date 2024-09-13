@@ -30,9 +30,9 @@ export const Item: FC<ItemProps> = ({ link, icon, title, subTitle }) => {
                     <FontAwesomeIcon icon={faQuestion} size="2xs" color={themeContext.themeStyles.color} />
                 </QuestionMark>
                 <SubTitle themestyles={themeContext.themeStyles}>
-                    <h5>
+                    <span>
                         {subTitle}
-                    </h5>
+                    </span>
                 </SubTitle>
                 <div>
                     <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faArrowRight} />

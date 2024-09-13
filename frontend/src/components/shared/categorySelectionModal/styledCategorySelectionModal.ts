@@ -42,6 +42,7 @@ export const Input = styled.input<ThemeStyledProps>`
     padding: 5px;
     border-bottom: 1px solid #c6c6c6;   
     background-color:${({ themestyles }) => themestyles.modalBackground};
+    color:${({ themestyles }) => themestyles.color};
 `
 
 export const Label = styled.label<ThemeStyledProps>`

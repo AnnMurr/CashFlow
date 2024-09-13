@@ -25,6 +25,9 @@ import { IcomePage } from './components/ui/icomePage/icomePage';
 import { Statistics } from './components/ui/statisticsPage/statistics';
 import { ThemeContextProvider } from './contexts/themeContext/themeContext';
 import { ChartPage } from './components/ui/chartPage/chartPage';
+import { BudgetManager } from './components/ui/budgetManager/budgetManager';
+import { BudgetPlanner } from './components/ui/budgetPlanner/budgetPlanner';
+import { FinancialPlans } from './components/ui/financialPlans/financialPlans';
 import "./accets/styles/fonts.css";
 import "./accets/styles/reset.css";
 
@@ -57,6 +60,9 @@ function App() {
                   <ProfilePage />
                 </CheckNotAuthorization>
               } />
+              <Route path="/budget-manager" element={<BudgetManager />} />
+              <Route path="/budget-planner" element={<BudgetPlanner />} />
+              <Route path="/financial-plans" element={<FinancialPlans />} />
               <Route path="/pie-chart" element={<ChartPage />} />
               <Route path="/expenses" element={<ExpensesPage />} />
               <Route path="/income" element={<IcomePage />} />

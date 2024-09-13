@@ -81,6 +81,7 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
                         closeBlock={setIsCurrencyChoosingModalActive}
                         size="lg" />
                     <MultipleSelectPlaceholder
+                        isDisabled={false}
                         setCategoryName={setCurrencyName}
                         categoryName={currencyName}
                         names={currencies} />
