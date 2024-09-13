@@ -40,7 +40,7 @@ export const Tooltip = styled.div<ThemeStyledProps>`
     width: fit-content;
     padding: 10px;
     top: 1rem;
-    left: 0;
+    left: 9rem;
     background-color: ${({ themestyles }) => themestyles.modalBackground};
     box-shadow: 0px 0px 7px #898181;
     border-radius: 5px;

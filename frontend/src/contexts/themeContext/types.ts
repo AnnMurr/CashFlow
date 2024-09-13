@@ -46,6 +46,9 @@ export interface Theme {
     pieChartStroke: Colors,
     budgetPlannerBackground: Colors,
     budgetPlannerRowBorder: Colors,
+    btnAddDisabledBackground: Colors,
+    multipleSelectPlaceholderDisabledColor: Colors,
+    multipleSelectPlaceholderDisabledBorder: Colors,
 }
 
 export interface ThemeContextType {

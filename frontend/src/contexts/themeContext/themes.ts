@@ -106,7 +106,10 @@ export const Themes: ThemesType = {
         settingsTabBtnHover: Colors.MERCURY_TRANSPARENT,
         pieChartStroke: Colors.DOVE_GRAY,
         budgetPlannerBackground: Colors.ATHENS_GRAY,
-        budgetPlannerRowBorder: Colors.MERCURY
+        budgetPlannerRowBorder: Colors.MERCURY,
+        btnAddDisabledBackground: Colors.TRANSPARENT_BLACK,
+        multipleSelectPlaceholderDisabledColor: Colors.MINE_SHAFT_TRANSPARENT,
+        multipleSelectPlaceholderDisabledBorder: Colors.TRANSPARENT_BLACK
     },
     dark: {
         body: Colors.COD_GRAY,
@@ -149,7 +152,10 @@ export const Themes: ThemesType = {
         settingsTabBtnHover: Colors.MINE_SHAFT_TRANSPARENT,
         pieChartStroke: Colors.MINE_SHAFT,
         budgetPlannerBackground: Colors.DARK_GRAY,
-        budgetPlannerRowBorder: Colors.EMPEROR
+        budgetPlannerRowBorder: Colors.EMPEROR,
+        btnAddDisabledBackground: Colors.TRANSPARENT_WHITE,
+        multipleSelectPlaceholderDisabledColor: Colors.TRANSPARENT_WHITE,
+        multipleSelectPlaceholderDisabledBorder: Colors.MINE_SHAFT_TRANSPARENT
     },
     sandstone: {
         body: Colors.NAPA,
@@ -192,7 +198,10 @@ export const Themes: ThemesType = {
         settingsTabBtnHover: Colors.DUSTY_MOCHA_MIST_TRANSPARENT,
         pieChartStroke: Colors.DOVE_GRAY,
         budgetPlannerBackground: Colors.WHITE_ROCK,
-        budgetPlannerRowBorder: Colors.URBAN_SLATE_TRANSPARENT
+        budgetPlannerRowBorder: Colors.URBAN_SLATE_TRANSPARENT,
+        btnAddDisabledBackground: Colors.TRANSPARENT_BLACK,
+        multipleSelectPlaceholderDisabledColor: Colors.MINE_SHAFT_TRANSPARENT,
+        multipleSelectPlaceholderDisabledBorder: Colors.TRANSPARENT_BLACK
     },
     gray: {
         body: Colors.EMPERORAPPROX,
@@ -235,7 +244,10 @@ export const Themes: ThemesType = {
         settingsTabBtnHover: Colors.URBAN_SLATE_TRANSPARENT,
         pieChartStroke: Colors.WHITE,
         budgetPlannerBackground: Colors.TUNDORA,
-        budgetPlannerRowBorder: Colors.SILVER
+        budgetPlannerRowBorder: Colors.SILVER,
+        btnAddDisabledBackground: Colors.TRANSPARENT_WHITE,
+        multipleSelectPlaceholderDisabledColor: Colors.TRANSPARENT_WHITE,
+        multipleSelectPlaceholderDisabledBorder: Colors.URBAN_SLATE_TRANSPARENT
     },
     light: {
         body: Colors.WHITE,
@@ -278,6 +290,9 @@ export const Themes: ThemesType = {
         settingsTabBtnHover: Colors.MERCURY_TRANSPARENT,
         pieChartStroke: Colors.DOVE_GRAY,
         budgetPlannerBackground: Colors.AQUA_HAZE,
-        budgetPlannerRowBorder: Colors.MERCURY
+        budgetPlannerRowBorder: Colors.MERCURY,
+        btnAddDisabledBackground: Colors.TRANSPARENT_BLACK,
+        multipleSelectPlaceholderDisabledColor: Colors.MINE_SHAFT_TRANSPARENT,
+        multipleSelectPlaceholderDisabledBorder: Colors.TRANSPARENT_BLACK
     },
 }

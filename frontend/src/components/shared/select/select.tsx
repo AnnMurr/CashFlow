@@ -19,7 +19,6 @@ interface MultipleSelectPlaceholderType {
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
-
 export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ names, categoryName, setCategoryName, isDisabled }) => {
   const [category, setCategory] = useState<Array<string>>([]);
   const themeContext = useContext<ThemeContextType>(ThemeContext);
@@ -59,13 +58,20 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
       borderColor: themeContext.themeStyles.inputBorder,
     },
     '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: themeContext.themeStyles.inputBorderHover,
+      borderColor: isDisabled ? "none" : themeContext.themeStyles.inputBorderHover,
     },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: themeContext.themeStyles.inputBorderFocused,
     },
     '& .MuiSelect-menu': {
       backgroundColor: "red",
+    },
+    '& .MuiOutlinedInput-input.Mui-disabled': {
+      color: themeContext.themeStyles.multipleSelectPlaceholderDisabledColor,
+      '-webkit-text-fill-color': themeContext.themeStyles.multipleSelectPlaceholderDisabledColor
+    },
+    '&.MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
+      borderColor: themeContext.themeStyles.multipleSelectPlaceholderDisabledBorder,
     },
   };
 

@@ -8,7 +8,7 @@ import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 interface BtnAddProps {
     size?: string;
     func: () => void;
-    isDisabled: boolean; 
+    isDisabled: boolean;
 }
 
 export const BtnAdd: FC<BtnAddProps> = ({ size, func, isDisabled }) => {
@@ -25,6 +25,11 @@ export const BtnAdd: FC<BtnAddProps> = ({ size, func, isDisabled }) => {
                     color: "#fff",
                     width: size ? size : "50px",
                     height: size ? size : "50px",
+
+                    '&.Mui-disabled': {
+                        backgroundColor: themeContext.themeStyles.btnAddDisabledBackground,
+                        color: "rgb(0 0 0 / 46%)"
+                    },
 
                     '&:hover': {
                         backgroundColor: themeContext.themeStyles.buttonBackgroundHover

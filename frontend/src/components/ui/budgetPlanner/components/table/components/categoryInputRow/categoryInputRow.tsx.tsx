@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { TableCell, TableRow } from "@mui/material";
 import { ButtonComponent } from "../../../../../../shared/button/button";
 import { OutlinedInputComponent } from "../../../../../../shared/outlinedInput/outlinedInput";
@@ -6,26 +6,30 @@ import { MultipleSelectPlaceholder } from "../../../../../../shared/select/selec
 import { showAlert } from "../../../../../../../utils/showAlert";
 import { VALID_SUM_REGEX } from "../../../../../../../consts";
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
-import { UserStorageDataType } from "../../../../../../../redux/reducers/userStorageReduser/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
+import { CategoriesType, CategoryPlanning } from "../../../../../../../redux/reducers/userStorageReduser/types";
 
 interface CategoryInputRowProps {
     setIsAlertActive: (value: AlertComponentProps | null) => void;
-    setCompletedCategories: (value: Array<{ name: string; sum: number }>) => void;
+    setCompletedCategories: (value: Array<CategoryPlanning>) => void;
     setIsCategoryInputRow: (value: boolean) => void;
-    completedCategories: Array<{ name: string; sum: number }>;
-    availableCategories: any;
+    completedCategories: Array<CategoryPlanning>;
+    availableCategories: Array<CategoriesType>;
 }
 
 export const CategoryInputRow: FC<CategoryInputRowProps> = ({
-    setIsAlertActive, setCompletedCategories, setIsCategoryInputRow, completedCategories, availableCategories }) => {
+    setIsAlertActive,
+    setCompletedCategories,
+    setIsCategoryInputRow,
+    completedCategories,
+    availableCategories
+}) => {
     const [error, setError] = useState<boolean>(false);
     const [category, setCategory] = useState<string | null>(null);
     const [sum, setSum] = useState<string>("");
-
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const handleSaveCategory = () => {
@@ -50,8 +54,6 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
     const tableCellStyles = {
         borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
     };
-
-
 
     return (
         <TableRow>
