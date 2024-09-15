@@ -4,7 +4,7 @@ import { ThemeContextType } from "../../../../../../../contexts/themeContext/typ
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 import { Title } from "./styledHeading";
 
-export const Heading: FC = () => {
+export const Head: FC = () => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const tableCellStyles = {

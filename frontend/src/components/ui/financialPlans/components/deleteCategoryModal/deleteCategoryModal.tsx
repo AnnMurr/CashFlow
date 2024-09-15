@@ -17,10 +17,11 @@ interface DeleteCategoryModalProps {
     currentPlan: BudgetPlanning | null;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
     setBudgetPlans: (value: Array<BudgetPlanning> | null) => void;
+    setCurrentPlan: (value: BudgetPlanning | null) => void;
 }
 
 export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
-    closeModal, choosenEditCategory, currentPlan, setIsAlertActive, setBudgetPlans }) => {
+    closeModal, choosenEditCategory, currentPlan, setIsAlertActive, setBudgetPlans, setCurrentPlan }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
     const { storageData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
@@ -41,6 +42,8 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
         const updatedCategories = updateStorageData(currentPlan, choosenEditCategory);
 
         if (storageData && updatedCategories) {
+            setCurrentPlan(null);
+
             try {
                 const updatedData = {
                     ...storageData,

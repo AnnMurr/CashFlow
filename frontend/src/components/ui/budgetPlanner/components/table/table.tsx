@@ -11,7 +11,7 @@ import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { CategoryInputAddBtn } from "./components/categoryInputAddBtn/categoryInputAddBtn";
 import { CompletedCategoryRow } from "./components/completedCategoryRow/completedCategoryRow";
 import { SaveBtn } from "./components/saveBtn/saveBtn";
-import { Heading } from "./components/heading/heading";
+import { Head } from "./components/head/head";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 
@@ -52,10 +52,9 @@ export const BudgetTableManager: FC<BudgetTableManagerProps> = ({
     if (storageData) {
       const filteredAvailableCategories = storageData?.data.categoriesExpenses.filter(item =>
         !completedCategories.find(c => c.name === item.name));
- 
+
       setAvailableCategories(filteredAvailableCategories || []);
     }
-
   }, [completedCategories, storageData]);
 
   useEffect(() => {
@@ -65,7 +64,7 @@ export const BudgetTableManager: FC<BudgetTableManagerProps> = ({
   return (
     <TableContainer sx={tableContainerStyles} component={Paper}>
       <Table aria-label="simple table">
-        <Heading />
+        <Head />
         <TableBody>
           {completedCategories.length > 0 && completedCategories.map(data => (
             <CompletedCategoryRow

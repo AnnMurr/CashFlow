@@ -16,3 +16,10 @@ export const Tables = styled.div`
     gap: 30px;
     flex-direction: column;
 `
+
+export const SpinnerContainer = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`

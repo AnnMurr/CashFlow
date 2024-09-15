@@ -9,7 +9,8 @@ import { Header } from "./components/header/header";
 import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
 import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
-import { Container, Tables, Wrapper } from "./styledFinancialPlans";
+import { Container, SpinnerContainer, Tables, Wrapper } from "./styledFinancialPlans";
+import { Spinner } from "../../shared/spinner/spinner";
 
 export const FinancialPlans: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
@@ -34,20 +35,26 @@ export const FinancialPlans: FC = () => {
                 <Container>
                     <Wrapper>
                         <SubBar />
-                        <Header
-                            budgetPlans={budgetPlans}
-                            currentPlan={currentPlan}
-                            setCurrentTab={setCurrentTab} />
-                        <Tables>
-                            {currentPlan && (
-                                <FinancialPlansTable
-                                    key={uuidV4()}
-                                    data={currentPlan}
-                                    setIsDeleteCategoryModal={setIsDeleteCategoryModal}
-                                    setChoosenEditCategory={setChoosenEditCategory}
-                                />
-                            )}
-                        </Tables>
+                        {budgetPlans ? <>
+                            <Header
+                                budgetPlans={budgetPlans}
+                                currentPlan={currentPlan}
+                                setCurrentTab={setCurrentTab}
+                            />
+                            <Tables>
+                                {currentPlan && (
+                                    <FinancialPlansTable
+                                        key={uuidV4()}
+                                        data={currentPlan}
+                                        setIsDeleteCategoryModal={setIsDeleteCategoryModal}
+                                        setChoosenEditCategory={setChoosenEditCategory}
+                                    />
+                                )}
+                            </Tables>
+                        </> :
+                            <SpinnerContainer>
+                                <Spinner size={40} height={3} />
+                            </SpinnerContainer>}
                         {isDeleteCategoryModal && (
                             <>
                                 <DeleteCategoryModal
@@ -55,7 +62,8 @@ export const FinancialPlans: FC = () => {
                                     choosenEditCategory={choosenEditCategory}
                                     currentPlan={currentPlan}
                                     setIsAlertActive={setIsAlertActive}
-                                    setBudgetPlans={setBudgetPlans} />
+                                    setBudgetPlans={setBudgetPlans}
+                                    setCurrentPlan={setCurrentPlan} />
                                 <DarkBackground
                                     setIsModalActive={setIsDeleteCategoryModal}
                                     isModalActive={isDeleteCategoryModal} />
