@@ -3,18 +3,30 @@ import { v4 as uuidV4 } from "uuid";
 import { Body } from "../../shared/body/body";
 import { SubBar } from "../../shared/subBar/subBar";
 import { FinancialPlansTable } from "./components/table/table";
-import { BudgetPlanning, RootState } from "../../../redux/reducers/userStorageReduser/types";
+import { BudgetPlanning, CategoryPlanning, RootState } from "../../../redux/reducers/userStorageReduser/types";
 import { useAppSelector } from "../../../redux/store/store";
+import { Header } from "./components/header/header";
+import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
+import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
+import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { Container, Tables, Wrapper } from "./styledFinancialPlans";
 
 export const FinancialPlans: FC = () => {
+    const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
     const [budgetPlans, setBudgetPlans] = useState<Array<BudgetPlanning> | null>(null);
+    const [currentPlan, setCurrentPlan] = useState<BudgetPlanning | null>(null);
+    const [currentTab, setCurrentTab] = useState<number>(0);
+    const [choosenEditCategory, setChoosenEditCategory] = useState<CategoryPlanning | null>(null);
+    const [isDeleteCategoryModal, setIsDeleteCategoryModal] = useState<boolean>(false);
     const { storageData } = useAppSelector((state: RootState) => state.storage);
 
     useEffect(() => {
-        storageData && storageData?.data.planning.length &&
-            setBudgetPlans(storageData?.data.planning)
+        storageData?.data?.planning.length && setBudgetPlans(storageData?.data.planning);
     }, [storageData]);
+
+    useEffect(() => {
+        budgetPlans?.length && setCurrentPlan(budgetPlans[currentTab]);
+    }, [budgetPlans, currentTab]);
 
     return (
         <Body>
@@ -22,12 +34,33 @@ export const FinancialPlans: FC = () => {
                 <Container>
                     <Wrapper>
                         <SubBar />
+                        <Header
+                            budgetPlans={budgetPlans}
+                            currentPlan={currentPlan}
+                            setCurrentTab={setCurrentTab} />
                         <Tables>
-                            {budgetPlans &&
-                                budgetPlans.map(data => (
-                                    <FinancialPlansTable key={uuidV4()} data={data} />
-                                ))}
+                            {currentPlan && (
+                                <FinancialPlansTable
+                                    key={uuidV4()}
+                                    data={currentPlan}
+                                    setIsDeleteCategoryModal={setIsDeleteCategoryModal}
+                                    setChoosenEditCategory={setChoosenEditCategory}
+                                />
+                            )}
                         </Tables>
+                        {isDeleteCategoryModal && (
+                            <>
+                                <DeleteCategoryModal
+                                    closeModal={setIsDeleteCategoryModal}
+                                    choosenEditCategory={choosenEditCategory}
+                                    currentPlan={currentPlan}
+                                    setIsAlertActive={setIsAlertActive}
+                                    setBudgetPlans={setBudgetPlans} />
+                                <DarkBackground
+                                    setIsModalActive={setIsDeleteCategoryModal}
+                                    isModalActive={isDeleteCategoryModal} />
+                            </>)}
+                        {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
                     </Wrapper>
                 </Container>
             </section>

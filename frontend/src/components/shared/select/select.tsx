@@ -68,7 +68,7 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
     },
     '& .MuiOutlinedInput-input.Mui-disabled': {
       color: themeContext.themeStyles.multipleSelectPlaceholderDisabledColor,
-      '-webkit-text-fill-color': themeContext.themeStyles.multipleSelectPlaceholderDisabledColor
+      WebkitTextFillColor: themeContext.themeStyles.multipleSelectPlaceholderDisabledColor
     },
     '&.MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
       borderColor: themeContext.themeStyles.multipleSelectPlaceholderDisabledBorder,

@@ -52,7 +52,7 @@ export const BudgetTableManager: FC<BudgetTableManagerProps> = ({
     if (storageData) {
       const filteredAvailableCategories = storageData?.data.categoriesExpenses.filter(item =>
         !completedCategories.find(c => c.name === item.name));
-      console.log(filteredAvailableCategories)
+ 
       setAvailableCategories(filteredAvailableCategories || []);
     }
 

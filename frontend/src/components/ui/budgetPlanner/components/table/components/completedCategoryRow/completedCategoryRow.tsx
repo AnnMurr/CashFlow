@@ -25,12 +25,12 @@ export const CompletedCategoryRow: FC<CompletedCategoryRowProps> = ({
         borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
     };
 
-    const openEditModal = () => {
+    const handleOpenEditModal = () => {
         setChoosenEditCategory({name: data.name, sum: data.sum});
         setIsEditModalActive(true)
     }
 
-    const openDeleteCategoryModal = () => {
+    const handleOpenDeleteCategoryModal = () => {
         setChoosenEditCategory({name: data.name, sum: data.sum});
         setIsDeleteCategoryModal(true)
     }
@@ -49,10 +49,10 @@ export const CompletedCategoryRow: FC<CompletedCategoryRowProps> = ({
                 </TableCell>
                 <TableCell sx={tableCellStyles} align="right" colSpan={4}>
                     <Settings>
-                        <Edit onClick={openEditModal}>
+                        <Edit onClick={handleOpenEditModal}>
                             <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faPen} />
                         </Edit>
-                        <button onClick={openDeleteCategoryModal}>
+                        <button onClick={handleOpenDeleteCategoryModal}>
                             <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faTrash} />
                         </button>
                     </Settings>

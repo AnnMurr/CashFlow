@@ -13,7 +13,7 @@ export const Heading: FC = () => {
 
     return (
         <TableHead>
-            <TableRow >
+            <TableRow>
                 <TableCell
                     sx={{
                         ...tableCellStyles,
