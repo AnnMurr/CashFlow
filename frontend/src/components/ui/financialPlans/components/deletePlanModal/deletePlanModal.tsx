@@ -6,36 +6,34 @@ import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
-import { BtnInner, Container, Title, Wrapper } from "./styledDeleteCategoryModal";
-import { deleteCategory } from "../../../../../utils/financialPlansUtils";
+import { deletePlan } from "../../../../../utils/financialPlansUtils";
+import { BtnInner, Container, Title, Wrapper } from "./styledDeletePlanModal";
 
 interface DeleteCategoryModalProps {
     closeModal: (value: boolean) => void;
-    choosenEditCategory: CategoryPlanning | null;
     currentPlan: BudgetPlanning | null;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
     setBudgetPlans: (value: Array<BudgetPlanning> | null) => void;
-    setCurrentPlan: (value: BudgetPlanning | null) => void;
+    setCurrentTab: (value: number) => void;
 }
 
-export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
-    closeModal, choosenEditCategory, currentPlan, setIsAlertActive, setBudgetPlans, setCurrentPlan }) => {
+export const DeletePlanModal: FC<DeleteCategoryModalProps> = ({
+    closeModal, currentPlan, setIsAlertActive, setBudgetPlans, setCurrentTab }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
     const { storageData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
 
-  const handleDeleteCategory = () => {
-    deleteCategory({
-        storageData,
-        currentPlan,
-        choosenEditCategory,
-        setCurrentPlan,
-        dispatch,
-        setBudgetPlans,
-        setIsAlertActive,
-        closeModal
-    });
-  }
+    const handleDeletePlan = () => {
+        deletePlan({
+            storageData,
+            currentPlan,
+            setCurrentTab,
+            dispatch,
+            setBudgetPlans,
+            setIsAlertActive,
+            closeModal
+        });
+    }
 
     return (
         <Container themestyles={themeContext.themeStyles}>
@@ -49,7 +47,7 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
                     size="lg" />
                 <Title themestyles={themeContext.themeStyles}>
                     <h5>
-                        Are you sure you want to delete this category?
+                        Are you sure you want to delete this plan?
                     </h5>
                 </Title>
                 <BtnInner>
@@ -59,7 +57,7 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
                         text="Delete"
                         color="#fff"
                         type="button"
-                        func={handleDeleteCategory} />
+                        func={handleDeletePlan} />
                 </BtnInner>
             </Wrapper>
         </Container>

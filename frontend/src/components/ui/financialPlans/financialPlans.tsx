@@ -11,6 +11,7 @@ import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { Container, SpinnerContainer, Tables, Wrapper } from "./styledFinancialPlans";
 import { Spinner } from "../../shared/spinner/spinner";
+import { DeletePlanModal } from "./components/deletePlanModal/deletePlanModal";
 
 export const FinancialPlans: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
@@ -19,6 +20,7 @@ export const FinancialPlans: FC = () => {
     const [currentTab, setCurrentTab] = useState<number>(0);
     const [choosenEditCategory, setChoosenEditCategory] = useState<CategoryPlanning | null>(null);
     const [isDeleteCategoryModal, setIsDeleteCategoryModal] = useState<boolean>(false);
+    const [isDeletePlanModal, setIsDeletePlanModal] = useState<boolean>(false);
     const { storageData } = useAppSelector((state: RootState) => state.storage);
 
     useEffect(() => {
@@ -48,6 +50,7 @@ export const FinancialPlans: FC = () => {
                                         data={currentPlan}
                                         setIsDeleteCategoryModal={setIsDeleteCategoryModal}
                                         setChoosenEditCategory={setChoosenEditCategory}
+                                        setIsDeletePlanModal={setIsDeletePlanModal}
                                     />
                                 )}
                             </Tables>
@@ -67,6 +70,18 @@ export const FinancialPlans: FC = () => {
                                 <DarkBackground
                                     setIsModalActive={setIsDeleteCategoryModal}
                                     isModalActive={isDeleteCategoryModal} />
+                            </>)}
+                        {isDeletePlanModal && (
+                            <>
+                                <DeletePlanModal
+                                    closeModal={setIsDeletePlanModal}
+                                    currentPlan={currentPlan}
+                                    setIsAlertActive={setIsAlertActive}
+                                    setBudgetPlans={setBudgetPlans}
+                                    setCurrentTab={setCurrentTab} />
+                                <DarkBackground
+                                    setIsModalActive={setIsDeletePlanModal}
+                                    isModalActive={isDeletePlanModal} />
                             </>)}
                         {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
                     </Wrapper>

@@ -13,11 +13,12 @@ import { SpinnerContainer } from "./styledFinancialPlansTable";
 interface FinancialPlansTableProps {
     data: BudgetPlanning;
     setIsDeleteCategoryModal: (value: boolean) => void;
+    setIsDeletePlanModal: (value: boolean) => void;
     setChoosenEditCategory: (value: CategoryPlanning | null) => void;
 }
 
 export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({
-    data, setIsDeleteCategoryModal, setChoosenEditCategory }) => {
+    data, setIsDeleteCategoryModal, setChoosenEditCategory, setIsDeletePlanModal }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const handleOpenDeleteCategoryModal = (item: CategoryPlanning) => {
@@ -31,7 +32,7 @@ export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({
                 {data ?
                     (
                         <>
-                            <Head data={data} />
+                            <Head setIsDeletePlanModal={setIsDeletePlanModal} data={data} />
                             <BodyComponent
                                 handleOpenDeleteCategoryModal={handleOpenDeleteCategoryModal}
                                 data={data} />
