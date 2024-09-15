@@ -58,8 +58,8 @@ export const DateSelectorModal: FC<DateSelectorModalProps> = ({
     };
 
     const handleDateRangeSelect = (startDate: Date | null, endDate: Date | null) => {
-        startDate && setSelectedStartDate(getCurrentDate(startDate).slice(0, -6));
-        endDate && setSelectedEndDate(getCurrentDate(endDate).slice(0, -6));
+        setSelectedStartDate(startDate ? getCurrentDate(startDate).slice(0, -6) : null);
+        setSelectedEndDate(endDate ? getCurrentDate(endDate).slice(0, -6) : null);
     };
 
     const tabs = [
