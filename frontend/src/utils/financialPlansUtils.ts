@@ -9,17 +9,17 @@ interface DeleteCategoryParams {
     currentPlan: BudgetPlanning | null;
     choosenEditCategory: CategoryPlanning | null;
     storageData: UserStorageDataType | null;
-    setCurrentPlan: (plan: BudgetPlanning | null) => void;
     dispatch: AppDispatch;
     setBudgetPlans: (plans: Array<BudgetPlanning> | null) => void;
     setIsAlertActive: (alert: AlertComponentProps | null) => void;
     closeModal: (isOpen: boolean) => void;
+    setCurrentTab: (value: number) => void;
 }
 
 interface DeletePlanParams {
     storageData: UserStorageDataType | null;
     currentPlan: BudgetPlanning | null;
-    setCurrentTab:(value: number) => void;
+    setCurrentTab: (value: number) => void;
     dispatch: AppDispatch;
     setBudgetPlans: (plans: Array<BudgetPlanning> | null) => void;
     setIsAlertActive: (alert: AlertComponentProps | null) => void;
@@ -36,45 +36,6 @@ const removeCategoryFromPlan = (currentPlan: BudgetPlanning | null, choosenEditC
             : data
     );
 };
-
-export const deleteCategory = async (params: DeleteCategoryParams) => {
-    const {
-        storageData,
-        currentPlan,
-        choosenEditCategory,
-        setCurrentPlan,
-        dispatch,
-        setBudgetPlans,
-        setIsAlertActive,
-        closeModal
-    } = params;
-    const token = getDataFromLocalStorage("token");
-    const updatedCategories = removeCategoryFromPlan(currentPlan, choosenEditCategory, storageData);
-
-    if (storageData && updatedCategories) {
-        setCurrentPlan(null);
-
-        try {
-            const updatedData = {
-                ...storageData,
-                data: {
-                    ...storageData.data,
-                    planning: updatedCategories
-                }
-            };
-
-            const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
-
-            if (userDataAfterUpdate) {
-                setBudgetPlans(updatedData.data.planning);
-                showAlert({ type: "success", text: "Category deleted successfully" }, setIsAlertActive, 3000);
-                closeModal(false);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
-}
 
 const removePlanFromStorage = (currentPlan: BudgetPlanning | null, storageData: UserStorageDataType | null) => {
     return storageData?.data?.planning.filter(data => data.period !== currentPlan?.period);
@@ -108,6 +69,7 @@ export const deletePlan = async (params: DeletePlanParams) => {
             const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
             if (userDataAfterUpdate) {
+                console.log("updatedData.data.planning", updatedData.data.planning)
                 setBudgetPlans(updatedData.data.planning);
                 showAlert({ type: "success", text: "Plan deleted successfully" }, setIsAlertActive, 3000);
                 closeModal(false);
@@ -115,5 +77,55 @@ export const deletePlan = async (params: DeletePlanParams) => {
         } catch (error) {
             console.error(error);
         }
+    }
+}
+
+export const deleteCategory = async (params: DeleteCategoryParams) => {
+    const {
+        storageData,
+        currentPlan,
+        choosenEditCategory,
+        dispatch,
+        setBudgetPlans,
+        setIsAlertActive,
+        closeModal,
+        setCurrentTab
+    } = params;
+    const token = getDataFromLocalStorage("token");
+    const updatedCategories = removeCategoryFromPlan(currentPlan, choosenEditCategory, storageData);
+    const currentPlanCategoriesLength = updatedCategories?.find(item => item.period === currentPlan?.period)?.categories.length;
+
+    if (currentPlanCategoriesLength) {
+        if (storageData && updatedCategories) {
+            try {
+                const updatedData = {
+                    ...storageData,
+                    data: {
+                        ...storageData.data,
+                        planning: updatedCategories
+                    }
+                };
+
+                const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
+
+                if (userDataAfterUpdate) {
+                    setBudgetPlans(updatedData.data.planning);
+                    showAlert({ type: "success", text: "Category deleted successfully" }, setIsAlertActive, 3000);
+                    closeModal(false);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    } else {
+        deletePlan({
+            storageData,
+            currentPlan,
+            setCurrentTab,
+            dispatch,
+            setBudgetPlans,
+            setIsAlertActive,
+            closeModal
+        });
     }
 }
