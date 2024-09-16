@@ -42,12 +42,12 @@ export const CompletedCategoryRow: FC<CompletedCategoryRowProps> = ({
                         {data.name}
                     </Span>
                 </TableCell>
-                <TableCell sx={tableCellStyles} colSpan={2}>
+                <TableCell sx={tableCellStyles} colSpan={1}>
                     <Span themestyles={themeContext.themeStyles}>
                         {currency && getFormatCurrency(+data.sum, currency.code)}
                     </Span>
                 </TableCell>
-                <TableCell sx={tableCellStyles} align="right" colSpan={4}>
+                <TableCell sx={tableCellStyles} align="right" colSpan={1}>
                     <Settings>
                         <Edit onClick={handleOpenEditModal}>
                             <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faPen} />
@@ -57,6 +57,7 @@ export const CompletedCategoryRow: FC<CompletedCategoryRowProps> = ({
                         </button>
                     </Settings>
                 </TableCell>
+                <TableCell sx={tableCellStyles} colSpan={1} />
             </TableRowStyled>
     )
 }

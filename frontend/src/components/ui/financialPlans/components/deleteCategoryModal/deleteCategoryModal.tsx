@@ -6,8 +6,8 @@ import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
-import { BtnInner, Container, Title, Wrapper } from "./styledDeleteCategoryModal";
 import { deleteCategory } from "../../../../../utils/financialPlansUtils";
+import { BtnInner, Container, Title, Wrapper } from "./styledDeleteCategoryModal";
 
 interface DeleteCategoryModalProps {
     closeModal: (value: boolean) => void;
@@ -24,8 +24,8 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
     const { storageData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
 
-    const handleDeleteCategory = () => {
-        deleteCategory({
+    const handleDeleteCategory = async () => {
+        await deleteCategory({
             storageData,
             currentPlan,
             choosenEditCategory,

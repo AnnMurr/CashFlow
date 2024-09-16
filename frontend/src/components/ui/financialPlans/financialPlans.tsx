@@ -13,6 +13,7 @@ import { Spinner } from "../../shared/spinner/spinner";
 import { DeletePlanModal } from "./components/deletePlanModal/deletePlanModal";
 import { EmptyState } from "./components/emptyState/emptyState";
 import { Container, SpinnerContainer, Tables, Wrapper } from "./styledFinancialPlans";
+import { EditModal } from "./components/editModal/editModal";
 
 export const FinancialPlans: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
@@ -20,6 +21,7 @@ export const FinancialPlans: FC = () => {
     const [currentPlan, setCurrentPlan] = useState<BudgetPlanning | null>(null);
     const [currentTab, setCurrentTab] = useState<number>(0);
     const [choosenEditCategory, setChoosenEditCategory] = useState<CategoryPlanning | null>(null);
+    const [isEditModalActive, setIsEditModalActive] = useState<boolean>(false);
     const [isDeleteCategoryModal, setIsDeleteCategoryModal] = useState<boolean>(false);
     const [isDeletePlanModal, setIsDeletePlanModal] = useState<boolean>(false);
     const [isEmpty, setIsEmpty] = useState<boolean>(false);
@@ -55,11 +57,24 @@ export const FinancialPlans: FC = () => {
                                             setIsDeleteCategoryModal={setIsDeleteCategoryModal}
                                             setChoosenEditCategory={setChoosenEditCategory}
                                             setIsDeletePlanModal={setIsDeletePlanModal}
+                                            setIsEditModalActive={setIsEditModalActive}
                                         />
                                     )}
                                 </Tables>
                             </>) : null}
                         {isEmpty && <EmptyState />}
+                        {isEditModalActive && (
+                            <>
+                                <EditModal
+                                    choosenEditCategory={choosenEditCategory}
+                                    setIsEditModalActive={setIsEditModalActive}
+                                    setIsAlertActive={setIsAlertActive}
+                                    currentPlan={currentPlan} />
+                                <DarkBackground
+                                    setIsModalActive={setIsDeleteCategoryModal}
+                                    isModalActive={isDeleteCategoryModal} />
+                            </>
+                        )}
                         {isDeleteCategoryModal && (
                             <>
                                 <DeleteCategoryModal

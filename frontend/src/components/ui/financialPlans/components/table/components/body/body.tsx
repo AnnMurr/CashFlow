@@ -13,9 +13,11 @@ import { Edit, Settings, TableRowStyled } from "./styledBody";
 interface BodyComponentProps {
     data: BudgetPlanning;
     handleOpenDeleteCategoryModal: (value: CategoryPlanning) => void;
+    handleOpenEditCategoryModal: (value: CategoryPlanning) => void;
 }
 
-export const BodyComponent: FC<BodyComponentProps> = ({ data, handleOpenDeleteCategoryModal }) => {
+export const BodyComponent: FC<BodyComponentProps> = ({
+    data, handleOpenDeleteCategoryModal, handleOpenEditCategoryModal }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
     const { currency } = useAppSelector((state: RootState) => state.storage);
 
@@ -28,7 +30,7 @@ export const BodyComponent: FC<BodyComponentProps> = ({ data, handleOpenDeleteCa
                         <TableCell colSpan={1} >{getFormatCurrency(item.sum, currency.code)}</TableCell>
                         <TableCell align="right" colSpan={4}>
                             <Settings>
-                                <Edit>
+                                <Edit onClick={() => handleOpenEditCategoryModal(item)}>
                                     <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faPen} />
                                 </Edit>
                                 <button onClick={() => handleOpenDeleteCategoryModal(item)}>

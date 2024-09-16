@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { BtnClose } from "../../../../shared/btnClose/btnClose";
 import { ButtonComponent } from "../../../../shared/button/button";
-import { BudgetPlanning, CategoryPlanning, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
+import { BudgetPlanning, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
@@ -23,8 +23,8 @@ export const DeletePlanModal: FC<DeleteCategoryModalProps> = ({
     const { storageData } = useAppSelector((state: RootState) => state.storage);
     const dispatch = useAppDispatch();
 
-    const handleDeletePlan = () => {
-        deletePlan({
+    const handleDeletePlan = async () => {
+        await deletePlan({
             storageData,
             currentPlan,
             setCurrentTab,

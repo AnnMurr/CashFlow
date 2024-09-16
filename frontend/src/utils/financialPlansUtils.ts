@@ -26,6 +26,25 @@ interface DeletePlanParams {
     closeModal: (isOpen: boolean) => void;
 }
 
+interface EditCategoryProps {
+    storageData: UserStorageDataType | null;
+    currentPlan: BudgetPlanning | null;
+    choosenEditCategory: CategoryPlanning | null;
+    categoryName: string;
+    sum: string;
+    dispatch: AppDispatch;
+    setIsAlertActive: (alert: AlertComponentProps | null) => void;
+    setIsEditModalActive: (isOpen: boolean) => void;
+}
+
+interface UpdateCategoryInPlanProps {
+    storageData: UserStorageDataType | null;
+    currentPlan: BudgetPlanning | null;
+    choosenEditCategory: CategoryPlanning | null;
+    categoryName: string;
+    sum: string;
+}
+
 const removeCategoryFromPlan = (currentPlan: BudgetPlanning | null, choosenEditCategory: CategoryPlanning | null, storageData: UserStorageDataType | null) => {
     return storageData?.data?.planning.map(data =>
         data.period === currentPlan?.period
@@ -37,9 +56,24 @@ const removeCategoryFromPlan = (currentPlan: BudgetPlanning | null, choosenEditC
     );
 };
 
+const updateCategoryInPlan = (props: UpdateCategoryInPlanProps) => {
+    const { storageData, currentPlan, choosenEditCategory, categoryName, sum } = props;
+
+    return storageData?.data?.planning?.map(data => ({
+        ...data,
+        categories: data.period === currentPlan?.period
+            ? data.categories.map(item =>
+                item.name === choosenEditCategory?.name
+                    ? { name: categoryName, sum: +sum }
+                    : item
+            )
+            : data.categories
+    })) || [];
+}
+
 const removePlanFromStorage = (currentPlan: BudgetPlanning | null, storageData: UserStorageDataType | null) => {
     return storageData?.data?.planning.filter(data => data.period !== currentPlan?.period);
-};
+}
 
 export const deletePlan = async (params: DeletePlanParams) => {
     const {
@@ -69,7 +103,6 @@ export const deletePlan = async (params: DeletePlanParams) => {
             const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
             if (userDataAfterUpdate) {
-                console.log("updatedData.data.planning", updatedData.data.planning)
                 setBudgetPlans(updatedData.data.planning);
                 showAlert({ type: "success", text: "Plan deleted successfully" }, setIsAlertActive, 3000);
                 closeModal(false);
@@ -127,5 +160,41 @@ export const deleteCategory = async (params: DeleteCategoryParams) => {
             setIsAlertActive,
             closeModal
         });
+    }
+}
+
+export const editCategory = async (params: EditCategoryProps) => {
+    const {
+        storageData,
+        currentPlan,
+        choosenEditCategory,
+        categoryName,
+        sum,
+        dispatch,
+        setIsAlertActive,
+        setIsEditModalActive
+    } = params;
+    try {
+        if (storageData) {
+            const token = getDataFromLocalStorage("token");
+            const updatedCategories = updateCategoryInPlan({ storageData, currentPlan, choosenEditCategory, categoryName, sum });
+
+            const updatedData = {
+                ...storageData,
+                data: {
+                    ...storageData.data,
+                    planning: updatedCategories
+                }
+            }
+
+            const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
+
+            if (userDataAfterUpdate) {
+                showAlert({ type: "success", text: "Category updated successfully" }, setIsAlertActive, 3000);
+                setIsEditModalActive(false);
+            }
+        }
+    } catch (error) {
+        console.error(error);
     }
 }

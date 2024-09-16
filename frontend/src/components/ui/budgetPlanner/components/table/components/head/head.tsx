@@ -17,7 +17,7 @@ export const Head: FC = () => {
                 <TableCell
                     sx={{
                         ...tableCellStyles,
-                        width: '25rem',
+                        width: '50%',
                     }}
                     align="left"
                     colSpan={1}>

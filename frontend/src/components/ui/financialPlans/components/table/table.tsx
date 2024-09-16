@@ -15,15 +15,21 @@ interface FinancialPlansTableProps {
     setIsDeleteCategoryModal: (value: boolean) => void;
     setIsDeletePlanModal: (value: boolean) => void;
     setChoosenEditCategory: (value: CategoryPlanning | null) => void;
+    setIsEditModalActive: (value: boolean) => void;
 }
 
 export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({
-    data, setIsDeleteCategoryModal, setChoosenEditCategory, setIsDeletePlanModal }) => {
+    data, setIsDeleteCategoryModal, setChoosenEditCategory, setIsDeletePlanModal, setIsEditModalActive }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const handleOpenDeleteCategoryModal = (item: CategoryPlanning) => {
         setChoosenEditCategory({ name: item.name, sum: item.sum });
         setIsDeleteCategoryModal(true);
+    }
+
+    const handleOpenEditCategoryModal = (item: CategoryPlanning) => {
+        setChoosenEditCategory({ name: item.name, sum: item.sum });
+        setIsEditModalActive(true);
     }
 
     return (
@@ -35,6 +41,7 @@ export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({
                             <Head setIsDeletePlanModal={setIsDeletePlanModal} data={data} />
                             <BodyComponent
                                 handleOpenDeleteCategoryModal={handleOpenDeleteCategoryModal}
+                                handleOpenEditCategoryModal={handleOpenEditCategoryModal}
                                 data={data} />
                             <Footer data={data} />
                         </>
