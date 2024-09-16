@@ -4,7 +4,7 @@ import { ThemeContextType } from "../../../../../../../contexts/themeContext/typ
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 import { Title } from "./styledHeading";
 
-export const Heading: FC = () => {
+export const Head: FC = () => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const tableCellStyles = {
@@ -13,11 +13,11 @@ export const Heading: FC = () => {
 
     return (
         <TableHead>
-            <TableRow >
+            <TableRow>
                 <TableCell
                     sx={{
                         ...tableCellStyles,
-                        width: '25rem',
+                        width: '50%',
                     }}
                     align="left"
                     colSpan={1}>

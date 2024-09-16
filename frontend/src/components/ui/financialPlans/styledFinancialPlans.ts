@@ -12,7 +12,14 @@ export const Wrapper = styled.div`
 `
 
 export const Tables = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     gap: 30px;
+    flex-direction: column;
+`
+
+export const SpinnerContainer = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `

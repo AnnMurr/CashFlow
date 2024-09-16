@@ -57,7 +57,7 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
 
     return (
         <TableRow>
-            <TableCell align="left" colSpan={1} sx={{ ...tableCellStyles, width: '25rem' }}>
+            <TableCell align="left" colSpan={1} sx={{ ...tableCellStyles, width: '50%' }}>
                 <MultipleSelectPlaceholder
                     isDisabled={false}
                     setCategoryName={setCategory}

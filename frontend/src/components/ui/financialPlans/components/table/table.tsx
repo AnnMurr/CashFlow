@@ -1,66 +1,54 @@
-import { FC, useEffect, useState } from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { FC, useContext } from "react";
+import { Table, TableContainer } from "@mui/material";
 import Paper from '@mui/material/Paper';
-import { v4 as uuidV4 } from "uuid";
-import { useAppSelector } from "../../../../../redux/store/store";
-import { BudgetPlanning, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
-import { getFormatCurrency } from "../../../../../utils/getFormatCurrency";
-import { Period, Title, Total } from "./styledFinancialPlansTable";
+import { BudgetPlanning, CategoryPlanning } from "../../../../../redux/reducers/userStorageReduser/types";
+import { ThemeContextType } from "../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
+import { Head } from "./components/head/head";
+import { BodyComponent } from "./components/body/body";
+import { Footer } from "./components/footer/footer";
+import { Spinner } from "../../../../shared/spinner/spinner";
+import { SpinnerContainer } from "./styledFinancialPlansTable";
 
 interface FinancialPlansTableProps {
     data: BudgetPlanning;
+    setIsDeleteCategoryModal: (value: boolean) => void;
+    setIsDeletePlanModal: (value: boolean) => void;
+    setChoosenEditCategory: (value: CategoryPlanning | null) => void;
+    setIsEditModalActive: (value: boolean) => void;
 }
 
-export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({ data }) => {
-    const [totalAmount, setTotalAmount] = useState<number | null>(null);
-    const { currency } = useAppSelector((state: RootState) => state.storage);
+export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({
+    data, setIsDeleteCategoryModal, setChoosenEditCategory, setIsDeletePlanModal, setIsEditModalActive }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
 
-    useEffect(() => {
-        const count = data.categories.reduce((acc, category) => acc + category.sum, 0);
-        setTotalAmount(count);
-    }, []);
+    const handleOpenDeleteCategoryModal = (item: CategoryPlanning) => {
+        setChoosenEditCategory({ name: item.name, sum: item.sum });
+        setIsDeleteCategoryModal(true);
+    }
+
+    const handleOpenEditCategoryModal = (item: CategoryPlanning) => {
+        setChoosenEditCategory({ name: item.name, sum: item.sum });
+        setIsEditModalActive(true);
+    }
 
     return (
-        <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>
-                            <Period>
-                                {data.period}
-                            </Period>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>
-                            <Title>
-                                Category
-                            </Title>
-                        </TableCell>
-                        <TableCell align="right">
-                            <Title>
-                                Sum
-                            </Title>
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data && currency &&
-                        data.categories.map(item => (
-                            <TableRow key={uuidV4()}>
-                                <TableCell>{item.name}</TableCell>
-                                <TableCell align="right">{getFormatCurrency(item.sum, currency.code)}</TableCell>
-                            </TableRow>
-                        ))}
-                    {totalAmount && currency &&
-                        <TableRow>
-                            <TableCell colSpan={2} align="right">
-                                <Total>
-                                    {getFormatCurrency(totalAmount, currency.code)}
-                                </Total>
-                            </TableCell>
-                        </TableRow>}
-                </TableBody>
+        <TableContainer sx={{ backgroundColor: themeContext.themeStyles.budgetPlannerBackground }} component={Paper}>
+            <Table>
+                {data ?
+                    (
+                        <>
+                            <Head setIsDeletePlanModal={setIsDeletePlanModal} data={data} />
+                            <BodyComponent
+                                handleOpenDeleteCategoryModal={handleOpenDeleteCategoryModal}
+                                handleOpenEditCategoryModal={handleOpenEditCategoryModal}
+                                data={data} />
+                            <Footer data={data} />
+                        </>
+                    ) :
+                    <SpinnerContainer>
+                        <Spinner size={40} height={3} />
+                    </SpinnerContainer>}
             </Table>
         </TableContainer>
     )

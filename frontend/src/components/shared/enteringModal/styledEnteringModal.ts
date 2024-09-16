@@ -31,7 +31,7 @@ export const InputInner = styled.div`
 
 export const Input = styled.input<ThemeStyledProps>`
     background-color:${({ themestyles }) => themestyles.enteringModalColor};
-    color: #fff;
+    color:${({ themestyles }) => themestyles.color};;
     text-align: end;
     background-color: #0000;
     border: #ffdead;

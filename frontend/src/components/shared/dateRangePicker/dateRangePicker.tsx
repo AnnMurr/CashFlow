@@ -20,7 +20,9 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
   const themeContext = useContext<ThemeContextType>(ThemeContext);
 
   const handleStartDateChange = (date: Dayjs | null) => {
-    if (date) {
+    onSelectDateRange(null, endDate ? endDate.toDate() : null);
+
+    if (date && date?.isValid()) {
       setStartDate(date);
       onSelectDateRange(date?.toDate(), endDate ? endDate.toDate() : null);
       setOpenStartDateCalendar(false);
@@ -28,7 +30,9 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
   };
 
   const handleEndDateChange = (date: Dayjs | null) => {
-    if (date) {
+    onSelectDateRange(startDate ? startDate.toDate() : null, null);
+
+    if (date && date?.isValid()) {
       setEndDate(date);
       onSelectDateRange(startDate ? startDate.toDate() : null, date?.toDate());
       setOpenEndDateCalendar(false);
@@ -127,7 +131,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
               closeOnSelect={true}
               open={openStartDateCalendar}
               onClose={() => setOpenStartDateCalendar(false)}
-              autoFocus={true}
+              autoFocus={false}
               sx={DataPickerStyles}
               label="Start Date"
               value={startDate}
@@ -156,7 +160,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSelectDateRa
               open={openEndDateCalendar}
               onOpen={() => setOpenEndDateCalendar(true)}
               onClose={() => setOpenEndDateCalendar(false)}
-              autoFocus={true}
+              autoFocus={false}
               sx={DataPickerStyles}
               label="End Date"
               value={endDate}

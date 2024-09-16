@@ -9,16 +9,16 @@ import { BtnInner } from "./styledDateRangeModal";
 interface DatePickerModalProps {
     setIsDateRangeModal: (value: boolean) => void
     applyDateRange: () => void;
-    setSelectedStartDate: (date: string) => void;
-    setSelectedEndDate: (date: string) => void;
+    setSelectedStartDate: (date: string | null) => void;
+    setSelectedEndDate: (date: string | null) => void;
 }
 
 export const DateRangeModal: FC<DatePickerModalProps> = ({
     setIsDateRangeModal, applyDateRange, setSelectedStartDate, setSelectedEndDate }) => {
 
     const handleDateRangeSelect = (startDate: Date | null, endDate: Date | null) => {
-        startDate && setSelectedStartDate(getCurrentDate(startDate).slice(0, -6));
-        endDate && setSelectedEndDate(getCurrentDate(endDate).slice(0, -6));
+        setSelectedStartDate(startDate ? getCurrentDate(startDate).slice(0, -6) : null);
+        setSelectedEndDate(endDate ? getCurrentDate(endDate).slice(0, -6) : null);
     };
 
     return (

@@ -85,7 +85,6 @@ export const TimeEditBlock = styled.div`
 export const Date = styled.div<ThemeStyledProps>`
     display: grid;
     grid-template-columns: 75% 25%;
-    margin-right: auto;
     
     span {
         color:${({ themestyles }) => themestyles.color};
