@@ -9,7 +9,8 @@ import { setChartDataBySpecificDates } from "../../../utils/chartUtils";
 import { Header } from "./components/header/header";
 import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { LogOutConfirmationModal } from "./components/logOutConfirmationModal/logOutConfirmationModal";
-import { Container, Wrapper } from "./styledProfilePage";
+import { Spinner } from "../..//shared/spinner/spinner";
+import { Container, LoadingInner, Wrapper } from "./styledProfilePage";
 
 export const ProfilePage: FC = () => {
     const [chartData, setChartData] = useState<ChartDataObjectType | null>(null);
@@ -32,8 +33,11 @@ export const ProfilePage: FC = () => {
                             setIsLogOutConfirmationModal={setIsLogOutConfirmationModal}
                             statisticType={statisticType}
                             setStatisticType={setStatisticType} />
-                        {chartData &&
-                            <Content statisticType={statisticType} chartData={chartData} />}
+                        {chartData ? 
+                            <Content statisticType={statisticType} chartData={chartData} /> :
+                           (<LoadingInner>
+                             <Spinner size={40} height={3} />
+                             </LoadingInner>)}
                         {isLogOutConfirmationModal ?
                             <>
                                 <DarkBackground

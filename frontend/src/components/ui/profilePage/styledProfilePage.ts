@@ -10,3 +10,9 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
     padding-bottom: 90px;
 `
+
+export const LoadingInner = styled.div` 
+    display: flex;
+    align-items: center;
+    min-height: 70vh;
+`
