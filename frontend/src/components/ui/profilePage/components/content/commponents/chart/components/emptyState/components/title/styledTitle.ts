@@ -2,9 +2,10 @@ import { ThemeStyledProps } from "../../../../../../../../../../../contexts/them
 import styled from "styled-components";
 
 export const Inner = styled.div<ThemeStyledProps>`
-    h3 {
+    h5 {
         font-family: "Almarai";
         font-size: 16px;
+        font-weight: 400;
         color:${({ themestyles }) => themestyles.color};
     }
 `

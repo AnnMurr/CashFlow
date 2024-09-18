@@ -97,7 +97,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                     }}
                     closeBlock={closeModal}
                     size="lg"
-                    color={themeContext.themeStyles.enteringModalColor} />
+                    color={themeContext.themeStyles.enteringModalBtnColor} />
                 <InputInner>
                     <Input
                         themestyles={themeContext.themeStyles}
@@ -110,7 +110,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
                         <button
                             className={"btn_delete"}
                             onClick={enterValue}>
-                            <FontAwesomeIcon color={themeContext.themeStyles.enteringModalColor} icon={faDeleteLeft} />
+                            <FontAwesomeIcon color={themeContext.themeStyles.enteringModalBtnColor} icon={faDeleteLeft} />
                         </button>
                     </DeleteBtnInner>
                 </InputInner>

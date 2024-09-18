@@ -8,10 +8,10 @@ export const Title: FC = () => {
 
     return (
         <Inner themestyles={themeContext.themeStyles}>
-            <h3>
+            <h5>
                 You currently have no data.
                 Start by adding your financial information to see statistics here
-            </h3>
+            </h5>
         </Inner>
     )
 }

@@ -79,7 +79,6 @@ export const List: FC<ListProps> = ({ setIsAlertActive, statisticType }) => {
                         choosedCategoryId={choosedCategoryId}
                         closeDeleteModal={setIsDeleteCategoryModalActive} />
                     : null}
-
                 {currentIsModal ?
                     <DarkBackground
                         setIsModalActive={currentSetIsModal}

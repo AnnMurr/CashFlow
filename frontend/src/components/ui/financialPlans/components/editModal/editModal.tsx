@@ -17,14 +17,16 @@ interface EditCategoryModalProps {
     setIsEditModalActive: (value: boolean) => void;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
     choosenEditCategory: CategoryPlanning | null;
-    currentPlan: BudgetPlanning | null
+    currentPlan: BudgetPlanning | null;
+    setBudgetPlans: (plans: Array<BudgetPlanning> | null) => void;
 }
 
 export const EditModal: FC<EditCategoryModalProps> = ({
     setIsEditModalActive,
     setIsAlertActive,
     choosenEditCategory,
-    currentPlan
+    currentPlan,
+    setBudgetPlans
 }) => {
     const [categoryName, setCategoryName] = useState<string>("");
     const [categorySum, setCategorySum] = useState<string>("");
@@ -46,7 +48,7 @@ export const EditModal: FC<EditCategoryModalProps> = ({
         const sum = categorySum.toString().replace(',', '.');
 
         if (!VALID_SUM_REGEX.test(sum)) {
-            showAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
+            showAlert({ type: "error", text: "Invalid sum" }, setIsAlertActive, 3000);
             setCategoryNameError(true);
         } else {
             await editCategory({
@@ -57,7 +59,8 @@ export const EditModal: FC<EditCategoryModalProps> = ({
                 sum,
                 dispatch,
                 setIsAlertActive,
-                setIsEditModalActive
+                setIsEditModalActive,
+                setBudgetPlans
             })
         }
     }

@@ -57,7 +57,7 @@ export const SaveBtn: FC<SaveBtnProps> = ({ setCompletedCategories, completedCat
                 console.error(error);
             }
         } else {
-            showAlert({ type: "warning", text: "Enter planning" }, setIsAlertActive, 3000);
+            showAlert({ type: "error", text: "There are no saved items" }, setIsAlertActive, 3000);
         }
     }
 

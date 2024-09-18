@@ -30,8 +30,8 @@ export const InputInner = styled.div`
 `
 
 export const Input = styled.input<ThemeStyledProps>`
-    background-color:${({ themestyles }) => themestyles.enteringModalColor};
-    color:${({ themestyles }) => themestyles.color};;
+    background-color:${({ themestyles }) => themestyles.enteringModalBtnColor};
+    color:${({ themestyles }) => themestyles.enteringModalColor};
     text-align: end;
     background-color: #0000;
     border: #ffdead;

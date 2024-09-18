@@ -1,6 +1,4 @@
 import { FC, useContext } from "react";
-import { BtnClose } from "../../../../../../shared/btnClose/btnClose";
-import { ButtonComponent } from "../../../../../../shared/button/button";
 import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { RootState, Transaction, UserStorageDataType } from "../../../../../../../redux/reducers/userStorageReduser/types";
@@ -11,7 +9,8 @@ import { addScroll } from "../../../../../../../utils/toggleScroll";
 import { getDataForStatistic } from "../../../../../../../utils/statisticalDataUtils";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
-import { BtnInner, Container, Title, Wrapper } from "./styledDeleteCategoryModal";
+import { ConfirmationModal } from "../../../../../../shared/confirmationModal/confirmationModal";
+import { Container } from "./styledDeleteCategoryModal";
 
 interface DeleteCategoryModalProps {
     closeDeleteModal: (value: boolean) => void;
@@ -58,29 +57,11 @@ export const DeleteCategoryModal: FC<DeleteCategoryModalProps> = ({
 
     return (
         <Container themestyles={themeContext.themeStyles}>
-            <Wrapper>
-                <BtnClose
-                    btnInnerstyles={{
-                        marginLeft: "auto",
-                        paddingBottom: "15px",
-                    }}
-                    closeBlock={closeDeleteModal}
-                    size="lg" />
-                <Title themestyles={themeContext.themeStyles}>
-                    <h5>
-                        Are you sure you want to delete this category?
-                    </h5>
-                </Title>
-                <BtnInner>
-                    <ButtonComponent
-                        backgroundColor="#a71616"
-                        BackgroundColorHover="#820e0e"
-                        text="Delete"
-                        color="#fff"
-                        type="button"
-                        func={deleteCategory} />
-                </BtnInner>
-            </Wrapper>
+            <ConfirmationModal
+                closeModal={closeDeleteModal}
+                handleClick={deleteCategory}
+                text="Are you sure you want to delete this category?"
+                btnText="Delete" />
         </Container>
     )
 }

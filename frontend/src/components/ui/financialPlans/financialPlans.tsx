@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { Body } from "../../shared/body/body";
 import { SubBar } from "../../shared/subBar/subBar";
@@ -27,9 +27,16 @@ export const FinancialPlans: FC = () => {
     const [isEmpty, setIsEmpty] = useState<boolean>(false);
     const { storageData } = useAppSelector((state: RootState) => state.storage);
 
+    const updateBudgetPlans = useCallback(() => {
+        if (storageData?.data?.planning) {
+            setBudgetPlans(storageData.data.planning);
+        }
+    }, [storageData]); 
+
     useEffect(() => {
-        storageData?.data?.planning && setBudgetPlans(storageData?.data.planning);
-    }, [storageData]);
+        
+        updateBudgetPlans();
+    }, [updateBudgetPlans])
 
     useEffect(() => {
         budgetPlans && setCurrentPlan(budgetPlans[currentTab]);
@@ -69,10 +76,11 @@ export const FinancialPlans: FC = () => {
                                     choosenEditCategory={choosenEditCategory}
                                     setIsEditModalActive={setIsEditModalActive}
                                     setIsAlertActive={setIsAlertActive}
-                                    currentPlan={currentPlan} />
+                                    currentPlan={currentPlan}
+                                    setBudgetPlans={setBudgetPlans} />
                                 <DarkBackground
-                                    setIsModalActive={setIsDeleteCategoryModal}
-                                    isModalActive={isDeleteCategoryModal} />
+                                    setIsModalActive={setIsEditModalActive}
+                                    isModalActive={isEditModalActive} />
                             </>
                         )}
                         {isDeleteCategoryModal && (

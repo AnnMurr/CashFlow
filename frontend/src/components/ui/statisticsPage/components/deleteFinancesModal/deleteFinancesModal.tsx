@@ -1,6 +1,4 @@
 import { FC, useContext } from "react";
-import { BtnClose } from "../../../../shared/btnClose/btnClose";
-import { ButtonComponent } from "../../../../shared/button/button";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
@@ -10,7 +8,8 @@ import { showAlert } from "../../../../../utils/showAlert";
 import { getDataForStatistic } from "../../../../../utils/statisticalDataUtils";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
-import { BtnInner, Container, Title, Wrapper } from "./styledDeleteFinancesModal";
+import { ConfirmationModal } from "../../../../shared/confirmationModal/confirmationModal";
+import { Container } from "./styledDeleteFinancesModal";
 
 interface DeleteFinancesModalProps {
     setIsDeleteFinancesModal: (value: boolean) => void;
@@ -50,30 +49,12 @@ export const DeleteFinancesModal: FC<DeleteFinancesModalProps> = ({ setIsDeleteF
     }
     return (
         <Container themestyles={themeContext.themeStyles}>
-            <Wrapper>
-                <BtnClose
-                    btnInnerstyles={{
-                        marginLeft: "auto",
-                        paddingBottom: "15px",
-                    }}
-                    closeBlock={setIsDeleteFinancesModal}
-                    size="lg" />
-                <Title themestyles={themeContext.themeStyles}>
-                    <h5>
-                        Are you sure you want to delete all financial statistics? This action
-                        is irreversible, and all income and expense data will be permanently removed
-                    </h5>
-                </Title>
-                <BtnInner>
-                    <ButtonComponent
-                        backgroundColor="#a71616"
-                        BackgroundColorHover="#820e0e"
-                        text="Delete finances"
-                        color="#fff"
-                        type="button"
-                        func={deleteFinances} />
-                </BtnInner>
-            </Wrapper>
+            <ConfirmationModal
+                closeModal={setIsDeleteFinancesModal}
+                handleClick={deleteFinances}
+                text="Are you sure you want to delete all financial statistics? This action
+            is irreversible, and all income and expense data will be permanently removed"
+                btnText="Delete" />
         </Container>
     )
 }
