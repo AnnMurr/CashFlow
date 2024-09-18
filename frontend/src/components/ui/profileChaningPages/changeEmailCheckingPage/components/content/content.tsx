@@ -1,19 +1,18 @@
-import { FC, useContext, useEffect, useState } from "react";
-import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
+import { FC, useEffect, useState } from "react";
+import { AlertComponentProps } from "../../../../../shared/alert/alert";
 import { useAppDispatch } from "../../../../../../redux/store/store";
 import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
 import { checkGoogleAccount } from "../../../../../../redux/reducers/userReducer/userReducer";
-import { AccountConfirmationBlock } from "./components/accountConfirmationBlock/accountConfirmationBlock";
 import { ChangeUserAccount } from "../../../../../shared/googleAuth/changeUserAccount/changeUserAccount";
 import { Spinner } from "../../../../../shared/spinner/spinner";
-import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
-import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
-import { Wrapper } from "./styledContent";
+import { ConfirmAccountModal } from "../../../../../shared/сonfirmAccountModal/confirmAccountModal";
 
-export const Content: FC = () => {
-    const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
+interface ContentProps {
+    setAlertActive: (value: null | AlertComponentProps) => void;
+}
+
+export const Content: FC<ContentProps> = ({ setAlertActive }) => {
     const [isGoogleAccount, setIsGoogleAccount] = useState<boolean | null>(null);
-    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const despatch = useAppDispatch();
 
     useEffect(() => {
@@ -30,14 +29,13 @@ export const Content: FC = () => {
     }, []);
 
     return (
-        <Wrapper themestyles={themeContext.themeStyles}>
+        <>
             {isGoogleAccount === null ?
                 <Spinner size={40} height={3} /> : isGoogleAccount ?
                     <ChangeUserAccount setAlertActive={setAlertActive} /> :
-                    <AccountConfirmationBlock setAlertActive={setAlertActive} />}
-            {isAlertActive && (
-                <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
-            )}
-        </Wrapper>
+                    <ConfirmAccountModal
+                        setAlertActive={setAlertActive}
+                        goToLink="/settings/change-email-modification" />}
+        </>
     );
 }

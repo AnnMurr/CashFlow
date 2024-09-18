@@ -44,6 +44,7 @@ export interface Theme {
     chartBlockBackgroundHover: Colors,
     settingsTabBtnSelected: Colors,
     settingsTabBtnHover: Colors,
+    settingsModalBorder: Colors,
     pieChartStroke: Colors,
     budgetPlannerBackground: Colors,
     budgetPlannerRowBorder: Colors,

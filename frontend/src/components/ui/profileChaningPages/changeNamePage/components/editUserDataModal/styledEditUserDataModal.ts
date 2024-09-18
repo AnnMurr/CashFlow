@@ -1,4 +1,4 @@
-import { ThemeStyledProps } from '../../../../../../../../contexts/themeContext/types';
+import { ThemeStyledProps } from '../../../../../../contexts/themeContext/types';
 import styled from "styled-components";
 
 export const Container = styled.div<ThemeStyledProps>`
@@ -14,7 +14,7 @@ export const Container = styled.div<ThemeStyledProps>`
 `
 
 export const Wrapper = styled.div`
-    padding: 15px;
+    padding: 30px;
 `
 
 export const BtnInner = styled.div`

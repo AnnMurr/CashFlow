@@ -1,15 +1,15 @@
 import { FC, useContext, useState } from "react";
-import { updateUserData } from "../../../../../../../../redux/reducers/userReducer/userReducer";
-import { UserDataType } from "../../../../../../../../redux/reducers/userReducer/types";
-import { useAppDispatch, useAppSelector } from "../../../../../../../../redux/store/store";
-import { showAlert } from "../../../../../../../../utils/showAlert";
+import { updateUserData } from "../../../../../../redux/reducers/userReducer/userReducer";
+import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
+import { showAlert } from "../../../../../../utils/showAlert";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { AlertComponentProps } from "../../../../../../../shared/alert/alert";
-import { ButtonComponent } from "../../../../../../../shared/button/button";
-import { BtnClose } from "../../../../../../../shared/btnClose/btnClose";
-import { ThemeContextType } from "../../../../../../../../contexts/themeContext/types";
-import { ThemeContext } from "../../../../../../../../contexts/themeContext/themeContext";
-import { OutlinedInputComponent } from "../../../../../../../../components/shared/outlinedInput/outlinedInput";
+import { AlertComponentProps } from "../../../../../shared/alert/alert";
+import { ButtonComponent } from "../../../../../shared/button/button";
+import { BtnClose } from "../../../../../shared/btnClose/btnClose";
+import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
+import { OutlinedInputComponent } from "../../../../../shared/outlinedInput/outlinedInput";
 import { BtnInner, Container, Wrapper } from "./styledEditUserDataModal";
 
 interface EditUserDataModalProps {

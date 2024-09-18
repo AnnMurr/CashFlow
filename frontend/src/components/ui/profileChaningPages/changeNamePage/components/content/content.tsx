@@ -1,19 +1,19 @@
-import { FC, useContext, useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { EditUserDataModal } from "./components/editUserDataModal/editUserDataModal";
-import { DarkBackground } from "../../../../../shared/darkBackground/darkBackground";
-import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
+import { FC, useContext, useEffect } from "react";
 import { useAppSelector } from "../../../../../../redux/store/store";
 import { UserDataType } from "../../../../../../redux/reducers/userReducer/types";
 import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
-import { Wrapper, UserName, Category } from "./styledContent";
+import { Head } from "./components/head/head";
+import { InfoBlock } from "./components/infoBlock/infoBlock";
+import { Container, Wrapper } from "./styledContent";
 
-export const Content: FC = () => {
-    const [isModalActive, setIsModalActive] = useState<boolean>(false);
-    const [isAlertActive, setIsAlertActive] = useState<null | AlertComponentProps>(null);
-    const [userName, setUserName] = useState<string | null | undefined>(null);
+interface ContentProps {
+    setUserName: (value: string | null | undefined) => void;
+    userName: string | null | undefined;
+    setIsModalActive: (value: boolean) => void;
+}
+
+export const Content: FC<ContentProps> = ({ setUserName, userName, setIsModalActive }) => {
     const userDataFromRedux: UserDataType | null = useAppSelector((state) => state.user.userData);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
@@ -22,36 +22,13 @@ export const Content: FC = () => {
     }, [userDataFromRedux]);
 
     return (
-        <Wrapper themestyles={themeContext.themeStyles}>
-            <div>
-                <Category themestyles={themeContext.themeStyles}>
-                    <h3>
-                        Name
-                    </h3>
-                </Category>
-                <UserName themestyles={themeContext.themeStyles}>
-                    <span>{userName}</span>
-                </UserName>
-            </div>
-            <div>
-                <button onClick={() => setIsModalActive(true)} type="button">
-                    <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faPen} />
-                </button>
-            </div>
-            {isModalActive ?
-                <>
-                    <EditUserDataModal
-                        userData={userName}
-                        changeUserData={setUserName}
-                        setIsModalActive={setIsModalActive}
-                        setIsAlertActive={setIsAlertActive} />
-                    <DarkBackground
-                        setIsModalActive={setIsModalActive}
-                        isModalActive={isModalActive} />
-                </> : null}
-            {isAlertActive ?
-                <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
-                : null}
-        </Wrapper>
+        <Container themestyles={themeContext.themeStyles}>
+            <Wrapper>
+                <Head
+                    userName={userName}
+                    setIsModalActive={setIsModalActive} />
+                <InfoBlock />
+            </Wrapper>
+        </Container>
     )
 }
