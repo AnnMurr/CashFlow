@@ -35,6 +35,7 @@ interface EditCategoryProps {
     dispatch: AppDispatch;
     setIsAlertActive: (alert: AlertComponentProps | null) => void;
     setIsEditModalActive: (isOpen: boolean) => void;
+    setBudgetPlans: (plans: Array<BudgetPlanning> | null) => void;
 }
 
 interface UpdateCategoryInPlanProps {
@@ -172,7 +173,8 @@ export const editCategory = async (params: EditCategoryProps) => {
         sum,
         dispatch,
         setIsAlertActive,
-        setIsEditModalActive
+        setIsEditModalActive,
+        setBudgetPlans
     } = params;
     try {
         if (storageData) {
@@ -190,6 +192,7 @@ export const editCategory = async (params: EditCategoryProps) => {
             const userDataAfterUpdate = (await dispatch(changeUserData({ userToken: token, updatedData: updatedData }))).payload;
 
             if (userDataAfterUpdate) {
+                setBudgetPlans(updatedData.data.planning);
                 showAlert({ type: "success", text: "Category updated successfully" }, setIsAlertActive, 3000);
                 setIsEditModalActive(false);
             }

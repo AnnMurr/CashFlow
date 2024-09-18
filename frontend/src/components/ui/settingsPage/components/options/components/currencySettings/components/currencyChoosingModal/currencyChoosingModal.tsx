@@ -76,7 +76,7 @@ export const CurrencyChoosingModal: FC<CurrencyChoosingModalProps> = ({ setIsCur
                     <BtnClose
                         btnInnerstyles={{
                             marginLeft: "auto",
-                            paddingBottom: "5px",
+                            paddingBottom: "15px",
                         }}
                         closeBlock={setIsCurrencyChoosingModalActive}
                         size="lg" />

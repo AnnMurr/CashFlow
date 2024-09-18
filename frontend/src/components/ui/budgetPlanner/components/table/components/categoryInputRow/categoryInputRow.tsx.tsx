@@ -47,7 +47,7 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
                 setCategory(null);
             }
         } else {
-            showAlert({ type: "warning", text: "Enter category and sum" }, setIsAlertActive, 3000);
+            showAlert({ type: "error", text: "Enter category and sum" }, setIsAlertActive, 3000);
         }
     }
 

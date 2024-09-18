@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { AuthorizedContext, AuthorizedContextType } from "../../../../../contexts/authorizedContext/authorizedContext";
-import { BtnClose } from "../../../../shared/btnClose/btnClose";
-import { ButtonComponent } from "../../../../shared/button/button";
 import { removeDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
-import { BtnInner, Container, Title, Wrapper } from "./styledLogOutModal";
+import { ConfirmationModal } from "../../../../shared/confirmationModal/confirmationModal";
+import { Container } from "./styledLogOutModal";
 
 interface LogOutConfirmationModalProps {
     setIsModalActive: (value: boolean) => void;
@@ -25,29 +24,11 @@ export const LogOutConfirmationModal: FC<LogOutConfirmationModalProps> = ({ setI
 
     return (
         <Container themestyles={themeContext.themeStyles}>
-            <Wrapper>
-                <BtnClose
-                    btnInnerstyles={{
-                        marginLeft: "auto",
-                        paddingBottom: "15px",
-                    }}
-                    closeBlock={setIsModalActive}
-                    size="lg" />
-                <Title themestyles={themeContext.themeStyles}>
-                    <h5>
-                        Are you sure you want to log out and end your session?
-                    </h5>
-                </Title>
-                <BtnInner>
-                    <ButtonComponent
-                        backgroundColor="#a71616"
-                        BackgroundColorHover="#820e0e"
-                        text="Log out"
-                        color="#fff"
-                        type="button"
-                        func={getLogOut} />
-                </BtnInner>
-            </Wrapper>
+            <ConfirmationModal
+                closeModal={setIsModalActive}
+                handleClick={getLogOut}
+                text="Are you sure you want to log out and end your session?"
+                btnText="Log out" />
         </Container>
     )
 }

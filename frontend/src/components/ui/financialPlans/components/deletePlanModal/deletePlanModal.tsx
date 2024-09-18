@@ -1,13 +1,12 @@
 import { FC, useContext } from "react";
-import { BtnClose } from "../../../../shared/btnClose/btnClose";
-import { ButtonComponent } from "../../../../shared/button/button";
 import { BudgetPlanning, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { deletePlan } from "../../../../../utils/financialPlansUtils";
-import { BtnInner, Container, Title, Wrapper } from "./styledDeletePlanModal";
+import { ConfirmationModal } from "../../../../shared/confirmationModal/confirmationModal";
+import { Container } from "./styledDeletePlanModal";
 
 interface DeleteCategoryModalProps {
     closeModal: (value: boolean) => void;
@@ -37,29 +36,11 @@ export const DeletePlanModal: FC<DeleteCategoryModalProps> = ({
 
     return (
         <Container themestyles={themeContext.themeStyles}>
-            <Wrapper>
-                <BtnClose
-                    btnInnerstyles={{
-                        marginLeft: "auto",
-                        paddingBottom: "15px",
-                    }}
-                    closeBlock={closeModal}
-                    size="lg" />
-                <Title themestyles={themeContext.themeStyles}>
-                    <h5>
-                        Are you sure you want to delete this plan?
-                    </h5>
-                </Title>
-                <BtnInner>
-                    <ButtonComponent
-                        backgroundColor="#a71616"
-                        BackgroundColorHover="#820e0e"
-                        text="Delete"
-                        color="#fff"
-                        type="button"
-                        func={handleDeletePlan} />
-                </BtnInner>
-            </Wrapper>
+            <ConfirmationModal
+                closeModal={closeModal}
+                handleClick={handleDeletePlan}
+                text="Are you sure you want to delete this plan?"
+                btnText="Delete" />
         </Container>
     )
 }

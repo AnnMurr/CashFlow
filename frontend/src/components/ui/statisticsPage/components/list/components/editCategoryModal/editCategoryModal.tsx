@@ -59,7 +59,7 @@ export const EditCategoryModal: FC<EditCategoryModalProps> = ({
         const sum = categorySum.toString().replace(',', '.');
 
         if (!VALID_SUM_REGEX.test(sum)) {
-            showAlert({ type: "error", text: "Invalid input" }, setIsAlertActive, 3000);
+            showAlert({ type: "error", text: "Invalid sum" }, setIsAlertActive, 3000);
             setCategoryNameError(true);
         } else {
             try {

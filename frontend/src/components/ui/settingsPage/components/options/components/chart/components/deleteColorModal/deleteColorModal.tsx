@@ -1,43 +1,24 @@
 import { FC, useContext } from "react";
 import { ThemeContext } from "../../../../../../../../../contexts/themeContext/themeContext";
 import { ThemeContextType } from "../../../../../../../../../contexts/themeContext/types";
-import { BtnClose } from "../../../../../../../../shared/btnClose/btnClose";
-import { ButtonComponent } from "../../../../../../../../shared/button/button";
-import { BtnInner, Container, Title, Wrapper } from "./styledDeleteColorModal";
+import { ConfirmationModal } from "../../../../../../../../shared/confirmationModal/confirmationModal";
+import { Container } from "./styledDeleteColorModal";
 
 interface DeleteColorModalProps {
-    closeModal: (value: boolean) => void; 
+    closeModal: (value: boolean) => void;
     handleDeleteColor: () => void;
 }
 
-export const DeleteColorModal:FC<DeleteColorModalProps> = ({ closeModal, handleDeleteColor }) => {
+export const DeleteColorModal: FC<DeleteColorModalProps> = ({ closeModal, handleDeleteColor }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     return (
         <Container themestyles={themeContext.themeStyles}>
-        <Wrapper>
-            <BtnClose
-                btnInnerstyles={{
-                    marginLeft: "auto",
-                    paddingBottom: "15px",
-                }}
-                closeBlock={() => closeModal(false)}
-                size="lg" />
-            <Title themestyles={themeContext.themeStyles}>
-                <h5>
-                    Are you sure you want to delete this color?
-                </h5>
-            </Title>
-            <BtnInner>
-                <ButtonComponent
-                    backgroundColor="#a71616"
-                    BackgroundColorHover="#820e0e"
-                    text="Delete"
-                    color="#fff"
-                    type="button"
-                    func={handleDeleteColor} />
-            </BtnInner>
-        </Wrapper>
-    </Container>
+            <ConfirmationModal
+                closeModal={closeModal}
+                handleClick={handleDeleteColor}
+                text="Are you sure you want to delete this color?"
+                btnText={"Delete"} />
+        </Container>
     )
 }

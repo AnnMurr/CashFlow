@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect } from "react";
 import { Table, TableContainer } from "@mui/material";
 import Paper from '@mui/material/Paper';
 import { BudgetPlanning, CategoryPlanning } from "../../../../../redux/reducers/userStorageReduser/types";
@@ -31,6 +31,10 @@ export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({
         setChoosenEditCategory({ name: item.name, sum: item.sum });
         setIsEditModalActive(true);
     }
+
+    useEffect(() => {
+        console.log("render")
+    }, []);
 
     return (
         <TableContainer sx={{ backgroundColor: themeContext.themeStyles.budgetPlannerBackground }} component={Paper}>

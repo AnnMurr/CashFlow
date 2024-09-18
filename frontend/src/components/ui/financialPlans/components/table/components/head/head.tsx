@@ -22,7 +22,7 @@ export const Head: FC<HeadProps> = ({ data, setIsDeletePlanModal }) => {
                         {data.period}
                     </Period>
                 </TableCell>
-                <TableCell colSpan={4}>
+                <TableCell align="right" colSpan={4}>
                     <button onClick={handleOpenDeletePlanModal}>
                         <FontAwesomeIcon icon={faTrash} />
                     </button>

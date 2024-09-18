@@ -17,6 +17,6 @@ export const LinkToSignIn = styled(Link)`
     font-weight: 600;
 
     &:hover {
-        border-bottom: 1px solid #5a8a72;
+        border-bottom: 1px solid #171717;
     }
 `
