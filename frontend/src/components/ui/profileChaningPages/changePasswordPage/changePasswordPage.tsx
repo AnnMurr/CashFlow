@@ -1,20 +1,19 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
-import { Body } from "../../../shared/body/body";
+import { SettingsPageContainer } from "../../../shared/settingsPageContainer/settingsPageContainer";
+import { AlertComponent, AlertComponentProps } from "../../../shared/alert/alert";
 import { Content } from "./components/content/content";
-import { Block, Wrapper } from "./styledChangePasswordPage";
 
 export const ChangePasswordPage: FC = () => {
+    const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
+
     return (
-        <Body>
-            <section>
-                <Wrapper>
-                    <SettingsChangingHeader category={"Password"} />
-                    <Block>
-                        <Content />
-                    </Block>
-                </Wrapper>
-            </section>
-        </Body>
+        <SettingsPageContainer>
+            <SettingsChangingHeader category={"Password"} />
+            <Content setAlertActive={setAlertActive} />
+            {isAlertActive ?
+                <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
+                : null}
+        </SettingsPageContainer>
     )
 }

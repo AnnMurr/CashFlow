@@ -1,20 +1,21 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BtnShowPassword } from "../../../../../../../shared/btnShowPassword/btnShowPassword";
-import { ButtonComponent } from "../../../../../../../shared/button/button";
-import { AlertComponentProps } from "../../../../../../../shared/alert/alert";
-import { useAppSelector } from "../../../../../../../../redux/store/store";
-import { UserDataType } from "../../../../../../../../redux/reducers/userReducer/types";
-import { ThemeContextType } from "../../../../../../../../contexts/themeContext/types";
-import { ThemeContext } from "../../../../../../../../contexts/themeContext/themeContext";
-import { OutlinedInputComponent } from "../../../../../../../../components/shared/outlinedInput/outlinedInput";
-import { BtnInner, BtnShowPasswordInner, Label, Title } from "./styledAccountConfirmationBlock";
+import { useAppSelector } from "../../../redux/store/store";
+import { AlertComponentProps } from "../alert/alert";
+import { UserDataType } from "../../../redux/reducers/userReducer/types";
+import { ThemeContextType } from "../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../contexts/themeContext/themeContext";
+import { BtnShowPassword } from "../btnShowPassword/btnShowPassword";
+import { ButtonComponent } from "../button/button";
+import { OutlinedInputComponent } from "../outlinedInput/outlinedInput";
+import { BtnInner, BtnShowPasswordInner, Container, Label, Title, Wrapper } from "./styledConfirmAccountModal";
 
-interface AccountConfirmationBlockProps {
+interface ConfirmAccountModalProps {
     setAlertActive: (value: null | AlertComponentProps) => void;
+    goToLink: string;
 }
 
-export const AccountConfirmationBlock: FC<AccountConfirmationBlockProps> = ({ setAlertActive }) => {
+export const ConfirmAccountModal: FC<ConfirmAccountModalProps> = ({ setAlertActive, goToLink }) => {
     const [passwordValue, setPasswordValue] = useState<string>("");
     const [isInputTypePassword, setIsInputTypePassword] = useState<boolean>(true);
     const [isError, setIsError] = useState<boolean>(false);
@@ -30,7 +31,7 @@ export const AccountConfirmationBlock: FC<AccountConfirmationBlockProps> = ({ se
             }
 
             if (userDataFromRedux && userDataFromRedux.password === passwordValue) {
-                navigate("/settings/change-email-modification");
+                navigate(goToLink);
             } else {
                 setAlertActive({ type: "error", text: "Invalid password" })
                 setTimeout(() => setAlertActive(null), 3000);
@@ -43,8 +44,8 @@ export const AccountConfirmationBlock: FC<AccountConfirmationBlockProps> = ({ se
     }
 
     return (
-        <div>
-            <div>
+        <Container themestyles={themeContext.themeStyles}>
+            <Wrapper>
                 <Title themestyles={themeContext.themeStyles}>
                     <h5>
                         Confirm your account
@@ -75,7 +76,7 @@ export const AccountConfirmationBlock: FC<AccountConfirmationBlockProps> = ({ se
                         func={checkPassword}
                     />
                 </BtnInner>
-            </div>
-        </div>
+            </Wrapper>
+        </Container>
     )
 }

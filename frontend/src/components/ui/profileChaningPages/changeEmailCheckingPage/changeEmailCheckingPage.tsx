@@ -1,20 +1,19 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
-import { Body } from "../../../shared/body/body";
 import { Content } from "./components/content/content";
-import { Block, Wrapper } from "./styledChangeEmailCheckingPage";
+import { AlertComponent, AlertComponentProps } from "../../../shared/alert/alert";
+import { SettingsPageContainer } from "../../../shared/settingsPageContainer/settingsPageContainer";
 
 export const ChangeEmailCheckingPage: FC = () => {
+    const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);
+
     return (
-        <Body>
-            <section>
-                <Wrapper>
-                    <SettingsChangingHeader category={"Email"} />
-                    <Block>
-                        <Content />
-                    </Block>
-                </Wrapper>
-            </section>
-        </Body>
+        <SettingsPageContainer>
+            <SettingsChangingHeader category={"Email"} />
+            <Content setAlertActive={setAlertActive} />
+            {isAlertActive && (
+                <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
+            )}
+        </SettingsPageContainer>
     )
 }

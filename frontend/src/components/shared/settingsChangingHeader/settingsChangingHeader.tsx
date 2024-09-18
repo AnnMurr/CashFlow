@@ -12,7 +12,7 @@ export const SettingsChangingHeader: FC<SettingsChangingHeaderProps> = ({ catego
     const themeContext = useContext<ThemeContextType>(ThemeContext);
     
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <Wrapper>
                 <div>
                     <BtnGoBack />
