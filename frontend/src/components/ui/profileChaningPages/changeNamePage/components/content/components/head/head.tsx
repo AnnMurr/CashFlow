@@ -14,7 +14,7 @@ export const Head: FC<HeadProps> = ({ userName, setIsModalActive }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     return (
-        <Container>
+        <Container themestyles={themeContext.themeStyles}>
             <div>
                 <Category themestyles={themeContext.themeStyles}>
                     <h3>

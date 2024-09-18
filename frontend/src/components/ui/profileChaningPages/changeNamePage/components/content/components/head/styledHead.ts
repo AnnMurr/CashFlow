@@ -1,12 +1,12 @@
 import { ThemeStyledProps } from './../../../../../../../../contexts/themeContext/types';
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<ThemeStyledProps>`
     display: flex;
     justify-content: space-between;
     align-items: end;
     padding-bottom: 15px;
-    border-bottom: 1px solid #000;
+    border-bottom:${({ themestyles }) => `1px solid ${themestyles.settingsModalBorder}`};
 `
 
 export const Category = styled.div<ThemeStyledProps>`
