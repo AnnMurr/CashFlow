@@ -5,9 +5,9 @@ export const Container = styled.div`
     width: 100%;
     background-color: #fff;
     position: fixed;
-    top: 40%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     left: 50%;
-    margin-left: -300px;
     z-index: 22;
 `
 

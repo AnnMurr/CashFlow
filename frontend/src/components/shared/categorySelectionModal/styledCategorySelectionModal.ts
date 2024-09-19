@@ -8,9 +8,9 @@ interface ItemProps {
 export const Container = styled.div<ThemeStyledProps>`
     width: 50%;
     left: 50%;
-    margin-left: -25%;
     position: fixed;
-    top: 20%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     background-color:${({ themestyles }) => themestyles.modalBackground};
     z-index: 25;
 `

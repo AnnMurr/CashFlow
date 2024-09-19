@@ -5,9 +5,9 @@ export const Container = styled.div<ThemeStyledProps>`
     width: 100%;
     max-width: 20rem;
     left: 50%;
-    margin-left: -10rem;
+    top: 50%;
+    transform: translate(-50%, -50%);
     position: fixed;
-    top: 20%;
     background-color:${({ themestyles }) => themestyles.modalBackground};
     z-index: 25;
     border-radius: 5px;
