@@ -33,8 +33,12 @@ export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({
         console.log("render")
     }, []);
 
+    const tableContainerStyles = {
+        backgroundColor: themeContext.themeStyles.budgetPlannerBackground,
+    };
+
     return (
-        <TableContainer sx={{ backgroundColor: themeContext.themeStyles.budgetPlannerBackground }} component={Paper}>
+        <TableContainer sx={tableContainerStyles} component={Paper}>
             <Table>
                 {data ?
                     (

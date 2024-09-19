@@ -1,6 +1,8 @@
-import { FC, MouseEvent } from "react";
+import { FC, MouseEvent, useContext } from "react";
 import { BudgetPlanning } from "../../../../../redux/reducers/userStorageReduser/types";
 import { v4 as uuidV4 } from "uuid";
+import { ThemeContextType } from "../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 import { Item, List } from "./styledHeader";
 
 interface HeaderProps {
@@ -10,6 +12,8 @@ interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ budgetPlans, currentPlan, setCurrentTab }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+
     const handlePlanClick = (event: MouseEvent<HTMLButtonElement>) => {
         const planPeriod = event.currentTarget.dataset.name;
 
@@ -27,8 +31,11 @@ export const Header: FC<HeaderProps> = ({ budgetPlans, currentPlan, setCurrentTa
                         key={uuidV4()}>
                         <Item
                             style={{
-                                borderBottom: currentPlan.period === data.period ? "1px solid black" : "none"
+                                borderBottom: currentPlan.period === data.period ?
+                                    `1px solid ${themeContext.themeStyles.color}`
+                                    : "none"
                             }}
+                            themestyles={themeContext.themeStyles}
                             type="button"
                             data-name={data.period}
                             onClick={handlePlanClick}>

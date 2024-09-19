@@ -1,9 +1,11 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { TableCell, TableHead, TableRow } from "@mui/material";
 import { BudgetPlanning } from "../../../../../../../redux/reducers/userStorageReduser/types";
-import { Period, Title } from "./styledHead";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
+import { Period, Title } from "./styledHead";
 
 interface HeadProps {
     data: BudgetPlanning;
@@ -11,36 +13,45 @@ interface HeadProps {
 }
 
 export const Head: FC<HeadProps> = ({ data, setIsDeletePlanModal }) => {
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
+
     const handleOpenDeletePlanModal = () => {
         setIsDeletePlanModal(true)
     }
+
+    const tableCellStyles = {
+        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
+    };
+
     return (
         <TableHead>
             <TableRow>
-                <TableCell colSpan={4}>
-                    <Period>
+                <TableCell sx={tableCellStyles} colSpan={4}>
+                    <Period themestyles={themeContext.themeStyles}>
                         {data.period}
                     </Period>
                 </TableCell>
-                <TableCell align="right" colSpan={4}>
+                <TableCell sx={tableCellStyles} align="right" colSpan={4}>
                     <button onClick={handleOpenDeletePlanModal}>
-                        <FontAwesomeIcon icon={faTrash} />
+                        <FontAwesomeIcon
+                            color={themeContext.themeStyles.color}
+                            icon={faTrash} />
                     </button>
                 </TableCell>
             </TableRow>
             <TableRow>
-                <TableCell sx={{ width: '25rem' }} colSpan={1}>
-                    <Title>
+                <TableCell sx={{ ...tableCellStyles, width: '25rem' }} colSpan={1}>
+                    <Title themestyles={themeContext.themeStyles}>
                         Category
                     </Title>
                 </TableCell >
-                <TableCell sx={{ width: '30%' }} colSpan={1} >
-                    <Title>
+                <TableCell sx={{ ...tableCellStyles, width: '30%' }} colSpan={1} >
+                    <Title themestyles={themeContext.themeStyles}>
                         Sum
                     </Title>
                 </TableCell>
-                <TableCell colSpan={1} />
-                <TableCell colSpan={4} />
+                <TableCell sx={tableCellStyles} colSpan={1} />
+                <TableCell sx={tableCellStyles} colSpan={4} />
             </TableRow>
         </TableHead>
     )

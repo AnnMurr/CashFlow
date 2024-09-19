@@ -12,7 +12,6 @@ interface BodyComponentProps {
 
 export const BodyComponent: FC<BodyComponentProps> = ({
     data, handleOpenDeleteCategoryModal, handleOpenEditCategoryModal }) => {
-
     return (
         <TableBody>
             {data && data.categories.map(item => (
