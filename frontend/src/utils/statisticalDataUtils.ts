@@ -20,43 +20,35 @@ type ProcessStatisticalDataType = (
     setIsAlertActive?: (value: AlertComponentProps | null) => void) =>
     ProcessedStatisticalData | null;
 
-type GetFilterStatisticsForDayType = (
-    chosenDate: string | null,
-    statisticalData: StatisticalDataType | null,
-    setIsAlertActive: (value: AlertComponentProps | null) => void,
-    chosenFilterType: string | null,
-    dispatch: AppDispatch,
-    setIsDatePickerModal: (value: boolean) => void) => void;
+type BaseFilterStatisticsType = {
+    statisticalData: StatisticalDataType | null;
+    setIsAlertActive: (value: AlertComponentProps | null) => void;
+    chosenFilterType: string | null;
+    dispatch: AppDispatch;
+    setIsModalActive: (value: boolean) => void;
+}
 
-type GetFilterStatisticsForWeekType = (
-    statisticalData: StatisticalDataType | null,
-    setIsAlertActive: (value: AlertComponentProps | null) => void,
-    chosenFilterType: string | null,
-    dispatch: AppDispatch) => void;
+type GetFilterStatisticsForDayProps = BaseFilterStatisticsType & {
+    chosenDate: string | null;
+}
 
-type GetFilterStatisticsForMonthType = (
-    chosenDate: string | null,
-    statisticalData: StatisticalDataType | null,
-    setIsAlertActive: (value: AlertComponentProps | null) => void,
-    chosenFilterType: string | null,
-    dispatch: AppDispatch,
-    setIsMonthSelectModal: (value: boolean) => void) => void;
+type GetFilterStatisticsForMonthParams = BaseFilterStatisticsType & {
+    chosenDate: string | null;
+}
 
-type GetFilterStatisticsForYearType = (
-    chosenYear: string | null,
-    statisticalData: StatisticalDataType | null,
-    setIsAlertActive: (value: AlertComponentProps | null) => void,
-    chosenFilterType: string | null,
-    dispatch: AppDispatch,
-    setIsYearSelectModal: (value: boolean) => void) => void;
+type GetFilterStatisticsForYearParams = BaseFilterStatisticsType & {
+    chosenYear: string | null;
+}
 
-type GetFilterStatisticsForRangeType = (
-    chosenDate: { startDate: string | null; endDate: string | null },
-    statisticalData: StatisticalDataType | null,
-    setIsAlertActive: (value: AlertComponentProps | null) => void,
-    chosenFilterType: string | null,
-    dispatch: AppDispatch,
-    setIsDateRangeModal: (value: boolean) => void) => void;
+type GetFilterStatisticsForRangeParams = BaseFilterStatisticsType & {
+    chosenDate: { startDate: string | null; endDate: string | null };
+}
+
+type GetFilterStatisticsForDayType = (params: GetFilterStatisticsForDayProps) => void;
+type GetFilterStatisticsForWeekType = (params: BaseFilterStatisticsType) => void;
+type GetFilterStatisticsForMonthType = (params: GetFilterStatisticsForMonthParams) => void;
+type GetFilterStatisticsForYearType = (params: GetFilterStatisticsForYearParams) => void;
+type GetFilterStatisticsForRangeType = (params: GetFilterStatisticsForRangeParams) => void;
 
 export const getDataForStatistic: GetDataForStatisticType = async (type, dispatch) => {
     const token = getDataFromLocalStorage("token");
@@ -127,13 +119,13 @@ const processStatisticalData: ProcessStatisticalDataType = (
     }
 }
 
-export const getFilterStatisticsForDay: GetFilterStatisticsForDayType = (
+export const getFilterStatisticsForDay: GetFilterStatisticsForDayType = ({
     chosenDate,
     statisticalData,
     setIsAlertActive,
     chosenFilterType,
     dispatch,
-    setIsDatePickerModal) => {
+    setIsModalActive }) => {
     if (!statisticalData || !chosenDate) {
         showAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
         return;
@@ -149,18 +141,18 @@ export const getFilterStatisticsForDay: GetFilterStatisticsForDayType = (
 
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
-        setIsDatePickerModal(false);
+        setIsModalActive(false);
         dispatch(setIsEditingData(false));
         dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: [chosenDate], data: chosenDateStatisticalData }));
         dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
     }
 }
 
-export const getFilterStatisticsForWeek: GetFilterStatisticsForWeekType = (
+export const getFilterStatisticsForWeek: GetFilterStatisticsForWeekType = ({
     statisticalData,
     setIsAlertActive,
     chosenFilterType,
-    dispatch) => {
+    dispatch }) => {
     if (!statisticalData) return;
 
     const week = getWeek();
@@ -175,13 +167,13 @@ export const getFilterStatisticsForWeek: GetFilterStatisticsForWeekType = (
     }
 }
 
-export const getFilterStatisticsForMonth: GetFilterStatisticsForMonthType = (
+export const getFilterStatisticsForMonth: GetFilterStatisticsForMonthType = ({
     chosenDate,
     statisticalData,
     setIsAlertActive,
     chosenFilterType,
     dispatch,
-    setIsMonthSelectModal) => {
+    setIsModalActive }) => {
     if (!statisticalData || !chosenDate) {
         showAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
         return;
@@ -199,20 +191,20 @@ export const getFilterStatisticsForMonth: GetFilterStatisticsForMonthType = (
 
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
-        setIsMonthSelectModal(false);
+        setIsModalActive(false);
         dispatch(setIsEditingData(false));
         dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: chosenDate, data: chosenDateStatisticalData }));
         dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
     }
 }
 
-export const getFilterStatisticsForYear: GetFilterStatisticsForYearType = (
+export const getFilterStatisticsForYear: GetFilterStatisticsForYearType = ({
     chosenYear,
     statisticalData,
     setIsAlertActive,
     chosenFilterType,
     dispatch,
-    setIsYearSelectModal) => {
+    setIsModalActive }) => {
     if (!statisticalData || !chosenYear) {
         showAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
         return;
@@ -229,20 +221,20 @@ export const getFilterStatisticsForYear: GetFilterStatisticsForYearType = (
 
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
-        setIsYearSelectModal(false);
+        setIsModalActive(false);
         dispatch(setIsEditingData(false));
         dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: chosenYear, data: chosenDateStatisticalData }));
         dispatch(setStatisticalData({ days: [chosenYear], data: { [chosenYear]: sortedStatisticalData } }));
     }
 }
 
-export const getFilterStatisticsForRange: GetFilterStatisticsForRangeType = (
+export const getFilterStatisticsForRange: GetFilterStatisticsForRangeType = ({
     chosenDate,
     statisticalData,
     setIsAlertActive,
     chosenFilterType,
     dispatch,
-    setIsDateRangeModal) => {
+    setIsModalActive }) => {
     if (!statisticalData || !chosenDate.startDate || !chosenDate.endDate) {
         showAlert({ type: "warning", text: "Choose date" }, setIsAlertActive, 3000);
         return;
@@ -270,7 +262,7 @@ export const getFilterStatisticsForRange: GetFilterStatisticsForRangeType = (
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
         const range = `${chosenDate.startDate} - ${chosenDate.endDate}`;
-        setIsDateRangeModal(false);
+        setIsModalActive(false);
         dispatch(setIsEditingData(false));
         dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: range, data: chosenDateStatisticalData }));
         dispatch(setStatisticalData({ days: [range], data: { [range]: sortedStatisticalData } }));

@@ -1,13 +1,21 @@
 import { ThemeType } from "../../../contexts/themeContext/types";
 
+interface FilterOptions  { 
+    isFilter: boolean;
+    type: string;
+    date: string;
+    data: Array<ItemType>; 
+}
+
+type FilterOptionsType = FilterOptions | null;
+export type CategoryKeys = "categoriesExpenses" | "categoriesIncome";
+export type TransactionKeys = "expenses" | "income";
+export type StorageDataKeys = CategoryKeys | TransactionKeys;
+
 export interface CategoriesType {
     name: string;
     icon: string;
 }
-
-export type CategoryKeys = "categoriesExpenses" | "categoriesIncome";
-export type TransactionKeys = "expenses" | "income";
-export type StorageDataKeys = CategoryKeys | TransactionKeys;
 
 export interface Transaction {
     type: TransactionKeys;
@@ -86,7 +94,7 @@ export interface RootState {
         transactions: Array<Transaction> | null;
         statisticalData: StatisticalDataType | null;
         isEditingData: boolean;
-        chosenFilter: { isFilter: boolean, type: string, date: string, data: Array<ItemType> } | null;
+        chosenFilter: FilterOptionsType;
         chosenCategoryStatistic: Array<ItemType> | null;
     };
 }

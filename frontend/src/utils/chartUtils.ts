@@ -43,7 +43,7 @@ export const filterChartData: FilterChartTransactions = (
     storageData,
     financeType,
     date,
-    period): Array<Transaction> | undefined => {
+    period) => {
     if (period === 'day' && Array.isArray(date)) {
         return storageData?.data[financeType]
             .filter(item => date.some(dateItem => areDatesEqual(dateItem, item.date)));

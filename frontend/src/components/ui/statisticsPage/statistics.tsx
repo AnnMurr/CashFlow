@@ -62,7 +62,7 @@ export const Statistics: FC = () => {
 
     useEffect(() => {
         chosenFilterType === "Week" &&
-            getFilterStatisticsForWeek(statisticalData, setIsAlertActive, chosenFilterType, dispatch);
+            getFilterStatisticsForWeek({ statisticalData, setIsAlertActive, chosenFilterType, dispatch });
     }, [chosenFilterType]);
 
     useEffect(() => {
@@ -109,13 +109,14 @@ export const Statistics: FC = () => {
                                 </Container>)}
                         {isDatePickerModal ?
                             <DatePickerModal
-                                applyDate={() => getFilterStatisticsForDay(
+                                applyDate={() => getFilterStatisticsForDay({
                                     chosenDate,
                                     statisticalData,
                                     setIsAlertActive,
                                     chosenFilterType,
                                     dispatch,
-                                    setIsDatePickerModal)}
+                                    setIsModalActive: setIsDatePickerModal
+                                })}
                                 setChosenDate={setChosenDate}
                                 setIsDatePickerModal={setIsDatePickerModal} />
                             : null}
@@ -123,36 +124,39 @@ export const Statistics: FC = () => {
                             <MonthSelectModal
                                 setMonth={setMonth}
                                 month={month}
-                                applyMonth={() => getFilterStatisticsForMonth(
-                                    month,
+                                applyMonth={() => getFilterStatisticsForMonth({
+                                    chosenDate: month,
                                     statisticalData,
                                     setIsAlertActive,
                                     chosenFilterType,
                                     dispatch,
-                                    setIsMonthSelectModal)}
+                                    setIsModalActive: setIsMonthSelectModal
+                                })}
                                 setIsMonthSelectModal={setIsMonthSelectModal} />
                             : null}
                         {isYearSelectModal ?
                             <YearSelectModal
-                                applyYear={() => getFilterStatisticsForYear(
+                                applyYear={() => getFilterStatisticsForYear({
                                     chosenYear,
                                     statisticalData,
                                     setIsAlertActive,
                                     chosenFilterType,
                                     dispatch,
-                                    setIsYearSelectModal)}
+                                    setIsModalActive: setIsYearSelectModal
+                                })}
                                 setChosenYear={setChosenYear}
                                 setIsYearSelectModal={setIsYearSelectModal} />
                             : null}
                         {isDateRangeModal ?
                             <DateRangeModal
-                                applyDateRange={() => getFilterStatisticsForRange(
-                                    { startDate: selectedStartDate, endDate: selectedEndDate },
+                                applyDateRange={() => getFilterStatisticsForRange({
+                                    chosenDate: { startDate: selectedStartDate, endDate: selectedEndDate },
                                     statisticalData,
                                     setIsAlertActive,
                                     chosenFilterType,
                                     dispatch,
-                                    setIsDateRangeModal)}
+                                    setIsModalActive: setIsDateRangeModal
+                                })}
                                 setSelectedStartDate={setSelectedStartDate}
                                 setSelectedEndDate={setSelectedEndDate}
                                 setIsDateRangeModal={setIsDateRangeModal} />
