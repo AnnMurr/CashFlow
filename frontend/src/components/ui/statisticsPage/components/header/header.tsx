@@ -1,13 +1,9 @@
 import { FC } from "react";
-import { DeleteBtn } from "./components/deleteBtn/deleteBtn";
-import { SelectLabels } from "./components/select/select";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/store/store";
 import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
-import { BtnGoBack } from "../../../../shared/btnGoBack/btnGoBack";
-import { VariantButtonGroup } from "../../../../shared/variantButtonGroup/variantButtonGroup";
-import { TotalSum } from "./components/totalSum/totalSum";
 import { setChosenCategoryStatistic, setChosenFilter, setIsEditingData } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { getDataForStatistic } from "../../../../../utils/statisticalDataUtils";
+import { BtnGoBack, DeleteBtn, SelectLabels, TotalSum, VariantButtonGroup } from ".";
 import { Wrapper } from "./styledHeader";
 
 interface HeaderProps {

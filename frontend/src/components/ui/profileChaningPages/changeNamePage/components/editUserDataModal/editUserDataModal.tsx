@@ -4,12 +4,10 @@ import { UserDataType } from "../../../../../../redux/reducers/userReducer/types
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
 import { showAlert } from "../../../../../../utils/showAlert";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { AlertComponentProps } from "../../../../../shared/alert/alert";
-import { ButtonComponent } from "../../../../../shared/button/button";
-import { BtnClose } from "../../../../../shared/btnClose/btnClose";
 import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
-import { OutlinedInputComponent } from "../../../../../shared/outlinedInput/outlinedInput";
+import { AlertComponentProps } from "../../../../../shared/alert/alert";
+import { BtnClose, ButtonComponent, OutlinedInputComponent } from ".";
 import { BtnInner, Container, Wrapper } from "./styledEditUserDataModal";
 
 interface EditUserDataModalProps {

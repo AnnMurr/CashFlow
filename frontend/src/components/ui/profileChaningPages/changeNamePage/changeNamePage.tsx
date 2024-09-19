@@ -1,10 +1,6 @@
 import { FC, useState } from "react";
-import { Content } from "./components/content/content";
-import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
-import { DarkBackground } from "../../../shared/darkBackground/darkBackground";
-import { AlertComponent, AlertComponentProps } from "../../../shared/alert/alert";
-import { EditUserDataModal } from "./components/editUserDataModal/editUserDataModal";
-import { SettingsPageContainer } from "../../../shared/settingsPageContainer/settingsPageContainer";
+import { AlertComponentProps } from "../../../shared/alert/alert";
+import { Content, DarkBackground, EditUserDataModal, SettingsChangingHeader, SettingsPageContainer, AlertComponent } from ".";
 
 export const ChangeNamePage: FC = () => {
     const [isModalActive, setIsModalActive] = useState<boolean>(false);

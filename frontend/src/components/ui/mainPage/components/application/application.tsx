@@ -1,8 +1,6 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { PhoneImage } from "./components/phoneImage/phoneImage";
-import { AppStoresBlock } from "./components/appStoresBlock/appStoresBlock";
 import { useScroll, useTransform } from "framer-motion";
-import { HeadingBlock } from "./components/headingBlock/headingBlock";
+import { AppStoresBlock, HeadingBlock, PhoneImage } from ".";
 import { Container, Section, Wrapper } from "./styledApplication";
 
 export const Application: FC = () => {

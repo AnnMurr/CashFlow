@@ -1,16 +1,13 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
-import { ButtonComponent } from "../../../../shared/button/button";
-import { BtnShowPassword } from "../../../../shared/btnShowPassword/btnShowPassword";
-import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
 import { checkUserData } from "../../../../../redux/reducers/userReducer/userReducer";
 import { useAppDispatch } from "../../../../../redux/store/store";
-import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle/signUpWithGoogle";
 import { showAlert } from "../../../../../utils/showAlert";
+import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { OutlinedInputComponent } from "../../../../../components/shared/outlinedInput/outlinedInput";
+import { BtnShowPassword, ButtonComponent, OutlinedInputComponent, SignUpWithGoogle } from ".";
 import { BtnShowPasswordInner, FormContainer, Label, Title } from "./styledForm";
 
 interface FormProps {

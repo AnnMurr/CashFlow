@@ -133,7 +133,7 @@ export const areMonthAndYearEqual = (monthYearString: string, dateToCompare: str
     );
 };
 
-export const areYearEqual = (year: number, dateToCompare: Date) => {
+export const areYearEqual = (year: number, dateToCompare: Date): boolean => {
     const date = new Date(dateToCompare);
     const yearFromDate = date.getFullYear();
 

@@ -4,9 +4,14 @@ import { CurrencyCodesType, CurrencyNameAndCode } from "../api/getCurrencyCodes/
 import { CURRENCY_TO_LOCALE } from "../consts/index";
 import { showAlert } from "./showAlert";
 
-export const fetchAndSetCurrencies = async (
+type FetchAndSetCurrenciesType = (
     setCurrencies: (value: Array<CurrencyNameAndCode> | null) => void,
     setIsAlertActive: (value: AlertComponentProps | null) => void
+) => Promise<void>;
+
+export const fetchAndSetCurrencies: FetchAndSetCurrenciesType = async (
+    setCurrencies,
+    setIsAlertActive
 ) => {
     try {
         const countriesInfo: CurrencyCodesType = await getCurrency();

@@ -1,12 +1,8 @@
 import { FC, useContext, useState } from "react";
-import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
+import { AlertComponentProps } from "../../../../../shared/alert/alert";
 import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
-import { Title } from "./components/title/title";
-import { SubTitle } from "./components/subTitle/subTitle";
-import { InfoBlock } from "./components/infoBlock/infoBlock";
-import { Input } from "./components/input/input";
-import { SubmitButton } from "./components/button/button";
+import { InfoBlock, Input, SubTitle, SubmitButton, Title, AlertComponent } from ".";
 import { Wrapper, Container } from "./styledContent";
 
 export interface PasswordType {

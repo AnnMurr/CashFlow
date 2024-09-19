@@ -1,15 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { useAppSelector } from "../../../../../redux/store/store";
 import { ItemsType, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
-import { ItemDay } from "./components/itemDay/itemDay";
-import { EditCategoryModal } from "./components/editCategoryModal/editCategoryModal";
-import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
-import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
-import { Spinner } from "../../../../shared/spinner/spinner";
-import { Line } from "./components/line/line";
+import { DarkBackground, DeleteCategoryModal, EditCategoryModal, ItemDay, Line, Spinner } from ".";
 import { LoadingInner } from "./styledList";
 
 interface ListProps {

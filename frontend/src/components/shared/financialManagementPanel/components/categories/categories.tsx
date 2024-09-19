@@ -1,16 +1,14 @@
 import { FC, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
-import { AlertComponentProps } from "../../../../shared/alert/alert";
-import { Spinner } from "../../../spinner/spinner";
-import { Cross } from "./components/cross/cross";
-import { CategoryName } from "./components/categoryName/categoryName";
-import { Icon } from "./components/icon/icon";
+import { AlertComponentProps } from "../../../alert/alert";
 import { changeUserData, getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { useAppDispatch } from "../../../../../redux/store/store";
 import { CategoriesType, CategoryKeys, UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { showAlert } from "../../../../../utils/showAlert";
+import { CategoryName, Cross, Icon, Spinner } from ".";
 import { CrossBtnInner, Item, List } from "./styledCategories";
+
 interface CategoriesProps {
     categoriesList: Array<CategoriesType> | null;
     setChoosedCategory: (value: { category: string, icon: string } | null) => void;

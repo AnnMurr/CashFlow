@@ -1,21 +1,24 @@
 import { FC, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Body } from "../../shared/body/body";
-import { SubBar } from "../../shared/subBar/subBar";
-import { PieChartComponent } from "../../shared/pieChart/pieChart";
 import { ChartDataType } from "../profilePage/types";
 import { useAppSelector } from "../../../redux/store/store";
 import { RootState } from "../../../redux/reducers/userStorageReduser/types";
 import { Period, setChartDataForCustomPeriod } from "../../../utils/chartUtils";
 import { formatToDDMMYYYY, formatToDDMMYYYYRange, getCurrentMonthAndYear, getDatesInRange, getWeek, getYear, parseEuropeanDate } from "../../../utils/dateUtils";
-import { Filter } from "./components/filter/filter";
-import { DatePickerModal } from "../statisticsPage/components/datePickerModal/datePickerModal";
-import { AlertComponent, AlertComponentProps } from "../../../components/shared/alert/alert";
-import { DarkBackground } from "../../shared/darkBackground/darkBackground";
-import { MonthSelectModal } from "../statisticsPage/components/monthSelectModal/monthSelectModal";
-import { YearSelectModal } from "../statisticsPage/components/yearSelectModal/yearSelectModal";
 import { CURRENT_DATES } from "../../../consts";
-import { DateRangeModal } from "../statisticsPage/components/dateRangeModal/dateRangeModal";
+import { AlertComponentProps } from "../../../components/shared/alert/alert";
+import {
+    Body,
+    DarkBackground,
+    DatePickerModal,
+    DateRangeModal,
+    Filter,
+    MonthSelectModal,
+    PieChartComponent,
+    SubBar,
+    YearSelectModal,
+    AlertComponent
+} from ".";
 import { Container, Wrapper } from "./styledChartPage";
 
 type CurrentDateKeys = 'dateDay' | 'datesWeek' | 'currentYear' | 'currentMonth';

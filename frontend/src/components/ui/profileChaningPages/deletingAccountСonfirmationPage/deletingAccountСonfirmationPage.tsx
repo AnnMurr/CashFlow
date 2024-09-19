@@ -1,8 +1,6 @@
 import { FC } from "react";
+import { Body, Content, SettingsChangingHeader } from ".";
 import { Wrapper, Block } from "./styledDeletingAccountСonfirmationPage";
-import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
-import { Body } from "../../../shared/body/body";
-import { Content } from "./components/content/content";
 
 export const DeletingAccountConfirmationPage: FC = () => {
     return (

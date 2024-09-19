@@ -46,7 +46,19 @@ interface UpdateCategoryInPlanProps {
     sum: string;
 }
 
-const removeCategoryFromPlan = (currentPlan: BudgetPlanning | null, choosenEditCategory: CategoryPlanning | null, storageData: UserStorageDataType | null) => {
+type RemoveCategoryFromPlanType = (
+    currentPlan: BudgetPlanning | null,
+    choosenEditCategory: CategoryPlanning | null,
+    storageData: UserStorageDataType | null) => BudgetPlanning[] | undefined;
+
+type RemovePlanFromStorageType = (
+    currentPlan: BudgetPlanning | null,
+    storageData: UserStorageDataType | null) => BudgetPlanning[] | undefined;
+
+const removeCategoryFromPlan: RemoveCategoryFromPlanType = (
+    currentPlan,
+    choosenEditCategory,
+    storageData) => {
     return storageData?.data?.planning.map(data =>
         data.period === currentPlan?.period
             ? {
@@ -72,11 +84,11 @@ const updateCategoryInPlan = (props: UpdateCategoryInPlanProps) => {
     })) || [];
 }
 
-const removePlanFromStorage = (currentPlan: BudgetPlanning | null, storageData: UserStorageDataType | null) => {
+const removePlanFromStorage: RemovePlanFromStorageType = (currentPlan, storageData) => {
     return storageData?.data?.planning.filter(data => data.period !== currentPlan?.period);
 }
 
-export const deletePlan = async (params: DeletePlanParams) => {
+export const deletePlan = async (params: DeletePlanParams): Promise<void> => {
     const {
         storageData,
         currentPlan,
@@ -114,7 +126,7 @@ export const deletePlan = async (params: DeletePlanParams) => {
     }
 }
 
-export const deleteCategory = async (params: DeleteCategoryParams) => {
+export const deleteCategory = async (params: DeleteCategoryParams): Promise<void> => {
     const {
         storageData,
         currentPlan,
@@ -164,7 +176,7 @@ export const deleteCategory = async (params: DeleteCategoryParams) => {
     }
 }
 
-export const editCategory = async (params: EditCategoryProps) => {
+export const editCategory = async (params: EditCategoryProps): Promise<void> => {
     const {
         storageData,
         currentPlan,

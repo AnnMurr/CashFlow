@@ -1,23 +1,33 @@
 import { FC, useContext, useEffect, useState } from "react";
-import { SubBar } from "../../shared/subBar/subBar";
-import { Body } from "../../shared/body/body";
-import { Header } from "./components/header/header";
-import { List } from "./components/list/list";
 import { useAppDispatch, useAppSelector } from "../../../redux/store/store";
-import { DatePickerModal } from "./components/datePickerModal/datePickerModal";
-import { DarkBackground } from "../../shared/darkBackground/darkBackground";
 import { RootState } from "../../../redux/reducers/userStorageReduser/types";
 import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
-import { MonthSelectModal } from "./components/monthSelectModal/monthSelectModal";
-import { YearSelectModal } from "./components/yearSelectModal/yearSelectModal";
-import { DateRangeModal } from "./components/dateRangeModal/dateRangeModal";
-import { getDataForStatistic, getFilterStatisticsForDay, getFilterStatisticsForMonth, getFilterStatisticsForRange, getFilterStatisticsForWeek, getFilterStatisticsForYear } from "../../../utils/statisticalDataUtils";
 import { setChosenCategoryStatistic, setChosenFilter, setIsEditingData } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { DeleteFinancesModal } from "./components/deleteFinancesModal/deleteFinancesModal";
-import { EmptyState } from "./components/emptyState/emptyState";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
-import { Spinner } from "../../../components/shared/spinner/spinner";
+import {
+    getDataForStatistic,
+    getFilterStatisticsForDay,
+    getFilterStatisticsForMonth,
+    getFilterStatisticsForRange,
+    getFilterStatisticsForWeek,
+    getFilterStatisticsForYear
+} from "../../../utils/statisticalDataUtils";
+import {
+    Body,
+    DarkBackground,
+    DatePickerModal,
+    DateRangeModal,
+    DeleteFinancesModal,
+    EmptyState,
+    Header,
+    List,
+    MonthSelectModal,
+    Spinner,
+    SubBar,
+    YearSelectModal
+} from ".";
+
 import { Container, Wrapper, LoadingInner, Table } from "./styledStatistics";
 
 export const Statistics: FC = () => {

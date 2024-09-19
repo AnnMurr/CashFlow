@@ -1,14 +1,9 @@
 import { FC, ReactElement } from "react";
-import { Tabs } from "./components/tabs/tabs";
-import { PersonalInformation } from "./components/personalInformation/personalInformation";
-import { Privacy } from "./components/privacy/privacy";
-import { CurrencySettings } from "./components/currencySettings/currencySettings";
-import { Appearance } from "./components/appearance/appearance";
-import { ChartSettings } from "./components/chart/chart";
-import { Container, Wrapper } from "./styledOptions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartLine, faCoins, faPalette, faShield } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { Appearance, ChartSettings, CurrencySettings, PersonalInformation, Privacy, Tabs } from ".";
+import { Container, Wrapper } from "./styledOptions";
 
 export interface TabsType {
     label: string | ReactElement;

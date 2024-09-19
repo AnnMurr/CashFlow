@@ -1,7 +1,5 @@
 import { FC } from "react";
-import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
-import { Body } from "../../../shared/body/body";
-import { Content } from "./components/content/content";
+import { Body, Content, SettingsChangingHeader } from ".";
 import { Block, Wrapper } from "./styledDeletingAccountPage";
 
 export const DeletingAccountPage: FC = () => {

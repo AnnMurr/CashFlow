@@ -1,19 +1,22 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { Body } from "../../shared/body/body";
-import { SubBar } from "../../shared/subBar/subBar";
-import { FinancialPlansTable } from "./components/table/table";
 import { BudgetPlanning, CategoryPlanning, RootState } from "../../../redux/reducers/userStorageReduser/types";
 import { useAppSelector } from "../../../redux/store/store";
-import { Header } from "./components/header/header";
-import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
-import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
-import { DarkBackground } from "../../shared/darkBackground/darkBackground";
-import { Spinner } from "../../shared/spinner/spinner";
-import { DeletePlanModal } from "./components/deletePlanModal/deletePlanModal";
-import { EmptyState } from "./components/emptyState/emptyState";
+import { AlertComponentProps } from "../../shared/alert/alert";
+import {
+    Body,
+    DarkBackground,
+    DeleteCategoryModal,
+    DeletePlanModal,
+    EditModal,
+    EmptyState,
+    FinancialPlansTable,
+    Header,
+    Spinner,
+    SubBar,
+    AlertComponent
+} from ".";
 import { Container, SpinnerContainer, Tables, Wrapper } from "./styledFinancialPlans";
-import { EditModal } from "./components/editModal/editModal";
 
 export const FinancialPlans: FC = () => {
     const [isAlertActive, setIsAlertActive] = useState<AlertComponentProps | null>(null);
@@ -27,14 +30,20 @@ export const FinancialPlans: FC = () => {
     const [isEmpty, setIsEmpty] = useState<boolean>(false);
     const { storageData } = useAppSelector((state: RootState) => state.storage);
 
+    const currentSetIsModal = isEditModalActive ?
+        setIsEditModalActive : isDeleteCategoryModal ?
+            setIsDeleteCategoryModal : setIsDeletePlanModal;
+
+    const currentIsModal = isEditModalActive || isDeleteCategoryModal || isDeletePlanModal;
+
     const updateBudgetPlans = useCallback(() => {
         if (storageData?.data?.planning) {
             setBudgetPlans(storageData.data.planning);
         }
-    }, [storageData]); 
+    }, [storageData]);
 
     useEffect(() => {
-        
+
         updateBudgetPlans();
     }, [updateBudgetPlans])
 
@@ -71,47 +80,38 @@ export const FinancialPlans: FC = () => {
                             </>) : null}
                         {isEmpty && <EmptyState />}
                         {isEditModalActive && (
-                            <>
-                                <EditModal
-                                    choosenEditCategory={choosenEditCategory}
-                                    setIsEditModalActive={setIsEditModalActive}
-                                    setIsAlertActive={setIsAlertActive}
-                                    currentPlan={currentPlan}
-                                    setBudgetPlans={setBudgetPlans} />
-                                <DarkBackground
-                                    setIsModalActive={setIsEditModalActive}
-                                    isModalActive={isEditModalActive} />
-                            </>
+                            <EditModal
+                                choosenEditCategory={choosenEditCategory}
+                                setIsEditModalActive={setIsEditModalActive}
+                                setIsAlertActive={setIsAlertActive}
+                                currentPlan={currentPlan}
+                                setBudgetPlans={setBudgetPlans} />
                         )}
                         {isDeleteCategoryModal && (
-                            <>
-                                <DeleteCategoryModal
-                                    closeModal={setIsDeleteCategoryModal}
-                                    choosenEditCategory={choosenEditCategory}
-                                    currentPlan={currentPlan}
-                                    setIsAlertActive={setIsAlertActive}
-                                    setBudgetPlans={setBudgetPlans}
-                                    setCurrentTab={setCurrentTab} />
-                                <DarkBackground
-                                    setIsModalActive={setIsDeleteCategoryModal}
-                                    isModalActive={isDeleteCategoryModal} />
-                            </>)}
+                            <DeleteCategoryModal
+                                closeModal={setIsDeleteCategoryModal}
+                                choosenEditCategory={choosenEditCategory}
+                                currentPlan={currentPlan}
+                                setIsAlertActive={setIsAlertActive}
+                                setBudgetPlans={setBudgetPlans}
+                                setCurrentTab={setCurrentTab} />)}
                         {isDeletePlanModal && (
-                            <>
-                                <DeletePlanModal
-                                    closeModal={setIsDeletePlanModal}
-                                    currentPlan={currentPlan}
-                                    setIsAlertActive={setIsAlertActive}
-                                    setBudgetPlans={setBudgetPlans}
-                                    setCurrentTab={setCurrentTab} />
-                                <DarkBackground
-                                    setIsModalActive={setIsDeletePlanModal}
-                                    isModalActive={isDeletePlanModal} />
-                            </>)}
+                            <DeletePlanModal
+                                closeModal={setIsDeletePlanModal}
+                                currentPlan={currentPlan}
+                                setIsAlertActive={setIsAlertActive}
+                                setBudgetPlans={setBudgetPlans}
+                                setCurrentTab={setCurrentTab} />
+                        )}
                         {!budgetPlans &&
                             <SpinnerContainer>
                                 <Spinner size={40} height={3} />
                             </SpinnerContainer>}
+                        {currentIsModal && (
+                            <DarkBackground
+                                setIsModalActive={currentSetIsModal}
+                                isModalActive={currentIsModal} />
+                        )}
                         {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
                     </Wrapper>
                 </Container>

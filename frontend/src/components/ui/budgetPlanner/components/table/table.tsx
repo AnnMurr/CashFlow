@@ -6,14 +6,10 @@ import Paper from '@mui/material/Paper';
 import { v4 as uuidV4 } from "uuid";
 import { useAppSelector } from "../../../../../redux/store/store";
 import { CategoriesType, CategoryPlanning, RootState } from "../../../../../redux/reducers/userStorageReduser/types";
-import { CategoryInputRow } from "./components/categoryInputRow/categoryInputRow.tsx";
-import { AlertComponentProps } from "../../../../shared/alert/alert";
-import { CategoryInputAddBtn } from "./components/categoryInputAddBtn/categoryInputAddBtn";
-import { CompletedCategoryRow } from "./components/completedCategoryRow/completedCategoryRow";
-import { SaveBtn } from "./components/saveBtn/saveBtn";
-import { Head } from "./components/head/head";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
+import { AlertComponentProps } from "../../../../shared/alert/alert";
+import { CategoryInputAddBtn, CategoryInputRow, CompletedCategoryRow, Head, SaveBtn } from ".";
 
 interface BudgetTableManagerProps {
   dateRange: string;

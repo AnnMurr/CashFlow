@@ -1,11 +1,8 @@
 import { FC, useContext, useState } from "react";
-import { AlertComponent, AlertComponentProps } from "../../../../../shared/alert/alert";
-import { OutlinedInputComponent } from "../../../../../../components/shared/outlinedInput/outlinedInput";
 import { ThemeContextType } from "../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../contexts/themeContext/themeContext";
-import { Title } from "./components/title/title";
-import { InfoBlock } from "./components/infoBlock/infoBlock";
-import { SubmitButton } from "./components/button/button";
+import { AlertComponentProps } from "../../../../../shared/alert/alert";
+import { InfoBlock, OutlinedInputComponent, SubmitButton, Title, AlertComponent } from ".";
 import { Container, Wrapper } from "./styledContent";
 
 export const Content: FC = () => {

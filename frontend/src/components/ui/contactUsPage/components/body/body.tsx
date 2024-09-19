@@ -1,7 +1,5 @@
 import { FC, useState } from "react";
-import { Form } from "./components/form/form";
-import { ModalWindow } from "./components/modalWindow/modalWindow";
-import { DarkBackground } from "../../../../shared/darkBackground/darkBackground";
+import { DarkBackground, Form, ModalWindow } from ".";
 import { Container, Heading, Wrapper } from "./styledBody";
 
 export const Body: FC = () => {
