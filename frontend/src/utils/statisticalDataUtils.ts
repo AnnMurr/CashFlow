@@ -25,7 +25,7 @@ type BaseFilterStatisticsType = {
     setIsAlertActive: (value: AlertComponentProps | null) => void;
     chosenFilterType: string | null;
     dispatch: AppDispatch;
-    setIsModalActive: (value: boolean) => void;
+    setIsModalActive?: (value: boolean) => void;
 }
 
 type GetFilterStatisticsForDayProps = BaseFilterStatisticsType & {
@@ -141,7 +141,7 @@ export const getFilterStatisticsForDay: GetFilterStatisticsForDayType = ({
 
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
-        setIsModalActive(false);
+        setIsModalActive && setIsModalActive(false);
         dispatch(setIsEditingData(false));
         dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: [chosenDate], data: chosenDateStatisticalData }));
         dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
@@ -191,7 +191,7 @@ export const getFilterStatisticsForMonth: GetFilterStatisticsForMonthType = ({
 
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
-        setIsModalActive(false);
+        setIsModalActive && setIsModalActive(false);
         dispatch(setIsEditingData(false));
         dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: chosenDate, data: chosenDateStatisticalData }));
         dispatch(setStatisticalData({ days: [chosenDate], data: { [chosenDate]: sortedStatisticalData } }));
@@ -221,7 +221,7 @@ export const getFilterStatisticsForYear: GetFilterStatisticsForYearType = ({
 
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
-        setIsModalActive(false);
+        setIsModalActive && setIsModalActive(false);
         dispatch(setIsEditingData(false));
         dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: chosenYear, data: chosenDateStatisticalData }));
         dispatch(setStatisticalData({ days: [chosenYear], data: { [chosenYear]: sortedStatisticalData } }));
@@ -262,7 +262,7 @@ export const getFilterStatisticsForRange: GetFilterStatisticsForRangeType = ({
     if (result) {
         const { sortedStatisticalData, chosenDateStatisticalData } = result;
         const range = `${chosenDate.startDate} - ${chosenDate.endDate}`;
-        setIsModalActive(false);
+        setIsModalActive && setIsModalActive(false);
         dispatch(setIsEditingData(false));
         dispatch(setChosenFilter({ isFilter: true, type: chosenFilterType, date: range, data: chosenDateStatisticalData }));
         dispatch(setStatisticalData({ days: [range], data: { [range]: sortedStatisticalData } }));
