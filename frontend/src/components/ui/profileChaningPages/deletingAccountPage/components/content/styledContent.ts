@@ -1,9 +1,14 @@
 import { ThemeStyledProps } from '../../../../../../contexts/themeContext/types';
 import { styled } from 'styled-components';
 
-export const Wrapper = styled.div<ThemeStyledProps>`
-    border:${({ themestyles }) => `1px solid ${themestyles.color}`};
+export const Container = styled.div<ThemeStyledProps>`
+    border:${({ themestyles }) => `1px solid ${themestyles.settingsModalBorder}`};
     border-radius: 5px;
+    max-width: 40rem;
+    margin: 5rem auto 0 auto;
+`
+
+export const Wrapper = styled.div`
     padding: 30px;
 `
 
@@ -11,7 +16,7 @@ export const Title = styled.div<ThemeStyledProps>`
     padding-bottom: 10px;
 
     h5 {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 600;
         color:${({ themestyles }) => themestyles.color};
     }
@@ -37,7 +42,7 @@ export const Label = styled.label`
 
 export const TextInner = styled.div<ThemeStyledProps>`
     span {
-        font-size: 15px;
+        font-size: 14px;
         color:${({ themestyles }) => themestyles.color};
     }
 `

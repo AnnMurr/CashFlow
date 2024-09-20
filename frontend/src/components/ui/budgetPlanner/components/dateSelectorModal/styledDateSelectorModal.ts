@@ -11,8 +11,8 @@ export const Container = styled.div<ThemeStyledProps>`
     width: 100%;
     max-width: 20rem;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 20%;
+    transform: translate(-50%, 0);
     position: fixed;
     background-color:${({ themestyles }) => themestyles.modalBackground};
     z-index: 25;

@@ -6,8 +6,8 @@ export const Container = styled.div<ThemeStyledProps>`
     width: 100%;
     background-color:${({ themestyles }) => themestyles.enteringModalBackground};
     position: fixed;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 20%;
+    transform: translate(-50%, 0);
     left: 50%;
     z-index: 30;
     border-radius: 10px;

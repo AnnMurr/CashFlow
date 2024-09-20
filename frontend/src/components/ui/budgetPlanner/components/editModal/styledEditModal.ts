@@ -10,8 +10,8 @@ export const Container = styled.div<ThemeStyledProps>`
     max-width: 25rem;
     left: 50%;
     position: fixed;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 20%;
+    transform: translate(-50%, 0);
     background-color:${({ themestyles }) => themestyles.modalBackground};
     z-index: 25;
     border-radius: 5px;

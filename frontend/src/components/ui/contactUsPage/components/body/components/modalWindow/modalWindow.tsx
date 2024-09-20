@@ -13,7 +13,7 @@ export const ModalWindow: FC = () => {
                     </h2>
                 </Title>
                 <div>
-                    <FontAwesomeIcon color="#21b835" size="6x" icon={faCircleCheck} />
+                    <FontAwesomeIcon color="#21b835" size="4x" icon={faCircleCheck} />
                 </div>
             </Wrapper>
         </Container>

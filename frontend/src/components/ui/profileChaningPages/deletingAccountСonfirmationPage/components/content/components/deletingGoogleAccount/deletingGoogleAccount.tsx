@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ButtonComponent } from "../../../../../../../shared/button/button";
 import { ThemeContextType } from "../../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../../contexts/themeContext/themeContext";
-import { BtnInner, Description, SubTitle, Title } from "./styledDeletingGoogleAccount";
+import { BtnInner, Container, Description, SubTitle, Title, Wrapper } from "./styledDeletingGoogleAccount";
 
 export const DeletingGoogleAccount: FC = () => {
   const themeContext = useContext<ThemeContextType>(ThemeContext);
@@ -14,25 +14,27 @@ export const DeletingGoogleAccount: FC = () => {
   }
 
   return (
-    <>
-      <Description>
-        <Title themestyles={themeContext.themeStyles}>
-          <h3>Delete Your Account</h3>
-        </Title>
-        <SubTitle themestyles={themeContext.themeStyles}>
-          <h5>Proceed with caution: Deleting your account will remove all personalized settings and data.</h5>
-        </SubTitle>
-      </Description>
-      <BtnInner>
-        <ButtonComponent
-          backgroundColor="#a71616"
-          BackgroundColorHover="#820e0e"
-          text="Delete Google Account"
-          color="#fff"
-          type="button"
-          func={deleteGoogleAccount}
-        />
-      </BtnInner>
-    </>
+    <Container themestyles={themeContext.themeStyles}>
+      <Wrapper>
+        <Description>
+          <Title themestyles={themeContext.themeStyles}>
+            <h3>Delete Your Account</h3>
+          </Title>
+          <SubTitle themestyles={themeContext.themeStyles}>
+            <h5>Proceed with caution: Deleting your account will remove all personalized settings and data.</h5>
+          </SubTitle>
+        </Description>
+        <BtnInner>
+          <ButtonComponent
+            backgroundColor="#a71616"
+            BackgroundColorHover="#820e0e"
+            text="Delete Google Account"
+            color="#fff"
+            type="button"
+            func={deleteGoogleAccount}
+          />
+        </BtnInner>
+      </Wrapper>
+    </Container>
   )
 }

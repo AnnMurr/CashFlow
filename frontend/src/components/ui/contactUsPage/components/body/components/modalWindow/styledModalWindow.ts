@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    max-width: 600px;
+    max-width: 25rem;
     width: 100%;
     background-color: #fff;
     position: fixed;
@@ -9,6 +9,7 @@ export const Container = styled.div`
     transform: translate(-50%, -50%);
     left: 50%;
     z-index: 22;
+    border-radius: 5px;
 `
 
 export const Wrapper = styled.div`
@@ -18,4 +19,8 @@ export const Wrapper = styled.div`
 
 export const Title = styled.div`
     padding-bottom: 20px;
+
+    h2 {
+        font-size: 18px;
+    }
 `
