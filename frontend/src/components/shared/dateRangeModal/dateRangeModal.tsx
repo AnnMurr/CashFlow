@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { ButtonComponent } from "../../../../shared/button/button";
-import { DateRangePicker } from "../../../../shared/dateRangePicker/dateRangePicker";
-import { BtnClose } from "../../../../shared/btnClose/btnClose";
-import { getCurrentDate } from "../../../../../utils/dateUtils";
-import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
+import { ButtonComponent } from "../button/button";
+import { DateRangePicker } from "../dateRangePicker/dateRangePicker";
+import { BtnClose } from "../btnClose/btnClose";
+import { getCurrentDate } from "../../../utils/dateUtils";
+import { FiltersModalContainer } from "../filtersModalContainer/filtersModalContainer";
 import { BtnInner } from "./styledDateRangeModal";
 
 interface DatePickerModalProps {

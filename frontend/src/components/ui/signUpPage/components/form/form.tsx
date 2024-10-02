@@ -1,10 +1,7 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ErrorMessage } from "../../../../shared/errorMessage/errorMessage";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
-import { ButtonComponent } from "../../../../shared/button/button";
-import { BtnShowPassword } from "../../../../shared/btnShowPassword/btnShowPassword";
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from "../../../../../consts/index";
 import { setDataToLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { AuthorizedContext } from "../../../../../contexts/authorizedContext/authorizedContext";
@@ -12,12 +9,10 @@ import { checkUserDataByEmail, setUserData } from "../../../../../redux/reducers
 import { createUserStore, getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { UserDataType } from "../../../../../redux/reducers/userReducer/types";
 import { useAppDispatch } from "../../../../../redux/store/store";
-import { SignUpWithGoogle } from "../../../../shared/googleAuth/signUpWithGoogle/signUpWithGoogle";
-import { LinkToSignInBlock } from "./components/linkToSignInBlock/linkToSignInBlock";
-import { Input } from "./components/input/input";
-import { Title } from "./components/title/title";
+import { BtnShowPassword, ButtonComponent, ErrorMessage, Input, LinkToSignInBlock, SignUpWithGoogle, Title } from ".";
 import { showAlert } from "../../../../../utils/showAlert";
 import { BtnShowPasswordInner, ErrorMessageContainer, FormContainer, Label } from "./styledForm";
+
 interface FormProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
 }

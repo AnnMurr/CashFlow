@@ -39,7 +39,11 @@ type CustomPeriodChartDataSetter = (
 
 type CategoryDataAggregation = (filteredData: Transaction[] | undefined) => false | ChartDataType[];
 
-export const filterChartData: FilterChartTransactions = (storageData, financeType, date, period) => {
+export const filterChartData: FilterChartTransactions = (
+    storageData,
+    financeType,
+    date,
+    period) => {
     if (period === 'day' && Array.isArray(date)) {
         return storageData?.data[financeType]
             .filter(item => date.some(dateItem => areDatesEqual(dateItem, item.date)));
@@ -58,7 +62,13 @@ export const filterChartData: FilterChartTransactions = (storageData, financeTyp
 }
 
 const getFilteredDataForPeriod: DataFilterByPeriod = (
-    period, storageData, financeType, dateDay, datesWeek, currentMonth, currentYear) => {
+    period,
+    storageData,
+    financeType,
+    dateDay,
+    datesWeek,
+    currentMonth,
+    currentYear): Array<Transaction> | undefined => {
     let dateParam: Array<Date> | string | number;
 
     switch (period) {
@@ -81,7 +91,7 @@ const getFilteredDataForPeriod: DataFilterByPeriod = (
     return filterChartData(storageData, financeType, dateParam, period);
 }
 
-export const aggregateCategoryData: CategoryDataAggregation = (filteredData = []) => {
+export const aggregateCategoryData: CategoryDataAggregation = (filteredData = []): false | ChartDataType[] => {
     const rangeData = filteredData !== undefined && filteredData.reduce((acc, item) => {
         const existingCategory = acc.find(entry => entry.label === item.category);
         if (existingCategory) {
@@ -96,7 +106,7 @@ export const aggregateCategoryData: CategoryDataAggregation = (filteredData = []
 }
 
 export const setChartDataBySpecificDates: ChartDataSetterByDate = (
-    financeType, storageData, setChartData) => {
+    financeType, storageData, setChartData): void => {
     const data: ChartDataObjectType = {};
 
     CHART_TIME_PERIODS.forEach(period => {
@@ -120,7 +130,6 @@ export const setChartDataBySpecificDates: ChartDataSetterByDate = (
     setChartData(data);
 }
 
-
 export const setChartDataForCustomPeriod: CustomPeriodChartDataSetter = (
     financeType,
     dateRange,
@@ -129,7 +138,7 @@ export const setChartDataForCustomPeriod: CustomPeriodChartDataSetter = (
     setChartData,
     setIsDatePickerModal,
     setIsAlertActive,
-    setDisplayDate) => {
+    setDisplayDate): void => {
 
     const filteredData = getFilteredDataForPeriod(
         period,

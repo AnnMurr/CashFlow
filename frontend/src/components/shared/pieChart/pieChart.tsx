@@ -28,10 +28,6 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data, isLegendHi
         [`& .MuiPieArc-root`]: {
             stroke: themeContext.themeStyles.pieChartStroke
         },
-        ['& .MuiChartsLegend-mark']: {
-            boxShadow: '10px 10px 10px #fff',
-            fill: "green",
-        },
         overflow: "visible",
     };
 

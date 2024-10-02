@@ -3,9 +3,7 @@ import { AlertComponentProps } from "../../../../../shared/alert/alert";
 import { useAppDispatch } from "../../../../../../redux/store/store";
 import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
 import { checkGoogleAccount } from "../../../../../../redux/reducers/userReducer/userReducer";
-import { ChangeUserAccount } from "../../../../../shared/googleAuth/changeUserAccount/changeUserAccount";
-import { Spinner } from "../../../../../shared/spinner/spinner";
-import { ConfirmAccountModal } from "../../../../../shared/сonfirmAccountModal/confirmAccountModal";
+import { ChangeUserAccount, ConfirmAccountModal, Spinner } from ".";
 
 interface ContentProps {
     setAlertActive: (value: null | AlertComponentProps) => void;

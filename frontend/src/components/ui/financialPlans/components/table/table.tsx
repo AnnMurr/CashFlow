@@ -4,10 +4,7 @@ import Paper from '@mui/material/Paper';
 import { BudgetPlanning, CategoryPlanning } from "../../../../../redux/reducers/userStorageReduser/types";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
-import { Head } from "./components/head/head";
-import { BodyComponent } from "./components/body/body";
-import { Footer } from "./components/footer/footer";
-import { Spinner } from "../../../../shared/spinner/spinner";
+import { BodyComponent, Footer, Head, Spinner } from ".";
 import { SpinnerContainer } from "./styledFinancialPlansTable";
 
 interface FinancialPlansTableProps {
@@ -36,8 +33,12 @@ export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({
         console.log("render")
     }, []);
 
+    const tableContainerStyles = {
+        backgroundColor: themeContext.themeStyles.budgetPlannerBackground,
+    };
+
     return (
-        <TableContainer sx={{ backgroundColor: themeContext.themeStyles.budgetPlannerBackground }} component={Paper}>
+        <TableContainer sx={tableContainerStyles} component={Paper}>
             <Table>
                 {data ?
                     (

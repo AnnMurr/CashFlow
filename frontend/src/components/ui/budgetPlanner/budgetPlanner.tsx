@@ -1,16 +1,20 @@
 import { FC, useEffect, useState } from "react";
-import { Body } from "../../shared/body/body";
-import { SubBar } from "../../shared/subBar/subBar";
-import { BudgetTableManager } from "./components/table/table";
-import { AlertComponent, AlertComponentProps } from "../../shared/alert/alert";
-import { DarkBackground } from "../../shared/darkBackground/darkBackground";
-import { DateSelector } from "./components/dateSelector/dateSelector";
-import { DateSelectorModal } from "./components/dateSelectorModal/dateSelectorModal";
+
 import { MONTH } from "../../../consts";
 import { getMonth } from "../../../utils/dateUtils";
-import { EditModal } from "./components/editModal/editModal";
 import { CategoriesType, CategoryPlanning } from "../../../redux/reducers/userStorageReduser/types";
-import { DeleteCategoryModal } from "./components/deleteCategoryModal/deleteCategoryModal";
+import { AlertComponentProps } from "../../shared/alert/alert";
+import {
+    Body,
+    BudgetTableManager,
+    DarkBackground,
+    DateSelector,
+    DateSelectorModal,
+    DeleteCategoryModal,
+    EditModal,
+    SubBar,
+    AlertComponent
+} from ".";
 import { Container, Wrapper } from "./styledBudgetPlanner";
 
 export const BudgetPlanner: FC = () => {

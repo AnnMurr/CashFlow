@@ -6,20 +6,31 @@ import { getFormatCurrency } from "../../../../../../../../../utils/getFormatCur
 import { ThemeContextType } from "../../../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../../../contexts/themeContext/themeContext";
 import { useAppSelector } from "../../../../../../../../../redux/store/store";
-import { RootState } from "../../../../../../../../../redux/reducers/userStorageReduser/types";
+import { CategoryPlanning, RootState } from "../../../../../../../../../redux/reducers/userStorageReduser/types";
 import { Edit, Settings, TableRowStyled } from "./styledCategoryRow";
 
-export const CategoryRow: FC<any> = ({
+interface CategoryRowProps {
+    data: CategoryPlanning;
+    handleOpenEditCategoryModal: (data: CategoryPlanning) => void;
+    handleOpenDeleteCategoryModal: (data: CategoryPlanning) => void;
+}
+
+export const CategoryRow: FC<CategoryRowProps> = ({
     data, handleOpenEditCategoryModal, handleOpenDeleteCategoryModal }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
     const { currency } = useAppSelector((state: RootState) => state.storage);
 
+    const tableCellStyles = {
+        color: themeContext.themeStyles.color,
+        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
+    };
+
     return (
         data && currency &&
         (<TableRowStyled >
-            <TableCell colSpan={1}>{data.name}</TableCell>
-            <TableCell colSpan={1} >{getFormatCurrency(data.sum, currency.code)}</TableCell>
-            <TableCell align="right" colSpan={4}>
+            <TableCell sx={tableCellStyles} colSpan={1}>{data.name}</TableCell>
+            <TableCell sx={tableCellStyles} colSpan={1} >{getFormatCurrency(data.sum, currency.code)}</TableCell>
+            <TableCell sx={tableCellStyles} align="right" colSpan={4}>
                 <Settings>
                     <Edit onClick={() => handleOpenEditCategoryModal(data)}>
                         <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faPen} />

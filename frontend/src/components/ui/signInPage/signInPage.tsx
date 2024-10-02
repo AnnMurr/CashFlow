@@ -1,8 +1,6 @@
 import { FC, useState } from "react";
-import { Form } from "./components/form/form";
-import { Banner } from "./components/banner/banner";
-import { BtnGoToMainPage } from "../../shared/btnGoToMainPage/btnGoToMainPage";
-import { AlertComponentProps, AlertComponent } from "../../shared/alert/alert";
+import { AlertComponentProps } from "../../shared/alert/alert";
+import { Banner, BtnGoToMainPage, Form, AlertComponent } from ".";
 import { Container, Section, Wrapper, Content } from "./styledSignInPage";
 
 export const SignInPage: FC = () => {

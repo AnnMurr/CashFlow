@@ -1,12 +1,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { CategorySelectionModal } from "../../shared/categorySelectionModal/categorySelectionModal";
-import { DarkBackground } from "../../shared/darkBackground/darkBackground";
-import { EnteringModal } from "../../shared/enteringModal/enteringModal";
-import { Spinner } from "../spinner/spinner";
 import { AlertComponent, AlertComponentProps } from "../alert/alert";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
-import { Categories } from "./components/categories/categories";
 import { VALID_SUM_REGEX } from "../../../consts/index";
 import { useAppDispatch } from "../../../redux/store/store";
 import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
@@ -14,6 +9,7 @@ import { CategoriesType, CategoryKeys, TransactionKeys, UserStorageDataType } fr
 import { showAlert } from "../../../utils/showAlert";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
+import { Categories, CategorySelectionModal, DarkBackground, EnteringModal, Spinner } from ".";
 import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledFinancialManagementPanel";
 
 interface FinancialManagementPanelProps {
@@ -113,7 +109,6 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                     </AddCategoryBtnInner>
                 </> :
                 <Spinner size={40} height={3} />}
-
             {isCategorySelectionModalActive ?
                 <CategorySelectionModal
                     getUserDataFromStorage={getUserDataFromStorage}
@@ -122,7 +117,6 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                     iconsCollection={iconsCollection}
                     dataKey={dataKey} />
                 : null}
-
             {isEnteringModalActive ?
                 <EnteringModal
                     setIsAlertActive={setIsAlertActive}
@@ -131,13 +125,11 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                     addTransaction={addTransaction}
                     closeModal={setIsEnteringModalActive} />
                 : null}
-
             {currentIsModal ?
                 <DarkBackground
                     setIsModalActive={currentSetIsModal}
                     isModalActive={currentIsModal} />
                 : null}
-
             {isAlertActive ? <AlertComponent type={isAlertActive.type} text={isAlertActive.text} /> : null}
         </Container>
     )

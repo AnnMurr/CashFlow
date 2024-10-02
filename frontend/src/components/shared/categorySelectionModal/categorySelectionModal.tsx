@@ -1,9 +1,9 @@
 import { FC, useContext, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { ButtonComponent } from "../../shared/button/button";
-import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
 import { AlertComponentProps } from "../../shared/alert/alert";
 import { BtnClose } from "../../shared/btnClose/btnClose";
+import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
 import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { CategoriesType, StorageDataKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
 import { useAppDispatch } from "../../../redux/store/store";

@@ -7,7 +7,7 @@ import { UserDataType } from "../../../../redux/reducers/userReducer/types";
 import { AlertComponentProps } from "../../../shared/alert/alert";
 import { ThemeContextType } from "../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../contexts/themeContext/themeContext";
-import { SubTitle, Title, Description, BtnInner } from "./styledChangeUserAccount";
+import { SubTitle, Title, Description, BtnInner, Container, Wrapper, InfoBlock } from "./styledChangeUserAccount";
 
 interface ChangeUserAccountProps {
     setAlertActive: (value: null | AlertComponentProps) => void;
@@ -69,27 +69,34 @@ export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }
     }
 
     return (
-        <>
-            <Description>
-                <Title themestyles={themeContext.themeStyles}>
-                    <h3>
-                        Change Your Account
-                    </h3>
-                </Title>
-                <SubTitle themestyles={themeContext.themeStyles}>
-                    <h5>
-                        Switch to a different account to access personalized settings.
-                    </h5>
-                </SubTitle>
-            </Description>
-            <BtnInner>
-                <ButtonComponent
-                    disabledValue={false}
-                    text="Change google account"
-                    color="#fff"
-                    type="button"
-                    func={getChangeAccount} />
-            </BtnInner>
-        </>
+        <Container themestyles={themeContext.themeStyles}>
+            <Wrapper>
+                <Description themestyles={themeContext.themeStyles}>
+                    <Title themestyles={themeContext.themeStyles}>
+                        <h3>
+                            Change Your Account
+                        </h3>
+                    </Title>
+                    <SubTitle themestyles={themeContext.themeStyles}>
+                        <h5>
+                            Switch to a different account to access personalized settings.
+                        </h5>
+                    </SubTitle>
+                </Description>
+                <InfoBlock themestyles={themeContext.themeStyles}>
+                    <span>
+                    Switch to a different account to access personalized settings.
+                    </span>
+                </InfoBlock>
+                <BtnInner>
+                    <ButtonComponent
+                        disabledValue={false}
+                        text="Change google account"
+                        color="#fff"
+                        type="button"
+                        func={getChangeAccount} />
+                </BtnInner>
+            </Wrapper>
+        </Container>
     );
 }

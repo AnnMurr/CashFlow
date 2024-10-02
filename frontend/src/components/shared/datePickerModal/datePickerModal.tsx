@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { DatePickerComponent } from "../../../../shared/datePicker/datePicker";
-import { ButtonComponent } from "../../../../shared/button/button";
-import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
-import { BtnClose } from "../../../../shared/btnClose/btnClose";
+import { DatePickerComponent } from "../datePicker/datePicker";
+import { ButtonComponent } from "../button/button";
+import { FiltersModalContainer } from "../filtersModalContainer/filtersModalContainer";
+import { BtnClose } from "../btnClose/btnClose";
 import { BtnInner } from "./styledDatePickerModal";
 
 interface DatePickerModalProps {

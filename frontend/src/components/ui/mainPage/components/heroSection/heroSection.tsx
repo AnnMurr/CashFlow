@@ -1,9 +1,7 @@
 import { FC } from "react";
 import { MAIN_PHONE_AFTER, MAIN_PHONE_AVERAGE, MAIN_PHONE_BEFORE } from "../../../../../consts/images";
-import { PhoneImage } from "./components/phoneImage/phoneImage";
-import { Background } from "./components/background/background";
-import { RepresentingBlock } from "./components/representingBlock/representingBlock";
 import { motion } from "framer-motion";
+import { Background, PhoneImage, RepresentingBlock } from ".";
 import { Container, PhonesWrap, Wrapper, Section } from "./styledHeroSection";
 
 export const HeroSection: FC = () => {

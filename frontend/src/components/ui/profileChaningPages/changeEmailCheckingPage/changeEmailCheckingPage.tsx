@@ -1,8 +1,7 @@
 import { FC, useState } from "react";
-import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
-import { Content } from "./components/content/content";
-import { AlertComponent, AlertComponentProps } from "../../../shared/alert/alert";
-import { SettingsPageContainer } from "../../../shared/settingsPageContainer/settingsPageContainer";
+import { AlertComponentProps } from "../../../shared/alert/alert";
+import { Content, SettingsChangingHeader, SettingsPageContainer, AlertComponent } from ".";
+
 
 export const ChangeEmailCheckingPage: FC = () => {
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);

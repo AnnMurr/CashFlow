@@ -1,8 +1,7 @@
 import { FC, useState } from "react";
-import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
-import { SettingsPageContainer } from "../../../shared/settingsPageContainer/settingsPageContainer";
-import { AlertComponent, AlertComponentProps } from "../../../shared/alert/alert";
 import { Content } from "./components/content/content";
+import { AlertComponentProps } from "../../../shared/alert/alert";
+import { SettingsChangingHeader, SettingsPageContainer, AlertComponent } from ".";
 
 export const ChangePasswordPage: FC = () => {
     const [isAlertActive, setAlertActive] = useState<null | AlertComponentProps>(null);

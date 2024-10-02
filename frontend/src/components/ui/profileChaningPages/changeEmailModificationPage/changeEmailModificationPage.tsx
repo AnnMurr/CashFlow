@@ -1,7 +1,5 @@
 import { FC } from "react";
-import { SettingsChangingHeader } from "../../../shared/settingsChangingHeader/settingsChangingHeader";
-import { Content } from "./components/content/content";
-import { SettingsPageContainer } from "../../../shared/settingsPageContainer/settingsPageContainer";
+import { SettingsChangingHeader, SettingsPageContainer, Content } from ".";
 
 export const ChangeEmailModificationPage: FC = () => {
     return (

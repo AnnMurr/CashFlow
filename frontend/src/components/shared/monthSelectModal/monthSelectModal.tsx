@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from "react";
-import { MultipleSelectPlaceholder } from "../../../../shared/select/select";
-import { MONTH } from "../../../../../consts";
-import { ButtonComponent } from "../../../../shared/button/button";
-import { BtnClose } from "../../../../shared/btnClose/btnClose";
-import { getMonth, getYear } from "../../../../../utils/dateUtils";
-import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
+import { MultipleSelectPlaceholder } from "../select/select";
+import { MONTH } from "../../../consts";
+import { ButtonComponent } from "../button/button";
+import { BtnClose } from "../btnClose/btnClose";
+import { getMonth, getYear } from "../../../utils/dateUtils";
+import { FiltersModalContainer } from "../filtersModalContainer/filtersModalContainer";
 import { BtnInner } from "./styledMonthSelectModal";
 
 interface MonthSelectModalProps {

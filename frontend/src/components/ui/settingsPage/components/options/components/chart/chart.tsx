@@ -1,17 +1,13 @@
 import { FC, MouseEvent, useCallback, useEffect, useState } from "react";
 import { faChartBar, faPieChart } from "@fortawesome/free-solid-svg-icons";
-import { ColorList } from "./components/colorList/colorList";
-import { SketchPickerComponent } from "../../../../../../shared/sketchPicker/sketchPicker";
-import { AlertComponent, AlertComponentProps } from "../../../../../../shared/alert/alert";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { RootState } from "../../../../../../../redux/reducers/userStorageReduser/types";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
 import { showAlert } from "../../../../../../../utils/showAlert";
-import { DeleteColorModal } from "./components/deleteColorModal/deleteColorModal";
-import { DarkBackground } from "../../../../../../shared/darkBackground/darkBackground";
-import { Name } from "./components/name/name";
+import { AlertComponentProps } from "../../../../../../shared/alert/alert";
 import { getOpacityFromRgba } from "../../../../../../../utils/getOpacityFromRgba";
+import { ColorList, DarkBackground, DeleteColorModal, Name, SketchPickerComponent, AlertComponent } from ".";
 import { Block, Container } from "./styledChart";
 
 export interface ColorState {

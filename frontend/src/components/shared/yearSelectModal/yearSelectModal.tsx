@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { ButtonComponent } from "../../../../shared/button/button";
-import { YearPicker } from "../../../../shared/yearPicker/yearPicker";
-import { BtnClose } from "../../../../shared/btnClose/btnClose";
-import { FiltersModalContainer } from "../../../../shared/filtersModalContainer/filtersModalContainer";
+import { ButtonComponent } from "../button/button";
+import { YearPicker } from "../yearPicker/yearPicker";
+import { BtnClose } from "../btnClose/btnClose";
+import { FiltersModalContainer } from "../filtersModalContainer/filtersModalContainer";
 import { BtnInner } from "./styledYearSelectModal";
 
 interface YearSelectModalProps {

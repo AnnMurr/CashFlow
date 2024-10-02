@@ -1,4 +1,4 @@
-export const urlCleanup = () => {
+export const urlCleanup = (): void => {
     const currentUrl = window.location.href;
     const sl = currentUrl.split("#");
     const url = sl[0] + "#" + sl[1];

@@ -5,17 +5,6 @@ import { changeUserData } from "../redux/reducers/userStorageReduser/userStorage
 import { getDataFromLocalStorage } from "../storage/localStorage/localStorage";
 import { showAlert } from "./showAlert";
 
-interface DeleteCategoryParams {
-    currentPlan: BudgetPlanning | null;
-    choosenEditCategory: CategoryPlanning | null;
-    storageData: UserStorageDataType | null;
-    dispatch: AppDispatch;
-    setBudgetPlans: (plans: Array<BudgetPlanning> | null) => void;
-    setIsAlertActive: (alert: AlertComponentProps | null) => void;
-    closeModal: (isOpen: boolean) => void;
-    setCurrentTab: (value: number) => void;
-}
-
 interface DeletePlanParams {
     storageData: UserStorageDataType | null;
     currentPlan: BudgetPlanning | null;
@@ -26,16 +15,8 @@ interface DeletePlanParams {
     closeModal: (isOpen: boolean) => void;
 }
 
-interface EditCategoryProps {
-    storageData: UserStorageDataType | null;
-    currentPlan: BudgetPlanning | null;
+interface DeleteCategoryParams extends DeletePlanParams {
     choosenEditCategory: CategoryPlanning | null;
-    categoryName: string;
-    sum: string;
-    dispatch: AppDispatch;
-    setIsAlertActive: (alert: AlertComponentProps | null) => void;
-    setIsEditModalActive: (isOpen: boolean) => void;
-    setBudgetPlans: (plans: Array<BudgetPlanning> | null) => void;
 }
 
 interface UpdateCategoryInPlanProps {
@@ -46,7 +27,26 @@ interface UpdateCategoryInPlanProps {
     sum: string;
 }
 
-const removeCategoryFromPlan = (currentPlan: BudgetPlanning | null, choosenEditCategory: CategoryPlanning | null, storageData: UserStorageDataType | null) => {
+interface EditCategoryProps extends UpdateCategoryInPlanProps {
+    dispatch: AppDispatch;
+    setIsAlertActive: (alert: AlertComponentProps | null) => void;
+    setIsEditModalActive: (isOpen: boolean) => void;
+    setBudgetPlans: (plans: Array<BudgetPlanning> | null) => void;
+}
+
+type RemoveCategoryFromPlanType = (
+    currentPlan: BudgetPlanning | null,
+    choosenEditCategory: CategoryPlanning | null,
+    storageData: UserStorageDataType | null) => BudgetPlanning[] | undefined;
+
+type RemovePlanFromStorageType = (
+    currentPlan: BudgetPlanning | null,
+    storageData: UserStorageDataType | null) => BudgetPlanning[] | undefined;
+
+const removeCategoryFromPlan: RemoveCategoryFromPlanType = (
+    currentPlan,
+    choosenEditCategory,
+    storageData) => {
     return storageData?.data?.planning.map(data =>
         data.period === currentPlan?.period
             ? {
@@ -72,11 +72,11 @@ const updateCategoryInPlan = (props: UpdateCategoryInPlanProps) => {
     })) || [];
 }
 
-const removePlanFromStorage = (currentPlan: BudgetPlanning | null, storageData: UserStorageDataType | null) => {
+const removePlanFromStorage: RemovePlanFromStorageType = (currentPlan, storageData) => {
     return storageData?.data?.planning.filter(data => data.period !== currentPlan?.period);
 }
 
-export const deletePlan = async (params: DeletePlanParams) => {
+export const deletePlan = async (params: DeletePlanParams): Promise<void> => {
     const {
         storageData,
         currentPlan,
@@ -114,7 +114,7 @@ export const deletePlan = async (params: DeletePlanParams) => {
     }
 }
 
-export const deleteCategory = async (params: DeleteCategoryParams) => {
+export const deleteCategory = async (params: DeleteCategoryParams): Promise<void> => {
     const {
         storageData,
         currentPlan,
@@ -164,7 +164,7 @@ export const deleteCategory = async (params: DeleteCategoryParams) => {
     }
 }
 
-export const editCategory = async (params: EditCategoryProps) => {
+export const editCategory = async (params: EditCategoryProps): Promise<void> => {
     const {
         storageData,
         currentPlan,

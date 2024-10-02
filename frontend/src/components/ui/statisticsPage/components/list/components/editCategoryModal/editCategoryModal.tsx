@@ -1,10 +1,7 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../../../redux/store/store";
 import { RootState, Transaction, UserStorageDataType } from "../../../../../../../redux/reducers/userStorageReduser/types";
-import { BtnClose } from "../../../../../../shared/btnClose/btnClose";
-import { ButtonComponent } from "../../../../../../shared/button/button";
 import { AlertComponentProps } from "../../../../../../shared/alert/alert";
-import { MultipleSelectPlaceholder } from "../../../../../../shared/select/select";
 import { VALID_SUM_REGEX } from "../../../../../../../consts/index";
 import { getDataFromLocalStorage } from "../../../../../../../storage/localStorage/localStorage";
 import { changeUserData } from "../../../../../../../redux/reducers/userStorageReduser/userStorageReduser";
@@ -13,7 +10,7 @@ import { addScroll } from "../../../../../../../utils/toggleScroll";
 import { getDataForStatistic } from "../../../../../../../utils/statisticalDataUtils";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
-import { OutlinedInputComponent } from "../../../../../../../components/shared/outlinedInput/outlinedInput";
+import { BtnClose, ButtonComponent, MultipleSelectPlaceholder, OutlinedInputComponent } from ".";
 import { BtnInner, Container, Label, Wrapper } from "./styledEditCategoryModal";
 
 interface EditCategoryModalProps {

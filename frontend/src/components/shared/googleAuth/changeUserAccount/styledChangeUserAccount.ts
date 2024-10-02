@@ -1,8 +1,20 @@
 import { ThemeStyledProps } from "../../../../contexts/themeContext/types";
 import styled from "styled-components";
 
-export const Description = styled.div`
-    padding-bottom: 30px;
+export const Container = styled.div<ThemeStyledProps>`
+    max-width: 40rem;
+    margin: 5rem auto 0 auto;
+    border:${({ themestyles }) => `1px solid ${themestyles.settingsModalBorder}`};
+    border-radius: 5px;
+`
+
+export const Wrapper = styled.div`
+    padding: 30px;
+`
+
+export const Description = styled.div<ThemeStyledProps>`
+    padding-bottom: 15px;
+    border-bottom:${({ themestyles }) => `1px solid ${themestyles.settingsModalBorder}`}; 
 `
 
 export const Title = styled.div<ThemeStyledProps>`
@@ -23,6 +35,15 @@ export const SubTitle = styled.div<ThemeStyledProps>`
 `
 
 export const BtnInner = styled.div`
-    max-width: 60%;
+    max-width: 45%;
     margin-left: auto;
+`
+
+export const InfoBlock = styled.div<ThemeStyledProps>`
+    padding: 20px 0;
+
+    span {
+        color:${({ themestyles }) => themestyles.color};
+        font-size: 14px;
+    }
 `
