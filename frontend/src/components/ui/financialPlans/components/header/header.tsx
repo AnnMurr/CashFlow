@@ -31,8 +31,8 @@ export const Header: FC<HeaderProps> = ({ budgetPlans, currentPlan, setCurrentTa
                         key={uuidV4()}>
                         <Item
                             style={{
-                                borderBottom: currentPlan.period === data.period ?
-                                    `1px solid ${themeContext.themeStyles.color}`
+                                backgroundColor: currentPlan.period === data.period ?
+                                themeContext.themeStyles.settingsTabBtnSelected
                                     : "none"
                             }}
                             themestyles={themeContext.themeStyles}

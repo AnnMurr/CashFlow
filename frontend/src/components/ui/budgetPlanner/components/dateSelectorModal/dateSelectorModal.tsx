@@ -12,6 +12,7 @@ import { MONTH } from "../../../../../consts";
 import { showAlert } from "../../../../../utils/showAlert";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { Container, Item, Wrapper, Tabs, BtnInner, PickerInner } from "./styledDateSelectorModal";
+import { OutlinedInputComponent } from "../../../../shared/outlinedInput/outlinedInput";
 
 interface DateSelectorModalProps {
     setDateRange: (value: string) => void;
@@ -21,16 +22,21 @@ interface DateSelectorModalProps {
 
 export const DateSelectorModal: FC<DateSelectorModalProps> = ({
     setDateRange, setIsDateSelectorModal, setIsAlertActive }) => {
+    const tabNames = ["range", "month", "name"];
     const [activeTab, setActiveTab] = useState<number>(0);
     const [months, setMonths] = useState<Array<string> | null>(null);
     const [selectedStartDate, setSelectedStartDate] = useState<string | null>(null);
     const [selectedEndDate, setSelectedEndDate] = useState<string | null>(null);
     const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+    const [name, setName] = useState<string>("");
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const applyDateRange = (activeTab: string) => {
         if (activeTab === "month" && selectedMonth) {
             setDateRange(selectedMonth);
+            setIsDateSelectorModal(false);
+        } else if (activeTab === "name" && name) {
+            setDateRange(name);
             setIsDateSelectorModal(false);
         } else if (activeTab === "range") {
             if (!selectedStartDate || !selectedEndDate) {
@@ -83,6 +89,20 @@ export const DateSelectorModal: FC<DateSelectorModalProps> = ({
                 categoryName={selectedMonth}
                 names={months} />
         },
+        {
+            label: (
+                <span>
+                    Custom Name
+                </span>
+            ),
+            content: <OutlinedInputComponent
+                value={name}
+                placeholderValue={"Custom name"}
+                type={"text"}
+                maxLengthNumber={30}
+                handleChange={(event) => setName(event.target.value.trimStart())}
+            />
+        },
     ];
 
     return (
@@ -121,7 +141,7 @@ export const DateSelectorModal: FC<DateSelectorModalProps> = ({
                         text="Apply"
                         color="#fff"
                         type="button"
-                        func={() => applyDateRange(activeTab === 0 ? "range" : "month")} />
+                        func={() => applyDateRange(tabNames[activeTab])} />
                 </BtnInner>
             </Wrapper>
         </Container>
