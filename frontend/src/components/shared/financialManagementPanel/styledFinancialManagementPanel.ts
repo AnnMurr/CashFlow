@@ -10,7 +10,7 @@ const CrossStyled = css<ThemeStyledProps>`
     background-color:${({ themestyles }) => themestyles.body};
     width: 25px;
     display: block;
-    position: fixed;
+    position: absolute;
     height: 2px;
 `
 

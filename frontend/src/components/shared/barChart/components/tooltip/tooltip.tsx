@@ -5,32 +5,46 @@ import { TooltipProps } from 'recharts';
 import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
+import { Amount, Category, Container, Item, LabelInner, List } from "./styledTooltip";
 
-interface CustomTooltipProps extends TooltipProps<any, any> { };
+interface CustomTooltipProps extends TooltipProps<any, any> {
+    colors: Array<string>;
+};
 
-export const CustomTooltip: FC<CustomTooltipProps> = ({ payload, label }) => {
+export const CustomTooltip: FC<CustomTooltipProps> = ({ payload, label, colors }) => {
     const { currency } = useAppSelector((state: RootState) => state.storage);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     if (!payload || payload.length === 0) return null;
 
+    const legendInlineStyles = (index: number) => ({
+        width: '8px',
+        height: '8px',
+        borderRadius: '20px',
+        backgroundColor: colors[index % colors.length],
+        marginRight: '5px',
+        display: 'inline-block',
+    });
+
     return (
         currency &&
-        <div style={{
-            backgroundColor: themeContext.themeStyles.modalBackground,
-            borderColor: themeContext.themeStyles.modalBackground,
-            borderWidth: 1,
-            borderRadius: 4,
-            fontSize: 14,
-            color: themeContext.themeStyles.color,
-            padding: '10px',
-        }}>
-            <p>{label}</p>
-            {payload.map((entry, index) => (
-                <p key={index} style={{ color: themeContext.themeStyles.color }}>
-                    {entry.name}: {getFormatCurrency(entry.value, currency.code)}
-                </p>
-            ))}
-        </div>
+        <Container themestyles={themeContext.themeStyles}>
+            <LabelInner themestyles={themeContext.themeStyles}>
+                <span>{label}</span>
+            </LabelInner>
+            <List themestyles={themeContext.themeStyles}>
+                {payload.map((entry, index) => (
+                    <Item themestyles={themeContext.themeStyles}>
+                        <div>
+                            <span style={legendInlineStyles(index)}></span>
+                            <Category themestyles={themeContext.themeStyles}>
+                                {entry.name}
+                            </Category>
+                        </div>
+                        <Amount themestyles={themeContext.themeStyles}>{getFormatCurrency(entry.value, currency.code)}</Amount>
+                    </Item>
+                ))}
+            </List>
+        </Container>
     );
 };

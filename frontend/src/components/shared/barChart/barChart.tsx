@@ -36,7 +36,9 @@ export const BarChartComponent: FC<BarChartComponentProps> = ({ statisticType })
     const legendContainerStyles: React.CSSProperties = {
         position: 'absolute',
         top: 0,
-        right: 0
+        right: 0,
+        overflowX: 'hidden',
+        height: '-webkit-fill-available'
     };
 
     const legendItemStyles = {
@@ -57,7 +59,7 @@ export const BarChartComponent: FC<BarChartComponentProps> = ({ statisticType })
     }, [storageData]);
 
     return (
-        <div style={{ position: 'relative', width: '100%', height: '400px' }}>
+        <div style={{ position: 'relative', width: '100%', height: '16rem' }}>
             <BarChart
                 width={600}
                 height={300}
@@ -68,9 +70,14 @@ export const BarChartComponent: FC<BarChartComponentProps> = ({ statisticType })
                     stroke={themeContext.themeStyles.color} />
                 <YAxis
                     stroke={themeContext.themeStyles.color} />
-                <Tooltip content={<CustomTooltip />} />
+                    
+                <Tooltip cursor={{ fill: themeContext.themeStyles.pickersDayHover }} content={<CustomTooltip colors={colors} />} />
                 {categories.map((category, index) => (
                     <Bar
+                        style={{
+                            overflow: 'hidden',
+                            height: '-webkit-fill-available'
+                        }}
                         key={category}
                         dataKey={category}
                         fill={colors[index % colors.length]} />
