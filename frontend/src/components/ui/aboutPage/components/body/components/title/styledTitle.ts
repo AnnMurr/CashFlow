@@ -5,5 +5,9 @@ export const Container = styled.div`
 
     h3 {
         font-size: 23px;
+
+        @media screen and (max-width: 480px) {
+            font-size: 18px;
+        }
     }
 `

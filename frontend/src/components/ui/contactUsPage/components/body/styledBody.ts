@@ -15,5 +15,10 @@ export const Heading = styled.div`
 
     h2 {
         font-size: 30px;
+
+        @media screen and (max-width: 480px) {
+            font-size: 25px;
+            text-align: center;
+        }
     }
 `
