@@ -16,13 +16,27 @@ export const Item = styled.li<ItemProps> `
     &:nth-child(2) {
         padding-right: ${({type}) => type === "LeftBlock" ? "20px" : "0"};
         padding-left: ${({type}) => type === "RightBlock" ? "20px" : "0"};
+
+        @media screen and (max-width: 780px) {
+            padding-right: 0;
+            padding-left: 0;
+        }
     }
     
     &:nth-child(3) {
         padding-right: ${({type}) => type === "LeftBlock" ? "20px" : "0"};
         padding-left: ${({type}) => type === "RightBlock" ? "20px" : "0"};
+
+        @media screen and (max-width: 780px) {
+            padding-right: 0;
+            padding-left: 0;
+        }
     }
-    
+
+    @media screen and (max-width: 780px) {
+        flex-direction: column-reverse;
+        margin: 0 auto;
+    }
 `
 
 export const Title = styled.h4`

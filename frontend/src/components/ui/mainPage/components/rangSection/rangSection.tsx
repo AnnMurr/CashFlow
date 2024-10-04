@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { RANG_ITEM_1, RANG_ITEM_2, RANG_ITEM_3, RANG_ITEM_4 } from "../../../../../consts/images";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Container, Wrapper } from "./styledRangSection";
+import { Container, Item, Wrapper } from "./styledRangSection";
 import { v4 as uuidv4 } from 'uuid';
 
 export const RangSection: FC = () => {
@@ -21,14 +21,11 @@ export const RangSection: FC = () => {
             <Container>
                 <Wrapper>
                     {items.map(item => (
-                        <motion.div
-                            key={uuidv4()}
-                            style={{
-                                translateY: itemPosition,
-                                transition: "all 0.5s ease"
-                            }}>
+                        <Item
+                            style={{ translateY: itemPosition }}
+                            key={uuidv4()} >
                             <img src={item} alt="rang" />
-                        </motion.div>
+                        </Item>
                     ))}
                 </Wrapper>
             </Container>

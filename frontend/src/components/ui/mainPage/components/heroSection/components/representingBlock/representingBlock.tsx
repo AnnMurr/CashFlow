@@ -3,17 +3,17 @@ import { SubTitle, SubTitleWrap, Title } from "./styledRepresentingBlock";
 
 export const RepresentingBlock: FC = () => {
     return (
-        <div>
+        <>
             <SubTitleWrap>
                 <SubTitle>
                     The easiest way to manage personal finances
                 </SubTitle>
             </SubTitleWrap>
-            <div>
-                <Title>
+            <Title>
+                <h2>
                     Cash Flow
-                </Title>
-            </div>
-        </div>
+                </h2>
+            </Title>
+        </>
     )
 }

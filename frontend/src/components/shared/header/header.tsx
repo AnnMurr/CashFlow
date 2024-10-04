@@ -27,6 +27,7 @@ export const Header: FC = () => {
                     <Logo to={"/"}>
                         <img src={isActiveHeader ? LOGO_BLACK.default : LOGO_WHITE.default} alt="logo" />
                     </Logo>
+
                     <Nav isActiveHeader={isActiveHeader} />
                     <BtnAuth to={isUserAuth ? "/profile" : "/sign-up"} >
                         <FontAwesomeIcon
