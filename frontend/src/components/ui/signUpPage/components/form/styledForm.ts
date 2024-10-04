@@ -8,6 +8,10 @@ export const FormContainer = styled.form`
     width: 100%;
     background-color: #fff;
     padding: 40px;
+
+    @media screen and (max-width: 410px) {
+        padding: 25px;
+    }
 `
 
 export const ErrorMessageContainer = styled.div`
