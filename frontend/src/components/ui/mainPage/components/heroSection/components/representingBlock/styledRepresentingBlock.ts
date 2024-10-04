@@ -19,12 +19,20 @@ export const SubTitle = styled.h3`
     @media screen and (max-width: 1024px) {
         font-size: 50px;
     }
+
+    @media screen and (max-width: 680px) {
+        font-size: 30px;
+    }
 `
 
 export const Title = styled.div`
     h2 {
         color: #fff;
         font-size: 40px;
+
+        @media screen and (max-width: 680px) {
+            font-size: 30px;
+        }
     }
 
     @media screen and (max-width: 1024px) {

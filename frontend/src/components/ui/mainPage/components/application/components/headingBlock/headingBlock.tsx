@@ -1,6 +1,6 @@
 import { MotionValue, motion } from "framer-motion";
 import { FC } from "react";
-import { SubTitle, Title, TitleWrap } from "./styledHeadingBlock";
+import { SubTitle, Title } from "./styledHeadingBlock";
 
 interface HeadingBlockProps {
     styles: {
@@ -11,16 +11,16 @@ interface HeadingBlockProps {
 export const HeadingBlock: FC<HeadingBlockProps> = ({ styles }) => {
     return (
         <motion.div style={styles}>
-            <TitleWrap>
-                <Title>
+            <Title>
+                <h2>
                     Download Cash Flow
-                </Title>
-            </TitleWrap>
-            <div>
-                <SubTitle>
+                </h2>
+            </Title>
+            <SubTitle>
+                <h3>
                     Manage your asset more conveniently.
-                </SubTitle>
-            </div>
+                </h3>
+            </SubTitle>
         </motion.div>
     )
 }

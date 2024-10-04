@@ -14,6 +14,10 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
     padding: 120px 0;
     text-align: center;
+
+    @media screen and (max-width: 480px) {
+        padding: 60px 0;
+    }
 `
 
 export const TitleInner = styled(motion.div)`
@@ -23,9 +27,17 @@ export const TitleInner = styled(motion.div)`
 export const Title = styled.h2`
     color: #000;
     font-size: 40px;
+
+    @media screen and (max-width: 480px) {
+        font-size: 25px;
+    }
 `
 
 export const SubTitle = styled.h3`
    font-weight: 200;
    font-size: 30px;
+
+    @media screen and (max-width: 480px) {
+            font-size: 22px;
+    }
 `

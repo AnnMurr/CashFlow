@@ -14,6 +14,10 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
     display: flex;
     padding-top: 260px;
+
+    @media screen and (max-width: 680px) {
+        padding-top: 160px;
+    }
 `
 
 export const PhonesWrap = styled(motion.div)`

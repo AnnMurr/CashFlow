@@ -23,4 +23,16 @@ export const Item = styled(motion.div)`
     transition: all 0.5s ease;
     display: flex;
     justify-content: center;
+
+    @media screen and (max-width: 680px) {
+        width: 8rem;
+        height: 4rem;
+        margin: 0 auto;
+    }
+
+    @media screen and (max-width: 380px) {
+        width: 6rem;
+        height: 3rem;
+        margin: 0 auto;
+    }
 `

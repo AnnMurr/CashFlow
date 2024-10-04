@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Heading } from "./components/heading/heading";
-import { RightBlock } from "./components/rightBlock/rightBlock";
+import { Block } from "./components/block/block";
 import { Container, Wrapper } from "./styledHelpCenterSection";
 
 export const HelpCenterPage: FC = () => {
@@ -9,11 +9,7 @@ export const HelpCenterPage: FC = () => {
             <Container>
                 <Wrapper>
                     <Heading />
-                    <div style={{ display: "flex" }}>
-                        <div>
-                            <RightBlock />
-                        </div>
-                    </div>
+                    <Block />
                 </Wrapper>
             </Container>
         </section>

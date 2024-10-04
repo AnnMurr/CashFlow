@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonComponent } from "../../../../../../shared/button/button";
-import { SubTitle, Title, BtnInner } from "./styledRightBlock";
+import { SubTitle, Title, BtnInner, Container } from "./styledBlock";
 
-export const RightBlock: FC = () => {
+export const Block: FC = () => {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <Container>
             <Title>
                 <h4>
                     Money Manager Help Center
@@ -30,6 +30,6 @@ export const RightBlock: FC = () => {
                     type="button"
                     func={() => navigate("help-center")} />
             </BtnInner>
-        </div>
+        </Container>
     )
 }

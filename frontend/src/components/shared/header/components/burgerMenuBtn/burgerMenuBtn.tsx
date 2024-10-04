@@ -13,7 +13,7 @@ export const BurgerMenuBtn: FC<BurgerMenuBtnProps> = ({ color, setIsSideBarActiv
             <button
                 onClick={() => setIsSideBarActive((prev) => !prev)}
                 type="button">
-                <FontAwesomeIcon size="2xl" color={color} icon={faBars} />
+                <FontAwesomeIcon size="xl" color={color} icon={faBars} />
             </button>
         </div>
     )

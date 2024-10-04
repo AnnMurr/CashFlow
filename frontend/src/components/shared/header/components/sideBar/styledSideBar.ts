@@ -16,18 +16,23 @@ export const Container = styled.div<ContainerProps>`
 `
 
 export const Wrapper = styled.div`
-    padding: 30px;
+    padding: 30px 0;
 `
 
 export const List = styled.ul`
     display: flex;
     justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
 `
 
 export const Link = styled(ScrollLink)<LinkProps>`
     color:${({ color }) => color};
     font-size: 18px;
-    padding: 0 20px;
     cursor: pointer;
     font-weight: 600;
+    
+    @media screen and (max-width: 380px) {
+        font-size: 14px;
+    }
 `
