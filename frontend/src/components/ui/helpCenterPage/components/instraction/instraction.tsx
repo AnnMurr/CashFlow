@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { BtnGoToMainPage } from "../../../../shared/btnGoToMainPage/btnGoToMainPage";
-import { Container, Title, Wrapper } from "./styledInstraction";
+import { Container, Title, Wrapper, Text } from "./styledInstraction";
 
 export const Instraction: FC = () => {
     return (
@@ -13,7 +13,7 @@ export const Instraction: FC = () => {
                             Take Control of Your Finances with Cash Flow
                         </h2>
                     </Title>
-                    <div>
+                    <Text>
                         <p>
                             Welcome to our financial management platform! Our website provides you with a convenient tool to take control of your finances, helping you track your expenses, plan budgets, and achieve your financial goals with ease. Our mission is to empower users to make informed financial decisions and attain financial stability.
 
@@ -21,7 +21,7 @@ export const Instraction: FC = () => {
 
                             Featuring a user-friendly and intuitive interface, our website caters to both beginners in financial management and experienced users looking to enhance their financial skills. Whether you're saving for the future, paying off debts, or simply aiming to better manage your finances, our platform serves as your reliable partner in achieving your financial objectives.
                         </p>
-                    </div>
+                    </Text>
                 </Wrapper>
             </Container>
         </section>

@@ -14,4 +14,23 @@ export const Wrapper = styled.div`
 export const Title = styled.div`
     padding-bottom: 20px;
     text-align: center;
+
+    h2 {
+        font-size: 24px;
+
+        @media screen and (max-width: 480px) {
+            font-size: 18px;
+        }
+    }
+`
+
+export const Text = styled.div`
+    p {
+        font-size: 16px;
+
+        @media screen and (max-width: 480px) {
+            font-size: 14px;
+            text-align: center;
+        }
+    }
 `
