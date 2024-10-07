@@ -9,12 +9,12 @@ import { Container, List, Wrapper } from "./styledSubBar";
 export const SubBar: FC = () => {
     const [isAtiveBar, setIsAtiveBar] = useState<boolean>(false);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
-    
+
     const changeAtiveBar = () => setIsAtiveBar((prev) => !prev);
 
     return (
-        <Container themestyles={themeContext.themeStyles}>
-            <Wrapper>
+        <Container isactive={isAtiveBar.toString()} themestyles={themeContext.themeStyles}>
+            <Wrapper isactive={isAtiveBar.toString()}>
                 <div>
                     <button type="button" onClick={changeAtiveBar}>
                         <FontAwesomeIcon
@@ -23,7 +23,7 @@ export const SubBar: FC = () => {
                             color={themeContext.themeStyles.subBarLinkColor} />
                     </button>
                 </div>
-                <List>
+                <List isactive={isAtiveBar.toString()}>
                     <Item
                         icon={faUser}
                         isAtiveBar={isAtiveBar}

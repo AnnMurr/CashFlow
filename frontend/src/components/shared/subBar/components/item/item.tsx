@@ -16,7 +16,7 @@ export const Item: FC<ItemProps> = ({ icon, isAtiveBar, linkTo, text }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     return (
-        <Container>
+        <Container isactive={isAtiveBar.toString()}>
             <NavLink to={linkTo}>
                 {({ isActive }) => (
                     <NavLinkStyled
