@@ -16,6 +16,11 @@ export const Settings = styled.div`
     width: 0;
     margin-left: 15px;
     display: none;
+
+    @media screen and (max-width: 580px) {
+        display: flex;
+        gap: 10px;
+    }
 `
 
 export const Container = styled.div<CombinedProps>`
@@ -62,6 +67,16 @@ export const Container = styled.div<CombinedProps>`
             opacity: 1;
         }
       }
+
+    @media screen and (max-width: 580px) {
+        padding: 5px;
+        grid-template-columns: ${({ categorystatistic, chosenfilter }) =>
+        categorystatistic === "true" ?
+            "repeat(2, 1fr)" :
+            chosenfilter === "true" ?
+                "15% 30% 55%" :
+                "10% 30% 45% 10%"};
+    }
 `
 
 export const Category = styled.div<CombinedProps>`
@@ -88,11 +103,26 @@ export const Date = styled.div<ThemeStyledProps>`
     
     span {
         color:${({ themestyles }) => themestyles.color};
+        font-size: 16px;
+
+        @media screen and (max-width: 580px) {
+            font-size: 14px;
+        }
+    }
+
+    @media screen and (max-width: 580px) {
+        display: flex;
+        gap: 10px;
     }
 `
 
 export const Sum = styled.div<ThemeStyledProps>`
     span {
         color:${({ themestyles }) => themestyles.color};
+        font-size: 16px;
+
+        @media screen and (max-width: 580px) {
+            font-size: 14px;
+        }
     }
 `

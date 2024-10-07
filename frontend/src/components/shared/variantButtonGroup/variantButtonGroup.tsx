@@ -37,7 +37,11 @@ export const VariantButtonGroup: FC<VariantButtonGroupProps> = ({ setStatisticTy
         fontFamily: "Almarai",
         padding: "0px 8px",
         fontWeight: "600",
+        fontSize: "14px",
 
+        "@media screen and (max-width: 580px)": {
+            fontSize: "12px",
+        },
         '&:first-of-type': {
             paddingLeft: "0",
         },
