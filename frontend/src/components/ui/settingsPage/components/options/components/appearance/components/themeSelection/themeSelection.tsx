@@ -19,6 +19,10 @@ export const ThemeSelection: FC = () => {
                     display: "grid",
                     gridTemplateColumns: "repeat(2, 1fr)",
                     gap: 2,
+                    "@media screen and (max-width: 580px)": {
+                        display: "flex",
+                        gap: "15px",
+                    },
                     '& .Mui-checked': {
                         border: '3px solid',
                         borderColor: 'primary.main',

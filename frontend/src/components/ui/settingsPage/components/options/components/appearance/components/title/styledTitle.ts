@@ -8,5 +8,9 @@ export const Inner = styled.div<ThemeStyledProps>`
     h3 {
         font-size: 20px;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 16px;
+        }
     }
 `

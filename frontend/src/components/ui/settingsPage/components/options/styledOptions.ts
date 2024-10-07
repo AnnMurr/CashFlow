@@ -8,4 +8,8 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
     padding: 40px;
     height: 100%;
+
+    @media screen and (max-width: 650px) {
+        padding: 40px 0 0 0;
+    }
 `

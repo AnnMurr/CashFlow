@@ -27,17 +27,29 @@ export const Wrapper = styled(Link)`
     grid-template-columns: 30% 60% 10%;
     cursor: pointer;
     padding: 15px;
+
+    @media screen and (max-width: 1024px) {
+        grid-template-columns: 20% 70% 10%;
+    }
 `
 
 export const Category = styled.span<ThemeStyledProps>`
     font-size: 13px;
     color:${({ themestyles }) => themestyles.color};
+
+    @media screen and (max-width: 580px) {
+        font-size: 12px;
+    }
 `
 
 export const Value = styled.span<ThemeStyledProps>`
     font-size: 16px;
     font-weight: 500;
     color:${({ themestyles }) => themestyles.color};
+
+    @media screen and (max-width: 580px) {
+        font-size: 13px;
+    }
 `
 
 export const Arrow = styled.div`

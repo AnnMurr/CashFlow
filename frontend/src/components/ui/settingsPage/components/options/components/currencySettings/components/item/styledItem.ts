@@ -31,16 +31,28 @@ export const Wrapper = styled.div`
 export const Category = styled.span<ThemeStyledProps>`
     font-size: 13px;
     color:${({ themestyles }) => themestyles.color};
+
+    @media screen and (max-width: 580px) {
+        font-size: 12px;
+    }
 `
 
 export const Name = styled.span<ThemeStyledProps>`
     font-size: 14px;
     font-weight: 500;
     color:${({ themestyles }) => themestyles.color};
+
+    @media screen and (max-width: 580px) {
+        font-size: 13px;
+    }
 `
 
 export const Symbol = styled.span<ThemeStyledProps>`
     font-size: 13px;
     font-weight: 600;
     color:${({ themestyles }) => themestyles.color};
+
+    @media screen and (max-width: 580px) {
+        font-size: 12px;
+    }
 `

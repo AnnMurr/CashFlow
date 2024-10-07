@@ -16,11 +16,12 @@ export const RadioComponent: FC<RadioComponentProps> = ({ children, value, check
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const sheetStyles = {
-        maxWidth: "20rem",
         borderRadius: "5px",
         backgroundColor: themeContext.themeStyles.themeSelectionBlockBackground,
         border: `1px solid ${themeContext.themeStyles.color}`,
         transition: "all 0.3s ease-in-out",
+        margin: "0 auto",
+        width: "100%",
 
         '&:hover': {
             opacity: 0.6,

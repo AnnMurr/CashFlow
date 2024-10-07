@@ -4,7 +4,7 @@ import { Spinner } from "../../../../../../shared/spinner/spinner";
 import { TabsType } from "../../options";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
-import { Container, Item } from "./styledTabs";
+import { Container, Item, List, SettingsContainer } from "./styledTabs";
 
 interface TabsProps {
     tabs: Array<TabsType>;
@@ -13,7 +13,7 @@ interface TabsProps {
 export const Tabs: FC<TabsProps> = ({ tabs }) => {
     const [activeTab, setActiveTab] = useState(0);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
-    
+
     const handleTabClick = (index: number) => {
         setActiveTab(index);
     };
@@ -21,7 +21,7 @@ export const Tabs: FC<TabsProps> = ({ tabs }) => {
     return (
         <Container>
             <div>
-                <ul>
+                <List themestyles={themeContext.themeStyles} >
                     {tabs.map((tab, index) => (
                         <Item themestyles={themeContext.themeStyles} active={(activeTab === index).toString()} key={uuidV4()}>
                             <button
@@ -30,11 +30,11 @@ export const Tabs: FC<TabsProps> = ({ tabs }) => {
                             </button>
                         </Item>
                     ))}
-                </ul>
+                </List>
             </div>
-            <div>
+            <SettingsContainer>
                 {tabs[activeTab] ? tabs[activeTab].content : <Spinner size={40} height={3} />}
-            </div>
+            </SettingsContainer>
         </Container>
     )
 }
