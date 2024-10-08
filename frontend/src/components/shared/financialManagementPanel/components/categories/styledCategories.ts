@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 export const List = styled.ul`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(60px, 100px));
     row-gap: 20px;
     min-height: fit-content;
     align-items: end;
