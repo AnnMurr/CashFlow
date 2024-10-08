@@ -7,5 +7,9 @@ export const Container = styled.div<ThemeStyledProps>`
     span {
         color:${({ themestyles }) => themestyles.color};
         font-size: 14px;
+
+        @media screen and (max-width: 580px) {
+            font-size: 13px;     
+        }
     }
 `

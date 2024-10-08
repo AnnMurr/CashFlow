@@ -13,6 +13,10 @@ export const Category = styled.div<ThemeStyledProps>`
     h3 {
         font-size: 16px;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 14px;            
+        }
     }
 `
 
@@ -22,5 +26,9 @@ export const UserName = styled.div<ThemeStyledProps>`
     span {
         font-size: 16px;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 14px;            
+        }
     }
 `

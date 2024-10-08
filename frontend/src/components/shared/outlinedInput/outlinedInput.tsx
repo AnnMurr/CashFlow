@@ -47,6 +47,10 @@ export const OutlinedInputComponent: FC<OutlinedInputComponentProps> = ({
                 fontSize: "14px",
                 color: themeContext.themeStyles.color,
 
+                "@media screen and (max-width: 580px)": {
+                    fontSize: "12px",          
+                },
+
                 '& .MuiOutlinedInput-notchedOutline': {
                     borderColor: themeContext.themeStyles.inputBorder,
                 },

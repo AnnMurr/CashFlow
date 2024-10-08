@@ -11,6 +11,10 @@ export const InfoTitle = styled.div<ThemeStyledProps>`
     h5 {
         color:${({ themestyles }) => themestyles.color}};
         font-size: 17px;
+
+        @media screen and (max-width: 580px) {
+            font-size: 15px;            
+        }
     }
 `
 
@@ -18,5 +22,9 @@ export const InfoText = styled.div<ThemeStyledProps>`
     span {
         color:${({ themestyles }) => themestyles.color};
         font-size: 14px;
+
+        @media screen and (max-width: 580px) {
+            font-size: 13px;            
+        }
     }
 `

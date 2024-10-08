@@ -30,6 +30,10 @@ export const ButtonComponent: FC<ButtonComponentProps> = ({
         color: color,
         width: "100%",
 
+        "@media screen and (max-width: 580px)": {
+            fontSize: "13px",   
+        },
+
         '&:hover': {
             backgroundColor: BackgroundColorHover ? BackgroundColorHover : themeContext.themeStyles.buttonBackgroundHover,
             border: borberColorHover && `1px solid ${borberColorHover}`,
