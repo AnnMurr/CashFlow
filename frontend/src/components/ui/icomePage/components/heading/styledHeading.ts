@@ -15,6 +15,10 @@ export const Title = styled.div<ThemeStyledProps>`
         font-family: "Almarai";
         font-weight: 600;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 20px;            
+        }
     }
 `
 
@@ -23,5 +27,9 @@ export const Sum = styled.div<ThemeStyledProps>`
         font-weight: 600;
         font-size: 20px;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 17px;            
+        }
     }
 `
