@@ -14,4 +14,8 @@ export const Item = styled.button<ThemeStyledProps>`
     padding: 5px;
     border-radius: 5px;
     color:${({ themestyles }) => themestyles.color};
+
+    @media screen and (max-width: 580px) {
+        font-size: 15px;
+    }
 `

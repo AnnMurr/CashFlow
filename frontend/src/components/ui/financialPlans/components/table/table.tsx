@@ -29,10 +29,6 @@ export const FinancialPlansTable: FC<FinancialPlansTableProps> = ({
         setIsEditModalActive(true);
     }
 
-    useEffect(() => {
-        console.log("render")
-    }, []);
-
     const tableContainerStyles = {
         backgroundColor: themeContext.themeStyles.budgetPlannerBackground,
     };

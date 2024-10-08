@@ -22,7 +22,11 @@ export const CategoryRow: FC<CategoryRowProps> = ({
 
     const tableCellStyles = {
         color: themeContext.themeStyles.color,
-        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
+        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`,
+
+        "@media screen and (max-width: 580px)": {
+            fontSize: "12px"
+        }
     };
 
     return (

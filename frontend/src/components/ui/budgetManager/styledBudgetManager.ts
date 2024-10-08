@@ -25,4 +25,8 @@ export const Links = styled.div`
     display: flex;
     gap: 20px;
     justify-content: space-around;
+
+    @media screen and (max-width: 520px) {
+        gap: 10px;
+    }
 `
