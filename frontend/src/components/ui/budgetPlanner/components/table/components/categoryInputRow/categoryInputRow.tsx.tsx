@@ -52,12 +52,23 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
     }
 
     const tableCellStyles = {
-        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
+        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`,
+
+        "@media screen and (max-width: 820px)": {
+            padding: "15px 5px"
+        },
     };
 
     return (
         <TableRow>
-            <TableCell align="left" colSpan={1} sx={{ ...tableCellStyles, width: '50%' }}>
+            <TableCell align="left" colSpan={1} sx={{
+                ...tableCellStyles,
+                width: '50%',
+                "@media screen and (max-width: 820px)": {
+                    width: '32%',
+                    padding: "5px"
+                }
+            }}>
                 <MultipleSelectPlaceholder
                     isDisabled={false}
                     setCategoryName={setCategory}

@@ -62,7 +62,11 @@ export const SaveBtn: FC<SaveBtnProps> = ({ setCompletedCategories, completedCat
     }
 
     const tableCellStyles = {
-        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
+        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`,
+
+        "@media screen and (max-width: 820px)": {
+            padding: "10px 5px"
+        },
     };
 
     return (

@@ -15,7 +15,11 @@ export const CategoryInputAddBtn: FC<CategoryInputAddBtnProps> = ({ setIsCategor
 
     const tableCellStyles = {
         position: "relative",
-        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
+        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`,
+
+        "@media screen and (max-width: 820px)": {
+            padding: "5px"
+        },
     };
 
     return (
