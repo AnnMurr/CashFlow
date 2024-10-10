@@ -12,14 +12,17 @@ export const Edit = styled.button`
     margin-right: 10px;
 `
 
-export const Settings = styled.div`
+export const Settings = styled.div<ThemeStyledProps>`
     width: 0;
     margin-left: 15px;
     display: none;
 
     @media screen and (max-width: 580px) {
-        display: flex;
-        gap: 10px;
+        position: absolute;
+        background-color:${({ themestyles }) => themestyles.statisticsLineHoverBackground};
+        inset: 0;
+        margin: 0;
+        justify-content: center;
     }
 `
 
@@ -50,9 +53,32 @@ export const Container = styled.div<CombinedProps>`
         ${Settings} {
             display: flex;
             animation: showEdit 0.3s ease forwards;
+
+            @media screen and (max-width: 580px) {
+                animation: showEditMobile 0.3s ease forwards;
+            }
         }
         background-color: ${({ iseditingdata, categorystatistic, themestyles }) =>
         iseditingdata === "false" && categorystatistic === "false" ? themestyles.lineBackgroundHover : "none"};
+    }
+
+    @media screen and (max-width: 860px) {
+        grid-template-columns: ${({ categorystatistic, chosenfilter }) =>
+        categorystatistic === "true" ?
+            "repeat(2, 1fr)" :
+            chosenfilter === "true" ?
+                "15% 30% 55%" :
+                "10% 30% 33% 27%"};
+    }
+
+    @media screen and (max-width: 580px) {
+        padding: 5px;
+        grid-template-columns: ${({ categorystatistic, chosenfilter }) =>
+        categorystatistic === "true" ?
+            "repeat(2, 1fr)" :
+            chosenfilter === "true" ?
+                "15% 30% 55%" :
+                "12% 35% 38% 15%"};
     }
 
     @keyframes showEdit {
@@ -66,16 +92,18 @@ export const Container = styled.div<CombinedProps>`
             margin-left: 20px;
             opacity: 1;
         }
-      }
+    }
 
-    @media screen and (max-width: 860px) {
-        padding: 5px;
-        grid-template-columns: ${({ categorystatistic, chosenfilter }) =>
-        categorystatistic === "true" ?
-            "repeat(2, 1fr)" :
-            chosenfilter === "true" ?
-                "15% 30% 55%" :
-                "10% 30% 33% 28%"};
+    @keyframes showEditMobile {
+        0% {
+            width: 0;
+            margin-left: 0;
+            opacity: 0;
+        }
+        100% {
+            width: 100%;
+            opacity: 1;
+        }
     }
 `
 
@@ -95,10 +123,6 @@ export const TimeEditBlock = styled.div`
     display: flex;
     align-items: center;
     justify-content: end;
-
-    @media screen and (max-width: 860px) {
-        justify-content: start;
-    }
 `
 
 export const Date = styled.div<ThemeStyledProps>`

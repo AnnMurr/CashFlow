@@ -12,13 +12,13 @@ interface ItemDayProps {
 export const ItemDay: FC<ItemDayProps> = ({ title }) => {
     const { chosenCategoryStatistic } = useAppSelector((state: RootState) => state.storage);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
-    
+
     return (
         <Container themestyles={themeContext.themeStyles}>
             {chosenCategoryStatistic ?
                 <IconInner>
                     <img src={chosenCategoryStatistic[0].icon} alt="" />
-                </IconInner> 
+                </IconInner>
                 : <span>{title}</span>}
         </Container>
     )

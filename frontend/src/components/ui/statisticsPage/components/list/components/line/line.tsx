@@ -21,14 +21,14 @@ export const Line: FC<LineProps> = ({
         <ItemsInner>
             {chosenCategoryStatistic ?
                 data && data.map(item => (
-                    <li key={uuidV4()}>
+                    <li style={{position: "relative"}} key={uuidV4()}>
                         <Item
                             categoryStatistic={true}
                             dataItem={item} />
                     </li>
                 ))
                 : data && data.map(item => (
-                    <li key={uuidV4()}>
+                    <li style={{position: "relative"}}  key={uuidV4()}>
                         <Item
                             categoryStatistic={false}
                             setIsDeleteCategoryModalActive={setIsDeleteCategoryModalActive}
