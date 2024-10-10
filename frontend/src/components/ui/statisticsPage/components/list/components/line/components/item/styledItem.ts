@@ -68,14 +68,14 @@ export const Container = styled.div<CombinedProps>`
         }
       }
 
-    @media screen and (max-width: 580px) {
+    @media screen and (max-width: 860px) {
         padding: 5px;
         grid-template-columns: ${({ categorystatistic, chosenfilter }) =>
         categorystatistic === "true" ?
             "repeat(2, 1fr)" :
             chosenfilter === "true" ?
                 "15% 30% 55%" :
-                "10% 30% 45% 10%"};
+                "10% 30% 33% 28%"};
     }
 `
 
@@ -95,6 +95,10 @@ export const TimeEditBlock = styled.div`
     display: flex;
     align-items: center;
     justify-content: end;
+
+    @media screen and (max-width: 860px) {
+        justify-content: start;
+    }
 `
 
 export const Date = styled.div<ThemeStyledProps>`

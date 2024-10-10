@@ -25,6 +25,7 @@ export const BtnAdd: FC<BtnAddProps> = ({ size, func, isDisabled }) => {
                     color: "#fff",
                     width: size ? size : "50px",
                     height: size ? size : "50px",
+                    zIndex: 5,
 
                     '&.Mui-disabled': {
                         backgroundColor: themeContext.themeStyles.btnAddDisabledBackground,

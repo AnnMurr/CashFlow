@@ -18,6 +18,7 @@ export const Container = styled.div<ThemeStyledProps>`
     
     @media screen and (max-width: 380px) {
         min-height: 10rem;
+        max-width: 18rem;
     }
 
     &:hover {

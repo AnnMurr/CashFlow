@@ -15,7 +15,7 @@ export const Container = styled.div<ThemeStyledProps>`
         top: 30%;      
     }
 
-    @media screen and (max-width: 360px) {
+    @media screen and (max-width: 420px) {
         width: 90%;        
     }
 `

@@ -37,7 +37,7 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data, isLegendHi
     }, [storageData]);
 
     return (
-        data ?
+        data && windowWidth ?
             <PieChart
                 series={[
                     {
