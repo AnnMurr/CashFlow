@@ -7,6 +7,10 @@ export const List = styled.ul`
     row-gap: 20px;
     min-height: fit-content;
     align-items: end;
+
+    @media screen and (max-width: 780px) {
+        justify-content: center;
+    }
 `
 
 export const CrossBtnInner = styled.div`

@@ -10,6 +10,16 @@ export const Container = styled.div<ThemeStyledProps>`
     min-height: 362.5px;
     transition: all 0.5s ease;
 
+    @media screen and (max-width: 880px) {
+        max-width: 23rem;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    @media screen and (max-width: 380px) {
+        min-height: 10rem;
+    }
+
     &:hover {
         background-color: ${({ themestyles }) => themestyles.chartBlockBackgroundHover};
     }

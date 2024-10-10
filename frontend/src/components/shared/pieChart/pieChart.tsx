@@ -16,6 +16,7 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data, isLegendHi
     const [colors, setColors] = useState<Array<string>>(INITIAL_CHARTS_COLORS);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
     const { storageData } = useAppSelector((state: RootState) => state.storage);
+    const windowWidth = window.innerWidth;
 
     const pieChartStyles = {
         [`& .MuiChartsLegend-series tspan`]: {
@@ -41,10 +42,10 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data, isLegendHi
                 series={[
                     {
                         data: data,
-                        cx: isLegendHidden ? 140 : 240,
-                        cy: 150,
-                        innerRadius: isLegendHidden ? 40 : 60,
-                        outerRadius: isLegendHidden ? 80 : 120,
+                        cx: windowWidth <= 380 ? "83%" : isLegendHidden ? "75%" : "65%",
+                        cy: !isLegendHidden ? "30%" : "50%",
+                        innerRadius: windowWidth <= 380 ? "120%" : "40%",
+                        outerRadius: windowWidth <= 380 ? "60%" : isLegendHidden ? "80%" : "75%",
                     },
                 ]}
                 sx={pieChartStyles}
@@ -58,8 +59,8 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data, isLegendHi
                     }
                 }}
                 colors={colors}
-                height={isLegendHidden ? 300 : 500}
-                width={isLegendHidden ? 300 : 500}
+                height={windowWidth <= 380 ? 500 : isLegendHidden ? 300 : 500}
+                width={windowWidth <= 380 ? 250 : isLegendHidden ? 300 : windowWidth <= 460 ? 350 : 450}
             /> : null
     )
 }
