@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import { ThemeContextType } from '../../../contexts/themeContext/types';
 import { ThemeContext } from '../../../contexts/themeContext/themeContext';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
