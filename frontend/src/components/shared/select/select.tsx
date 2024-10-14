@@ -43,16 +43,14 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
 
   const selectStyles = {
     color: themeContext.themeStyles.color,
-    
     overflow: 'hidden',
-
 
     '& .MuiSelect-select': {
       padding: "8.5px 14px",
       fontSize: "14px",
-      whiteSpace: 'nowrap',       // Отключаем перенос текста
-      overflow: 'hidden',         // Скрываем переполнение текста
-      textOverflow: 'ellipsis', 
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
     '& em': {
       fontStyle: 'normal'

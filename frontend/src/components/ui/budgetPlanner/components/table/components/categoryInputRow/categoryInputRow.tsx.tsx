@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
-import { CategoriesType, CategoryPlanning } from "../../../../../../../redux/reducers/userStorageReduser/types";
 import styled from "styled-components";
+import { CategoriesType, CategoryPlanning } from "../../../../../../../redux/reducers/userStorageReduser/types";
 
 interface CategoryInputRowProps {
     setIsAlertActive: (value: AlertComponentProps | null) => void;
@@ -65,8 +65,6 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
             max-width: 80px;
         }
     `
-
-
 
     return (
         <TableRow>
