@@ -10,10 +10,22 @@ export const Container = styled.div<ThemeStyledProps>`
     background-color:${({ themestyles }) => themestyles.modalBackground};
     z-index: 25;
     border-radius: 5px;
+    
+    @media screen and (max-width: 580px) {
+        top: 30%;      
+    }
+
+    @media screen and (max-width: 420px) {
+        width: 90%;        
+    }
 `
 
 export const Wrapper = styled.div`
     padding: 30px;
+
+    @media screen and (max-width: 580px) {
+        padding: 20px;          
+    }
 `
 
 export const BtnInner = styled.div`

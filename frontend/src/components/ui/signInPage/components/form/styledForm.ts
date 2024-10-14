@@ -12,6 +12,14 @@ export const FormContainer = styled.div`
 
 export const Title = styled.div`
     padding-bottom: 30px;
+
+    h2 {
+        font-size: 25px;
+
+        @media screen and (max-width: 610px) {
+            font-size: 22px;
+        }
+    }
 `
 
 export const BtnShowPasswordInner = styled.div`
@@ -22,7 +30,6 @@ export const BtnShowPasswordInner = styled.div`
 `
 
 export const Label = styled.label`
-    margin: 20px 0;
     position: relative;
     display: block;
 `

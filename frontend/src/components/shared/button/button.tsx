@@ -30,13 +30,18 @@ export const ButtonComponent: FC<ButtonComponentProps> = ({
         color: color,
         width: "100%",
 
+        '&.MuiButtonBase-root.MuiButton-root.Mui-disabled': {
+            backgroundColor: themeContext.themeStyles.buttonDisabledBackground,
+        },
+
         '&:hover': {
             backgroundColor: BackgroundColorHover ? BackgroundColorHover : themeContext.themeStyles.buttonBackgroundHover,
             border: borberColorHover && `1px solid ${borberColorHover}`,
             color: borberColorHover && borberColorHover,
         },
-        '&.MuiButtonBase-root.MuiButton-root.Mui-disabled': {
-            backgroundColor: themeContext.themeStyles.buttonDisabledBackground,
+
+        "@media screen and (max-width: 580px)": {
+            fontSize: "13px",   
         }
     };
 

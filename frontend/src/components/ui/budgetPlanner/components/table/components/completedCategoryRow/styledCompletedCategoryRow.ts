@@ -4,6 +4,10 @@ import styled from "styled-components";
 
 export const Span = styled.span<ThemeStyledProps>`
     color:${({ themestyles }) => themestyles.color};
+
+    @media screen and (max-width: 580px) {
+        font-size: 13px;
+    }
 `
 
 export const Edit = styled.button`

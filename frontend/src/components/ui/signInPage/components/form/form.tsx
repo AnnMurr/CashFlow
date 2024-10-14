@@ -7,7 +7,9 @@ import { useAppDispatch } from "../../../../../redux/store/store";
 import { showAlert } from "../../../../../utils/showAlert";
 import { AlertComponentProps } from "../../../../shared/alert/alert";
 import { getDataFromUserStore } from "../../../../../redux/reducers/userStorageReduser/userStorageReduser";
-import { BtnShowPassword, ButtonComponent, OutlinedInputComponent, SignUpWithGoogle } from ".";
+import { BtnShowPassword, ButtonComponent, SignUpWithGoogle } from ".";
+import { Input } from "./components/input/input";
+import { LinkToSignUpBlock } from "./components/linkToSignUpBlock/linkToSignUpBlock";
 import { BtnShowPasswordInner, FormContainer, Label, Title } from "./styledForm";
 
 interface FormProps {
@@ -54,19 +56,17 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                 </h2>
             </Title>
             <form>
-                <OutlinedInputComponent
-                    value={emailValue}
-                    placeholderValue={"Email"}
-                    type={"email"}
-                    maxLengthNumber={30}
-                    handleChange={(event) => setEmailValue(event.target.value)} />
+                <Input
+                    placeholderValue="Email"
+                    inputValue={emailValue}
+                    handleChange={(event) => setEmailValue(event.target.value)}
+                    type="email" />
                 <Label>
-                    <OutlinedInputComponent
-                        value={passwordValue}
-                        placeholderValue={"Password"}
-                        type={isInputTypePassword ? "password" : "text"}
-                        maxLengthNumber={30}
-                        handleChange={(event) => setPasswordValue(event.target.value)} />
+                    <Input
+                        placeholderValue="Password"
+                        inputValue={passwordValue}
+                        handleChange={(event) => setPasswordValue(event.target.value)}
+                        type={isInputTypePassword ? "password" : "text"} />
                     <BtnShowPasswordInner>
                         <BtnShowPassword
                             func={() => setIsInputTypePassword(prev => !prev)}
@@ -85,6 +85,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                         func={logIn} />
                 </div>
                 <SignUpWithGoogle getLogSuccess={getLogSuccess} setIsAlertActive={setIsAlertActive} />
+                <LinkToSignUpBlock />
             </form>
         </FormContainer>
     )

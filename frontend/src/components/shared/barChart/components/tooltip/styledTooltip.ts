@@ -9,6 +9,10 @@ export const Container = styled.div<ThemeStyledProps>`
     font-size: 14px,
     color:${({ themestyles }) => themestyles.color};
     box-shadow:${({ themestyles }) => `0px 0px 5px ${themestyles.modalLayoutShadow}`};
+
+    @media screen and (max-width: 580px) {
+            font-size: 12px;
+    }
 `
 
 export const LabelInner = styled.div<ThemeStyledProps>`
@@ -19,6 +23,10 @@ export const LabelInner = styled.div<ThemeStyledProps>`
         font-size: 16px;
         font-weight: 600;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 14px;
+        }
     }
 `
 

@@ -18,6 +18,10 @@ export const Email = styled.div<ThemeStyledProps>`
         font-size: 16px;
         font-weight: 600;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 14px;            
+        }
     }
 `
 
@@ -25,4 +29,8 @@ export const EmailAdressLink = styled(Link) <ThemeStyledProps>`
     display: flex;
     justify-content: space-between;
     padding: 20px 30px;
+
+    @media screen and (max-width: 580px) {
+        padding: 20px;          
+    }
 `

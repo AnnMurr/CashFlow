@@ -85,7 +85,7 @@ export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }
                 </Description>
                 <InfoBlock themestyles={themeContext.themeStyles}>
                     <span>
-                    Switch to a different account to access personalized settings.
+                        You are about to switch accounts. Make sure this is the action you want to take.
                     </span>
                 </InfoBlock>
                 <BtnInner>

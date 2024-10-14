@@ -11,6 +11,10 @@ export const Container = styled.div<ThemeStyledProps>`
     left: 50%;
     z-index: 30;
     border-radius: 10px;
+
+    @media screen and (max-width: 380px) {
+        max-width: 17rem;           
+    }
 `
 
 export const Wrapper = styled.div`
@@ -23,6 +27,10 @@ export const ButtonsInner = styled.div`
     margin-left: auto;
     display: grid;
     padding-top: 20px;
+
+    @media screen and (max-width: 380px) {
+        grid-template-columns: repeat(4, 40px);          
+    }
 `
 
 export const InputInner = styled.div`
@@ -62,6 +70,11 @@ export const BtnInner = styled.div<ThemeStyledProps>`
         padding: 10px;
         font-size: 18px;
         box-shadow: 3px 3px 3px #0000002b;
+
+        @media screen and (max-width: 380px) {
+            width: 40px;
+            height: 40px;       
+        }
 
         &:hover {
             opacity: 0.8;

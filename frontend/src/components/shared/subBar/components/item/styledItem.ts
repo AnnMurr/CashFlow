@@ -5,10 +5,18 @@ interface StyledNavLinkProps {
     isactive: string;
 }
 
+interface ContainerProps {
+    isactive: string;
+}
+
 type CombinedProps = ThemeStyledProps & StyledNavLinkProps
 
-export const Container = styled.li`
+export const Container = styled.li<ContainerProps>`
     padding: 5px 0;
+
+    @media screen and (max-width: 520px) {
+        padding: ${({ isactive }) => (isactive === 'true' ? '10px 0' : '0 5px')};
+    }
 `
 
 export const NavLinkStyled = styled.span<CombinedProps>`
@@ -19,5 +27,13 @@ export const NavLinkStyled = styled.span<CombinedProps>`
     span {
         padding-left: 10px;
         color:${({ themestyles }) => themestyles.subBarLinkColor};
+
+        @media screen and (max-width: 520px) {
+            padding-left: 0;
+        }
+    }
+
+    @media screen and (max-width: 520px) {
+        flex-direction: column;
     }
 `

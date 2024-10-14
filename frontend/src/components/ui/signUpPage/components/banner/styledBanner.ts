@@ -9,6 +9,10 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width: 610px) {
+        display: none;
+    }
 `
 
 export const Wrapper = styled.div`

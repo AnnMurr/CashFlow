@@ -15,6 +15,19 @@ export const Container = styled.div<ThemeStyledProps>`
     background-color:${({ themestyles }) => themestyles.modalBackground};
     z-index: 25;
     border-radius: 5px;
+     margin-left: 40px;
+
+    @media screen and (max-width: 420px) {
+        width: 90%;
+    }
+
+    @media screen and (max-width: 520px) {
+        margin-left: 0;
+    }  
+
+    @media screen and (max-width: 580px) {
+        top: 30%;
+    }  
 `
 
 export const Wrapper = styled.div`
@@ -33,6 +46,10 @@ export const Label = styled.label<ThemeStyledProps>`
     padding: 10px 0;
     font-weight: 600;
     color:${({ themestyles }) => themestyles.color};
+
+    @media screen and (max-width: 580px) {
+        font-size: 13px;
+    }  
 `
 
 export const Tooltip = styled.div<ThemeStyledProps>`

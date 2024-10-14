@@ -10,6 +10,10 @@ export const Container = styled.div<ThemeStyledProps>`
 
 export const Wrapper = styled.div`
     padding: 30px;
+
+    @media screen and (max-width: 580px) {
+        padding: 20px;     
+    }
 `
 
 export const Title = styled.div<ThemeStyledProps>`
@@ -19,13 +23,21 @@ export const Title = styled.div<ThemeStyledProps>`
         font-size: 16px;
         font-weight: 600;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 14px;    
+        }
     }
 `
 
 export const BtnInner = styled.div`
-    max-width: 30%;
+    max-width: 15rem;
     margin-left: auto;
     padding-top: 20px;
+
+    @media screen and (max-width: 380px) {
+        max-width: 100%;    
+    }
 `
 
 export const BtnShowPasswordInner = styled.div`
@@ -44,5 +56,9 @@ export const TextInner = styled.div<ThemeStyledProps>`
     span {
         font-size: 14px;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 13px;     
+        }
     }
 `

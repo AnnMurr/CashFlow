@@ -43,6 +43,9 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
             fontSize: "18px",
             color: themeContext.themeStyles.color
         },
+        '& .MuiSelect-select.MuiInputBase-input.MuiOutlinedInput-input': {
+            padding: 0,
+        },
         '& em': {
             fontStyle: 'normal',
             fontWeight: "600",
@@ -59,7 +62,7 @@ export const SelectLabels: FC<SelectLabelsProps> = ({
     const formControlStyles = {
         m: 1,
         width: "15rem",
-        paddingRight: 0,
+
         textAlign: "center",
 
         '&.MuiFormControl-root': {

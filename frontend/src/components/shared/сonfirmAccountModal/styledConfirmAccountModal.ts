@@ -10,6 +10,10 @@ export const Container = styled.div<ThemeStyledProps>`
 
 export const Wrapper = styled.div`
     padding: 30px;
+
+    @media screen and (max-width: 580px) {
+        padding: 20px;    
+    }
 `
 
 export const Title = styled.div<ThemeStyledProps>`
@@ -19,6 +23,10 @@ export const Title = styled.div<ThemeStyledProps>`
         font-size: 18px;
         font-weight: 400;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 16px;     
+        }
     }
 `
 
@@ -31,8 +39,9 @@ export const BtnInner = styled.div`
 export const BtnShowPasswordInner = styled.div`
     width: fit-content;
     position: absolute;
-    top: 10px;
+    top: 50%;
     right: 5%;
+    transform: translate(0, -50%);
 `
 
 export const Label = styled.label`

@@ -16,7 +16,7 @@ export const BudgetManager: FC = () => {
                         <Links>
                             <Block
                                 goToLink="/financial-plans"
-                                name="plans"
+                                name="Plans"
                                 icon={faRectangleList} />
                             <Block
                                 goToLink="/budget-planner"

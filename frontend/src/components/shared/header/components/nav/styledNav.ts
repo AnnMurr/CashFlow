@@ -16,3 +16,9 @@ export const Link = styled(ScrollLink) <isActiveHeaderProps>`
     cursor: pointer;
     font-weight: 600;
 `
+
+export const NavContainer = styled.nav`
+    @media screen and (max-width: 600px) {
+        display: none;
+    }
+`

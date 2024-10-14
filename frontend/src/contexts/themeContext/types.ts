@@ -51,6 +51,7 @@ export interface Theme {
     btnAddDisabledBackground: Colors,
     multipleSelectPlaceholderDisabledColor: Colors,
     multipleSelectPlaceholderDisabledBorder: Colors,
+    statisticsLineHoverBackground: Colors
 }
 
 export interface ThemeContextType {

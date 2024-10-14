@@ -10,4 +10,8 @@ export const Container = styled.div<ThemeStyledProps>`
 
 export const Wrapper = styled.div`
     padding: 30px;
+
+    @media screen and (max-width: 580px) {
+        padding: 20px;     
+    }
 `

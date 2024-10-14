@@ -41,7 +41,11 @@ export const BudgetTableManager: FC<BudgetTableManagerProps> = ({
 
   const tableContainerStyles = {
     backgroundColor: themeContext.themeStyles.budgetPlannerBackground,
-    padding: "30px 40px 40px 40px"
+    padding: "30px 40px 40px 40px",
+
+    "@media screen and (max-width: 820px)": {
+      padding: "15px"
+    }
   }
 
   useEffect(() => {

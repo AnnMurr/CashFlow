@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../../../../../redux/store/store";
 import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
 import { checkGoogleAccount } from "../../../../../../redux/reducers/userReducer/userReducer";
 import { ChangeUserAccount, ConfirmAccountModal, Spinner } from ".";
+import { LoaderInner } from "./styledContent";
 
 interface ContentProps {
     setAlertActive: (value: null | AlertComponentProps) => void;
@@ -29,7 +30,10 @@ export const Content: FC<ContentProps> = ({ setAlertActive }) => {
     return (
         <>
             {isGoogleAccount === null ?
-                <Spinner size={40} height={3} /> : isGoogleAccount ?
+                (<LoaderInner>
+                    <Spinner size={40} height={3} />
+                </LoaderInner>)
+                : isGoogleAccount ?
                     <ChangeUserAccount setAlertActive={setAlertActive} /> :
                     <ConfirmAccountModal
                         setAlertActive={setAlertActive}

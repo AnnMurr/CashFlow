@@ -8,7 +8,11 @@ export const Head: FC = () => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const tableCellStyles = {
-        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
+        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`,
+
+        "@media screen and (max-width: 820px)": {
+            padding: "5px"
+        },
     };
 
     return (
@@ -18,6 +22,11 @@ export const Head: FC = () => {
                     sx={{
                         ...tableCellStyles,
                         width: '50%',
+
+                        "@media screen and (max-width: 820px)": {
+                            width: '32%',
+                            padding: "5px"
+                        }
                     }}
                     align="left"
                     colSpan={1}>

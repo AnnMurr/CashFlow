@@ -27,11 +27,11 @@ export const ProfilePage: FC = () => {
                             setIsLogOutConfirmationModal={setIsLogOutConfirmationModal}
                             statisticType={statisticType}
                             setStatisticType={setStatisticType} />
-                        {chartData ? 
+                        {chartData ?
                             <Content statisticType={statisticType} chartData={chartData} /> :
-                           (<LoadingInner>
-                             <Spinner size={40} height={3} />
-                             </LoadingInner>)}
+                            (<LoadingInner>
+                                <Spinner size={40} height={3} />
+                            </LoadingInner>)}
                         {isLogOutConfirmationModal ?
                             <>
                                 <DarkBackground

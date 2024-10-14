@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { getDataFromLocalStorage } from "../../../../../storage/localStorage/localStorage";
 import { AlertComponentProps } from "../../../alert/alert";
@@ -7,7 +7,9 @@ import { useAppDispatch } from "../../../../../redux/store/store";
 import { CategoriesType, CategoryKeys, UserStorageDataType } from "../../../../../redux/reducers/userStorageReduser/types";
 import { showAlert } from "../../../../../utils/showAlert";
 import { CategoryName, Cross, Icon, Spinner } from ".";
-import { CrossBtnInner, Item, List } from "./styledCategories";
+import { AddCategoryBtn, AddCategoryBtnInner, CrossBtnInner, Item, List } from "./styledCategories";
+import { ThemeContextType } from "../../../../../contexts/themeContext/types";
+import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
 
 interface CategoriesProps {
     categoriesList: Array<CategoriesType> | null;
@@ -16,6 +18,7 @@ interface CategoriesProps {
     setIsEnteringModalActive: (value: boolean) => void;
     dataKey: CategoryKeys;
     setIsAlertActive: (value: AlertComponentProps | null) => void;
+    toggleCategorySelectionModal: () => void;
 }
 
 export const Categories: FC<CategoriesProps> = ({
@@ -24,12 +27,14 @@ export const Categories: FC<CategoriesProps> = ({
     getUserDataFromStorage,
     setIsEnteringModalActive,
     dataKey,
-    setIsAlertActive }) => {
+    setIsAlertActive,
+    toggleCategorySelectionModal }) => {
     const [showDeleteIcons, setShowDeleteIcons] = useState<Array<boolean>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const windowWidth = window.innerWidth;
     const dispatch = useAppDispatch();
     let holdTimer: NodeJS.Timeout;
+    const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const handleMouseDown = (event: React.TouchEvent<HTMLLIElement>, index: number) => {
         event.currentTarget.classList.add("shake-horizontal");
@@ -136,6 +141,11 @@ export const Categories: FC<CategoriesProps> = ({
                         </Item>
                     ))
                         : <Spinner size={40} height={3} />}
+                    <AddCategoryBtnInner>
+                        <AddCategoryBtn
+                            themestyles={themeContext.themeStyles}
+                            onClick={toggleCategorySelectionModal} type="button" />
+                    </AddCategoryBtnInner>
                 </List>
                 : <Spinner size={40} height={3} />}
         </>

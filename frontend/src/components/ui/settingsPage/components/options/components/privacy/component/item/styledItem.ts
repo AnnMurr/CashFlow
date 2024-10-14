@@ -30,12 +30,20 @@ export const Wrapper = styled(Link)`
     align-items: center;
     justify-content: space-between;
     padding: 15px;
+
+    @media screen and (max-width: 1024px) {
+        grid-template-columns: 20% 72% 5%;
+    }
 `
 
 export const Title = styled.div<ThemeStyledProps>`
     h4 {
         font-size: 14px;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 12px;
+        }
     }
 `
 
@@ -67,6 +75,10 @@ export const QuestionMark = styled.div<ThemeStyledProps>`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+
+    @media screen and (max-width: 1024px) {
+        display: none;
+    }
 
     &:hover ~ ${SubTitle} {
         display: block;

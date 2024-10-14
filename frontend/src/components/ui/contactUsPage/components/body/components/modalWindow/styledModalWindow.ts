@@ -10,6 +10,10 @@ export const Container = styled.div`
     left: 50%;
     z-index: 22;
     border-radius: 5px;
+
+    @media screen and (max-width: 480px) {
+        width: 90%;
+    }
 `
 
 export const Wrapper = styled.div`

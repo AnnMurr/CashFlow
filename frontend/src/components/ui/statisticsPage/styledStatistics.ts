@@ -9,11 +9,27 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div` 
     padding: 2rem 190px 90px 190px;
+
+    @media screen and (max-width: 1120px) {
+        padding: 2rem 15px 90px 95px;
+    }
+
+    @media screen and (max-width: 520px) {
+        padding: 4rem 15px 15px 15px;
+    }
+
+    @media screen and (max-width: 420px) {
+        padding: 54px 0 15px 0;
+    }
 `
 
 export const Table = styled.div<ThemeStyledProps>` 
     border-radius: 15px;
     background-color:${({ themestyles }) => themestyles.statisticsBackground};
+
+    @media screen and (max-width: 420px) {
+        border-radius: 0px;
+    }
 `
 
 export const LoadingInner = styled.div` 

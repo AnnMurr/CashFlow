@@ -12,6 +12,11 @@ export const Container = styled.div<ThemeStyledProps>`
 
     span {
         font-weight: 600;
+        font-size: 16px;
+
+        @media screen and (max-width: 580px) {
+            font-size: 14px;
+        }
     }
 `
 

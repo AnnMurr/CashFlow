@@ -22,7 +22,11 @@ export const CompletedCategoryRow: FC<CompletedCategoryRowProps> = ({
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const tableCellStyles = {
-        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`
+        borderBottom: `1px solid ${themeContext.themeStyles.budgetPlannerRowBorder}`,
+
+        "@media screen and (max-width: 820px)": {
+            padding: "15px 5px"
+        },
     };
 
     const handleOpenEditModal = () => {

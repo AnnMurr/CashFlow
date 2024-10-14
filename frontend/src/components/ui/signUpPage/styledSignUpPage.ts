@@ -17,6 +17,10 @@ export const Content = styled.div`
     grid-template-columns: repeat(2, 1fr);
     max-width: 50rem;
     margin: 0 auto;
+
+    @media screen and (max-width: 610px) {
+        display: block;
+    }
 `
 
 export const Section = styled.section`

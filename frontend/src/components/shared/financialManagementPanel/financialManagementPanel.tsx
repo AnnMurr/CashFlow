@@ -10,7 +10,7 @@ import { showAlert } from "../../../utils/showAlert";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 import { Categories, CategorySelectionModal, DarkBackground, EnteringModal, Spinner } from ".";
-import { Container, AddCategoryBtn, AddCategoryBtnInner } from "./styledFinancialManagementPanel";
+import { Container } from "./styledFinancialManagementPanel";
 
 interface FinancialManagementPanelProps {
     type: TransactionKeys;
@@ -101,12 +101,8 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
                         getUserDataFromStorage={getUserDataFromStorage}
                         setIsEnteringModalActive={setIsEnteringModalActive}
                         dataKey={dataKey}
-                        setIsAlertActive={setIsAlertActive} />
-                    <AddCategoryBtnInner>
-                        <AddCategoryBtn
-                            themestyles={themeContext.themeStyles}
-                            onClick={toggleCategorySelectionModal} type="button" />
-                    </AddCategoryBtnInner>
+                        setIsAlertActive={setIsAlertActive}
+                        toggleCategorySelectionModal={toggleCategorySelectionModal} />
                 </> :
                 <Spinner size={40} height={3} />}
             {isCategorySelectionModalActive ?

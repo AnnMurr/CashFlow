@@ -11,6 +11,7 @@ export const Section = styled.header<isActiveHeaderProps>`
     z-index: 20;
     inset: 0 0 auto 0;
     border-bottom: ${({ active_prop }) => active_prop ? "1px solid #0000005e" : "none"};
+    position: relative;
 `
 
 export const Container = styled.div`
@@ -29,13 +30,4 @@ export const Wrapper = styled.div`
 export const Logo = styled(Link)`
     padding: 5px;
     border-radius: 10px;
-`
-
-export const BtnAuth = styled(Link)`
-    transition: all 0.5s ease;
-    cursor: pointer;
-    
-    &:hover {
-        transform: scale(1.1, 1.1);
-    }
 `

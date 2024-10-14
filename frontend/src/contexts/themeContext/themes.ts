@@ -58,6 +58,8 @@ export enum Colors {
     URBAN_SLATE_TRANSPARENT = '#868686a8',
     EMPEROR = '#515151',
     SILVER = '#C6C6C6',
+    PORCELAIN = '#EDEEEF',
+    PEWTER = '#95AAA3'
 }
 
 export const Themes: ThemesType = {
@@ -81,6 +83,7 @@ export const Themes: ThemesType = {
         settingsTabBtnHover: Colors.MERCURY_TRANSPARENT,
         settingsModalBorder: Colors.MERCURY_TRANSPARENT,
         statisticsLineDayBackground: Colors.SPRING_LEAVES_TRANSPARENT,
+        statisticsLineHoverBackground: Colors.PEWTER,
         buttonGroupColor: Colors.BLACK,
         buttonActiveGroupColor: Colors.SPRING_LEAVES,
         buttonGroupHover: Colors.GREEN_TRANSPARENT,
@@ -123,6 +126,7 @@ export const Themes: ThemesType = {
         enteringModalColor: Colors.WHITE,
         enteringModalBtnBackground: Colors.WHITE,
         statisticsBackground: Colors.COD_GRAY_DARK,
+        statisticsLineHoverBackground: Colors.COD_GRAY,
         settingsBackground: Colors.COD_GRAY_DARK,
         settingsOptionsTabActive: Colors.SOFT_PEACH,
         settingsTabBtnSelected: Colors.MINE_SHAFT,
@@ -171,6 +175,7 @@ export const Themes: ThemesType = {
         enteringModalColor: Colors.WHITE,
         enteringModalBtnBackground: Colors.WHITE,
         statisticsBackground: Colors.WHITE_ROCK,
+        statisticsLineHoverBackground: Colors.PAMPAS,
         settingsBackground: Colors.WHITE_ROCK,
         settingsOptionsTabActive: Colors.BLACK,
         settingsTabBtnSelected: Colors.DUSTY_MOCHA_MIST,
@@ -219,6 +224,7 @@ export const Themes: ThemesType = {
         enteringModalColor: Colors.WHITE,
         enteringModalBtnBackground: Colors.WHITE,
         statisticsBackground: Colors.TUNDORA,
+        statisticsLineHoverBackground: Colors.MINE_SHAFT,
         settingsBackground: Colors.TUNDORA,
         settingsOptionsTabActive: Colors.WHITE,
         settingsTabBtnSelected: Colors.URBAN_SLATE,
@@ -267,6 +273,7 @@ export const Themes: ThemesType = {
         enteringModalColor: Colors.BLACK,
         enteringModalBtnBackground: Colors.AQUA_HAZE,
         statisticsBackground: Colors.AQUA_HAZE,
+        statisticsLineHoverBackground: Colors.PORCELAIN,
         settingsBackground: Colors.AQUA_HAZE,
         settingsOptionsTabActive: Colors.BLACK,
         settingsTabBtnSelected: Colors.MERCURY,

@@ -11,5 +11,9 @@ export const Inner = styled.div<ThemeStyledProps>`
         gap: 10px;
         display: flex;
         align-items: center;
+
+        @media screen and (max-width: 580px) {
+            font-size: 13px;
+        }
     }
 `

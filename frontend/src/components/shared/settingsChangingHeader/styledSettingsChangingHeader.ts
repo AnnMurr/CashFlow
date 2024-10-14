@@ -18,5 +18,9 @@ export const Title = styled.div<ThemeStyledProps>`
         font-size: 20px;
         font-weight: 600;
         color:${({ themestyles }) => themestyles.color};
+
+        @media screen and (max-width: 580px) {
+            font-size: 17px;            
+        }
     }
 `

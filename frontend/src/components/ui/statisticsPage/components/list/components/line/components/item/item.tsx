@@ -116,7 +116,7 @@ export const Item: FC<ItemProps> = ({ dataItem, setIsEditCategoryModalActive, se
                         <span>{date.split(" ")[1]}</span>
                     </Date>
                     {isEditingData ?
-                        <Settings>
+                        <Settings themestyles={themeContext.themeStyles}>
                             <Edit onClick={getEditModal}>
                                 <FontAwesomeIcon color={themeContext.themeStyles.color} icon={faPen} />
                             </Edit>

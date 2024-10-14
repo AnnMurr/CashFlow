@@ -7,7 +7,7 @@ interface inputProps {
 export const FormWrap = styled.form`
     display: flex;
     flex-direction: column;
-    max-width: 50%;
+    max-width: 35rem;
 `
 
 export const Label = styled.label`

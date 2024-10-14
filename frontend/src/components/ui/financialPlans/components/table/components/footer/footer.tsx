@@ -22,7 +22,7 @@ export const Footer: FC<FooterProps> = ({ data }) => {
     }, [data]);
 
     const tableCellStyles = {
-        borderBottom: "none"
+        borderBottom: "none",
     };
 
     return (

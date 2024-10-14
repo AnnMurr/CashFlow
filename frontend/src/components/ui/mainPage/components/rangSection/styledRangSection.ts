@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -10,4 +11,28 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 50px 0;
+
+    @media screen and (max-width: 820px) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px 20px;
+    }
+`
+
+export const Item = styled(motion.div)`
+    transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
+
+    @media screen and (max-width: 680px) {
+        width: 8rem;
+        height: 4rem;
+        margin: 0 auto;
+    }
+
+    @media screen and (max-width: 380px) {
+        width: 6rem;
+        height: 3rem;
+        margin: 0 auto;
+    }
 `

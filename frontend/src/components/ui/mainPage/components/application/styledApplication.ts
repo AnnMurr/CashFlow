@@ -15,4 +15,9 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     padding-top: 60px;
+
+    @media screen and (max-width: 870px) {
+        flex-direction: column;
+        align-items: center;
+    }
 `
