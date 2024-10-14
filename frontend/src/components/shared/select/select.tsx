@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext, useState } from "react";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -43,10 +43,16 @@ export const MultipleSelectPlaceholder: FC<MultipleSelectPlaceholderType> = ({ n
 
   const selectStyles = {
     color: themeContext.themeStyles.color,
+    
+    overflow: 'hidden',
+
 
     '& .MuiSelect-select': {
       padding: "8.5px 14px",
       fontSize: "14px",
+      whiteSpace: 'nowrap',       // Отключаем перенос текста
+      overflow: 'hidden',         // Скрываем переполнение текста
+      textOverflow: 'ellipsis', 
     },
     '& em': {
       fontStyle: 'normal'

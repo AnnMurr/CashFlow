@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import { INITIAL_CHARTS_COLORS } from "../../../../../../../../../consts";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { v4 as uuidV4 } from 'uuid';
 import { ThemeContextType } from '../../../../../../../../../contexts/themeContext/types';
 import { ThemeContext } from '../../../../../../../../../contexts/themeContext/themeContext';
 import { BtnAddInner, EditBlock, ItemInner } from './styledColorList';
@@ -27,7 +28,7 @@ export const ColorList: React.FC<ColorListProps> = ({
         <Box sx={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
             {currentColors.map((color, index) => (
                 <ItemInner
-                    key={index}
+                    key={uuidV4()}
                     color={color} >
                     <EditBlock>
                         <div>

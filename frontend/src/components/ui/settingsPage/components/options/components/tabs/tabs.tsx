@@ -23,7 +23,10 @@ export const Tabs: FC<TabsProps> = ({ tabs }) => {
             <div>
                 <List themestyles={themeContext.themeStyles} >
                     {tabs.map((tab, index) => (
-                        <Item themestyles={themeContext.themeStyles} active={(activeTab === index).toString()} key={uuidV4()}>
+                        <Item
+                            themestyles={themeContext.themeStyles}
+                            active={(activeTab === index).toString()}
+                            key={uuidV4()}>
                             <button
                                 onClick={() => handleTabClick(index)}>
                                 {tab.label}
