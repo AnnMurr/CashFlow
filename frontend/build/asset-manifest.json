@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.d1810010.css",
-    "main.js": "/static/js/main.95d4b3a1.js",
+    "main.js": "/static/js/main.0f677066.js",
     "static/media/space.jpg": "/static/media/space.7e0a05d2e3095f89dfd4.jpg",
     "static/media/main-phone_after.png": "/static/media/main-phone_after.2accb666d0835b1462a0.png",
     "static/media/featuresSection-phone.png": "/static/media/featuresSection-phone.4bdb8a004c101977ea94.png",
@@ -13,10 +13,10 @@
     "index.html": "/index.html",
     "static/media/icon-logo-white.svg": "/static/media/icon-logo-white.f5bab6fdbadd885cb367c92bb8323681.svg",
     "main.d1810010.css.map": "/static/css/main.d1810010.css.map",
-    "main.95d4b3a1.js.map": "/static/js/main.95d4b3a1.js.map"
+    "main.0f677066.js.map": "/static/js/main.0f677066.js.map"
   },
   "entrypoints": [
     "static/css/main.d1810010.css",
-    "static/js/main.95d4b3a1.js"
+    "static/js/main.0f677066.js"
   ]
 }
