@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d1810010.css",
+    "main.js": "/static/js/main.31f158c5.js",
+    "static/media/space.jpg": "/static/media/space.7e0a05d2e3095f89dfd4.jpg",
+    "static/media/main-phone_after.png": "/static/media/main-phone_after.2accb666d0835b1462a0.png",
+    "static/media/featuresSection-phone.png": "/static/media/featuresSection-phone.4bdb8a004c101977ea94.png",
+    "static/media/main-phone_average.png": "/static/media/main-phone_average.86674291edbcb16acf77.png",
+    "static/media/main-phone_before.png": "/static/media/main-phone_before.8bda9d49dbfb22bf5ef8.png",
+    "static/media/iphone-transparent.png": "/static/media/iphone-transparent.9db7740a8cf0522d03e7.png",
+    "static/media/logo-black.svg": "/static/media/logo-black.432508283b805767a00e7a22855fd4a3.svg",
+    "static/media/logo-white.svg": "/static/media/logo-white.353b92d63940515f7edde28e4699e119.svg",
+    "index.html": "/index.html",
+    "static/media/icon-logo-white.svg": "/static/media/icon-logo-white.f5bab6fdbadd885cb367c92bb8323681.svg",
+    "main.d1810010.css.map": "/static/css/main.d1810010.css.map",
+    "main.31f158c5.js.map": "/static/js/main.31f158c5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d1810010.css",
+    "static/js/main.31f158c5.js"
+  ]
+}
