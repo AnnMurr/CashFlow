@@ -25,7 +25,6 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const [isEnteringModalActive, setIsEnteringModalActive] = useState<boolean>(false);
     const [choosedCategory, setChoosedCategory] = useState<{ category: string, icon: string } | null>(null);
     const [categorySum, setCategorySum] = useState<string>("0");
-    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
 
     const currentSetIsModal = isCategorySelectionModalActive

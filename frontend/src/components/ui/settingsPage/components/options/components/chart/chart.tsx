@@ -71,7 +71,7 @@ export const ChartSettings: FC = () => {
         const chartColors = storageData && storageData.settings.charts[colorState.chosenChart];
 
         const isColorExist = chartColors?.includes(colorState.selectedColor);
-        const isTransparentColorExist = getOpacityFromRgba(colorState.selectedColor) === 0 ? chartColors?.find(color => getOpacityFromRgba(color) == 0) : null;
+        const isTransparentColorExist = getOpacityFromRgba(colorState.selectedColor) === 0 ? chartColors?.find(color => getOpacityFromRgba(color) === 0) : null;
 
         if (isColorExist || isTransparentColorExist) {
             showAlert({ type: "warning", text: "This color already exists. Please choose a different color" }, setIsAlertActive, 3000);

@@ -8,11 +8,11 @@ import { ThemeContext } from '../../../contexts/themeContext/themeContext';
 import { Box } from '@mui/material';
 import { Dayjs } from 'dayjs';
 
-interface DatePickerComponent {
+interface DatePickerComponentProps {
     setChosenDate: (value: string | null) => void;
 }
 
-export const DatePickerComponent: FC<DatePickerComponent> = ({ setChosenDate }) => {
+export const DatePickerComponent: FC<DatePickerComponentProps> = ({ setChosenDate }) => {
     const [value, setValue] = useState<Dayjs | null>(null);
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
