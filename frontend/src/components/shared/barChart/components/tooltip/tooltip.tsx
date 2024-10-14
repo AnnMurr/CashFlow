@@ -2,6 +2,7 @@ import { FC, useContext } from "react";
 import { getFormatCurrency } from "../../../../../utils/getFormatCurrency";
 import { useAppSelector } from "../../../../../redux/store/store";
 import { TooltipProps } from 'recharts';
+import { v4 as uuidV4 } from 'uuid';
 import { RootState } from "../../../../../redux/reducers/userStorageReduser/types";
 import { ThemeContextType } from "../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../contexts/themeContext/themeContext";
@@ -34,7 +35,7 @@ export const CustomTooltip: FC<CustomTooltipProps> = ({ payload, label, colors }
             </LabelInner>
             <List themestyles={themeContext.themeStyles}>
                 {payload.map((entry, index) => (
-                    <Item themestyles={themeContext.themeStyles}>
+                    <Item key={uuidV4()} themestyles={themeContext.themeStyles}>
                         <div>
                             <span style={legendInlineStyles(index)}></span>
                             <Category themestyles={themeContext.themeStyles}>

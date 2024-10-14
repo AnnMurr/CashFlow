@@ -11,6 +11,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 import { CategoriesType, CategoryPlanning } from "../../../../../../../redux/reducers/userStorageReduser/types";
+import styled from "styled-components";
 
 interface CategoryInputRowProps {
     setIsAlertActive: (value: AlertComponentProps | null) => void;
@@ -59,6 +60,14 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
         },
     };
 
+    const SelectContainer = styled.div`
+        @media screen and (max-width: 580px) {
+            max-width: 80px;
+        }
+    `
+
+
+
     return (
         <TableRow>
             <TableCell align="left" colSpan={1} sx={{
@@ -69,12 +78,14 @@ export const CategoryInputRow: FC<CategoryInputRowProps> = ({
                     padding: "5px"
                 }
             }}>
-                <MultipleSelectPlaceholder
-                    isDisabled={false}
-                    setCategoryName={setCategory}
-                    categoryName={category}
-                    names={availableCategories}
-                />
+                <SelectContainer>
+                    <MultipleSelectPlaceholder
+                        isDisabled={false}
+                        setCategoryName={setCategory}
+                        categoryName={category}
+                        names={availableCategories}
+                    />
+                </SelectContainer>
             </TableCell>
             <TableCell align="left" colSpan={1} sx={{ ...tableCellStyles, width: '30%' }} >
                 <OutlinedInputComponent
