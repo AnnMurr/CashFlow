@@ -60,7 +60,7 @@ function App() {
             <Route path="/profile" element={
               <CheckNotAuthorization>
                 <ProfilePage />
-              </CheckNotAuthorization>
+              </CheckNotAuthorization> 
             } />
             <Route path="/budget-manager" element={<BudgetManager />} />
             <Route path="/budget-planner" element={<BudgetPlanner />} />
