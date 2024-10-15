@@ -9,7 +9,7 @@ export const Container = styled.div<ThemeStyledProps & CommonProps>`
     background-color:${({ themestyles }) => themestyles.subBarBackground};
     position: fixed;
     inset: 0 auto 0 0;
-    z-index: 50;
+    z-index: 20;
 
     @media screen and (max-width: 520px) {
         inset:${({ isactive }) => isactive === 'true' ? '0' : '0 0 auto 0'};
