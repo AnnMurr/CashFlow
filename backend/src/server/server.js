@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const { connectToDb, getDb } = require("../db/db");
 const { ObjectId } = require("mongodb");
+const PORT = process.env.PORT || 5050;
 
 app.use(cors());
 app.use(express.json());
@@ -198,10 +199,10 @@ app.post("/check-google-account", async (req, res) => {
 
 connectToDb((err) => {
   if (!err) {
-    app.listen(process.env.PORT, (err) => {
+    app.listen(PORT, (err) => {
       !err
-        ? console.log(`listening on port ${process.env.PORT}`)
-        : console.error(`error listening on port ${process.env.PORT}: ${err}`);
+        ? console.log(`listening on port ${PORT}`)
+        : console.error(`error listening on port ${PORT}: ${err}`);
     });
     db = getDb();
   } else {

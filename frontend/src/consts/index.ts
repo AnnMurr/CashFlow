@@ -3,7 +3,7 @@ import { getCurrentMonthAndYear, getWeek, getYear, parseEuropeanDate } from "../
 export const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const PASSWORD_PATTERN = /^(?=\S*?[0-9])(?=\S*?[?!@#$%^&*])(?=\S*?[a-z-а-я])(?=\S*?[A-Zа-яА-Я])\S+$/;
 export const VALID_SUM_REGEX = /^(?!0$)\d+(\.\d{1,2})?$/;
-export const OPERATOR_REGEX = /[+\-\/\*]/;
+export const OPERATOR_REGEX = /[+\-/*]/;
 export const ONLY_SPACES_REGEX = /^\s+$/;
 export const CURRENCY_SYMBOL_REGEX = /\(([^)]+)\)$/;
 

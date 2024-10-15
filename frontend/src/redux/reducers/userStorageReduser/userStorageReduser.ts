@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserStorageDataType } from "./types";
-import { BUS_ICON_COLLECTION, GOODS_ICON_COLLECTION, HOUSE_ICON_COLLECTION, ICONS_EXPENSES_COLLECTION, INCOME_ICON_COLLECTION } from "../../../consts/images";
+import { BUS_ICON_COLLECTION, GOODS_ICON_COLLECTION, HOUSE_ICON_COLLECTION, INCOME_ICON_COLLECTION } from "../../../consts/images";
 import { INITIAL_CHARTS_COLORS } from "../../../consts/index";
 
 const initialstate = {

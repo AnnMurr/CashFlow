@@ -1,5 +1,3 @@
-import { ThemeStyledProps } from "../../../contexts/themeContext/types";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`

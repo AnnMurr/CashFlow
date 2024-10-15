@@ -9,6 +9,7 @@ import { showAlert } from "../../../utils/showAlert";
 import { AlertComponentProps } from "../alert/alert";
 import { ThemeContextType } from "../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../contexts/themeContext/themeContext";
+import { evaluate } from 'mathjs';
 import { Container, Wrapper, ButtonsInner, Input, BtnInner, SaveBtnInner, InputInner, DeleteBtnInner } from "./styledEnteringModal";
 
 interface EnteringModalProps {
@@ -71,7 +72,7 @@ export const EnteringModal: FC<EnteringModalProps> = ({
             }
         } else if (value === "=") {
             try {
-                const result = eval(inputValue).toString();
+                const result = evaluate(inputValue).toString();
                 setInputValue(sliceNumber(result));
             } catch (error) {
                 showAlert({ text: "Invalid input", type: "error" }, setIsAlertActive, 3000);

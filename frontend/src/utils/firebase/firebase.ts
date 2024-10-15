@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { FirebaseApp, initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, Auth, UserCredential } from "firebase/auth";
 
 const firebaseConfig = {
@@ -10,14 +10,25 @@ const firebaseConfig = {
   appId: "1:326851640470:web:b1287c2bf1accc3a3796b7"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+let firebaseApp: FirebaseApp | undefined;
+
+const initializeFirebase = () => {
+  if (!firebaseApp) {
+    firebaseApp = initializeApp(firebaseConfig);
+  }
+};
 
 const provider: GoogleAuthProvider = new GoogleAuthProvider();
 provider.setCustomParameters({
     prompt: "select_account",
 });
 
-export const auth: Auth = getAuth();
+const getFirebaseAuth = (): Auth => {
+  initializeFirebase();
+  return getAuth(firebaseApp);
+};
+
 export const signInWithGooglePopup = (): Promise<UserCredential> => {
+    const auth = getFirebaseAuth();  
     return signInWithPopup(auth, provider);
 };

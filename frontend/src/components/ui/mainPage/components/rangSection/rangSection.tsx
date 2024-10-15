@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { RANG_ITEM_1, RANG_ITEM_2, RANG_ITEM_3, RANG_ITEM_4 } from "../../../../../consts/images";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useScroll, useTransform } from "framer-motion";
 import { Container, Item, Wrapper } from "./styledRangSection";
 import { v4 as uuidv4 } from 'uuid';
 

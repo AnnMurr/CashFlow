@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { AlertComponent, AlertComponentProps } from "../alert/alert";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
@@ -7,8 +7,6 @@ import { useAppDispatch } from "../../../redux/store/store";
 import { changeUserData, getDataFromUserStore } from "../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { CategoriesType, CategoryKeys, TransactionKeys, UserStorageDataType } from "../../../redux/reducers/userStorageReduser/types";
 import { showAlert } from "../../../utils/showAlert";
-import { ThemeContextType } from "../../../contexts/themeContext/types";
-import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 import { Categories, CategorySelectionModal, DarkBackground, EnteringModal, Spinner } from ".";
 import { Container } from "./styledFinancialManagementPanel";
 
@@ -25,7 +23,6 @@ export const FinancialManagementPanel: FC<FinancialManagementPanelProps> = ({ ty
     const [isEnteringModalActive, setIsEnteringModalActive] = useState<boolean>(false);
     const [choosedCategory, setChoosedCategory] = useState<{ category: string, icon: string } | null>(null);
     const [categorySum, setCategorySum] = useState<string>("0");
-    const themeContext = useContext<ThemeContextType>(ThemeContext);
     const dispatch = useAppDispatch();
 
     const currentSetIsModal = isCategorySelectionModalActive
