@@ -11,7 +11,6 @@ export const Section = styled.header<isActiveHeaderProps>`
     z-index: 20;
     inset: 0 0 auto 0;
     border-bottom: ${({ active_prop }) => active_prop ? "1px solid #0000005e" : "none"};
-    position: relative;
 `
 
 export const Container = styled.div`
