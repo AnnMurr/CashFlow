@@ -9,6 +9,10 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
     padding: 90px 0;
+
+    @media screen and (max-width: 610px) {
+        padding: 40px 0 60px 0;
+    }
 `
 
 export const Content = styled.div`
@@ -20,6 +24,7 @@ export const Content = styled.div`
 
     @media screen and (max-width: 610px) {
         display: block;
+        padding-top: 60px;
     }
 `
 

@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import { ButtonComponent } from "../../../shared/button/button";
-import { signInWithGooglePopup } from "../../../../utils/firebase/firebase";
+import { signInWithGoogle } from "../../../../utils/firebase/firebase";
 import { useAppDispatch, useAppSelector } from "../../../../redux/store/store";
 import { checkUserDataByEmail, updateUserData } from "../../../../redux/reducers/userReducer/userReducer";
 import { UserDataType } from "../../../../redux/reducers/userReducer/types";
@@ -28,40 +28,43 @@ export const ChangeUserAccount: FC<ChangeUserAccountProps> = ({ setAlertActive }
 
     const getChangeAccount = async () => {
         try {
-            const signInWithGoogleResponse = await signInWithGooglePopup();
-            const email: string | null = signInWithGoogleResponse.user.email || '';
-            const name: string | null = signInWithGoogleResponse.user.displayName || '';
-            const isUser = (await dispatch(checkUserDataByEmail({ link: "users/check-email", email: email }))).payload;
-            const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: email }))).payload;
+            const response = await signInWithGoogle();
 
-            if (signInWithGoogleResponse && email && name) {
-                if (isUser || isUserGoogle) {
-                    getAllert({ type: "error", text: "User already exists" });
-                } else {
-                    if (email === userDataFromRedux!.email) {
-                        return;
+            if (response) {
+                const email: string | null = response.user.email || '';
+                const name: string | null = response.user.displayName || '';
+                const isUser = (await dispatch(checkUserDataByEmail({ link: "users/check-email", email: email }))).payload;
+                const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: email }))).payload;
+
+                if (email && name) {
+                    if (isUser || isUserGoogle) {
+                        getAllert({ type: "error", text: "User already exists" });
                     } else {
-                        if (!userDataFromRedux) {
-                            getAllert({ type: "error", text: "Something went wrong. Please try again later." });
+                        if (email === userDataFromRedux!.email) {
                             return;
                         } else {
-                            const changedData = {
-                                ...userDataFromRedux,
-                                email: email
-                            };
-
-                            const response = (await dispatch(updateUserData(changedData!))).payload;
-
-                            if (response) {
-                                getAllert({ type: "success", text: "Email updated successfully." });
+                            if (!userDataFromRedux) {
+                                getAllert({ type: "error", text: "Something went wrong. Please try again later." });
+                                return;
                             } else {
-                                getAllert({ type: "error", text: "Something went wrong. Please try again later." })
+                                const changedData = {
+                                    ...userDataFromRedux,
+                                    email: email
+                                };
+
+                                const response = (await dispatch(updateUserData(changedData!))).payload;
+
+                                if (response) {
+                                    getAllert({ type: "success", text: "Email updated successfully." });
+                                } else {
+                                    getAllert({ type: "error", text: "Something went wrong. Please try again later." })
+                                }
                             }
                         }
                     }
+                } else {
+                    getAllert({ type: "error", text: "Something was wrong" });
                 }
-            } else {
-                getAllert({ type: "error", text: "Something was wrong" });
             }
         } catch (error) {
             console.error(error);

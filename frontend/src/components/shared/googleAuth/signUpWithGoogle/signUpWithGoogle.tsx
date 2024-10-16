@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { signInWithGooglePopup } from "../../../../utils/firebase/firebase";
+import { signInWithGoogle } from "../../../../utils/firebase/firebase";
 import { checkUserDataByEmail, setUserData } from "../../../../redux/reducers/userReducer/userReducer";
 import { useAppDispatch } from "../../../../redux/store/store";
 import { AlertComponentProps } from "../../alert/alert";
@@ -20,37 +20,40 @@ export const SignUpWithGoogle: FC<SignUpWithGoogleProps> = ({ setIsAlertActive, 
 
     const logGoogleUser = async () => {
         try {
-            const response = await signInWithGooglePopup();
-            const email: string | null = response.user.email || '';
-            const name: string | null = response.user.displayName || '';
+            const response = await signInWithGoogle();
 
-            if (response && email && name) {
-                const isUser = (await dispatch(checkUserDataByEmail({ link: "users/check-email", email: email }))).payload;
-                const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: email }))).payload;
+            if (response) {
+                const email: string | null = response.user.email || '';
+                const name: string | null = response.user.displayName || '';
 
-                if (typeof isUserGoogle === "string") {
-                    getLogSuccess(isUserGoogle);
-                    return;
-                }
+                if (email && name) {
+                    const isUser = (await dispatch(checkUserDataByEmail({ link: "users/check-email", email: email }))).payload;
+                    const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: email }))).payload;
 
-                if (isUser && typeof isUser === "string") {
-                    setIsGoogleLinkPrompt(isUser);
-                } else {
-                    const token = (await dispatch(setUserData({
-                        link: "putdata-google", userData: {
-                            email: email,
-                            name: name
-                        }
-                    }))).payload;
-
-                    if (typeof token === "string") {
-                        const createdStorage = (await dispatch(createUserStore(token))).payload;
-
-                        if (createdStorage) getLogSuccess(token);
+                    if (typeof isUserGoogle === "string") {
+                        getLogSuccess(isUserGoogle);
+                        return;
                     }
+
+                    if (isUser && typeof isUser === "string") {
+                        setIsGoogleLinkPrompt(isUser);
+                    } else {
+                        const token = (await dispatch(setUserData({
+                            link: "putdata-google", userData: {
+                                email: email,
+                                name: name
+                            }
+                        }))).payload;
+
+                        if (typeof token === "string") {
+                            const createdStorage = (await dispatch(createUserStore(token))).payload;
+
+                            if (createdStorage) getLogSuccess(token);
+                        }
+                    }
+                } else {
+                    showAlert({ type: "error", text: "Something was wrong" }, setIsAlertActive, 3000);
                 }
-            } else {
-                showAlert({ type: "error", text: "Something was wrong" }, setIsAlertActive, 3000);
             }
         } catch (error) {
             console.error(error);
