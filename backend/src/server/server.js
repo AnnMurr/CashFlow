@@ -15,6 +15,10 @@ app.use(express.json());
 
 let db;
 
+app.get("/", (req, res) => {
+  res.send("Server is running. Use specific endpoints for API calls.");
+});
+
 app.post("/get-data-id", async (req, res) => {
   const id = req.body.id;
 
