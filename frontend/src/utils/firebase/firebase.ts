@@ -33,11 +33,11 @@ export const signInWithGoogle = (): Promise<UserCredential | void> => {
 
   if (window.innerWidth <= 768) {
     return signInWithRedirect(auth, provider).catch((error) => {
-      console.error("Error during mobile Google sign-in redirect:", error);
+      console.error("Error during mobile Google sign-in redirect:", error.code, error.message, error);
     });
   } else {
     return signInWithPopup(auth, provider).catch((error) => {
-      console.error("Error during desktop Google sign-in popup:", error);
+      console.error("Error during desktop Google sign-in popup:", error.code, error.message, error);
     });
   }
 };

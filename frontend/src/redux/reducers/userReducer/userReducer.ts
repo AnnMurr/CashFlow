@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getDataFromLocalStorage } from "../../../storage/localStorage/localStorage";
 import { CheckUserDataByEmailType, InitialStateType, SetUserDataType, UserDataType } from "./types";
+import { API_URL } from "../../../consts/index";
 
 const initialState: InitialStateType = {
     userData: null,
@@ -36,7 +37,7 @@ export const getUserDataById = createAsyncThunk(
     async (_, { dispatch, rejectWithValue }) => {
         try {
             const token = getDataFromLocalStorage("token");
-            const response = await fetch("http://localhost:5050/get-data-id", {
+            const response = await fetch(`${API_URL}/get-data-id`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: token })
@@ -59,7 +60,7 @@ export const updateUserData = createAsyncThunk<string | undefined, UserDataType>
     async (changedData, { dispatch, rejectWithValue }) => {
         try {
             const token = getDataFromLocalStorage("token");
-            const response = await fetch("http://localhost:5050/change-data", {
+            const response = await fetch(`${API_URL}/change-data`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -86,7 +87,7 @@ export const deleteUserData = createAsyncThunk<{ status: number, message: string
     async (_, { dispatch, rejectWithValue }) => {
         try {
             const token = getDataFromLocalStorage("token");
-            const response = await fetch("http://localhost:5050/delete-data", {
+            const response = await fetch(`${API_URL}/delete-data`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: token })
@@ -110,7 +111,7 @@ export const checkUserDataByEmail = createAsyncThunk<string | boolean, CheckUser
     "data/checkUserDataByEmail",
     async ({ email, link }, { dispatch, rejectWithValue }) => {
         try {
-            const response = await fetch(`http://localhost:5050/${link}`, {
+            const response = await fetch(`${API_URL}/${link}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userData: email })
@@ -132,7 +133,7 @@ export const checkUserData = createAsyncThunk<string | boolean, { email: string,
     "data/checkUserData",
     async (userData, { dispatch, rejectWithValue }) => {
         try {
-            const response = await fetch("http://localhost:5050/users/check", {
+            const response = await fetch(`${API_URL}/users/check`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userData: userData })
@@ -155,7 +156,7 @@ export const setUserData = createAsyncThunk<string, SetUserDataType>(
     "data/setUserData",
     async ({ userData, link }, { dispatch, rejectWithValue }) => {
         try {
-            const response = await fetch(`http://localhost:5050/${link}`, {
+            const response = await fetch(`${API_URL}/${link}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userData: userData })
@@ -177,7 +178,7 @@ export const linkAccountToGoogle = createAsyncThunk<string, string>(
     "data/setUserData",
     async (id, { dispatch, rejectWithValue }) => {
         try {
-            const response = await fetch(`http://localhost:5050/link-account-to-google`, {
+            const response = await fetch(`${API_URL}/link-account-to-google`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: id })
@@ -199,7 +200,7 @@ export const checkGoogleAccount = createAsyncThunk<string, string>(
     "data/setUserData",
     async (id, { dispatch, rejectWithValue }) => {
         try {
-            const response = await fetch(`http://localhost:5050/check-google-account`, {
+            const response = await fetch(`${API_URL}/check-google-account`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: id })
