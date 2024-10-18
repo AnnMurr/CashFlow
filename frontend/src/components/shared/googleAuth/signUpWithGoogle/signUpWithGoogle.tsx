@@ -22,19 +22,19 @@ export const SignUpWithGoogle: FC<SignUpWithGoogleProps> = ({ setIsAlertActive, 
         try {
             const response = await signInWithGoogle();
 
-            if (response) {
+            if(response) {
                 const email: string | null = response.user.email || '';
                 const name: string | null = response.user.displayName || '';
-
+    
                 if (email && name) {
                     const isUser = (await dispatch(checkUserDataByEmail({ link: "users/check-email", email: email }))).payload;
                     const isUserGoogle = (await dispatch(checkUserDataByEmail({ link: "users/google/check-email", email: email }))).payload;
-
+    
                     if (typeof isUserGoogle === "string") {
                         getLogSuccess(isUserGoogle);
                         return;
                     }
-
+    
                     if (isUser && typeof isUser === "string") {
                         setIsGoogleLinkPrompt(isUser);
                     } else {
@@ -44,10 +44,10 @@ export const SignUpWithGoogle: FC<SignUpWithGoogleProps> = ({ setIsAlertActive, 
                                 name: name
                             }
                         }))).payload;
-
+    
                         if (typeof token === "string") {
                             const createdStorage = (await dispatch(createUserStore(token))).payload;
-
+    
                             if (createdStorage) getLogSuccess(token);
                         }
                     }

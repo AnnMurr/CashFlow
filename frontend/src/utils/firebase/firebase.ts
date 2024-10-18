@@ -20,10 +20,10 @@ const initializeFirebase = () => {
 
 const provider: GoogleAuthProvider = new GoogleAuthProvider();
 provider.setCustomParameters({
-    prompt: "select_account",
+  prompt: "select_account",
 });
 
-const getFirebaseAuth = (): Auth => {
+export const getFirebaseAuth = (): Auth => {
   initializeFirebase();
   return getAuth(firebaseApp);
 };
@@ -31,13 +31,7 @@ const getFirebaseAuth = (): Auth => {
 export const signInWithGoogle = (): Promise<UserCredential | void> => {
   const auth = getFirebaseAuth();
 
-  if (window.innerWidth <= 768) {
-    return signInWithRedirect(auth, provider).catch((error) => {
-      console.error("Error during mobile Google sign-in redirect:", error.code, error.message, error);
-    });
-  } else {
-    return signInWithPopup(auth, provider).catch((error) => {
-      console.error("Error during desktop Google sign-in popup:", error.code, error.message, error);
-    });
-  }
+  return signInWithPopup(auth, provider).catch((error) => {
+    console.error("Error during desktop Google sign-in popup:", error.code, error.message, error);
+  });
 };
