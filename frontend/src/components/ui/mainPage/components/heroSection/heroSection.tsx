@@ -6,9 +6,15 @@ import { Container, PhonesWrap, Wrapper, Section } from "./styledHeroSection";
 
 export const HeroSection: FC = () => {
     const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
 
     return (
-        <Section style={{ height: `${windowHeight - 80}px` }}>
+        <Section
+            style={{
+                height: windowWidth <= 580 ?
+                    `${windowHeight - 58}px` :
+                    `${windowHeight - 80}px`
+            }}>
             <Container>
                 <Wrapper>
                     <Background windowHeight={windowHeight} />
