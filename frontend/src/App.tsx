@@ -2,6 +2,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { AuthorizedContextProvider } from './contexts/authorizedContext/authorizedContext';
 import { CheckAuthorization, CheckNotAuthorization } from './contexts/authorizedContext/checkAuthorization';
 import { ThemeContextProvider } from './contexts/themeContext/themeContext';
+import { ScrollToTop } from './utils/scrollToTop/scrollToTop';
 import {
   MainPage,
   PrivacyPolicyPage,
@@ -33,12 +34,12 @@ import {
 import "./accets/styles/fonts.css";
 import "./accets/styles/reset.css";
 
-
 function App() {
   return (
     <AuthorizedContextProvider>
       <ThemeContextProvider>
         <HashRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
@@ -46,7 +47,7 @@ function App() {
             <Route path="/contacts" element={<ContactsPage />} />
             <Route path="/contacts-us" element={<ContactUsPage />} />
             <Route path="/help-center" element={<HelpCenterPage />} />
-            
+
             <Route path="/sign-up" element={
               <CheckAuthorization>
                 <SignUpPage />
@@ -57,7 +58,7 @@ function App() {
                 <SignInPage />
               </CheckAuthorization>
             } />
-        
+
             <Route path="/profile" element={
               <CheckNotAuthorization>
                 <ProfilePage />

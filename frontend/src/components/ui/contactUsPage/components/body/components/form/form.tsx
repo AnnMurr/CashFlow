@@ -10,20 +10,19 @@ interface FormProps {
 export const Form: FC<FormProps> = ({ setIsModalActive }) => {
     const [emailValue, setEmailValue] = useState<string>("");
     const [subjectValue, setSubjectValue] = useState<string>("");
-    const [descriptiontValue, setDescriptionValue] = useState<string>("");
+    const [descriptionValue, setDescriptionValue] = useState<string>("");
     const [emailError, setEmailError] = useState<boolean>(false);
     const [subjectError, setSubjectError] = useState<boolean>(false);
     const [descriptionError, setDescriptionError] = useState<boolean>(false);
 
     const setValue = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const className = event.target.className;
-        const value = event.target.value;
+        const { name, value } = event.target;
 
-        if (className.includes("email")) {
+        if (name === "email") {
             setEmailValue(value);
-        } else if (className.includes("subject")) {
+        } else if (name === "subject") {
             setSubjectValue(value);
-        } else if (className.includes("description")) {
+        } else if (name === "description") {
             setDescriptionValue(value);
         }
     }
@@ -34,7 +33,7 @@ export const Form: FC<FormProps> = ({ setIsModalActive }) => {
 
         if (subjectValue.length === 0) {
             setSubjectError(true);
-        } else if (descriptiontValue.length === 0) {
+        } else if (descriptionValue.length === 0) {
             setDescriptionError(true);
         } else if (EMAIL_PATTERN.test(emailValue)) {
             sendForm();
@@ -68,16 +67,17 @@ export const Form: FC<FormProps> = ({ setIsModalActive }) => {
             </Label>
             <Input
                 error={emailError}
-                className="email"
+                name="email"
                 onChange={setValue}
-                value={emailValue} type="email" />
+                value={emailValue}
+                type="email" />
             <Label>
                 Subject
             </Label>
             <Input
                 error={subjectError}
                 maxLength={100}
-                className="subject"
+                name="subject"
                 onChange={setValue}
                 value={subjectValue}
                 type="text" />
@@ -86,9 +86,9 @@ export const Form: FC<FormProps> = ({ setIsModalActive }) => {
             </Label>
             <Textarea
                 error={descriptionError}
-                className="description"
+                name="description"
                 onChange={setValue}
-                value={descriptiontValue}
+                value={descriptionValue}
                 rows={5}>
             </Textarea>
             <BtnInner>

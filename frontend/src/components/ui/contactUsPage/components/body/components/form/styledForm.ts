@@ -14,9 +14,11 @@ export const Label = styled.label`
     padding: 10px 0 5px 0;
 `
 
-export const Input = styled.input<inputProps>`
+export const Input = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'error' 
+  })<inputProps>`
     padding: 10px;
-    border: ${({ error }) => error ? "1px solid #af0a0a" : "1px solid #767676"};
+    border: ${({ error }) => (error ? "1px solid #af0a0a" : "1px solid #767676")};
     border-radius: 5px;
 
     &:focus {
@@ -24,10 +26,12 @@ export const Input = styled.input<inputProps>`
     }
 `
 
-export const Textarea = styled.textarea<inputProps>`
+export const Textarea = styled.textarea.withConfig({
+    shouldForwardProp: (prop) => prop !== 'error'
+  })<inputProps>`
     resize: none;
     border-radius: 5px;
-    border: ${({ error }) => error ? "1px solid #af0a0a" : "1px solid #767676"};
+    border: ${({ error }) => (error ? "1px solid #af0a0a" : "1px solid #767676")};
 
     &:focus-visible {
         border: 2px solid #0a8dfe;
