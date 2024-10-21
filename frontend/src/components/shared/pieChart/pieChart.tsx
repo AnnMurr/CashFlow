@@ -59,7 +59,7 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({ data, isLegendHi
                     }
                 }}
                 colors={colors}
-                height={windowWidth <= 380 ? 500 : isLegendHidden ? 300 : 500}
+                height={isLegendHidden ? 300 : 500}
                 width={windowWidth <= 380 ? 250 : isLegendHidden ? 300 : windowWidth <= 460 ? 350 : 450}
             /> : null
     )

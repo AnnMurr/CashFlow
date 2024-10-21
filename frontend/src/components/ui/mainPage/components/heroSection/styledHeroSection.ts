@@ -30,5 +30,8 @@ export const PhonesWrap = styled(motion.div)`
 
     @media screen and (max-width: 1024px) {
         max-width: 100%;
+        left: 50%;
+        right: auto; 
+        transform: translate(-50%, 0) !important;
     }
 `

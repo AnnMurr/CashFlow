@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-
 import { MONTH } from "../../../consts";
 import { getMonth } from "../../../utils/dateUtils";
 import { CategoriesType, CategoryPlanning } from "../../../redux/reducers/userStorageReduser/types";

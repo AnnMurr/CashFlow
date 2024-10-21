@@ -31,3 +31,9 @@ export const Content = styled.div`
 export const Section = styled.section`
     background-color: #a2a2a266;
 `
+
+export const LoadingInner = styled.div` 
+    display: flex;
+    align-items: center;
+    min-height: 70vh;
+`

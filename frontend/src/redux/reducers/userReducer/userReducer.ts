@@ -30,6 +30,46 @@ export const userSlice = createSlice({
             .addCase(getUserDataById.rejected, (state) => {
                 state.loading = false;
             })
+
+            .addCase(setUserData.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(setUserData.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(setUserData.rejected, (state) => {
+                state.loading = false;
+            })
+
+            .addCase(checkUserDataByEmail.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(checkUserDataByEmail.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(checkUserDataByEmail.rejected, (state) => {
+                state.loading = false;
+            })
+
+            .addCase(checkUserData.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(checkUserData.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(checkUserData.rejected, (state) => {
+                state.loading = false;
+            })
+
+            .addCase(updateUserData.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(updateUserData.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(updateUserData.rejected, (state) => {
+                state.loading = false;
+            })
 });
 
 export const getUserDataById = createAsyncThunk(

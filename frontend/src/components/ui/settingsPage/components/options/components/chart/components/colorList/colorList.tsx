@@ -33,12 +33,12 @@ export const ColorList: React.FC<ColorListProps> = ({
                     <EditBlock>
                         <div>
                             <button data-type={chartType} data-color={color} onClick={(event) => openColorModal(event, true, false)}>
-                                <FontAwesomeIcon size='xs' icon={faPen} />
+                                <FontAwesomeIcon color='#000' size='xs' icon={faPen} />
                             </button>
                         </div>
                         <div>
                             <button data-type={chartType} data-color={color} onClick={(event) => openColorModal(event, false, false)}>
-                                <FontAwesomeIcon size='xs' icon={faTrash} />
+                                <FontAwesomeIcon color='#000' size='xs' icon={faTrash} />
                             </button>
                         </div>
                     </EditBlock>

@@ -8,4 +8,11 @@ export const Container = styled.div`
     min-width: 18rem;
     width: fit-content;
     max-width: 20rem;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+    @media screen and (max-width: 420px) {
+        inset: 0 0 auto 0;
+        max-width: 100%;
+        width: 100%;
+    }
 `

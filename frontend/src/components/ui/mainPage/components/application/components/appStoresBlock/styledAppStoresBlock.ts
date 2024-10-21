@@ -19,3 +19,8 @@ export const AppIconsWrap = styled(motion.div)`
         }
     }
 `
+
+export const Image = styled.img`
+    height: 60px;
+    width: 206px;
+`

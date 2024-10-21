@@ -70,6 +70,7 @@ export const BtnInner = styled.div<ThemeStyledProps>`
         padding: 10px;
         font-size: 18px;
         box-shadow: 3px 3px 3px #0000002b;
+        color: #000000;
 
         @media screen and (max-width: 380px) {
             width: 40px;

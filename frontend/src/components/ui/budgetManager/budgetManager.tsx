@@ -3,8 +3,8 @@ import { Body } from "../../shared/body/body";
 import { SubBar } from "../../shared/subBar/subBar";
 import { faFilePen } from "@fortawesome/free-solid-svg-icons";
 import { faRectangleList } from "@fortawesome/free-regular-svg-icons";
-import { Container, Links, Wrapper } from "./styledBudgetManager";
 import { Block } from "./components/block/block";
+import { Container, Links, Wrapper } from "./styledBudgetManager";
 
 export const BudgetManager: FC = () => {
     return (
