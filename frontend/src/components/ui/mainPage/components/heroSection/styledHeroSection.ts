@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const Section = styled.section`
     position: relative;
     overflow: hidden;
+    background-color: #000;
 `
 export const Container = styled.div`
     max-width: 1300px;

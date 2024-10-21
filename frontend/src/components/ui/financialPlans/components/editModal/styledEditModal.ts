@@ -63,6 +63,10 @@ export const Tooltip = styled.div<ThemeStyledProps>`
     border-radius: 5px;
     display: none;
 
+    @media screen and (max-width: 580px) {
+        left: 0;
+    }
+
     span {
         font-size: 12px;
         color:${({ themestyles }) => themestyles.color};

@@ -47,6 +47,7 @@ export const OutlinedInputComponent: FC<OutlinedInputComponentProps> = ({
                 width: "100%",
                 fontSize: "14px",
                 color: themeContext.themeStyles.color,
+                touchAction: "manipulation",
 
                 "@media screen and (max-width: 580px)": {
                     fontSize: "12px",          
