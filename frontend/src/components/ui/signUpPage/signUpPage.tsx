@@ -15,13 +15,14 @@ export const SignUpPage: FC = () => {
                 <Wrapper>
                     <BtnGoToMainPage />
                     {loading ?
-                        <LoadingInner>
+                        (<LoadingInner>
                             <Spinner size={40} height={3} />
-                        </LoadingInner>
-                        : <Content>
+                        </LoadingInner>)
+                        :
+                        (<Content>
                             <Form setIsAlertActive={setIsAlertActive} />
                             <Banner />
-                        </Content>}
+                        </Content>)}
                     {isAlertActive ?
                         <AlertComponent type={isAlertActive.type} text={isAlertActive.text} />
                         : null}

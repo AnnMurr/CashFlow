@@ -8,7 +8,7 @@ export const Container = styled.div`
 `
 
 export const Wrapper = styled.div`
-    padding: 90px 0;
+    padding: 60px 0;
 
     @media screen and (max-width: 610px) {
         padding: 40px 0 60px 0;
@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
 `
 
 export const Content = styled.div`
-    padding-top: 90px;
+    padding-top: 60px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     max-width: 50rem;
