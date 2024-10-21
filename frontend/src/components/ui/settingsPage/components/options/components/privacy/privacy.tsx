@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import { Item } from "./component/item/item";
-import { faClock, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { ThemeContextType } from "../../../../../../../contexts/themeContext/types";
 import { ThemeContext } from "../../../../../../../contexts/themeContext/themeContext";
 import { List } from "./styledPrivacy";
@@ -10,11 +10,11 @@ export const Privacy: FC = () => {
     
     return (
         <List themestyles={themeContext.themeStyles}>
-            <Item
+            {/* <Item
                 link={"/settings/change-name"}
                 icon={faClock}
                 title="Create a plan in case you stop using your account"
-                subTitle="Schedule actions for your data" />
+                subTitle="Schedule actions for your data" /> */}
             <Item
                 link={"/settings/deleting-account-confirmation"}
                 icon={faTrashCan}
