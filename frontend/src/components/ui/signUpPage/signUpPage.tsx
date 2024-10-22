@@ -16,7 +16,7 @@ export const SignUpPage: FC = () => {
                     <BtnGoToMainPage />
                     {loading ?
                         (<LoadingInner>
-                            <Spinner size={40} height={3} />
+                            <Spinner color={"#000"} size={40} height={3} />
                         </LoadingInner>)
                         :
                         (<Content>

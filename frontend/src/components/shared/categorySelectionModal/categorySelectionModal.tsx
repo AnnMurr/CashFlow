@@ -96,7 +96,7 @@ export const CategorySelectionModal: FC<CategorySelectionModalProps> = ({
                     {iconsCollection.map((icon, index) => (
                         <Item selected={selectedItem === index ? true : false} key={uuidV4()}>
                             <button onClick={() => selectCategoryIcon(index)} type="button">
-                                <img src={icon} alt="" />
+                                <img src={icon} alt="icon" />
                             </button>
                         </Item>
                     ))}

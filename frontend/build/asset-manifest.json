@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/static/css/main.d1810010.css",
-    "main.js": "/static/js/main.36de9e2b.js",
-    "static/media/appleStore.svg": "/static/media/appleStore.a66af348a475c943d6db67fe48afde4e.svg",
+    "main.js": "/static/js/main.b6159238.js",
+    "static/media/appleStore.svg": "/static/media/appleStore.52454e2859ce97c05dfffccc204cc08f.svg",
     "static/media/featuresSection-phone.svg": "/static/media/featuresSection-phone.2fd370fe909071e45625572ca56462df.svg",
-    "static/media/googlePlay.svg": "/static/media/googlePlay.2b050407b1bfc781bd5d46872d5f3022.svg",
+    "static/media/googlePlay.svg": "/static/media/googlePlay.736d8800715aca5ce85d9a1288e7556f.svg",
     "static/media/space.jpg": "/static/media/space.7e0a05d2e3095f89dfd4.jpg",
     "static/media/main-phone_average.png": "/static/media/main-phone_average.ba7b437b078356e9113b.png",
     "static/media/main-phone_after.png": "/static/media/main-phone_after.00e5e0b6ea904d2640c3.png",
@@ -15,10 +15,10 @@
     "index.html": "/index.html",
     "static/media/icon-logo-white.svg": "/static/media/icon-logo-white.f5bab6fdbadd885cb367c92bb8323681.svg",
     "main.d1810010.css.map": "/static/css/main.d1810010.css.map",
-    "main.36de9e2b.js.map": "/static/js/main.36de9e2b.js.map"
+    "main.b6159238.js.map": "/static/js/main.b6159238.js.map"
   },
   "entrypoints": [
     "static/css/main.d1810010.css",
-    "static/js/main.36de9e2b.js"
+    "static/js/main.b6159238.js"
   ]
 }
