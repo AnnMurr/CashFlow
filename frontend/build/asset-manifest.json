@@ -1,22 +1,24 @@
 {
   "files": {
     "main.css": "/static/css/main.d1810010.css",
-    "main.js": "/static/js/main.54ab9327.js",
+    "main.js": "/static/js/main.446bfb1c.js",
+    "static/media/appleStore.svg": "/static/media/appleStore.52454e2859ce97c05dfffccc204cc08f.svg",
+    "static/media/featuresSection-phone.svg": "/static/media/featuresSection-phone.2fd370fe909071e45625572ca56462df.svg",
+    "static/media/googlePlay.svg": "/static/media/googlePlay.736d8800715aca5ce85d9a1288e7556f.svg",
     "static/media/space.jpg": "/static/media/space.7e0a05d2e3095f89dfd4.jpg",
-    "static/media/main-phone_after.png": "/static/media/main-phone_after.2accb666d0835b1462a0.png",
-    "static/media/featuresSection-phone.png": "/static/media/featuresSection-phone.4bdb8a004c101977ea94.png",
-    "static/media/main-phone_average.png": "/static/media/main-phone_average.86674291edbcb16acf77.png",
-    "static/media/main-phone_before.png": "/static/media/main-phone_before.8bda9d49dbfb22bf5ef8.png",
+    "static/media/main-phone_average.png": "/static/media/main-phone_average.ba7b437b078356e9113b.png",
+    "static/media/main-phone_after.png": "/static/media/main-phone_after.00e5e0b6ea904d2640c3.png",
+    "static/media/main-phone_before.png": "/static/media/main-phone_before.3f02c54ce8e761fda7f6.png",
     "static/media/iphone-transparent.png": "/static/media/iphone-transparent.9db7740a8cf0522d03e7.png",
     "static/media/logo-black.svg": "/static/media/logo-black.432508283b805767a00e7a22855fd4a3.svg",
     "static/media/logo-white.svg": "/static/media/logo-white.353b92d63940515f7edde28e4699e119.svg",
     "index.html": "/index.html",
     "static/media/icon-logo-white.svg": "/static/media/icon-logo-white.f5bab6fdbadd885cb367c92bb8323681.svg",
     "main.d1810010.css.map": "/static/css/main.d1810010.css.map",
-    "main.54ab9327.js.map": "/static/js/main.54ab9327.js.map"
+    "main.446bfb1c.js.map": "/static/js/main.446bfb1c.js.map"
   },
   "entrypoints": [
     "static/css/main.d1810010.css",
-    "static/js/main.54ab9327.js"
+    "static/js/main.446bfb1c.js"
   ]
 }

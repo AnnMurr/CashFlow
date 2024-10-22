@@ -12,7 +12,7 @@ export const FeaturesList: FC<FeaturesListProps> = ({ sectionRef }) => {
         <Container>
             <div>
                 <ImageInner>
-                    <img src={FEATURES_SECTION__PHONE} alt="phone" />
+                    <img src={FEATURES_SECTION__PHONE.default} alt="phone" />
                 </ImageInner>
                 <List sectionRef={sectionRef} />
             </div>

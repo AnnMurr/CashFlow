@@ -37,6 +37,7 @@ export const Categories: FC<CategoriesProps> = ({
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     const handleMouseDown = (event: React.TouchEvent<HTMLLIElement>, index: number) => {
+        event.preventDefault(); 
         event.currentTarget.classList.add("shake-horizontal");
 
         holdTimer = setTimeout(() => {

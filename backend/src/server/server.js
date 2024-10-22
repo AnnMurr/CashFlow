@@ -5,10 +5,19 @@ const { connectToDb, getDb } = require("../db/db");
 const { ObjectId } = require("mongodb");
 const PORT = process.env.PORT || 5050;
 
-app.use(cors());
+app.use(cors({
+  origin: '*', 
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+}));
+
 app.use(express.json());
 
 let db;
+
+app.get("/", (req, res) => {
+  res.send("Server is running. Use specific endpoints for API calls.");
+});
 
 app.post("/get-data-id", async (req, res) => {
   const id = req.body.id;

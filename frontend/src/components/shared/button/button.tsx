@@ -40,8 +40,22 @@ export const ButtonComponent: FC<ButtonComponentProps> = ({
             color: borberColorHover && borberColorHover,
         },
 
+        "@media screen and (max-width: 1024px)": {
+            '&:hover': {
+                backgroundColor: backgroundColor ? backgroundColor : themeContext.themeStyles.buttonBackground, 
+                border: "1px solid transparent", 
+                color: color, 
+            },
+
+            '&:active': {
+                backgroundColor: BackgroundColorHover ? BackgroundColorHover : themeContext.themeStyles.buttonBackgroundHover,
+                border: borberColorHover && `1px solid ${borberColorHover}`,
+                color: borberColorHover && borberColorHover,
+            }
+        },
+
         "@media screen and (max-width: 580px)": {
-            fontSize: "13px",   
+            fontSize: "13px",
         }
     };
 

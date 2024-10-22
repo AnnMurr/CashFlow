@@ -102,7 +102,7 @@ export const Form: FC<FormProps> = ({ setIsAlertActive }) => {
                     },
                     maxLength: {
                         value: 40,
-                        message: "Maximum length is 30 characters",
+                        message: "Maximum length is 40 characters",
                     },
                 })}
                 isError={!!errors.email}

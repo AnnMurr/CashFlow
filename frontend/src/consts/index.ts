@@ -19,6 +19,8 @@ export const CURRENT_DATES = {
     currentMonth: getCurrentMonthAndYear(),
 }
 
+export const API_URL = process.env.REACT_APP_API_URL;
+
 export const CURRENCY_TO_LOCALE: Record<string, string> = {
     'AED': 'ar-AE',
     'AFN': 'fa-AF',

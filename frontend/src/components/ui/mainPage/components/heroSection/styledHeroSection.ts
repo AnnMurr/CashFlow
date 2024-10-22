@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const Section = styled.section`
     position: relative;
     overflow: hidden;
+    background-color: #000;
 `
 export const Container = styled.div`
     max-width: 1300px;
@@ -30,5 +31,8 @@ export const PhonesWrap = styled(motion.div)`
 
     @media screen and (max-width: 1024px) {
         max-width: 100%;
+        left: 50%;
+        right: auto; 
+        transform: translate(-50%, 0) !important;
     }
 `

@@ -7,8 +7,9 @@ import { useAppDispatch } from "../../../../redux/store/store";
 import { AlertComponentProps } from "../../alert/alert";
 import { createUserStore } from "../../../../redux/reducers/userStorageReduser/userStorageReduser";
 import { GoogleLinkPrompt } from "../googleLinkPrompt/googleLinkPrompt";
-import { SignUpWithGoogleBtn, SignUpWithGoogleBtnInner, SignUpWithGoogleTitle } from "./styledSignUpWithGoogle";
 import { showAlert } from "../../../../utils/showAlert";
+import { SignUpWithGoogleBtn, SignUpWithGoogleBtnInner, SignUpWithGoogleTitle } from "./styledSignUpWithGoogle";
+
 interface SignUpWithGoogleProps {
     setIsAlertActive: (value: null | AlertComponentProps) => void;
     getLogSuccess: (value: string) => void;

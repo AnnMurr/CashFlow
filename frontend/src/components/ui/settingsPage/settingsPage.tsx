@@ -16,7 +16,7 @@ export const SettingsPage: FC = () => {
                         {!loading ?
                             <Options /> :
                             <LoaderInner>
-                                <Spinner size={80} height={3} />
+                                <Spinner size={40} height={3} />
                             </LoaderInner>}
                     </div>
                 </Container>

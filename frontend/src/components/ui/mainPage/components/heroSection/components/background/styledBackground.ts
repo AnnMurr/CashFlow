@@ -6,7 +6,6 @@ interface ImageProps {
 
 export const Wrapper = styled.div`
     position: absolute;
-    z-index: -1;
     width: 100%;
     inset: 0;
 

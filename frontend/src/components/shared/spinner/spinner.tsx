@@ -6,9 +6,10 @@ import { ThemeContext } from "../../../contexts/themeContext/themeContext";
 interface LoadingProps {
   size: number;
   height: number;
+  color?: string;
 }
 
-export const Spinner: FC<LoadingProps> = ({ size, height }) => {
+export const Spinner: FC<LoadingProps> = ({ size, height, color }) => {
   const themeContext = useContext<ThemeContextType>(ThemeContext);
 
   return (
@@ -17,8 +18,8 @@ export const Spinner: FC<LoadingProps> = ({ size, height }) => {
       height={size}
       width={size}
       strokeWidth={height}
-      color={themeContext.themeStyles.loaderColor}
-      secondaryColor={themeContext.themeStyles.loaderColor}
+      color={color ? color : themeContext.themeStyles.loaderColor}
+      secondaryColor={color ? color : themeContext.themeStyles.loaderColor}
       ariaLabel="oval-loading"
       wrapperStyle={{ margin: "0 auto", width: "fit-content" }}
     />

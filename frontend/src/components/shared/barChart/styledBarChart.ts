@@ -25,5 +25,6 @@ export const LegendContainerStyles = styled.div`
         gap: 10px;
         overflow: visible;
         justify-content: center;
+        height: auto;
     }
 `

@@ -58,10 +58,6 @@ export const Input = styled.input<ThemeStyledProps>`
     font-size: 16px;
     background-color:${({ themestyles }) => themestyles.modalBackground};
     color:${({ themestyles }) => themestyles.color};
-
-    @media screen and (max-width: 580px) {
-        font-size: 14px;            
-    }
 `
 
 export const Label = styled.label<ThemeStyledProps>`

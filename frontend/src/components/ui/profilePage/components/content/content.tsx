@@ -25,7 +25,7 @@ export const Content: FC<ContentProps> = ({ chartData, statisticType }) => {
         <div>
             <Wrapper>
                 {isBarChart ? <BarChartComponent statisticType={statisticType} /> : null}
-                <GridInner>
+                <GridInner isbarchart={isBarChart.toString()}>
                     {chartData ? (
                         Object.entries(chartData).map((chart) => (
                             <Chart statisticType={statisticType} key={uuidV4()} data={chart} />

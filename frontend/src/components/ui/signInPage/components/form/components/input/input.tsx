@@ -16,7 +16,11 @@ export const Input: FC<InputProps> = ({ inputValue, placeholderValue, type, hand
             sx={{
                 marginBottom: "20px",
                 width: "100%",
-                fontSize: "14px"
+                fontSize: "14px",
+
+                "@media screen and (max-width: 580px)": {
+                    fontSize: "16px",    
+                },
             }}
             size="small"
             placeholder={placeholderValue}

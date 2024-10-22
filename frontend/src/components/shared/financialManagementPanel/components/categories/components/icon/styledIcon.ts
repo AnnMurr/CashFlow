@@ -7,4 +7,9 @@ export const Container = styled.div`
     @media screen and (max-width: 520px) {
         max-width: 50px;            
     }
+    
+    img {
+        touch-action: manipulation;
+        -webkit-touch-callout: none;
+    }
 `

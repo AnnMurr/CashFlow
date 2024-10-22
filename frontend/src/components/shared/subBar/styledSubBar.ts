@@ -32,7 +32,7 @@ export const List = styled.ul<CommonProps>`
     @media screen and (max-width: 520px) {
         display: flex;
         display:${({ isactive }) => isactive === 'true' ? 'block' : 'flex'};
-        padding: 0 0 0 20px;
+        padding:${({ isactive }) => isactive === 'true' ? '60px 0 0 0' : '0 0 0 20px'};
         justify-content: space-around;
         width: 100%;
     }

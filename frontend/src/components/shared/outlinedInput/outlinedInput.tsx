@@ -34,10 +34,11 @@ interface OutlinedInputComponentProps {
     type: InputType;
     maxLengthNumber: number;
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    isDisabled?: boolean;
 }
 
 export const OutlinedInputComponent: FC<OutlinedInputComponentProps> = ({
-    isError, value, handleChange, placeholderValue, type, maxLengthNumber }) => {
+    isError, value, handleChange, placeholderValue, type, maxLengthNumber, isDisabled }) => {
     const themeContext = useContext<ThemeContextType>(ThemeContext);
 
     return (
@@ -48,7 +49,7 @@ export const OutlinedInputComponent: FC<OutlinedInputComponentProps> = ({
                 color: themeContext.themeStyles.color,
 
                 "@media screen and (max-width: 580px)": {
-                    fontSize: "12px",          
+                    fontSize: "16px",    
                 },
 
                 '& .MuiOutlinedInput-notchedOutline': {
@@ -67,6 +68,7 @@ export const OutlinedInputComponent: FC<OutlinedInputComponentProps> = ({
             onChange={handleChange}
             size="small"
             placeholder={placeholderValue}
-            type={type} />
+            type={type}
+            disabled={isDisabled} />
     )
 }

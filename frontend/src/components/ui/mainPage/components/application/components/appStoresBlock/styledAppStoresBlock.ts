@@ -12,10 +12,23 @@ export const AppIconsWrap = styled(motion.div)`
 
         &:hover {
             transform: scale(1.1, 1.1);
+
+            @media screen and (max-width: 1024px) {
+                transform: scale(1, 1);
+            }
         }
 
         @media screen and (max-width: 870px) {
             margin: 0;
         }
+    }
+`
+
+export const Image = styled.img`
+    height: 60px;
+    width: 206px;
+
+    @media screen and (max-width: 580px) {
+        width: 170px;     
     }
 `

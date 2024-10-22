@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { AlertComponentProps } from "../../../../../shared/alert/alert";
-import { useAppDispatch } from "../../../../../../redux/store/store";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/store/store";
 import { getDataFromLocalStorage } from "../../../../../../storage/localStorage/localStorage";
 import { checkGoogleAccount } from "../../../../../../redux/reducers/userReducer/userReducer";
 import { ChangeUserAccount, ConfirmAccountModal, Spinner } from ".";
@@ -12,6 +12,7 @@ interface ContentProps {
 
 export const Content: FC<ContentProps> = ({ setAlertActive }) => {
     const [isGoogleAccount, setIsGoogleAccount] = useState<boolean | null>(null);
+    const { loading } = useAppSelector((state => state.user));
     const despatch = useAppDispatch();
 
     useEffect(() => {
@@ -29,7 +30,7 @@ export const Content: FC<ContentProps> = ({ setAlertActive }) => {
 
     return (
         <>
-            {isGoogleAccount === null ?
+            {isGoogleAccount === null || loading ?
                 (<LoaderInner>
                     <Spinner size={40} height={3} />
                 </LoaderInner>)

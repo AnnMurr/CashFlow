@@ -22,6 +22,10 @@ export const Item = styled.li`
     position: relative;
     cursor: pointer;
     margin: 0 auto;
+    -webkit-user-select: none; 
+    -ms-user-select: none;
+    user-select: none;         
+    -webkit-tap-highlight-color: transparent; 
 
     @media screen and (min-width: 1025px) {
         &:hover {
